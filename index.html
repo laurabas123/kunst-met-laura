@@ -4125,6 +4125,7 @@ function hub(){ st.view='start'; pathMode=null; save();
 let ob = {s:0};
 function startOnb(){ ob={s:0}; st.view='onb'; render(); }
 function obGo(s){ if(s===2||s===5){ const el=document.getElementById('obname'); if(el){ st.name=el.value.trim().slice(0,30); } if(ob.only){ ob={s:0}; save(); return paths(); } } ob.s=s; onbView(); }
+function obStories(){ st.onb=true; resumeFrom=null; save(); storiesView(); }
 function obFinish(t){ st.onb=true; st.unl=st.unl||{}; st.unl[t]=true; setTrack(t); resumeFrom=null; save();
   const R=TRACKS[t].rounds, r=R.findIndex((x,i)=>!x.soon&&!roundComplete(i,t)); if(r<0) return home(); st.r=r; openRound(r); }
 function obSkip(){ st.onb=true; save(); paths(); }
@@ -4138,6 +4139,7 @@ function onbView(){ st.view='onb'; const nm=st.name?`, ${st.name}`:'';
     + obChoice('🎨','De basis van symboliek','Je begint meteen bij niveau 1: schedels, lelies, hondjes en zeepbellen','obFinish(\'basis\')')
     + obChoice('🦁','Hollandse glorie','Kunst- en vaderlandse geschiedenis in acht niveaus, van de middeleeuwen tot nu: Bosch, Rembrandt, Van Gogh, Mondriaan','obFinish(\'hg\')')
     + obChoice('🏛️','Kunst in Nederlandse musea','Bereid je museumbezoek voor: de topstukken van het Rijksmuseum en het Mauritshuis','obGo(3)')
+    + obChoice('🎭','Kunst aan de hand van bekende personen','Beleef het leven van Caravaggio, de Medici, Leonardo, Lodewijk XIV, Rembrandt, Rubens en Van Gogh, met scènes, muziek en stemmen','obStories()')
     + obChoice('🔎','Een heel specifiek onderwerp','Deugden, Bijbel, mythologie, Gouden Eeuw of goede kunst herkennen','obGo(4)');
   else if(ob.s===5) body = obBubble(`Leuk je te ontmoeten${nm}! <b>Ben je nieuw in de kunstgeschiedenis of de symboliek?</b>`)
     + obChoice('🎓','Ja, ik ben (bijna) nieuw','We leren eerst acht begrippen, zoals allegorie en temperament, met korte vragen','startIntro(\'onb\')')
