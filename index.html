@@ -532,6 +532,9 @@ body.has-nav #nav{display:flex}body.has-nav .wrap{padding-bottom:96px}
 .nap-ctrl{position:absolute;left:5%;right:5%;bottom:calc(env(safe-area-inset-bottom,0px) + 16px);z-index:6}.nap-form{background:rgba(15,20,36,.94);border:1px solid #d7b46a;border-radius:16px;padding:12px}.nap-form input{width:100%;padding:10px;border-radius:10px;border:1px solid #d7b46a;background:#0e1424;color:#efe4cf;font-size:1rem;margin:4px 0 6px}.nap-small{font-size:.74rem;color:#9aa3b8;margin:0 0 10px;line-height:1.4}
 .board{display:flex;flex-direction:column;gap:6px}.bd-r{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:8px 12px}.bd-r.me{border-color:#d7b46a;background:rgba(215,180,106,.14)}.bd-p{width:28px;text-align:center;font-weight:800}.bd-n{flex:1;display:flex;flex-direction:column}.bd-n small{color:var(--muted,#9aa3b8);font-size:.75rem}.bd-x{font-weight:800;color:#d7b46a}
 @media (prefers-reduced-motion:reduce){.ch-stage.shake .ch-box,.ch-rays,.gold-ban,.nap-fig,.nap-curtain{animation:none!important;transition:none!important}}
+.t3{display:block;width:100%;text-align:left;color:inherit;cursor:pointer;margin:0 0 12px;padding:10px 12px;border-radius:16px;border:1px solid #d7b46a;background:linear-gradient(135deg,rgba(215,180,106,.2),rgba(31,47,110,.35))}
+.t3-h{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}.t3-h span{font-size:.8rem;color:#d7b46a}
+.t3-r{display:flex;align-items:center;gap:10px;padding:5px 2px;border-top:1px solid rgba(255,255,255,.07)}.t3-r b{flex:1}.t3-r small{color:#d7b46a;font-weight:700}.t3-r.me b{color:#f6dd97}.t3-e{font-size:.85rem;color:var(--muted,#9aa3b8);padding:4px 0}
 </style>
 </head>
 <body>
@@ -3163,7 +3166,7 @@ function compSync(force){ if(!st.comp||st.comp.ok!==true||!sbOn()) return; const
   const I=xpInfo(), alive=st.dqLast===dqDay()||st.dqLast===dqPrevDay(dqDay());
   sbFetch('rpc/upsert_tester',{method:'POST',body:JSON.stringify({p_id:st.uid,p_token:st.utok,p_name:(st.comp.name||st.name||'Tester').slice(0,30),p_xp:I.x,p_lvl:I.l+1,p_streak:alive?(st.dqStreak||0):0,p_modules:modulesDone()})}).catch(()=>{}); }
 function compLeave(){ if(sbOn()&&st.uid) sbFetch('rpc/delete_tester',{method:'POST',body:JSON.stringify({p_id:st.uid,p_token:st.utok})}).catch(()=>{}); st.comp={ok:false,at:Date.now(),asked:1}; save(); toast('Je doet niet meer mee aan de competitie'); boardView(); }
-function compJoin(name){ uid(); st.comp={ok:true,name:(name||st.name||'Tester').trim().slice(0,30),at:Date.now(),asked:1}; save(); compSync(true); }
+function compJoin(name){ TOP3T=0; uid(); st.comp={ok:true,name:(name||st.name||'Tester').trim().slice(0,30),at:Date.now(),asked:1}; save(); compSync(true); }
 
 /* ---------- Napoleon op het toneel ---------- */
 let NAPSRC=null;
@@ -3172,14 +3175,15 @@ function napSpeak(k){ try{ if(NAPSRC){ NAPSRC.onended=null; NAPSRC.stop(); } }ca
   AU.ctx.decodeAudioData(arr.buffer,buf=>{ const s=AU.ctx.createBufferSource(); s.buffer=buf; s.connect(AU.ctx.destination); musDuck(true); s.onended=()=>{ if(NAPSRC===s){ NAPSRC=null; musDuck(false); } }; NAPSRC=s; s.start(); },()=>{}); }
 function napLoad(){ if(window.NAPVOX||window._napL) return; window._napL=1; const s=document.createElement('script'); s.src='vox/napoleon.js'; s.async=true; s.onerror=()=>{window._napL=0;}; document.head.appendChild(s); }
 const NAPL={
- n1:'<b>Bonjour!</b> Ik ben Napoleon Bonaparte. Hallo lieve testers! Laura heeft mij gevraagd of ik leuk nieuws met jullie wilde delen.',
+ n1:'<b>Bonjour, lieve testers!</b> Ik ben Napoleon Bonaparte. Laura heeft mij gevraagd of ik leuk nieuws met jullie wilde delen.',
  n2:'Omdat jullie de eerste groep testers zijn van deze app, starten we een <b>testerscompetitie</b>! Daarom vraag ik jullie toestemming om mee te doen, zodat we een scorebord kunnen bijhouden.',
  n3:'En geen zorgen: je concurrenten zijn alleen maar vrienden en familie van Laura. Of… in dat geval zou ik me juist héél erge zorgen maken. <b>Het niveau ligt hoog!</b>',
  n4:'<b>Au revoir, mes amis!</b> En groetjes aan Josephine!',
  n5:'<b>Magnifique!</b> Welkom in de competitie. Moge de beste kunstkenner winnen!',
  n6:'<b>Dommage!</b> Geen probleem: je kunt je later altijd nog aanmelden via het scorebord. Au revoir!'};
 let NAP={i:0};
-function napoleonScene(force){ if(!force&&(st.comp&&st.comp.asked)) return; if(document.querySelector('.nap')) return; napLoad(); st.comp=st.comp||{}; st.comp.asked=1; save();
+let NAP_BUSY=false;
+function napoleonScene(force){ if(!force&&(st.comp&&st.comp.asked)) return; if(NAP_BUSY||document.querySelector('.nap')) return; NAP_BUSY=true; napLoad(); st.comp=st.comp||{}; st.comp.asked=1; save();
   const d=document.createElement('div'); d.className='lb nap bigm';
   d.innerHTML=`<div class="nap-stage" onclick="event.stopPropagation()"><div class="nap-curtain l"></div><div class="nap-curtain r"></div><div class="nap-flag"><i></i><i></i><i></i></div>
     <div class="nap-fig">${charSVG(SC.napoleon,0,false,false,'stand')}</div><div class="nap-smoke"></div>
@@ -3199,8 +3203,15 @@ function napAnswer(yes){ if(yes){ const n=(document.getElementById('napname')||{
 function napExit(){ const d=document.querySelector('.nap'); if(!d) return; const b=document.getElementById('napbub'), c=document.getElementById('napctrl'); c.innerHTML=''; b.innerHTML=NAPL.n4; b.classList.remove('pop'); void b.offsetWidth; b.classList.add('pop'); napSpeak('n4');
   setTimeout(()=>{ d.classList.add('boom'); try{ sfx(['cannon']); }catch(e){} },2300);
   setTimeout(()=>{ d.classList.add('gone'); },2700);
-  setTimeout(()=>{ try{ musStop(); }catch(e){} d.remove(); if(st.view==='board') boardView(); },4300); }
+  setTimeout(()=>{ try{ musStop(); }catch(e){} d.remove(); NAP_BUSY=false; if(st.view==='board') boardView(); },4300); }
 
+/* ---------- top 3 op het startscherm ---------- */
+let TOP3=null, TOP3T=0;
+function top3HTML(){ if(Date.now()-TOP3T>60000) top3Load(); const me=st.comp&&st.comp.ok===true; const medal=['🥇','🥈','🥉'];
+  const rows=(TOP3||[]).slice(0,3);
+  return `<button class="t3" onclick="boardView()"><div class="t3-h"><b>🏆 Testerscompetitie</b><span>${me?'Je doet mee':'Doe mee'} ›</span></div>
+   ${rows.length?rows.map((x,i)=>`<div class="t3-r ${x.id===st.uid?'me':''}"><span>${medal[i]}</span><b>${esc(x.name)}</b><small>${x.xp} XP</small></div>`).join(''):`<div class="t3-e">${TOP3===null?'Scorebord laden…':'Nog niemand op het scorebord. Word jij de eerste?'}</div>`}</button>`; }
+async function top3Load(){ if(!sbOn()) return; TOP3T=Date.now(); try{ const r=await sbFetch('scoreboard?select=id,name,xp&order=xp.desc&limit=3'); const j=await r.json(); TOP3=Array.isArray(j)?j:[]; }catch(e){ TOP3=TOP3||[]; } const el=document.getElementById('top3'); if(el&&st.view==='start') el.innerHTML=top3HTML(); }
 /* ---------- scorebord ---------- */
 async function boardView(){ st.view='board'; save(); const me=st.comp&&st.comp.ok===true;
   const head=`<div><div class="hdr"><button class="chip" onclick="hub()">‹ Start</button></div><div class="eyebrow">Testerscompetitie</div><h1>Het scorebord</h1>`;
@@ -4854,7 +4865,7 @@ function hub(){ st.view='start'; pathMode=null; save();
   $(`<div class="hub2">
     <div class="hb-top"><div class="hb-mark">Kunst met <i>Laura</i></div><button class="hb-av" onclick="editName()" aria-label="Naam aanpassen">${lauraSVG(0,true)}</button></div>
     <h1 class="hb-hello">${gr}${st.name?', '+st.name:''}</h1><p class="hb-q">Wat ga je vandaag ontdekken?</p>
-    ${xpBar()}${goalBar()}${chestCardHub()}${dqCard()}${questCard()}
+    ${xpBar()}<div id="top3">${top3HTML()}</div>${goalBar()}${chestCardHub()}${dqCard()}${questCard()}
     ${resumeCard()}
     <button class="hb-feat" onclick="openCourse()"><img src="${P('pB')}" alt=""><div class="tx"><b>Cursussen</b><small>Stap voor stap van De basis tot Meesterlijk kijken, en de Hollandse glorie.</small><div class="bar"><i style="width:${Math.round(bd/R.length*100)}%"></i></div></div></button>
     <div class="hb-grid">
