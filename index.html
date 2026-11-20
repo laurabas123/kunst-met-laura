@@ -3138,14 +3138,15 @@ function questCard(){ const W=weekState(); const d=W.q.filter(q=>W.done[q]).leng
 const GOALS={licht:['Licht','Alleen de dagquiz, zo’n 5 minuten',50],normaal:['Normaal','Dagquiz plus een ronde, 10 à 15 minuten',150],fanatiek:['Fanatiek','Elke dag flink oefenen, 20 minuten of meer',300]};
 const MOMS={ochtend:'’s ochtends',middag:'’s middags',avond:'’s avonds'};
 function xpToday(){ const d=dqDay(); return st.xpDay&&st.xpDay.d===d?st.xpDay.n:0; }
-function goalTrack(n){ const d=dqDay(); if(!st.xpDay||st.xpDay.d!==d) st.xpDay={d,n:0,hit:false}; st.xpDay.n+=n; const G=st.goal&&GOALS[st.goal.g]; if(G&&!st.xpDay.hit&&st.xpDay.n>=G[2]){ st.xpDay.hit=true; save(); setTimeout(()=>{ toast('🎯 Dagdoel gehaald!'); chestAdd(1,'dagdoel'); },800); } }
+function goalTrack(n){ if(!GOAL_ON) return; const d=dqDay(); if(!st.xpDay||st.xpDay.d!==d) st.xpDay={d,n:0,hit:false}; st.xpDay.n+=n; const G=st.goal&&GOALS[st.goal.g]; if(G&&!st.xpDay.hit&&st.xpDay.n>=G[2]){ st.xpDay.hit=true; save(); setTimeout(()=>{ toast('🎯 Dagdoel gehaald!'); chestAdd(1,'dagdoel'); },800); } }
 function goalModal(){ if(st.goal||document.querySelector('.lb')) return; const m=document.createElement('div'); m.className='lb gl-modal';
   m.innerHTML=`<div class="gl-box guide-box" onclick="event.stopPropagation()"><div class="gb-fig">${lauraSVG(0,false)}</div><div class="ob-bubble"><b>Maak een afspraak met jezelf${st.name?', '+esc(st.name):''}!</b><br>Wie een vast moment kiest, houdt het veel makkelijker vol.</div>
    <div class="al-sub">Mijn dagdoel</div><div class="g-opts">${Object.entries(GOALS).map(([k,G])=>`<button class="g-opt ${k==='normaal'?'on':''}" data-g="${k}" onclick="this.parentNode.querySelectorAll('.g-opt').forEach(b=>b.classList.remove('on'));this.classList.add('on')"><b>${G[0]}</b><small>${G[1]} · ${G[2]} XP</small></button>`).join('')}</div>
    <div class="al-sub">Mijn moment</div><div class="g-opts row">${Object.entries(MOMS).map(([k,v])=>`<button class="g-opt ${k==='ochtend'?'on':''}" data-m="${k}" onclick="this.parentNode.querySelectorAll('.g-opt').forEach(b=>b.classList.remove('on'));this.classList.add('on')"><b>${v}</b></button>`).join('')}</div>
    <button class="btn primary big" onclick="goalSave(this)">Afgesproken!</button><button class="btn small" style="margin-top:8px" onclick="st.goal={g:'normaal',m:'ochtend',skip:1};save();this.closest('.lb').remove();hub()">Later</button></div>`; document.body.appendChild(m); }
 function goalSave(b){ const box=b.closest('.gl-box'); const g=box.querySelector('.g-opt.on[data-g]').dataset.g, mo=box.querySelector('.g-opt.on[data-m]').dataset.m; st.goal={g,m:mo,at:Date.now()}; save(); b.closest('.lb').remove(); toast('🤝 Afgesproken: '+GOALS[g][0].toLowerCase()+', '+MOMS[mo]); hub(); }
-function goalBar(){ if(!st.goal) return ''; const G=GOALS[st.goal.g], n=xpToday(), pct=Math.min(100,Math.round(n/G[2]*100));
+const GOAL_ON=false; /* dagdoel tijdelijk uit (Laura: later) */
+function goalBar(){ if(!GOAL_ON||!st.goal) return ''; const G=GOALS[st.goal.g], n=xpToday(), pct=Math.min(100,Math.round(n/G[2]*100));
   return `<button class="goalbar" onclick="st.goal=null;goalModal()" aria-label="dagdoel aanpassen"><span class="gb-ring" style="--p:${pct}"><b>${pct>=100?'✓':pct+'%'}</b></span><span class="gb-tx"><b>Dagdoel: ${n}/${G[2]} XP</b><small>${pct>=100?'Gehaald! Morgen weer.':`Jouw afspraak: ${G[0].toLowerCase()}, ${MOMS[st.goal.m]}`}</small></span></button>`; }
 
 /* ---------- bijna-klaar signaal ---------- */
@@ -4846,7 +4847,7 @@ function creditsView(){ st.view='credits'; save();
    <h3>Stemmen</h3><p class="muted">Computerstemmen (neurale tekst-naar-spraak).</p>
    <h3>Je gegevens</h3><p class="muted">Je naam en voortgang worden alleen op dit apparaat bewaard. Er wordt niets naar een server gestuurd.</p></div>`); }
 
-function hub(){ st.view='start'; pathMode=null; save(); if(!st.goal&&st.onb) setTimeout(()=>{ if(st.view==='start') goalModal(); },5200);
+function hub(){ st.view='start'; pathMode=null; save();
   const h=new Date().getHours(), gr=h<12?'Goedemorgen':h<18?'Goedemiddag':'Goedenavond';
   const R=TRACKS.basis.rounds, bd=R.filter((_,i)=>roundComplete(i,'basis')).length;
   const sd=STORIES.filter(S=>storyDone(S.id)>=S.chapters.length).length;
