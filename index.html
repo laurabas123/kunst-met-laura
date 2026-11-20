@@ -495,6 +495,9 @@ body.has-nav #nav{display:flex}body.has-nav .wrap{padding-bottom:96px}
 .dqb-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px;margin-bottom:12px}.dqb{text-align:center;background:rgba(255,255,255,.05);border:1px solid rgba(215,180,106,.35);border-radius:12px;padding:8px 6px;display:flex;flex-direction:column;gap:2px}
 .dqb span{font-size:1.5rem}.dqb b{font-size:.78rem}.dqb small{font-size:.68rem;color:var(--muted,#9aa3b8);line-height:1.25}.dqb.off{opacity:.45;border-color:rgba(255,255,255,.12)}.dqb.new{animation:rwIn .7s cubic-bezier(.2,1.3,.4,1) both;border-color:#d7b46a;box-shadow:0 0 14px rgba(215,180,106,.35)}
 .lv-ring{width:86px;height:86px;margin:6px auto 0;border-radius:50%;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 35% 30%,#f6dd97,#c99a3c);box-shadow:0 0 0 6px rgba(215,180,106,.2),0 0 30px rgba(215,180,106,.5);animation:rwIn .8s cubic-bezier(.2,1.3,.4,1) .2s both}.lv-ring b{font-size:2.4rem;color:#1d1608}
+.sp-tag{display:inline-block;font-size:.72rem;font-weight:700;color:#1d1608;background:#d7b46a;border-radius:999px;padding:2px 8px;margin-bottom:6px}.s-art.obj .sa-frame{background:#f3eee4;border-color:#c9b48a}
+.story-card.locked{filter:grayscale(.85);opacity:.7}.story-card.locked .stc-fig{opacity:.6}
+.sch-list{display:flex;flex-direction:column;gap:8px;margin:10px 0}.sch{display:flex;align-items:center;gap:10px;text-align:left;color:inherit;background:rgba(255,255,255,.05);border:1px solid var(--sc,#d7b46a);border-radius:14px;padding:8px 10px;cursor:pointer}.sch-f{flex:0 0 46px;width:46px;height:46px;border-radius:50%;overflow:hidden;background:#141c33}.sch-f svg{width:100%;height:100%}.sch b{display:block}.sch small{color:var(--muted,#9aa3b8);font-size:.78rem}
 </style>
 </head>
 <body>
@@ -834,7 +837,7 @@ async function initCloud(){
       const merge2=(A,B)=>{ const o={...(A||{})}; for(const k in (B||{})){ o[k] = (o[k]&&typeof o[k]==='object'&&!Array.isArray(o[k])&&typeof B[k]==='object') ? {...o[k],...B[k]} : B[k]; } return o; };
       const newer = rUpd>=lUpd ? remote : st, older = rUpd>=lUpd ? st : remote;
       for(const key of ['results','bigRes','match','who','tl','final']) st[key]=merge2(older[key],newer[key]);
-      st.beta = DEV && !!(newer.beta ?? older.beta); st.onb = !!(newer.onb || older.onb); st.name = newer.name || older.name || ''; if(/kunst met laura/i.test(st.name)) st.name=''; st.unl = {...(older.unl||{}),...(newer.unl||{})}; st.diff = {...(older.diff||{}),...(newer.diff||{})}; st.fav = newer.fav || older.fav || {}; st.gseen={...(older.gseen||{}),...(newer.gseen||{})}; st.symBest=Math.max(newer.symBest||0,older.symBest||0); st.story=Object.assign({},older.story||{},newer.story||{}); for(const k in (older.story||{})) st.story[k]=Math.max(st.story[k]||0,older.story[k]); st.introDone=!!(newer.introDone||older.introDone); st.introSkip=!!(newer.introSkip||older.introSkip); st.introQuitAsked=!!(newer.introQuitAsked||older.introQuitAsked); st.kCel={...(older.kCel||{}),...(newer.kCel||{})}; st.cards={...(older.cards||{}),...(newer.cards||{})}; st.mile={...(older.mile||{}),...(newer.mile||{})}; st.bondR={...(older.bondR||{}),...(newer.bondR||{})}; st.bond={...(older.bond||{})}; for(const k in (newer.bond||{})) st.bond[k]=Math.max(st.bond[k]||0,newer.bond[k]); st.quiet=!!newer.quiet; st.xp=Math.max(newer.xp||0,older.xp||0); st.dq={...(older.dq||{}),...(newer.dq||{})}; st.dqBadges={...(older.dqBadges||{}),...(newer.dqBadges||{})}; for(const k of ['dqStreak','dqLast','dqBest','dqCount','dqPerfect','dqFreeze']) st[k]=(newer.dqLast||'')>=(older.dqLast||'')?newer[k]:older[k]; st.lastVisit=Math.max(newer.lastVisit||0,older.lastVisit||0); st.opens=Math.max(newer.opens||0,older.opens||0);
+      st.beta = DEV && !!(newer.beta ?? older.beta); st.onb = !!(newer.onb || older.onb); st.name = newer.name || older.name || ''; if(/kunst met laura/i.test(st.name)) st.name=''; st.unl = {...(older.unl||{}),...(newer.unl||{})}; st.diff = {...(older.diff||{}),...(newer.diff||{})}; st.fav = newer.fav || older.fav || {}; st.gseen={...(older.gseen||{}),...(newer.gseen||{})}; st.symBest=Math.max(newer.symBest||0,older.symBest||0); st.story=Object.assign({},older.story||{},newer.story||{}); for(const k in (older.story||{})) st.story[k]=Math.max(st.story[k]||0,older.story[k]); st.introDone=!!(newer.introDone||older.introDone); st.introSkip=!!(newer.introSkip||older.introSkip); st.introQuitAsked=!!(newer.introQuitAsked||older.introQuitAsked); st.kCel={...(older.kCel||{}),...(newer.kCel||{})}; st.cards={...(older.cards||{}),...(newer.cards||{})}; st.mile={...(older.mile||{}),...(newer.mile||{})}; st.bondR={...(older.bondR||{}),...(newer.bondR||{})}; st.bond={...(older.bond||{})}; for(const k in (newer.bond||{})) st.bond[k]=Math.max(st.bond[k]||0,newer.bond[k]); st.quiet=!!newer.quiet; st.xp=Math.max(newer.xp||0,older.xp||0); st.storyUnl={...(older.storyUnl||{}),...(newer.storyUnl||{})}; st.dq={...(older.dq||{}),...(newer.dq||{})}; st.dqBadges={...(older.dqBadges||{}),...(newer.dqBadges||{})}; for(const k of ['dqStreak','dqLast','dqBest','dqCount','dqPerfect','dqFreeze']) st[k]=(newer.dqLast||'')>=(older.dqLast||'')?newer[k]:older[k]; st.lastVisit=Math.max(newer.lastVisit||0,older.lastVisit||0); st.opens=Math.max(newer.opens||0,older.opens||0);
       if(newer===remote && st.view!=='onb'){ const {view,r,i,bigStep,t,tlMode}=remote; Object.assign(st,{r,i,bigStep,tlMode}); setTrack(t||'basis');
         if(view && !['home','gloss','paths','intro','introDone','introAsk','onb'].includes(view)){ resumeFrom={t:t||'basis',view,r,i,bigStep}; st.view='home'; go(r,{view,i,bigStep},t||'basis'); } else render(); }
       else render();
@@ -3108,7 +3111,7 @@ function bondLevelUp(k,lv){ const g=k, G=GUIDES[g], L=BOND_LV[lv].n, nm=st.name?
 function roundMilestones(r){ const t=st.t, k=t+'|'+r; st.bondR=st.bondR||{}; st.mile=st.mile||{};
   if(!st.bondR[k]){ st.bondR[k]=1; bondAdd(guideOf(t),3); xpAdd(50,'ronde voltooid'); }
   const R=TRACKS[t].rounds.filter(x=>!x.soon), n=R.length, done=TRACKS[t].rounds.filter((x,i)=>!x.soon&&roundComplete(i,t)).length, g=guideOf(t), nm=st.name?`, ${st.name}`:'';
-  if(trackDone(t) && !st.mile[t+'|d']){ st.mile[t+'|d']=1; st.mile[t+'|h']=1; save(); const B=freshArt([t]);
+  if(trackDone(t) && !st.mile[t+'|d']){ st.mile[t+'|d']=1; st.mile[t+'|h']=1; save(); const B=freshArt([t]); if(t==='basis') setTimeout(()=>{ try{ storyChoiceModal(); }catch(e){} },1500);
     return setTimeout(()=>rewardModal(g,'Route voltooid!',`Wat een prestatie${nm}! Je hebt <b>${TRACKS[t].title}</b> helemaal afgerond. Dit verdient een plek aan de muur.`,B),1200); }
   if(n>=4 && done>=Math.ceil(n/2) && !st.mile[t+'|h']){ st.mile[t+'|h']=1; save(); const B=freshArt([t]);
     setTimeout(()=>rewardModal(g,'Halverwege!',`Je bent al halverwege <b>${TRACKS[t].title}</b>${nm}! Als beloning krijg je een meesterwerk voor je eigen museum.`,B),1200); } }
@@ -3271,6 +3274,8 @@ const SC = { // cast
   laura:{name:'Laura'}
 };
 SC.catharina = CHARS.catharina;
+SC.diane = {name:'Diane de Poitiers', hood:'#111111', hair:'#c9a46a', hairDk:'#8a6a3a', coat:'#f1ece2', coatSh:'#1a1a1a', trim:'#1a1a1a', cuff:'#f4efe4', collar:'ruff', pearls:1};
+SC.galileo = {name:'Galileo Galilei', male:1, hairStyle:'short', hair:'#cfc9bf', beard:'full', coat:'#2a2420', coatSh:'#1a1612', cuff:'#e9dfcc', hose:'#1a1612', collar:'shirt'};
 const scSVG = (id,size,head,clap,emo) => id==='laura' ? lauraSVG(size,head,clap) : charSVG(emo?Object.assign({},SC[id],{emo}):SC[id], size, head, clap, 'stand');
 
 /* ---------- decors ---------- */
@@ -3684,14 +3689,29 @@ function storySceneState(S,c,b){ const beats=S.chapters[c].beats; let bg='white'
     if(x.emo) Object.assign(emo,x.emo);
     if(x.s && x.e) emo[x.s]=x.e; }
   return {bg,actors,order,crowd,crowdN,weather,props,mood,emo}; }
+const STORY_OPEN=['cara','medici','rem'];
+const storyIsOpen = id => !!(STORY_OPEN.includes(id) || (st.storyUnl&&st.storyUnl[id]) || (DEV&&st.beta));
+const storyCredits = () => (basisDone()?1:0) - Object.keys(st.storyUnl||{}).length;
+function storyLocked(id){ const S=storyById(id); const m=document.createElement('div'); m.className='lb gl-modal'; m.onclick=()=>m.remove(); const cr=storyCredits();
+  m.innerHTML=`<div class="gl-box guide-box" onclick="event.stopPropagation()"><div class="gb-fig">${scSVG(S.who,0,false)}</div><div class="ob-bubble"><b>${S.t}</b> is nog op slot.<br><br>${cr>0?'Je hebt een verhaal verdiend! Wil je dit verhaal vrijspelen?':!basisDone()?'Rond <b>Symboliek in de Kunst, niveau 1 (De basis)</b> af. Dan mag je zelf kiezen welk nieuw levensverhaal je vrijspeelt.':'De volgende verhalen kun je binnenkort op een andere manier verdienen. Hou de app in de gaten!'}</div>
+   ${cr>0?`<button class="btn primary big" onclick="this.closest('.lb').remove();storyUnlock('${id}')">Ja, speel ${S.t} vrij</button>`:basisDone()?'':`<button class="btn primary big" onclick="this.closest('.lb').remove();setTrack('basis');home()">Naar De basis →</button>`}<button class="btn" style="margin-top:8px" onclick="this.closest('.lb').remove()">Sluiten</button></div>`; document.body.appendChild(m); }
+function storyUnlock(id){ if(storyCredits()<=0) return; st.storyUnl=st.storyUnl||{}; st.storyUnl[id]=Date.now(); save(); const S=storyById(id);
+  rewardModal(S.who in GUIDES?S.who:'laura','Nieuw verhaal vrijgespeeld!',`Het levensverhaal van <b>${S.t}</b> staat nu voor je klaar. Veel plezier!`,null); if(st.view==='stories') storiesView(); }
+function storyChoiceModal(){ if(storyCredits()<=0) return; const L=STORIES.filter(S=>!storyIsOpen(S.id)); if(!L.length) return; const nm=st.name?`, ${st.name}`:'';
+  const m=document.createElement('div'); m.className='lb gl-modal kcel';
+  m.innerHTML=`${confHTML(30)}<div class="gl-box guide-box in-done" onclick="event.stopPropagation()"><div class="eyebrow center">Beloning: een nieuw levensverhaal</div><div class="ob-bubble">Gefeliciteerd${nm}! Je hebt <b>Symboliek in de Kunst · De basis</b> helemaal afgerond. Kies zelf welk verhaal je vrijspeelt:</div>
+   <div class="sch-list">${L.map(S=>`<button class="sch" style="--sc:${S.col}" onclick="this.closest('.lb').remove();storyUnlock('${S.id}')"><span class="sch-f">${scSVG(S.who,0,true)}</span><span><b>${S.t}</b><small>${S.sub}</small></span></button>`).join('')}</div>
+   <button class="btn" style="margin-top:8px" onclick="this.closest('.lb').remove()">Later kiezen</button></div>`; qModal(m); try{ sfx(['fanfare']); }catch(e){} }
 function storiesView(){ st.view='stories'; save(); storyEnsure(); auLeave();
   $(`<div><div class="hdr"><button class="chip" onclick="hub()">‹ Start</button><button class="chip snd-btn" onclick="soundToggle()">${auOn()?'🔊':'🔇'}</button></div>
    <h1 style="margin:8px 0 2px">Levensverhalen</h1><p class="serif" style="margin:0 0 6px;color:var(--gold2);font-size:1.15rem;font-style:italic">Kunst aan de hand van bekende personen</p><p class="muted" style="margin:0 0 12px">Stap in het leven van schilders, vorsten en verzamelaars. Beleef hun avonturen in geanimeerde scènes, raad wat er gebeurde, en bewonder onderweg de kunst die ze maakten of lieten maken.</p>
-   ${STORIES.map(S=>{ const d=storyDone(S.id), n=S.chapters.length;
+   ${storyCredits()>0?`<button class="dq-card ready" onclick="storyChoiceModal()"><span class="dq-ic">🎁</span><span class="dq-tx"><b>Je hebt een nieuw verhaal verdiend</b><small>Tik om zelf te kiezen welk verhaal je vrijspeelt</small></span></button>`:''}
+   ${STORIES.slice().sort((a,b)=>storyIsOpen(b.id)-storyIsOpen(a.id)).map(S=>{ const d=storyDone(S.id), n=S.chapters.length, open=storyIsOpen(S.id);
+     if(!open) return `<button class="story-card locked" onclick="storyLocked('${S.id}')" style="--sc:${S.col}"><div class="stc-fig">${scSVG(S.who,0,true)}</div><div class="stc-tx"><div class="eyebrow">${S.yrs}</div><b>${S.t}</b><small>${S.sub}</small><small class="muted">🔒 ${storyCredits()>0?'Klaar om vrij te spelen':basisDone()?'Binnenkort te verdienen':'Speel vrij via De basis'}</small></div></button>`;
      return `<button class="story-card" onclick="storyOpen('${S.id}')" style="--sc:${S.col}"><div class="stc-fig">${scSVG(S.who,0,true)}</div>
       <div class="stc-tx"><div class="eyebrow">${S.yrs}</div><b>${S.t}</b><small>${S.sub}</small><div class="pbar"><i style="width:${Math.round(d/n*100)}%"></i></div><small class="muted">${d>=n?'🏅 uitgespeeld':`${d} van ${n} hoofdstukken`}</small></div></button>`; }).join('')}
   </div>`); }
-function storyOpen(id){ voxLoad(id); const S=storyById(id); st.view='storyc'; st.storyId=id; save(); const d=storyDone(id); auLeave();
+function storyOpen(id){ if(!storyIsOpen(id)) return storyLocked(id); voxLoad(id); const S=storyById(id); st.view='storyc'; st.storyId=id; save(); const d=storyDone(id); auLeave();
   $(`<div><div class="hdr"><button class="chip" onclick="storiesView()">‹ Alle verhalen</button><button class="chip snd-btn" onclick="soundToggle()">${auOn()?'🔊':'🔇'}</button></div>
    <div class="story-head" style="--sc:${S.col}"><div class="sh-fig">${scSVG(S.who,0,false)}</div><div><div class="eyebrow">${S.yrs}</div><h1 style="margin:2px 0">${S.t}</h1><p class="muted" style="margin:0">${S.intro}</p></div></div>
    ${S.chapters.map((C,i)=>{ const lock=i>d; return `<button class="ch-row ${lock?'locked':''} ${i<d?'done':''}" ${lock?'':`onclick="storyPlay('${id}',${i})"`}><span class="ch-n">${i<d?'✓':i+1}</span><span><b>${C.t}</b><br><small class="muted">${C.y||''}</small></span><span class="ch-go">${lock?'🔒':'▶'}</span></button>`; }).join('')}
@@ -3740,8 +3760,8 @@ function storyView(still){ const S=storyById(STQ.id), C=S.chapters[STQ.c], beats
     bubble=`<div class="sbub sb-${side} ${cur.emo[x.s]==='angry'||cur.emo[x.s]==='scared'?'shout':''}"><b>${(SC[x.s]||{}).name||'Laura'}</b>${x.x}</div>`; }
   else if(x.n) bubble=`<div class="snar">${x.y?`<span class="sy">${x.y}</span>`:''}${x.n}</div>`;
   let over='', panel='';
-  if(x.art){ over=`<div class="s-art"><div class="sa-frame"><img src="${storyImg(x.art)}" alt=""></div></div>`;
-    panel=`<div class="sp-art"><i>${x.t}</i> · ${x.a}${x.yr?', '+x.yr:''}<p>${x.x}</p></div>`; }
+  if(x.art){ over=`<div class="s-art ${x.obj?'obj':''}"><div class="sa-frame"><img src="${storyImg(x.art)}" alt=""></div></div>`;
+    panel=`<div class="sp-art ${x.obj?'sp-obj':''}">${x.obj?'<span class="sp-tag">🪑 Voorwerp uit die tijd</span>':''}<i>${x.t}</i> · ${x.a}${x.yr?', '+x.yr:''}<p>${x.x}</p></div>`; }
   if(x.q){ const a=STQ.ans[STQ.b];
     panel=`<div class="sp-q"><div class="sq-t">${x.q}</div><div class="opts">${x.o.map((o,j)=>{ let c=''; if(a!==undefined){ if(j===x.c) c='ok'; else if(j===a) c='bad'; } return `<button class="opt ${c}" ${a!==undefined?'disabled':''} onclick="storyAns(${j})"><span class="l">${L[j]}</span><span>${o}</span></button>`; }).join('')}</div>
       ${a!==undefined?`<div class="verdict ${a===x.c?'ok':'bad'}">${a===x.c?'Goed geraden!':'Niet helemaal!'}</div><p class="sq-e">${x.e}</p>`:''}</div>`; }
@@ -3781,7 +3801,10 @@ const STORIES=[
     {bg:'romeday', s:'cara', x:'Rome! De stad van de pausen, de kardinalen… en van de schilders die allemaal hetzelfde mooie, nette werk maken. Ik ga het anders doen.'},
     {art:'cara1', t:'Jongen met een fruitmand', a:'Caravaggio', yr:'ca. 1593', x:'Een van zijn vroegste werken in Rome. Kijk naar het fruit: elk blad en elke vlek is precies geschilderd. Hij werkte rechtstreeks naar een model, zonder voorstudie op papier. Dat was ongewoon.'},
     {art:'cara2', t:'Zieke Bacchus', a:'Caravaggio', yr:'ca. 1593', x:'Waarschijnlijk een zelfportret: Caravaggio als de wijngod, maar met een groenige, zieke huid. Rond deze tijd lag hij zelf maanden in het ziekenhuis.'},
-    {s:'cara', x:'Ik schilder wat ik zíe. Geen geïdealiseerde goden, maar echte mensen. Met vuile nagels als het moet.'}
+    {s:'cara', x:'Ik schilder wat ik zíe. Geen geïdealiseerde goden, maar echte mensen. Met vuile nagels als het moet.'},
+    {art:'st_c11', t:'Bacchus', a:'Caravaggio', yr:'ca. 1596–1598', x:'Een jongen uit de straat als wijngod, met vuile nagels en rot fruit in de schaal. In de glazen karaf linksonder ontdekten onderzoekers met moderne technieken een piepklein weerspiegeld zelfportret: de schilder aan zijn ezel.'},
+    {q:'Waarom zijn die vuile nagels en dat rotte fruit in een schilderij van een god zo gedurfd?', o:['Omdat goden volgens de regels juist volmaakt en verheven moesten zijn','Omdat olieverf nog niet bestond','Omdat Bacchus altijd als oude man werd afgebeeld'], c:0,
+      e:'Het <b>decorum</b>, de regels van het passende, eiste dat goden en heiligen geïdealiseerd werden. Caravaggio’s <b>naturalisme</b>, de werkelijkheid zonder opsmuk, vonden sommigen geniaal en anderen ongepast. Het rotte fruit kun je lezen als <b>vanitas</b>.'}
   ]},
   { t:'De kardinaal en de valsspelers', y:'1594–1600', end:'Caravaggio is beroemd. Maar roem en een kort lontje gaan slecht samen…', beats:[
     {bg:'romeday', in:'cara', at:'l', n:'Rome, rond 1595. Caravaggio verkoopt een schilderij via een handelaar. Een machtige verzamelaar ziet het…'},
@@ -3795,7 +3818,13 @@ const STORIES=[
     {art:'cara5', t:'De roeping van Mattheüs', a:'Caravaggio', yr:'1599–1600', x:'Christus wijst naar de belastinginner Mattheüs, die aan tafel geld telt. Een bundel licht valt schuin naar binnen, langs de wijzende hand. Rome stond in de rij om het te zien.'},
     {s:'cara', x:'Ze zeggen dat mijn heiligen eruitzien als zwervers. Precies. Zo zagen apostelen er ook uit.'},
     {q:'Waarom maakte juist dat <b>licht</b> zo’n indruk?', o:['Het was het eerste schilderij met daglicht','De sterke tegenstelling tussen licht en donker maakt het een spannende toneelscène','Hij gebruikte goudverf voor de lichtstraal'], c:1,
-      e:'Dat noemen we <b>clair-obscur</b> of, als het heel scherp is, <b>tenebrisme</b>. Figuren duiken op uit het donker, alsof een spot ze aanlicht. Het licht is ook symbolisch: de goddelijke roeping die binnenvalt.'}
+      e:'Dat noemen we <b>clair-obscur</b> of, als het heel scherp is, <b>tenebrisme</b>. Figuren duiken op uit het donker, alsof een spot ze aanlicht. Het licht is ook symbolisch: de goddelijke roeping die binnenvalt.'},
+    {obj:1, art:'st_c12', t:'Medusa, op een paradeschild', a:'Caravaggio', yr:'ca. 1597–1598', x:'Geen doek, maar een echt houten <b>paradeschild</b>, bespannen met linnen. Kardinaal Del Monte schonk het aan groothertog Ferdinando I de’ Medici. Caravaggio schilderde het bolle schild alsof het plat was, met een schaduw erop: een optisch kunststuk.'},
+    {q:'Wie Medusa aankeek, veranderde in steen. Waarom past haar hoofd dan juist zo goed op een schild?', o:['Het schild werd alleen bij toneel gebruikt','Perseus versloeg haar via de spiegeling in zijn schild, en daarna droeg Minerva haar hoofd op haar schild om vijanden af te schrikken','Medusa was de beschermheilige van Florence'], c:1,
+      e:'Perseus keek alleen naar haar <b>spiegelbeeld</b> in zijn gepolijste schild en onthoofdde haar. Minerva zette het hoofd daarna op haar schild of borstkuras, de <b>aegis</b>. Zo werd Medusa een <b>afweersymbool</b>: wat de vijand doet verstijven, beschermt de drager.'},
+    {art:'st_c13', t:'Judith onthoofdt Holofernes', a:'Caravaggio', yr:'ca. 1599', x:'Een gitzwarte achtergrond, één felle lichtbron. Judith trekt een gezicht van afschuw én vastberadenheid; de oude dienares staat klaar met de zak. Een verhaal uit het Oude Testament, zo rauw als een moordscène.'},
+    {q:'Caravaggio maakte geen voorstudies op papier. Hoe zette hij zijn composities dan op het doek?', o:['Leerlingen tekenden alles voor','Hij kraste met de achterkant van zijn penseel lijnen in de natte grondlaag, die je soms nog kunt zien','Hij gebruikte een camera obscura en krijt'], c:1,
+      e:'Op veel van zijn doeken zijn <b>incisies</b> te zien: lijnen die hij in de grondering kraste om de plek van hoofden en armen vast te leggen. Daarna schilderde hij rechtstreeks naar het levende model, dat hij in een donkere kamer met één lamp belichtte.'}
   ]},
   { t:'Een strafblad in Rome', y:'1600–1606', end:'Caravaggio is een voortvluchtige moordenaar. Wie hem ziet, mag hem doden.', beats:[
     {bg:'rome', in:'cara', at:'c', n:'Overdag is hij de gevierde schilder. ’s Nachts zwerft hij met zijn zwaard door de stegen. De politierapporten stapelen zich op.', y:'1600–1605'},
@@ -3811,6 +3840,13 @@ const STORIES=[
     {q:'Welke straf kreeg Caravaggio?', o:['Een flinke boete','De <i>bando capitale</i>: iedereen die hem tegenkwam, mocht hem doden','Levenslang verbanning naar Milaan'], c:1,
       e:'Een doodvonnis dat iedereen mocht uitvoeren. Caravaggio vluchtte dezelfde dagen nog de stad uit. Hij zou Rome nooit meer terugzien.'},
     {s:'cara', x:'Ik moet weg. Nu.'},
+    {out:'cara'},
+    {bg:'church', in:'cara', at:'c', mood:'church', n:'In diezelfde roerige jaren maakte hij zijn meest omstreden altaarstukken. Kijk mee terug.', y:'1601–1606'},
+    {art:'st_c17', t:'Madonna di Loreto (Madonna van de pelgrims)', a:'Caravaggio', yr:'ca. 1604–1606', x:'Maria verschijnt in een gewone deuropening aan twee arme pelgrims. Vooraan: de vuile, blote voetzolen van de man, recht in het gezicht van de kerkganger. Volgens een tijdgenoot maakte het volk er een enorme ophef over.'},
+    {art:'st_c14', t:'De dood van Maria', a:'Caravaggio', yr:'ca. 1601–1606', x:'Maria ligt dood op een eenvoudig bed, met opgezwollen buik en blote voeten, in een gewone rode jurk. De Karmelieten die het hadden besteld, weigerden het. Rubens raadde de hertog van Mantua aan het te kopen.'},
+    {q:'Waarom weigerden de monniken <i>De dood van Maria</i>?', o:['Het paste niet boven hun altaar','Maria zag eruit als een gewone dode vrouw, zonder hemelse verheerlijking, en het gerucht ging dat een verdronken vrouw model had gestaan','Er was te veel goud gebruikt'], c:1,
+      e:'Volgens de leer werd Maria met lichaam en ziel in de hemel opgenomen. Een aardse, opgezwollen dode Maria vond men <b>onbetamelijk</b>. Precies dat rauwe realisme maakte het voor schilders als Rubens geniaal.'},
+    {obj:1, art:'st_o3', t:'Gevest van een rapier', a:'Brescia, Italië', yr:'ca. 1650', x:'Iets jonger dan Caravaggio, maar hetzelfde type wapen: een lang, smal steekzwaard met een sierlijk gevest dat de hand beschermt. In Rome mocht je zo’n zwaard alleen met vergunning dragen. Caravaggio werd meer dan eens opgepakt omdat hij er zonder rondliep.'},
     {out:'cara'}
   ]},
   { t:'Ridder van Malta', y:'1606–1608', end:'Een ontsnapping over de muur. Caravaggio is opnieuw op de vlucht.', beats:[
@@ -3825,7 +3861,9 @@ const STORIES=[
     {bg:'cell', out:'wignacourt', move:'cara', to:'c', s:'cara', x:'Een put in de rots. Hier komt niemand meer uit… of toch?'},
     {q:'Wat denk je dat er gebeurde?', o:['Hij zat zijn straf uit en werd vrijgelaten','Hij ontsnapte, klom met een touw over de muur en vluchtte per boot naar Sicilië','De paus liet hem overbrengen naar Rome'], c:1,
       e:'Niemand weet precies hoe, maar hij ontsnapte uit het zwaarbewaakte fort en wist Sicilië te bereiken. Vermoedelijk had hij hulp van binnenuit. De Orde stootte hem uit als “een verrot en stinkend lid”.'},
-    {out:'cara'}
+    {out:'cara'},
+    {q:'In <i>De onthoofding van Johannes de Doper</i> laat Caravaggio meer dan de helft van het doek leeg: een kale gevangenismuur. Wat bereikt hij daarmee?', o:['Het schilderij was sneller af','De stilte en leegte maken de wrede daad beklemmender, alsof wij er stiekem getuige van zijn','Het was verplicht in de kathedraal'], c:1,
+      e:'Geen engelen, geen hemelse glans: een kale muur, een raam waar twee gevangenen door toekijken, en de beul die zijn mes trekt. De <b>lege ruimte</b> werkt als een stilte in de muziek. Hij signeerde het werk bovendien in het bloed: een ongehoord gebaar.'}
   ]},
   { t:'De laatste reis', y:'1608–1610', end:'', beats:[
     {bg:'sea', in:'cara', at:'c', n:'Op Sicilië schildert hij door: in Syracuse, Messina en Palermo. Hij slaapt met zijn dolk naast zich, vertellen tijdgenoten.', y:'1608–1609'},
@@ -3837,13 +3875,16 @@ const STORIES=[
     {bg:'sea', s:'cara', x:'Ik vaar naar het noorden, met schilderijen voor de kardinaal. Bijna thuis.'},
     {n:'In de zomer van 1610 gaat hij aan land bij Palo. Daar wordt hij, waarschijnlijk per vergissing, opgepakt. De boot vertrekt… met zijn schilderijen aan boord.', y:'juli 1610'},
     {n:'Op 18 juli 1610 sterft Caravaggio in Porto Ercole, waarschijnlijk aan een koorts. Hij was 38. Kort daarna, zo vertelt het verhaal, kwam zijn gratie aan.', y:'1610', out:'cara'},
-    {bg:'church', in:'laura', at:'c', s:'laura', x:'Na zijn dood volgden tientallen schilders hem na: de <b>caravaggisten</b>. Ook Utrechtse schilders als Honthorst en Ter Brugghen leerden het in Rome. Zo kwam zijn licht ook naar Holland.'}
+    {bg:'church', in:'laura', at:'c', s:'laura', x:'Na zijn dood volgden tientallen schilders hem na: de <b>caravaggisten</b>. Ook Utrechtse schilders als Honthorst en Ter Brugghen leerden het in Rome. Zo kwam zijn licht ook naar Holland.'},
+    {art:'st_c16', t:'De roeping van Mattheüs', a:'Hendrick ter Brugghen', yr:'1621', x:'Een Utrechtse schilder die jaren in Rome werkte. Vergelijk het met Caravaggio: dezelfde scène en hetzelfde zijlicht, maar dichterbij, met grote halffiguren aan tafel. Het hangt in het Centraal Museum in Utrecht.'},
+    {q:'Hoe noemen we de schilders die Caravaggio’s stijl in Rome leerden en mee naar Utrecht brachten?', o:['De Haagse School','De Utrechtse caravaggisten','De Leidse fijnschilders'], c:1,
+      e:'<b>Hendrick ter Brugghen</b>, <b>Gerard van Honthorst</b> en <b>Dirck van Baburen</b> zagen Caravaggio’s werk in Rome. Honthorst kreeg in Italië zelfs de bijnaam <i>Gherardo delle Notti</i>, Gerard van de nachten, om zijn scènes bij kaarslicht.'}
   ]}
 ]}
 ,
-{ id:'medici', t:'De Medici', sub:'Bankiers die Florence kochten', yrs:'1397–1743', who:'lorenzo', col:'#8e1b1b',
-  intro:'Een familie van bankiers die met geld, kunst en list de macht greep in Florence. Ze leverden pausen en koninginnen, en betaalden Botticelli, Michelangelo en Rafaël. Hun verzameling hangt nog altijd in de Uffizi.',
-  outro:'Magnifico! Je kent nu de familie achter de Florentijnse renaissance. Zonder het geld van de Medici geen Primavera, geen David van Donatello en geen Uffizi. En dankzij Anna Maria Luisa kun je al die kunst vandaag nog in Florence zien.',
+{ id:'medici', t:'Catharina de’ Medici', sub:'Van bankiersfamilie tot koningin van Frankrijk', yrs:'1397–1743', who:'catharina', col:'#8e1b1b',
+  intro:'Catharina de’ Medici neemt je mee door de geschiedenis van haar familie: bankiers die met geld, kunst en list Florence in handen kregen. Je beleeft haar eigen leven als weeskind, gijzelaar en koningin van Frankrijk, en ontdekt hoe de Medici Botticelli, Michelangelo en de Uffizi mogelijk maakten.',
+  outro:'Magnifico! Je kent nu Catharina en de familie achter de Florentijnse renaissance. Zonder het geld van de Medici geen Primavera, geen David van Donatello en geen Uffizi. En dankzij Anna Maria Luisa kun je al die kunst vandaag nog in Florence zien.',
   chapters:[
   { t:'Geld en macht', y:'1397–1464', end:'Cosimo heeft de basis gelegd. Zijn kleinzoon wordt de beroemdste Medici van allemaal…', beats:[
     {bg:'florence', n:'Florence, 1397. <b>Giovanni di Bicci de’ Medici</b> richt een bank op. Binnen een generatie is het de belangrijkste bank van Europa, met de paus als grootste klant.', y:'1397'},
@@ -3856,7 +3897,10 @@ const STORIES=[
     {bg:'palace', s:'cosimo', x:'En in ons eigen paleis laat ik de kapel beschilderen met de tocht van de Drie Koningen. Als je goed kijkt, rijden wij Medici gewoon mee in de stoet.'},
     {art:'med2', t:'De tocht van de Drie Koningen (detail)', a:'Benozzo Gozzoli', yr:'1459–1461', x:'Een detail uit de stoet: een groep hoofden met rode mutsen en tulbanden. Hier lopen leden van het Medici-hof mee, en Gozzoli zette zichzelf er ook tussen (zijn muts draagt zijn naam). Zo zetten de Medici zichzelf letterlijk op weg naar Christus.'},
     {q:'Waarom lieten rijke families zichzelf zo vaak in religieuze schilderijen afbeelden?', o:['Om te laten zien hoe vroom (en hoe belangrijk) ze waren','Omdat modellen te duur waren','Omdat de kerk dat verplichtte'], c:0,
-      e:'Het was vroomheid én reclame: wie een kapel betaalde, mocht zich als <b>schenker</b> laten zien. Bij de Medici staat het er alleen wel heel opvallend in.'}
+      e:'Het was vroomheid én reclame: wie een kapel betaalde, mocht zich als <b>schenker</b> laten zien. Bij de Medici staat het er alleen wel heel opvallend in.'},
+    {q:'Fra Angelico schilderde in San Marco rechtstreeks op de natte kalk van de muur. Hoe heet die techniek?', o:['Tempera op paneel','Fresco','Olieverf op doek'], c:1,
+      e:'Bij <b>fresco</b> (Italiaans voor “vers”) schilder je met pigment in water op natte kalk. Bij het drogen wordt de verf één met de muur. Je moet snel werken: per dag één stuk, een <i>giornata</i>. Daarom zie je in fresco’s soms naden tussen de dagdelen.'},
+    {in:'catharina', at:'r', mood:'renaissance', s:'catharina', x:'Ik ben Catharina de’ Medici. Cosimo is een voorvader van mij. Zonder zijn bank was ik nooit koningin geworden. Kom, ik vertel je hoe het verder ging.'}
   ]},
   { t:'Lorenzo il Magnifico', y:'1469–1478', end:'Lorenzo overleeft. Florence is vanaf nu nog steviger in Medici-handen.', beats:[
     {bg:'florence', in:'lorenzo', at:'c', n:'Cosimo’s kleinzoon <b>Lorenzo</b> neemt in 1469 op twintigjarige leeftijd de leiding. Hij is dichter, diplomaat en verzamelaar. Florence noemt hem <i>il Magnifico</i>, de Prachtige.', y:'1469'},
@@ -3868,7 +3912,10 @@ const STORIES=[
     {out:'botticelli', q:'Wat denk je dat er gebeurde?', o:['Beide broers werden gedood','Giuliano werd vermoord, Lorenzo raakte gewond en vluchtte de sacristie in','De aanslag werd op tijd verraden en mislukte geheel'], c:1,
       e:'Giuliano werd doodgestoken. Lorenzo ontkwam met een snee in zijn nek en barricadeerde zich achter de zware bronzen deuren van de sacristie. Zelfs de paus, Sixtus IV, wist van het complot.'},
     {s:'lorenzo', x:'Florence koos mijn kant. De samenzweerders werden opgehangen. En Botticelli moest hun beeltenis op de muur van het Bargello schilderen, als waarschuwing.'},
-    {art:'med4', t:'Portret van Giuliano de’ Medici', a:'Sandro Botticelli', yr:'ca. 1478', x:'Na de moord gemaakt. De neergeslagen ogen, de halfopen deur en de <b>tortelduif linksonder op een dode tak</b> (een symbool van trouw tot in de dood) maken er een herdenkingsportret van. Er bestaan meerdere versies; deze hangt in Washington.'}
+    {art:'med4', t:'Portret van Giuliano de’ Medici', a:'Sandro Botticelli', yr:'ca. 1478', x:'Na de moord gemaakt. De neergeslagen ogen, de halfopen deur en de <b>tortelduif linksonder op een dode tak</b> (een symbool van trouw tot in de dood) maken er een herdenkingsportret van. Er bestaan meerdere versies; deze hangt in Washington.'},
+    {q:'In de <i>Primavera</i> duwt de jongeman links met een staf de wolken weg. Het is Mercurius. Hoe herken je hem?', o:['Aan zijn drietand en een dolfijn','Aan zijn gevleugelde sandalen en de staf met slangen, de caduceus','Aan een lier en een lauwerkrans'], c:1,
+      e:'<b>Mercurius</b> (Grieks: Hermes) is de boodschapper van de goden. Zijn attributen: <b>gevleugelde sandalen</b> of helm en de <b>caduceus</b>, een staf met twee slangen. De drietand hoort bij Neptunus, de lier bij Apollo.'},
+    {in:'catharina', at:'l', s:'catharina', x:'Lorenzo il Magnifico was mijn overgrootvader. Ik heb hem nooit gekend, maar zijn verzameling en zijn kunstenaars waren in mijn jeugd overal om me heen.'}
   ]},
   { t:'De jonge Michelangelo', y:'1489–1497', end:'Na Lorenzo gaat het mis met Florence. Maar de Medici krijgen er iets veel groters voor terug: de pauselijke troon.', beats:[
     {bg:'palace', in:'lorenzo', at:'l', n:'Lorenzo heeft een beeldentuin vol antieke sculpturen. Daar mogen jonge talenten oefenen.', y:'ca. 1489'},
@@ -3879,17 +3926,65 @@ const STORIES=[
     {n:'In 1492 sterft Lorenzo. Twee jaar later worden de Medici uit Florence verjaagd. De monnik <b>Savonarola</b> preekt tegen luxe en zonde.', y:'1492–1497', out:'lorenzo'},
     {bg:'florence', fx:'shake', n:'In 1497 laat Savonarola een groot <b>“vreugdevuur der ijdelheden”</b> aansteken. Spiegels, kaarten, mooie kleren, boeken en schilderijen gaan in de vlammen.'},
     {s:'michelangelo', x:'Florence is mijn thuis niet meer. Ik ga naar Rome.'},
-    {art:'med5', t:'Madonna aan de trap', a:'Michelangelo', yr:'ca. 1490', x:'Een vroeg reliëf, gemaakt toen hij nog bij de Medici woonde. Hij hakte het in heel ondiep marmer, een techniek die hij van Donatello afkeek. Het is nog altijd in Florence.'}
+    {art:'med5', t:'Madonna aan de trap', a:'Michelangelo', yr:'ca. 1490', x:'Een vroeg reliëf, gemaakt toen hij nog bij de Medici woonde. Hij hakte het in heel ondiep marmer, een techniek die hij van Donatello afkeek. Het is nog altijd in Florence.'},
+    {q:'De <i>Madonna aan de trap</i> is in een heel ondiep reliëf gehakt, een techniek die Michelangelo van Donatello afkeek. Hoe heet die?', o:['Haut-reliëf: figuren die bijna los van de achtergrond staan','<i>Rilievo schiacciato</i>: een “platgedrukt” reliëf van maar een paar millimeter diep','Intarsia: ingelegd hout'], c:1,
+      e:'Bij <b>rilievo schiacciato</b> suggereer je diepte met minimale hoogteverschillen, bijna als een tekening in steen. Donatello vond het uit. De jonge Michelangelo bewees ermee dat hij de grote meesters al kon evenaren.'},
+    {in:'catharina', at:'c', s:'catharina', x:'Toen de Medici weer verjaagd werden, was ik nog niet geboren. Maar de familie kwam terug. En hoe!'}
   ]},
-  { t:'Pausen en koninginnen', y:'1513–1610', end:'De Medici zijn nu groothertogen. Maar er komen steeds minder kinderen…', beats:[
-    {bg:'church', n:'De Medici zijn terug, en hoe! In 1513 wordt Lorenzo’s zoon Giovanni paus: <b>Leo X</b>. Later volgt zijn neef Giulio als <b>Clemens VII</b>.', y:'1513'},
+  { t:'Een weeskind in Florence', y:'1513–1530', end:'Catharina is een kostbare pion geworden. Haar oom de paus heeft grote plannen met haar…', beats:[
+    {bg:'church', crowd:'church', mood:'church', sfx:['bell','fanfare'], n:'1513. Lorenzo il Magnifico’s zoon Giovanni wordt paus: <b>Leo X</b>. De Medici zijn terug in Florence, machtiger dan ooit.', y:'1513'},
     {art:'med6', t:'Paus Leo X met twee kardinalen', a:'Rafaël', yr:'ca. 1518', x:'Een paus met een vergrootglas en een prachtig getijdenboek: een kenner van kunst. Naast hem twee familieleden, ook kardinaal. Kijk naar de knop van de stoel: daarin weerspiegelt het raam.'},
-    {in:'catharina', at:'c', s:'catharina', x:'Daar ben ik weer! Clemens VII was familie van me. Hij regelde in 1533 mijn huwelijk met de zoon van de Franse koning. Ik was veertien.'},
-    {q:'Welke Medici werd naast Catharina óók koningin van Frankrijk?', o:['Maria de’ Medici','Anna Maria Luisa','Bianca Cappello'], c:0,
-      e:'<b>Maria de’ Medici</b> trouwde in 1600 met de Franse koning Hendrik IV. Rubens schilderde haar leven later in een reeks van 24 enorme doeken. Die ontmoet je in het Rubens-verhaal!'},
-    {out:'catharina', bg:'florence', n:'In Florence worden de Medici <b>groothertogen</b> van Toscane. Cosimo I laat de architect Giorgio Vasari een groot kantoorgebouw neerzetten: de <i>Uffizi</i> (“kantoren”).', y:'1560'},
+    {bg:'palace', crowd:null, mood:'renaissance', in:'catharina', at:'c', s:'catharina', x:'In april 1519 word ik geboren in het Medici-paleis. Mijn vader is Lorenzo, hertog van Urbino, een kleinzoon van il Magnifico. Mijn moeder is een Franse gravin.'},
+    {mood:'sad', emo:{catharina:'sad'}, weather:'dusk', n:'Binnen een maand na haar geboorte sterven haar moeder én haar vader. Het meisje is de rijkste erfgename van Italië, en een wees.', y:'1519'},
+    {art:'st_m9', t:'Portret van Lorenzo di Piero de’ Medici, hertog van Urbino', a:'naar Rafaël', yr:'ca. 1518', x:'Catharina’s vader, met bontmantel en baret. Rafaël schilderde hem rond de tijd van zijn huwelijk met de Française Madeleine de la Tour d’Auvergne. Zo’n portret was ook een visitekaartje: zo zag een machtige vorst eruit.'},
+    {weather:'', s:'catharina', x:'Michelangelo maakte later het grafmonument van mijn vader, in de Nieuwe Sacristie van San Lorenzo. Daar zit hij in harnas, peinzend, met zijn hand bij zijn mond.'},
+    {q:'Op het graf van Catharina’s vader liggen twee liggende figuren van Michelangelo: de <i>Dageraad</i> en de <i>Schemering</i>. Wat stellen ze voor?', o:['De vier evangelisten','Een allegorie van de tijd die verstrijkt en alles verslindt','Lorenzo’s ouders'], c:1,
+      e:'Bij Lorenzo liggen <b>Dageraad en Schemering</b>, bij zijn oom Giuliano <b>Dag en Nacht</b>. Samen een <b>allegorie</b> van de tijd. Echte gelijkenis gaf Michelangelo de hertogen niet: over duizend jaar wist toch niemand meer hoe ze eruitzagen, zou hij gezegd hebben.'},
+    {bg:'florence', crowd:{k:'angry',n:8}, mood:'tension', sfx:'angry', n:'1527. Rome wordt geplunderd door keizerlijke troepen. Paus Clemens VII, ook een Medici, zit klem. In Florence grijpen de tegenstanders hun kans: de Medici worden opnieuw verjaagd.', y:'1527'},
+    {bg:'cell', crowd:null, mood:'sad', emo:{catharina:'scared'}, s:'catharina', x:'Ik was acht. Ze sloten me op in een klooster, als gijzelaar. Toen het leger van de paus de stad belegerde, werd er zelfs voorgesteld om mij op de stadsmuur te zetten, midden in het kanonvuur.'},
+    {q:'1530: soldaten komen de elfjarige Catharina uit het klooster halen. Wat deed ze volgens de verhalen?', o:['Ze verstopte zich in de kapel','Ze knipte haar haar af en trok een nonnenkleed aan: een non zouden ze niet durven aanraken','Ze klom over de kloostermuur'], c:1,
+      e:'Ze dacht dat ze weggevoerd werd om te sterven, en kleedde zich als <b>non</b>. Het liep goed af: Florence gaf zich over en de Medici keerden terug. Catharina leerde jong overleven met haar verstand.'},
+    {emo:{catharina:'proud'}, mood:'renaissance', s:'catharina', x:'Daarna woonde ik bij mijn oom, de paus, in Rome. Ik begreep het: ik was een stuk op het schaakbord van de familie. Maar ook een pion kan koningin worden.'}
+  ]},
+  { t:'Koningin van Frankrijk', y:'1533–1589', end:'De laatste Valois-koning sterft. Maar Catharina’s nalatenschap reist mee naar Florence…', beats:[
+    {bg:'court', crowd:'nobles', mood:'court', sfx:'fanfare', in:'catharina', at:'l', n:'1533. Paus Clemens VII regelt het huwelijk van de veertienjarige Catharina met <b>Hendrik</b>, de tweede zoon van de Franse koning. De bruiloft is in Marseille, de paus trouwt hen zelf.', y:'1533'},
+    {obj:1, art:'st_o1', t:'Cassone (bruidskist) met de verovering van Trebizonde', a:'Werkplaats van Apollonio di Giovanni en Marco del Buono, Florence', yr:'ca. 1461–1465', x:'Een rijke Florentijnse bruid kreeg zulke beschilderde kisten mee, vol linnen, kleding en sieraden. Ze stonden in de slaapkamer en dienden ook als bank. Catharina’s bruidsschat was vele malen groter: geld, land en juwelen.'},
+    {q:'Waarom zijn zulke <i>cassoni</i> belangrijk voor kunsthistorici?', o:['Omdat ze altijd door de beste schilders werden gemaakt','Omdat ze laten zien welke verhalen en idealen een bruid meekreeg, en vaak de vroegste voorbeelden zijn van wereldlijke (niet-religieuze) schilderkunst','Omdat er geheime brieven in verstopt zaten'], c:1,
+      e:'Op cassoni staan veldslagen, triomftochten en mythen: <b>wereldlijke onderwerpen</b> voor in huis, terwijl de meeste schilderkunst nog religieus was. Ze vertellen ook wat een bruid hoorde te zijn: trouw, kuis, en trots op haar familie.'},
+    {in:'francois', at:'r', s:'francois', x:'Welkom aan mijn hof, kleine Medici! Ik hou van Italiaanse kunst. Ik haalde Leonardo da Vinci zelf naar Frankrijk.'},
+    {out:'francois', in:'diane', at:'r', mood:'tension', emo:{catharina:'sad'}, n:'Maar haar man Hendrik heeft alleen oog voor <b>Diane de Poitiers</b>, twintig jaar ouder dan hij. Zij kleedt zich steevast in zwart en wit.', y:'1538'},
+    {art:'st_m12', t:'Diana als jageres', a:'School van Fontainebleau', yr:'ca. 1550', x:'Hofkunstenaars schilderden Diane graag als <b>Diana</b>, de Romeinse godin van de jacht: een woordspel op haar naam. Langgerekte, elegante figuren zoals deze zijn typisch voor de kunstenaars die Frans I in kasteel Fontainebleau aan het werk zette.'},
+    {q:'Hoe herken je Diana, de godin van de jacht, op een schilderij?', o:['Aan een uil en een speer','Aan pijl en boog, een jachthond en een maansikkel','Aan een pauw en een scepter'], c:1,
+      e:'<b>Diana</b> (Grieks: Artemis) is godin van de jacht én van de maan. Haar attributen: <b>boog en pijlen</b>, een <b>jachthond</b> of hert, en een <b>maansikkel</b> in het haar. De uil hoort bij Minerva, de pauw bij Juno.'},
+    {out:'diane', s:'catharina', x:'Elf jaar lang kregen we geen kinderen. Aan het hof fluisterden ze dat de prins mij moest wegsturen. Toen kwamen ze toch: tien in totaal.'},
+    {fx:'shake', sfx:['sword','gasp'], crowd:{k:'nobles',n:7}, mood:'tension', n:'1559. Bij een steekspel dringt de lans van een tegenstander door het vizier van koning Hendrik II. Tien dagen later sterft hij.', y:'1559'},
+    {crowd:null, mood:'sad', weather:'dusk', emo:{catharina:'sad'}, s:'catharina', x:'Vanaf die dag droeg ik zwart, tot aan mijn dood. En Diane? Zij moest het kasteel Chenonceau aan mij afstaan.'},
+    {art:'st_m14', t:'Kasteel Chenonceau', a:'naar Jacques Androuet du Cerceau', yr:'1576–1579', x:'Uit een boek met de mooiste Franse kastelen. Diane liet de brug over de rivier de Cher bouwen; Catharina zette er een galerij van twee verdiepingen op, voor haar beroemde feesten. Het kasteel staat er nog.'},
+    {weather:'', mood:'court', n:'Drie van haar zonen worden koning: Frans II, Karel IX en Hendrik III. Omdat ze jong of zwak zijn, regeert hun moeder vaak mee. Frankrijk wordt verscheurd door oorlogen tussen katholieken en protestanten.', y:'1559–1589'},
+    {art:'st_m13', t:'Feest in Fontainebleau, uit de Valois-wandtapijten', a:'Brussel, naar ontwerpen van Antoine Caron', yr:'ca. 1575', x:'Catharina gebruikte spectaculaire hoffeesten als politiek: ze moesten vijandige partijen verzoenen. Deze wandtapijten tonen zulke feesten. Via haar kleindochter Christina van Lotharingen kwamen ze in Florence; ze hangen nu in de Uffizi.'},
+    {q:'In 1572 sloeg een verzoeningsbruiloft om in een bloedbad op protestanten in Parijs. Hoe heet die gebeurtenis?', o:['De Siciliaanse Vespers','De Bartholomeusnacht','De Beeldenstorm'], c:1,
+      e:'Tijdens de bruiloft van haar dochter Margaretha met de protestantse Hendrik van Navarra werden duizenden hugenoten vermoord: de <b>Bartholomeusnacht</b>, 24 augustus 1572. Welke rol Catharina precies speelde, daarover verschillen historici nog altijd van mening.'},
+    {art:'st_m11', t:'Portret van Catharina de’ Medici', a:'Atelier van François Clouet', yr:'ca. 1560', x:'De koningin-moeder in weduwezwart, met witte kraag. Hofschilder Clouet en zijn werkplaats maakten tientallen van zulke portretten van de koninklijke familie, vaak eerst als krijttekening naar het leven.'},
+    {s:'catharina', x:'Ik stierf in januari 1589, bijna zeventig. Een half jaar later werd mijn laatste zoon vermoord. Het einde van de Valois. Maar wat ik verzamelde en liet maken, bleef.'}
+  ]},
+  { t:'Groothertogen en sterren', y:'1537–1777', end:'De Medici zijn groothertogen. Maar er komen steeds minder kinderen…', beats:[
+    {bg:'florence', crowd:'street', mood:'renaissance', in:'cosimo', at:'c', n:'Terug in Florence. In 1537 komt een verre neef aan de macht: <b>Cosimo I de’ Medici</b>. In 1569 wordt hij de eerste <b>groothertog van Toscane</b>.', y:'1537–1569'},
+    {s:'cosimo', e:'proud', x:'Ja, ik heet net als mijn beroemde voorvader. Ik laat de architect Giorgio Vasari een gebouw neerzetten voor al mijn ambtenaren: de <i>Uffizi</i>, de kantoren.'},
     {art:'med7', t:'Eleonora van Toledo met haar zoon', a:'Agnolo Bronzino', yr:'ca. 1545', x:'De vrouw van Cosimo I. Haar jurk van brokaat met granaatappelmotief is zo precies geschilderd dat je de stof bijna voelt. De granaatappel staat voor vruchtbaarheid: zij kreeg elf kinderen.'},
-    {n:'In 1610 ontdekt Galileo Galilei vier manen rond Jupiter. Hij noemt ze naar zijn beschermheren: de <b>“Mediceïsche sterren”</b>.', y:'1610'}
+    {q:'Bronzino schilderde Eleonora koel en onberispelijk, met een huid als porselein en een onbewogen blik. Hoe heet deze verfijnde stijl na de hoogrenaissance?', o:['Barok','Maniërisme','Rococo'], c:1,
+      e:'Het <b>maniërisme</b> (ca. 1520–1600) volgde op Rafaël en Michelangelo. Kenmerken: elegante, soms verlengde figuren, koele kleuren, gladde huid, gekunstelde poses. Bronzino was de hofschilder van Cosimo I. De Diana uit Fontainebleau hoort bij dezelfde stroming.'},
+    {s:'cosimo', x:'Mijn zoon Francesco is een echte verzamelaar. Hij laat een geheim werkkamertje vol kunst bouwen, de <i>studiolo</i>. En hij probeert iets wat in Europa nog niemand lukte: porselein maken.'},
+    {obj:1, art:'st_o2', t:'Kan van Medici-porselein (onderkant met merkteken)', a:'Florence, werkplaats van Francesco I de’ Medici', yr:'ca. 1575', x:'Het merkteken onder de kan: de koepel van de Dom van Florence met een <b>F</b> van Francesco. Dit was het eerste porselein dat in Europa werd gemaakt, een zogeheten zacht porselein. Er zijn er wereldwijd maar enkele tientallen stukken van bewaard.'},
+    {q:'Waarom was porselein in Europa zo’n statussymbool?', o:['Omdat het met goud werd beschilderd','Omdat niemand in Europa wist hoe je echt hard porselein maakte: het kwam per schip uit China','Omdat de paus het voorschreef'], c:1,
+      e:'Het geheim van hard porselein, met de witte klei kaolien, werd in Europa pas in <b>1708</b> ontdekt, in Saksen (Meissen). Tot die tijd importeerde men het uit China. In Holland maakte men het na in aardewerk: het <b>Delfts blauw</b>.'},
+    {out:'cosimo', in:'galileo', at:'r', weather:'night stars', mood:'mystery', sfx:'magic', s:'galileo', x:'Galileo Galilei, wiskundige. In januari 1610 zag ik met mijn zelfgebouwde telescoop vier lichtjes rond Jupiter draaien.'},
+    {q:'Hoe noemde Galileo die manen, om de Medici voor zich te winnen?', o:['De Florentijnse lichten','De Mediceïsche sterren','De vier deugden'], c:1,
+      e:'Hij noemde ze de <b>Sidera Medicea</b>, de Mediceïsche sterren, naar groothertog Cosimo II en zijn broers. Het leverde hem een baan op als hofwiskundige in Florence. Nu heten ze de Galileïsche manen: Io, Europa, Ganymedes en Callisto.'},
+    {art:'st_m17', t:'Portret van Galileo Galilei', a:'Justus Sustermans', yr:'1636', x:'Sustermans, een Antwerpenaar, was meer dan vijftig jaar hofschilder van de Medici. Hij schilderde Galileo op hoge leeftijd, enkele jaren nadat de Inquisitie hem had veroordeeld en tot huisarrest had gedwongen.'},
+    {out:'galileo', bg:'gallery', weather:'', crowd:{k:'admire',n:7}, mood:'triumph', n:'Langzaam worden de kantoren van de Uffizi een museum. In de achthoekige zaal, de <b>Tribuna</b>, tonen de Medici hun kostbaarste schatten.'},
+    {art:'st_m16', t:'De Tribuna van de Uffizi', a:'Johan Zoffany', yr:'1772–1777', x:'Rijke Engelse reizigers op hun <i>Grand Tour</i> bewonderen de topstukken van de Medici, zoals het antieke beeld <i>Venus de’ Medici</i> en schilderijen van Rafaël en Titiaan. Zoffany schilderde het in opdracht van de Britse koningin Charlotte.'},
+    {q:'Wat was de <i>Grand Tour</i>?', o:['Een wielerwedstrijd door Italië','Een lange educatiereis van jonge, rijke Europeanen langs de kunst en ruïnes van vooral Italië','Een processie van de paus'], c:1,
+      e:'In de 17e en 18e eeuw reisden vooral jonge Engelse edelen maanden of jaren door Europa, met Rome, Florence en Venetië als hoogtepunt. Ze kochten kunst en souvenirs: zo kwamen veel Italiaanse schilderijen in Engelse landhuizen terecht.'}
   ]},
   { t:'De laatste Medici', y:'1737–1743', end:'', beats:[
     {bg:'palace', in:'annamaria', at:'c', n:'Drie eeuwen na de eerste bank is er nog één Medici over: <b>Anna Maria Luisa</b>. Haar broer, de laatste groothertog, heeft geen kinderen.', y:'1737'},
@@ -3898,7 +3993,10 @@ const STORIES=[
       e:'In het <b>Familieverdrag van 1737</b> bepaalde ze dat de collectie Florence nooit mocht verlaten en er moest zijn “voor het nut van het publiek”. Dankzij haar hangen de Primavera en De geboorte van Venus nog steeds in de Uffizi.'},
     {art:'med8', t:'De geboorte van Venus', a:'Sandro Botticelli', yr:'ca. 1485', x:'Venus komt op een schelp aan land, geblazen door de westenwind. Het werk hoort bij de Medici-kring en is nu het beroemdste schilderij van de Uffizi.'},
     {s:'annamaria', x:'Ik stierf in 1743. Maar zolang mensen in Florence voor onze kunst in de rij staan, leven de Medici een beetje voort.'},
-    {out:'annamaria', in:'laura', at:'c', s:'laura', x:'Zie je hoe kunst ook politiek is? Kerken, portretten en verzamelingen waren voor de Medici manieren om te laten zien wie de baas was. En om herinnerd te worden.'}
+    {out:'annamaria', in:'laura', at:'c', s:'laura', x:'Zie je hoe kunst ook politiek is? Kerken, portretten en verzamelingen waren voor de Medici manieren om te laten zien wie de baas was. En om herinnerd te worden.'},
+    {q:'Het Familieverdrag van Anna Maria Luisa geldt als een mijlpaal. Waarom?', o:['Het was de eerste keer dat een museum entree vroeg','Het legde vast dat een vorstelijke verzameling onvervreemdbaar is: ze mag niet worden verkocht of weggehaald en is er voor het publiek','Het verbood buitenlanders in Florence'], c:1,
+      e:'Dat idee, een collectie als <b>publiek erfgoed</b> dat bij een stad of land hoort, is nog steeds de basis van musea. Daarom zegt men wel dat Anna Maria Luisa Florence tot een museumstad maakte.'},
+    {in:'catharina', at:'r', s:'catharina', x:'Van de bank van mijn voorouders tot Anna Maria Luisa’s handtekening: zo zie je hoe één familie de kunst van een hele stad heeft gevormd. Grazie dat je met me meeging!'}
   ]}
 ]}
 ,
@@ -4032,7 +4130,10 @@ const STORIES=[
     {in:'huygens', at:'r', s:'huygens', x:'Ik ben Constantijn Huygens, secretaris van de stadhouder. Twee jongens van een molenaar en een borduurder die nu al de oude meesters evenaren! Maar waarom gaan jullie niet naar Italië?'},
     {q:'Wat antwoordde Rembrandt volgens Huygens?', o:['Dat hij geen geld had voor de reis','Dat ze geen tijd hadden, en dat je de beste Italiaanse kunst ook in Holland kon zien','Dat hij een hekel had aan Italianen'], c:1,
       e:'Huygens schreef dat de jongens zeiden het te druk te hebben en dat genoeg Italiaanse kunst ook hier te koop was. Rembrandt is <b>nooit</b> in Italië geweest, iets heel ongewoons voor een grote schilder in die tijd.'},
-    {art:'rem1', t:'Judas brengt de zilverlingen terug', a:'Rembrandt', yr:'1629', x:'Huygens was er weg van. Judas valt op zijn knieën, wringt zijn handen, zijn gezicht vertrokken van spijt. Zó veel gevoel in één figuur had hij nog nooit gezien, schreef hij.'}
+    {art:'rem1', t:'Judas brengt de zilverlingen terug', a:'Rembrandt', yr:'1629', x:'Huygens was er weg van. Judas valt op zijn knieën, wringt zijn handen, zijn gezicht vertrokken van spijt. Zó veel gevoel in één figuur had hij nog nooit gezien, schreef hij.'},
+    {art:'st_r8', t:'Zelfportret op jeugdige leeftijd', a:'Rembrandt', yr:'ca. 1628', x:'Zijn ogen liggen bijna helemaal in de schaduw. Met de achterkant van zijn penseel kraste hij krullen in de natte verf. Geen flatteus portret, maar een jonge schilder die experimenteert met licht.'},
+    {q:'Rembrandt en Lievens schilderden in Leiden veel <b>tronies</b>. Wat is een tronie?', o:['Een portret van een betalende klant','Een studie van een gezicht, type of uitdrukking, vaak in fantasiekleding, zonder dat het om een herkenbaar persoon gaat','Een kleine zelfgemaakte prent'], c:1,
+      e:'Een <b>tronie</b> (oud woord voor gezicht) is een karakterkop: een oude man, een soldaat met helm, een lachend meisje. Ze werden als losse kunstwerken verkocht. Ook Vermeers <i>Meisje met de parel</i> is een tronie, geen portret.'}
   ]},
   { t:'Succes en Saskia', y:'1631–1642', end:'De Nachtwacht is af. Maar het jaar 1642 brengt ook groot verdriet.', beats:[
     {bg:'amsterdam', in:'rembrandt', at:'l', n:'In 1631 verhuist hij naar Amsterdam, de rijkste stad ter wereld. Hij werkt bij kunsthandelaar Hendrick Uylenburgh. Al snel wil iedere rijke koopman door hem geportretteerd worden.', y:'1631'},
@@ -4044,7 +4145,13 @@ const STORIES=[
       e:'Het huis kostte 13.000 gulden, een gigantisch bedrag. Hij betaalde maar een deel en verzamelde daarnaast kunst, schelpen, wapens en curiosa. Die schuld zou hem later fataal worden. Het huis is nu het <b>Rembrandthuis</b>.'},
     {out:'saskia', n:'Saskia en Rembrandt verliezen drie kinderen kort na de geboorte. In 1641 wordt hun zoon <b>Titus</b> geboren, en hij blijft leven. Maar Saskia wordt ziek.', y:'1641'},
     {n:'In juni 1642 sterft Saskia, 29 jaar oud. In datzelfde jaar levert Rembrandt het grootste werk van zijn leven op.', y:'1642'},
-    {art:'rem4', t:'De Nachtwacht', a:'Rembrandt', yr:'1642', x:'De schutterij van kapitein Frans Banninck Cocq zet zich in beweging. Licht, schaduw en drukte. Het meisje in het licht draagt een kip met opvallende klauwen: het embleem van de kloveniers.'}
+    {art:'rem4', t:'De Nachtwacht', a:'Rembrandt', yr:'1642', x:'De schutterij van kapitein Frans Banninck Cocq zet zich in beweging. Licht, schaduw en drukte. Het meisje in het licht draagt een kip met opvallende klauwen: het embleem van de kloveniers.'},
+    {q:'Waarom heet het schilderij eigenlijk de <i>Nachtwacht</i>?', o:['Omdat de schutters ’s nachts op wacht stonden','Omdat het vernis in de loop der eeuwen zo donker werd dat men dacht dat het een nachtscène was','Omdat Rembrandt het bij kaarslicht schilderde'], c:1,
+      e:'Het tafereel speelt zich overdag af. Door donker geworden vernis en vuil kreeg het pas eind 18e eeuw de bijnaam Nachtwacht. In 1715 werd het doek ook nog aan alle kanten bijgesneden om in het stadhuis op de Dam te passen.'},
+    {bg:'studio', out:'saskia', mood:'dutch', n:'In zijn huis aan de Breestraat richt Rembrandt een <b>kunstkamer</b> in: schelpen, koraal, Romeinse borstbeelden, Japanse wapens, opgezette dieren en stapels prenten van andere meesters.'},
+    {obj:1, art:'st_o4', t:'De schelp (Conus marmoreus)', a:'Rembrandt', yr:'1650', x:'Een kegelslak uit de Indische Oceaan, een kostbaar verzamelobject. Rembrandt etste hem naar een exemplaar uit zijn eigen verzameling. Kijk goed: het schelpje draait de verkeerde kant op, maar zijn naam en het jaartal staan er wél leesbaar onder.'},
+    {q:'Waarom draait de schelp op de ets de “verkeerde” kant op?', o:['Rembrandt vergiste zich','Bij het drukken van een ets wordt alles gespiegeld: hij tekende de schelp zoals hij hem zag, dus op papier staat hij omgekeerd','Het was een zeldzame linksdraaiende soort'], c:1,
+      e:'Voor een ets kras je in een koperplaat met een waslaag; zuur bijt de lijnen in. Bij het drukken komt alles in <b>spiegelbeeld</b> op papier. Zijn signatuur schreef hij wel in spiegelschrift, zodat die goed leesbaar is: de schelp vergat hij om te draaien.'}
   ]},
   { t:'Schulden', y:'1649–1658', end:'Alles is weg. Maar Rembrandt schildert door.', beats:[
     {bg:'studio', in:'rembrandt', at:'l', n:'Na Saskia’s dood komt <b>Hendrickje Stoffels</b> als huishoudster bij Rembrandt. Ze worden een stel en krijgen een dochter, Cornelia. Trouwen doen ze niet.', y:'ca. 1649'},
@@ -4055,7 +4162,13 @@ const STORIES=[
     {q:'Wat gebeurde er met zijn huis en zijn enorme verzameling?', o:['Hij mocht alles houden','Alles werd geveild: schilderijen, prenten, schelpen, zelfs zijn helm en harnas','Zijn zoon Titus kocht alles terug'], c:1,
       e:'In 1657 en 1658 werd alles geveild. De opbrengst viel tegen. Rembrandt verhuisde naar een eenvoudig huurhuis aan de <b>Rozengracht</b> in de Jordaan.'},
     {in:'titus', at:'r', s:'titus', x:'Vader, Hendrickje en ik beginnen een kunsthandel. Dan bent u bij ons in dienst. Zo kunnen schuldeisers uw nieuwe werk niet afpakken.'},
-    {s:'rembrandt', x:'Slim, jongen. Dan kan ik tenminste blijven schilderen.'}
+    {s:'rembrandt', x:'Slim, jongen. Dan kan ik tenminste blijven schilderen.'},
+    {art:'st_r10', t:'De Honderdguldenprent', a:'Rembrandt', yr:'ca. 1648', x:'Christus geneest de zieken. Rechts een donkere, dichte massa, links lichte, open lijnen. Rembrandt werkte er jaren aan en combineerde ets, gravure en droge naald. De bijnaam komt van de hoge prijs die er al bij zijn leven voor betaald zou zijn.'},
+    {q:'Met de <b>droge naald</b> kras je rechtstreeks in het koper. Wat geeft dat voor effect bij het drukken?', o:['Heel strakke, dunne lijnen','Fluwelige, zachte lijnen: langs de kras krult een braam van koper op die extra inkt vasthoudt','Gekleurde lijnen'], c:1,
+      e:'Die <b>braam</b> houdt inkt vast en geeft een warme, wazige lijn. Nadeel: na enkele tientallen afdrukken slijt hij weg. Daarom zijn vroege afdrukken van Rembrandts prenten het meest gewild bij verzamelaars.'},
+    {obj:1, art:'st_o5', t:'Kussenkast', a:'Nederland', yr:'ca. 1650–1700', x:'Een pronkkast voor het linnengoed, met dikke “kussens” als versiering. In een welgesteld Hollands huis stond hij in de voorkamer, zodat bezoekers hem zagen. Bij de veiling van Rembrandts bezit werd ook al zijn huisraad verkocht.'},
+    {q:'Wat zei zo’n kussenkast vol linnen over een Hollands huishouden?', o:['Dat er veel kinderen waren','Dat het gezin welvarend en deugdzaam was: een volle linnenkast stond voor een goed bestierd, schoon huishouden','Dat de vrouw des huizes van naaien hield'], c:1,
+      e:'Linnen was duur. Een volle, nette linnenkast was het trotse bezit van de huisvrouw en een teken van <b>welvaart en huiselijke deugd</b>. Je ziet zulke kasten ook terug op schilderijen van Pieter de Hooch.'}
   ]},
   { t:'De late jaren', y:'1660–1669', end:'', beats:[
     {bg:'studio', in:'rembrandt', at:'c', n:'Rembrandt schildert steeds losser en ruwer. Sommige verzamelaars vinden het slordig. Anderen vinden het juist het mooiste wat hij ooit maakte.', y:'1660'},
@@ -4066,7 +4179,13 @@ const STORIES=[
     {art:'rem7', t:'Zelfportret', a:'Rembrandt', yr:'1669', x:'Een van zijn laatste zelfportretten. Een oude man met een zacht, vermoeid gezicht. Geen pose, geen verkleedpartij meer: alleen de schilder zelf.'},
     {s:'rembrandt', x:'Ik heb mezelf bijna honderd keer geschilderd. Als jonge snoeshaan, als rijke heer… en nu zo.'},
     {n:'Op 4 oktober 1669 sterft Rembrandt. Hij wordt begraven in een huurgraf in de Westerkerk. Waar precies, weet niemand meer.', y:'1669', out:'rembrandt'},
-    {in:'laura', at:'c', s:'laura', x:'Dertig jaar na zijn dood was zijn naam nog steeds bekend tot in Italië. In de 19e eeuw werd hij de grote nationale held van de Nederlandse kunst. In 1852 kreeg hij een standbeeld op het Rembrandtplein.'}
+    {in:'laura', at:'c', s:'laura', x:'Dertig jaar na zijn dood was zijn naam nog steeds bekend tot in Italië. In de 19e eeuw werd hij de grote nationale held van de Nederlandse kunst. In 1852 kreeg hij een standbeeld op het Rembrandtplein.'},
+    {art:'st_r12', t:'Het Joodse bruidje', a:'Rembrandt', yr:'ca. 1665–1669', x:'Een man legt teder zijn hand op de borst van zijn vrouw; zij legt haar hand op de zijne. De gouden mouw is met dikke klodders verf opgebouwd. Van Gogh schreef dat hij tien jaar van zijn leven zou geven om er twee weken voor te mogen zitten.'},
+    {q:'Hoe noemen we het dikke, reliëfrijke opbrengen van verf, zoals op die gouden mouw?', o:['Sfumato','Impasto','Glacis'], c:1,
+      e:'<b>Impasto</b>: verf zo dik opgebracht dat hij uit het doek steekt en het licht vangt. <b>Sfumato</b> is juist het wazig laten overlopen (Leonardo), en een <b>glacis</b> is een dun, doorzichtig verflaagje.'},
+    {art:'st_r13', t:'Zelfportret als Zeuxis', a:'Rembrandt', yr:'ca. 1662', x:'Rembrandt lacht, oud en gerimpeld. Waarschijnlijk speelt hij de Griekse schilder Zeuxis, die volgens de legende stierf van het lachen toen hij een oude, rimpelige vrouw als liefdesgodin moest schilderen.'},
+    {q:'Wat zegt het dat een oude, failliete Rembrandt zichzelf lachend afbeeldt als Zeuxis?', o:['Dat hij weer rijk was geworden','Het wordt gelezen als zelfspot en ironie: een schilder die zichzelf en zijn ouderdom niet te serieus neemt','Dat hij Grieks had gestudeerd'], c:1,
+      e:'Zeker weten doen we het niet, maar kunsthistorici zien er <b>zelfspot</b> in. Het past bij zijn late zelfportretten: eerlijk, rauw, en vaak in een rol die iets over de schilder zelf vertelt.'}
   ]}
 ]}
 ,
@@ -4252,14 +4371,10 @@ medici:{ mood:'renaissance',
   '2.5':{weather:'fire',prop:{bonfire:'c'},crowd:{k:'angry',n:8},mood:'tension',in:'savonarola',at:'l',emo:{michelangelo:'scared',savonarola:'angry'},fx:''},
   '2.6':{e:'sad'},
   '2.7':{out:'savonarola',weather:'',prop:null,crowd:null},
-  '3.0':{crowd:'church',mood:'church',sfx:['bell','fanfare']},
-  '3.2':{e:'happy',mood:'court',crowd:'court'},
-  '3.4':{crowd:'street',mood:'renaissance'},
-  '3.6':{weather:'night stars',crowd:null,sfx:'magic'},
-  '4.0':{mood:'sad',e:'sad',weather:'dusk'},
-  '4.1':{e:'sad'},
-  '4.4':{e:'happy',bg:'gallery',crowd:'admire',weather:'',mood:'triumph'},
-  '4.5':{crowd:'admire',mood:'renaissance'}
+  '6.0':{mood:'sad',e:'sad',weather:'dusk'},
+  '6.1':{e:'sad'},
+  '6.4':{e:'happy',bg:'gallery',crowd:'admire',weather:'',mood:'triumph'},
+  '6.5':{crowd:'admire',mood:'renaissance'}
  },
  ins:{
   '0.1':[{crowd:{k:'angry',n:8},emo:{cosimo:'scared'},act:{cosimo:'shake'},mood:'tension',n:'1433. Jaloerse families hitsen de stad op tegen de rijke bankier. “Weg met de Medici!”'}],
@@ -4267,7 +4382,7 @@ medici:{ mood:'renaissance',
   '1.6':[{out:'giuliano',emo:{lorenzo:'scared'},act:{lorenzo:'run'},sfx:'door',crowd:{k:'angry',n:6},n:'Lorenzo vlucht gewond de sacristie in. De zware bronzen deuren slaan achter hem dicht. BOEM.',cam:'in-l'}],
   '2.3':[{sfx:'chisel',act:{michelangelo:'jump'},cam:'in-r',emo:{michelangelo:'proud'},n:'Tik… tik… Michelangelo pakt zijn beitel en hakt meteen een tand weg.'},
          {emo:{lorenzo:'happy',michelangelo:'happy'},act:{lorenzo:'jump'},sfx:'clap',s:'lorenzo',x:'Ha! Die jongen komt bij ons wonen. Zet een bord voor hem neer aan tafel!'}],
-  '4.2':[{bg:'gallery',crowd:{k:'admire',n:9},weather:'sparkle',mood:'triumph',emo:{annamaria:'proud'},sfx:'murmur',n:'Vandaag staan er elk jaar miljoenen mensen in de rij voor de Uffizi. Dankzij één handtekening uit 1737.'}]
+  '6.2':[{bg:'gallery',crowd:{k:'admire',n:9},weather:'sparkle',mood:'triumph',emo:{annamaria:'proud'},sfx:'murmur',n:'Vandaag staan er elk jaar miljoenen mensen in de rij voor de Uffizi. Dankzij één handtekening uit 1737.'}]
  }},
 leo:{ mood:'renaissance',
  set:{
@@ -4464,7 +4579,7 @@ function hub(){ st.view='start'; pathMode=null; save();
     <button class="hb-feat" onclick="openCourse()"><img src="${P('pB')}" alt=""><div class="tx"><b>Cursussen</b><small>Stap voor stap van De basis tot Meesterlijk kijken, en de Hollandse glorie.</small><div class="bar"><i style="width:${Math.round(bd/R.length*100)}%"></i></div></div></button>
     <div class="hb-grid">
       <button class="hb-tile" onclick="freePlay()">${ic('practice')}<b>Vrij oefenen</b><small>${symOpen()?`Symbolen raden · record ${st.symBest||0}`:'Symbolen raden en specialisaties'}</small><svg class="ghost" viewBox="0 0 24 24">${ICON.practice}</svg></button>
-      <button class="hb-tile" onclick="storiesView()">${ic('stories')}<b>Levens­verhalen</b><small>${sd?sd+' van ':''}${STORIES.length} verhalen met scènes, muziek en stemmen</small><svg class="ghost" viewBox="0 0 24 24">${ICON.stories}</svg></button>
+      <button class="hb-tile" onclick="storiesView()">${ic('stories')}<b>Levens­verhalen</b><small>${STORIES.filter(S=>storyIsOpen(S.id)).length} verhalen open · ${STORIES.filter(S=>!storyIsOpen(S.id)).length} te verdienen</small><svg class="ghost" viewBox="0 0 24 24">${ICON.stories}</svg></button>
       <button class="hb-tile wide" onclick="openMuseums()">${ic('museum')}<span><b>Museumroutes</b><br><small>Bereid je bezoek voor aan twaalf musea en hun topstukken.</small></span></button>
     </div>
     <div class="hb-links"><button class="chip" onclick="introPrev='start';startIntro('paths')">🎓 Startcursus${st.introDone?'':' (8 begrippen)'}</button><button class="chip" onclick="albumView('start')">🃏 Mijn gidsen</button><button class="chip" onclick="openFav('start')">♥ Mijn museum${favCount()?' ('+favCount()+')':''}</button><button class="chip" onclick="glossary()">Begrippenlijst</button><button class="chip" onclick="creditsView()">Over deze app</button></div>
