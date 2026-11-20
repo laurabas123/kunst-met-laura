@@ -478,6 +478,23 @@ body.has-nav #nav{display:flex}body.has-nav .wrap{padding-bottom:96px}
 .wk.back small{font-size:.7rem}.al-mini{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}.al-mini span{width:26px;height:34px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:.8rem;color:#7f8db0;background:repeating-linear-gradient(45deg,#1b2747,#1b2747 5px,#202e54 5px,#202e54 10px);border:1px solid #34466f}
 @media (prefers-reduced-motion:reduce){.cameo,.cm-fig,.cm-b::after,.rw-frame,.rw-shine{animation:none!important;transition:opacity .2s!important}}
 .jump .j-final{width:auto!important;padding:0 12px!important;border-radius:999px!important;border:1px solid #d7b46a!important;color:#d7b46a;font-weight:700;white-space:nowrap}.jump .j-final.ok{background:#d7b46a;color:#1d1608}.jump .j-arr{align-self:center;color:#d7b46a;margin:0 2px}.j-note{font-size:.78rem;color:var(--muted,#9aa3b8);margin-top:6px}
+.xpbar{display:flex;align-items:center;gap:10px;width:100%;background:rgba(255,255,255,.04);border:1px solid rgba(215,180,106,.35);border-radius:14px;padding:8px 12px;margin:10px 0 8px;color:inherit;text-align:left;cursor:pointer}
+.xp-lv{flex:0 0 34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;color:#1d1608;background:radial-gradient(circle at 35% 30%,#f6dd97,#c99a3c)}
+.xp-mid{flex:1;display:flex;flex-direction:column;gap:4px;font-size:.88rem}.xp-track{height:6px;border-radius:9px;background:rgba(255,255,255,.1);overflow:hidden}.xp-track i{display:block;height:100%;background:linear-gradient(90deg,#c99a3c,#f6dd97);border-radius:9px;transition:width .6s}
+.xp-n{font-size:.78rem;color:#d7b46a;white-space:nowrap}
+.xpf{position:fixed;right:14px;top:calc(env(safe-area-inset-top,0px) + 64px);z-index:80;background:#d7b46a;color:#1d1608;font-weight:800;font-size:.8rem;padding:5px 10px;border-radius:999px;box-shadow:0 6px 16px rgba(0,0,0,.4);animation:xpf 1.5s ease-out forwards;pointer-events:none}
+@keyframes xpf{0%{opacity:0;transform:translateY(8px) scale(.9)}15%{opacity:1;transform:none}75%{opacity:1}100%{opacity:0;transform:translateY(-18px)}}
+.dq-card{display:flex;align-items:center;gap:12px;width:100%;text-align:left;color:inherit;border-radius:16px;padding:12px 14px;margin:0 0 12px;cursor:pointer;border:1px solid #d7b46a;background:linear-gradient(135deg,rgba(215,180,106,.22),rgba(62,99,176,.18))}
+.dq-card.ready{animation:dqPulse 2.6s ease-in-out infinite}.dq-card.done{border-color:rgba(215,180,106,.35);background:rgba(255,255,255,.04)}
+@keyframes dqPulse{0%,100%{box-shadow:0 0 0 0 rgba(215,180,106,.0)}50%{box-shadow:0 0 0 6px rgba(215,180,106,.18)}}
+.dq-ic{font-size:1.6rem}.dq-tx{flex:1;display:flex;flex-direction:column;gap:2px}.dq-tx small{color:var(--muted,#9aa3b8);font-size:.8rem}.dq-st{font-weight:800;color:#f2b35a;white-space:nowrap}.dq-st i{font-style:normal;font-size:.8rem;color:#9cc4ff}
+.dq-clock{font-weight:800;font-variant-numeric:tabular-nums;color:#d7b46a}.dq-clock.low{color:#e07a6a}.dq-time{height:5px;background:rgba(255,255,255,.08);border-radius:9px;overflow:hidden;margin:4px 0 12px}.dq-time i{display:block;height:100%;background:linear-gradient(90deg,#d7b46a,#f6dd97);transition:width .5s linear}
+.dq-dots{display:flex;gap:6px;margin:6px 0 10px}.dq-dots i{flex:1;height:6px;border-radius:9px;background:rgba(255,255,255,.12)}.dq-dots i.cur{background:#d7b46a}.dq-dots i.ok{background:#7fae7a}.dq-dots i.bad{background:#c0645a}
+.dq-img{display:flex;justify-content:center;background:#0e1424;border-radius:12px;overflow:hidden}.dq-img img{max-width:100%;max-height:300px;object-fit:contain;display:block}
+.dq-score{display:flex;gap:10px;margin:12px 0}.dq-score div{flex:1;text-align:center;background:rgba(255,255,255,.05);border:1px solid rgba(215,180,106,.3);border-radius:14px;padding:10px 4px}.dq-score b{display:block;font-size:1.3rem}.dq-score small{color:var(--muted,#9aa3b8);font-size:.78rem}
+.dqb-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px;margin-bottom:12px}.dqb{text-align:center;background:rgba(255,255,255,.05);border:1px solid rgba(215,180,106,.35);border-radius:12px;padding:8px 6px;display:flex;flex-direction:column;gap:2px}
+.dqb span{font-size:1.5rem}.dqb b{font-size:.78rem}.dqb small{font-size:.68rem;color:var(--muted,#9aa3b8);line-height:1.25}.dqb.off{opacity:.45;border-color:rgba(255,255,255,.12)}.dqb.new{animation:rwIn .7s cubic-bezier(.2,1.3,.4,1) both;border-color:#d7b46a;box-shadow:0 0 14px rgba(215,180,106,.35)}
+.lv-ring{width:86px;height:86px;margin:6px auto 0;border-radius:50%;display:flex;align-items:center;justify-content:center;background:radial-gradient(circle at 35% 30%,#f6dd97,#c99a3c);box-shadow:0 0 0 6px rgba(215,180,106,.2),0 0 30px rgba(215,180,106,.5);animation:rwIn .8s cubic-bezier(.2,1.3,.4,1) .2s both}.lv-ring b{font-size:2.4rem;color:#1d1608}
 </style>
 </head>
 <body>
@@ -817,7 +834,7 @@ async function initCloud(){
       const merge2=(A,B)=>{ const o={...(A||{})}; for(const k in (B||{})){ o[k] = (o[k]&&typeof o[k]==='object'&&!Array.isArray(o[k])&&typeof B[k]==='object') ? {...o[k],...B[k]} : B[k]; } return o; };
       const newer = rUpd>=lUpd ? remote : st, older = rUpd>=lUpd ? st : remote;
       for(const key of ['results','bigRes','match','who','tl','final']) st[key]=merge2(older[key],newer[key]);
-      st.beta = DEV && !!(newer.beta ?? older.beta); st.onb = !!(newer.onb || older.onb); st.name = newer.name || older.name || ''; if(/kunst met laura/i.test(st.name)) st.name=''; st.unl = {...(older.unl||{}),...(newer.unl||{})}; st.diff = {...(older.diff||{}),...(newer.diff||{})}; st.fav = newer.fav || older.fav || {}; st.gseen={...(older.gseen||{}),...(newer.gseen||{})}; st.symBest=Math.max(newer.symBest||0,older.symBest||0); st.story=Object.assign({},older.story||{},newer.story||{}); for(const k in (older.story||{})) st.story[k]=Math.max(st.story[k]||0,older.story[k]); st.introDone=!!(newer.introDone||older.introDone); st.introSkip=!!(newer.introSkip||older.introSkip); st.introQuitAsked=!!(newer.introQuitAsked||older.introQuitAsked); st.kCel={...(older.kCel||{}),...(newer.kCel||{})}; st.cards={...(older.cards||{}),...(newer.cards||{})}; st.mile={...(older.mile||{}),...(newer.mile||{})}; st.bondR={...(older.bondR||{}),...(newer.bondR||{})}; st.bond={...(older.bond||{})}; for(const k in (newer.bond||{})) st.bond[k]=Math.max(st.bond[k]||0,newer.bond[k]); st.quiet=!!newer.quiet; st.lastVisit=Math.max(newer.lastVisit||0,older.lastVisit||0); st.opens=Math.max(newer.opens||0,older.opens||0);
+      st.beta = DEV && !!(newer.beta ?? older.beta); st.onb = !!(newer.onb || older.onb); st.name = newer.name || older.name || ''; if(/kunst met laura/i.test(st.name)) st.name=''; st.unl = {...(older.unl||{}),...(newer.unl||{})}; st.diff = {...(older.diff||{}),...(newer.diff||{})}; st.fav = newer.fav || older.fav || {}; st.gseen={...(older.gseen||{}),...(newer.gseen||{})}; st.symBest=Math.max(newer.symBest||0,older.symBest||0); st.story=Object.assign({},older.story||{},newer.story||{}); for(const k in (older.story||{})) st.story[k]=Math.max(st.story[k]||0,older.story[k]); st.introDone=!!(newer.introDone||older.introDone); st.introSkip=!!(newer.introSkip||older.introSkip); st.introQuitAsked=!!(newer.introQuitAsked||older.introQuitAsked); st.kCel={...(older.kCel||{}),...(newer.kCel||{})}; st.cards={...(older.cards||{}),...(newer.cards||{})}; st.mile={...(older.mile||{}),...(newer.mile||{})}; st.bondR={...(older.bondR||{}),...(newer.bondR||{})}; st.bond={...(older.bond||{})}; for(const k in (newer.bond||{})) st.bond[k]=Math.max(st.bond[k]||0,newer.bond[k]); st.quiet=!!newer.quiet; st.xp=Math.max(newer.xp||0,older.xp||0); st.dq={...(older.dq||{}),...(newer.dq||{})}; st.dqBadges={...(older.dqBadges||{}),...(newer.dqBadges||{})}; for(const k of ['dqStreak','dqLast','dqBest','dqCount','dqPerfect','dqFreeze']) st[k]=(newer.dqLast||'')>=(older.dqLast||'')?newer[k]:older[k]; st.lastVisit=Math.max(newer.lastVisit||0,older.lastVisit||0); st.opens=Math.max(newer.opens||0,older.opens||0);
       if(newer===remote && st.view!=='onb'){ const {view,r,i,bigStep,t,tlMode}=remote; Object.assign(st,{r,i,bigStep,tlMode}); setTrack(t||'basis');
         if(view && !['home','gloss','paths','intro','introDone','introAsk','onb'].includes(view)){ resumeFrom={t:t||'basis',view,r,i,bigStep}; st.view='home'; go(r,{view,i,bigStep},t||'basis'); } else render(); }
       else render();
@@ -2837,6 +2854,91 @@ function maybeGuide(){ const v=st.view; if(!(v==='q'||v==='big')||!diffOf()||!st
   const rk=st.t+'|'+st.r; if(GROUND[rk]&&!st.gseen['r:'+rk]){ parts.push(GROUND[rk](parts.length?'':nm)); st.gseen['r:'+rk]=1; }
   if(!parts.length) return; save(); guideModal(g,parts.join('<br><br>')); }
 const guideRow = () => { const g=guideOf(), G=GUIDES[g]; return `<div class="guide-row" onclick="guideModal('${g}',GHELLO['${g}'](st.name?', '+st.name:''))"><span class="gr-h">${G.svg(0,true)}</span><div><div class="muted gr-s">Je gids</div><b>${G.name}</b></div></div>`; };
+/* ================= XP, LEVELS, DAGQUIZ EN DAGREEKS ================= */
+const LEVELS=['Museumbezoeker','Kijker','Liefhebber','Speurder','Verzamelaar','Kenner','Conservator','Curator','Museumdirecteur','Meesterkenner','Legende van de Eregalerij'];
+const lvNeed = n => 60*n*(n+1);                 /* XP nodig om level n+1 te bereiken (vanaf level 1) */
+function xpLevel(x){ let n=0; while(n<LEVELS.length-1 && x>=lvNeed(n+1)) n++; return n; }
+function xpInfo(){ const x=st.xp||0, l=xpLevel(x), lo=l?lvNeed(l):0, hi=lvNeed(l+1); return {x,l,name:LEVELS[l],lo,hi,pct:l>=LEVELS.length-1?100:Math.round((x-lo)/(hi-lo)*100)}; }
+function xpAdd(n,why){ if(!n) return; const before=xpLevel(st.xp||0); st.xp=(st.xp||0)+n; save(); xpFloat('+'+n+' XP'+(why?' · '+why:''));
+  const after=xpLevel(st.xp); if(after>before) setTimeout(()=>xpLevelUp(after),700); }
+function xpFloat(t){ const d=document.createElement('div'); d.className='xpf'; d.textContent=t; document.body.appendChild(d); setTimeout(()=>d.remove(),1500); }
+function xpLevelUp(l){ const nm=st.name?`, ${st.name}`:''; const m=document.createElement('div'); m.className='lb gl-modal kcel';
+  m.innerHTML=`${confHTML(34)}<div class="gl-box guide-box in-done" onclick="event.stopPropagation()"><div class="eyebrow center">Nieuw level</div>
+   <div class="lv-ring"><b>${l+1}</b></div><h2 class="center" style="margin:6px 0 4px">${LEVELS[l]}</h2>
+   <div class="ob-bubble">Gefeliciteerd${nm}! Door al je speurwerk ben je nu <b>${LEVELS[l]}</b>. ${l+1<LEVELS.length?`Op naar <b>${LEVELS[l+1]}</b>!`:'Hoger kan niet. Je bent een legende!'}</div>
+   <button class="btn primary big" onclick="this.closest('.lb').remove()">Top!</button></div>`; qModal(m); try{ sfx(['fanfare']); }catch(e){} }
+const xpBar = () => { const I=xpInfo(); return `<button class="xpbar" onclick="albumView('start')" aria-label="jouw level"><span class="xp-lv">${I.l+1}</span><span class="xp-mid"><b>${I.name}</b><span class="xp-track"><i style="width:${I.pct}%"></i></span></span><span class="xp-n">${I.x} XP</span></button>`; };
+
+/* ---------- dagquiz: elke dag om 8:00 een nieuwe ---------- */
+const DQ_N=5, DQ_SECS=300;
+function dqDay(d=new Date()){ const x=new Date(d.getTime()-8*3600e3); return x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0'); }
+function dqPrevDay(key){ const [y,m,d]=key.split('-').map(Number); const x=new Date(y,m-1,d-1); return x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0'); }
+function dqNextAt(){ const n=new Date(), t=new Date(n); t.setHours(8,0,0,0); if(n>=t) t.setDate(t.getDate()+1); return t; }
+function dqDone(){ return !!(st.dq&&st.dq[dqDay()]); }
+function rng(seed){ let h=hashS(seed)>>>0; return ()=>{ h^=h<<13; h>>>=0; h^=h>>17; h^=h<<5; h>>>=0; return (h%100000)/100000; }; }
+function dqPool(){ const out=[]; for(const t of TRACK_ORDER){ const T=TRACKS[t]; if(!T||T.bundle) continue; T.rounds.forEach((R,r)=>{ if(!R||R.soon) return; (R.q||[]).forEach((q,i)=>{ if(q&&q.in&&q.in.img&&q.opts&&q.opts.length>=3) out.push({t,r,i,played:!!(st.results&&st.results[K(r,t)]&&(i in st.results[K(r,t)]))}); }); }); } return out; }
+function dqPick(day){ const R=rng('dq'+day+(st.name||'')), P=dqPool(); const seen=P.filter(x=>x.played), fresh=P.filter(x=>!x.played);
+  const take=(arr,n)=>{ const a=arr.slice(), o=[]; while(a.length&&o.length<n){ o.push(a.splice(Math.floor(R()*a.length),1)[0]); } return o; };
+  let pick=take(seen,3); pick=pick.concat(take(fresh,DQ_N-pick.length)); if(pick.length<DQ_N) pick=pick.concat(take(seen.filter(x=>!pick.includes(x)),DQ_N-pick.length));
+  return pick.slice(0,DQ_N); }
+let DQ=null, dqTimer=null;
+function dqStart(){ if(dqDone()) return dqResult(st.dq[dqDay()]); const day=dqDay(); DQ={day,items:dqPick(day),i:0,ans:[],t0:Date.now(),over:false}; st.view='daily'; dqView(); dqTick(); }
+function dqTick(){ clearInterval(dqTimer); dqTimer=setInterval(()=>{ if(!DQ||st.view!=='daily'){ clearInterval(dqTimer); return; } const left=DQ_SECS-Math.floor((Date.now()-DQ.t0)/1000); const el=document.getElementById('dqclock'); if(el){ el.textContent=Math.max(0,Math.floor(left/60))+':'+String(Math.max(0,left%60)).padStart(2,'0'); el.classList.toggle('low',left<=30); }
+  const bar=document.getElementById('dqbar'); if(bar) bar.style.width=Math.max(0,left/DQ_SECS*100)+'%'; if(left<=0){ clearInterval(dqTimer); DQ.over=true; dqFinish(); } },500); }
+function dqQ(){ const x=DQ.items[DQ.i]; return TRACKS[x.t].rounds[x.r].q[x.i]; }
+function dqView(){ st.view='daily'; const q=dqQ(), a=DQ.ans[DQ.i], x=DQ.items[DQ.i]; const left=DQ_SECS-Math.floor((Date.now()-DQ.t0)/1000);
+  $(`<div class="dq"><div class="top"><button class="btn small" onclick="dqQuit()">✕ Stoppen</button><span class="dq-clock" id="dqclock">${Math.floor(left/60)}:${String(left%60).padStart(2,'0')}</span></div>
+   <div class="dq-time"><i id="dqbar" style="width:${left/DQ_SECS*100}%"></i></div>
+   <div class="eyebrow">Dagquiz · vraag ${DQ.i+1} van ${DQ_N}${x.played?' · herhaling':''}</div>
+   <div class="dq-dots">${DQ.items.map((_,k)=>`<i class="${k<DQ.i||(k===DQ.i&&a!==undefined)?(DQ.ans[k]===TRACKS[DQ.items[k].t].rounds[DQ.items[k].r].q[DQ.items[k].i].c?'ok':'bad'):k===DQ.i?'cur':''}"></i>`).join('')}</div>
+   <div class="frame dq-img"><img src="${P(q.in.img)}" alt=""></div>
+   <p class="qtext">${q.question}</p>
+   <div class="opts">${q.opts.map((o,k)=>`<button class="opt ${a===undefined?'':k===q.c?'correct':k===a?'wrong':'dim'}" ${a!==undefined?'disabled':''} onclick="dqAns(${k})"><span class="L">${'ABCD'[k]}</span><span>${o}</span></button>`).join('')}</div>
+   ${a!==undefined?`<div class="card fb ${a===q.c?'good':'bad'}"><b>${a===q.c?'Goed!':'Helaas.'}</b> ${q.exp.split('. ').slice(0,2).join('. ').replace(/<\/?[^>]+>/g,m=>/^<\/?(b|i)>$/.test(m)?m:'')}${/\.$/.test(q.exp.split('. ').slice(0,2).join('. '))?'':'.'}<div class="muted" style="font-size:.8rem;margin-top:6px">${q.in.t} · ${q.in.a}${q.in.y?', '+q.in.y:''}</div></div>
+   <button class="btn primary big" onclick="dqNext()">${DQ.i<DQ_N-1?'Volgende vraag →':'Bekijk je score →'}</button>`:''}</div>`); }
+function dqAns(k){ if(!DQ||DQ.ans[DQ.i]!==undefined) return; DQ.ans[DQ.i]=k; const ok=k===dqQ().c; try{ sfx(ok?'bell':'whoosh'); }catch(e){} if(ok) xpAdd(10); dqView();
+  setTimeout(()=>{ const f=document.querySelector('.dq .fb'); if(f) f.scrollIntoView({behavior:'smooth',block:'center'}); },60); }
+function dqNext(){ if(DQ.i<DQ_N-1){ DQ.i++; dqView(); scrollTo(0,0); } else dqFinish(); }
+function dqQuit(){ if(!DQ||!DQ.ans.length){ clearInterval(dqTimer); DQ=null; return hub(); }
+  const m=document.createElement('div'); m.className='lb gl-modal'; m.onclick=()=>m.remove();
+  m.innerHTML=`<div class="gl-box guide-box" onclick="event.stopPropagation()"><div class="gb-fig">${lauraSVG(0,false)}</div><div class="ob-bubble"><b>Stoppen met de dagquiz?</b><br><br>Je quiz wordt dan afgerond met de vragen die je al beantwoord hebt. Opnieuw beginnen kan vandaag niet meer.</div><button class="btn primary big" onclick="this.closest('.lb').remove()">Nee, ik ga verder</button><button class="btn" style="margin-top:8px" onclick="this.closest('.lb').remove();dqFinish()">Ja, rond af</button></div>`; document.body.appendChild(m); }
+function dqFinish(){ clearInterval(dqTimer); if(!DQ) return; const score=DQ.items.reduce((s,x,k)=>s+(DQ.ans[k]===TRACKS[x.t].rounds[x.r].q[x.i].c?1:0),0), secs=Math.min(DQ_SECS,Math.round((Date.now()-DQ.t0)/1000));
+  const day=DQ.day; st.dq=st.dq||{}; if(st.dq[day]){ DQ=null; return dqResult(st.dq[day]); }
+  /* dagreeks */
+  const prev=dqPrevDay(day), prev2=dqPrevDay(prev); let streak=1, usedFreeze=false;
+  if(st.dqLast===prev) streak=(st.dqStreak||0)+1;
+  else if(st.dqLast===prev2 && (st.dqFreeze||0)>0){ streak=(st.dqStreak||0)+1; st.dqFreeze--; usedFreeze=true; }
+  st.dqStreak=streak; st.dqLast=day; st.dqBest=Math.max(st.dqBest||0,streak); st.dqCount=(st.dqCount||0)+1; if(score===DQ_N) st.dqPerfect=(st.dqPerfect||0)+1;
+  let freezeWon=false; if(streak%7===0 && (st.dqFreeze||0)<2){ st.dqFreeze=(st.dqFreeze||0)+1; freezeWon=true; }
+  const hr=new Date().getHours(); const newB=[];
+  const give=(id)=>{ st.dqBadges=st.dqBadges||{}; if(!st.dqBadges[id]){ st.dqBadges[id]=day; newB.push(id); } };
+  give('first'); if(score===DQ_N) give('perfect'); if(hr<9) give('early'); if(secs<=90&&score>=4) give('fast');
+  if(streak>=3) give('s3'); if(streak>=7) give('s7'); if(streak>=14) give('s14'); if(streak>=30) give('s30'); if((st.dqPerfect||0)>=5) give('p5'); if((st.dqCount||0)>=10) give('c10');
+  const res={score,secs,streak,usedFreeze,freezeWon,newB,over:DQ.over}; st.dq[day]=res; save(); DQ=null;
+  xpAdd(30+(score===DQ_N?20:0)+Math.min(30,streak*3),'dagquiz'); dqResult(res,true); }
+const DQB={first:['🌅','Eerste dagquiz','Je eerste dagquiz gespeeld'],perfect:['💯','Perfecte dag','Alle vijf vragen goed'],early:['☕','Vroege vogel','Dagquiz vóór 9:00 gespeeld'],fast:['⚡','Snelle blik','Binnen 90 seconden, minstens 4 goed'],
+  s3:['🔥','Drie op rij','3 dagen achter elkaar'],s7:['🗓️','Een hele week','7 dagen achter elkaar'],s14:['🏛️','Vaste bezoeker','14 dagen achter elkaar'],s30:['👑','Maandkaarthouder','30 dagen achter elkaar'],p5:['🎯','Scherpschutter','5 keer een perfecte dag'],c10:['📚','Trouwe speurder','10 dagquizzen gespeeld']};
+function dqResult(r,fresh){ st.view='dqres'; const nm=st.name?`, ${st.name}`:''; const nx=dqNextAt();
+  $(`<div class="dq"><div class="hdr"><button class="chip" onclick="hub()">‹ Start</button></div>
+   <div class="eyebrow">Dagquiz van vandaag</div><h1>${r.score===DQ_N?'Perfect'+nm+'!':r.score>=3?'Goed gedaan'+nm+'!':'Morgen weer een kans'+nm+'!'}</h1>
+   <div class="dq-score"><div><b>${r.score}/${DQ_N}</b><small>goed</small></div><div><b>🔥 ${r.streak}</b><small>${r.streak===1?'dag':'dagen'} op rij</small></div><div><b>${Math.floor(r.secs/60)}:${String(r.secs%60).padStart(2,'0')}</b><small>tijd</small></div></div>
+   ${r.over?`<p class="muted center">De tijd was op. Morgen heb je weer vijf minuten.</p>`:''}
+   ${r.usedFreeze?`<div class="card">🧊 Je miste een dag, maar je <b>rustdag</b> heeft je reeks gered.</div>`:''}
+   ${r.freezeWon?`<div class="card">🧊 Een week vol! Je verdiende een <b>rustdag</b>: mis je een dag, dan blijft je reeks staan.</div>`:''}
+   ${r.newB&&r.newB.length?`<h3 class="rgroup">Nieuwe badges</h3><div class="dqb-row">${r.newB.map(id=>`<div class="dqb new"><span>${DQB[id][0]}</span><b>${DQB[id][1]}</b><small>${DQB[id][2]}</small></div>`).join('')}</div>`:''}
+   <div class="card center"><p style="margin:0 0 6px">De volgende dagquiz staat klaar op</p><b style="font-size:1.1rem">${nx.toLocaleDateString('nl-NL',{weekday:'long'})} om 8:00</b>
+   <p class="muted" style="font-size:.82rem;margin:8px 0 0">Tip: zet een dagelijkse herinnering in je agenda.</p><button class="btn small" style="margin-top:8px" onclick="dqIcs()">📅 Herinnering om 8:00 toevoegen</button></div>
+   <h3 class="rgroup">Alle dagquiz-badges</h3>${dqBadgeGrid()}
+   <button class="btn primary big" onclick="hub()">Terug naar start</button></div>`);
+  if(fresh&&r.newB&&r.newB.length){ try{ sfx(['fanfare']); }catch(e){} } }
+const dqBadgeGrid=()=>`<div class="dqb-row">${Object.keys(DQB).map(id=>{ const has=st.dqBadges&&st.dqBadges[id]; return `<div class="dqb ${has?'':'off'}"><span>${has?DQB[id][0]:'🔒'}</span><b>${DQB[id][1]}</b><small>${DQB[id][2]}</small></div>`; }).join('')}</div>`;
+function dqIcs(){ const d=dqNextAt(), p=n=>String(n).padStart(2,'0'); const dt=`${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}T080000`;
+  const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Kunst met Laura//NL','BEGIN:VEVENT','UID:dagquiz-kunstmetlaura','DTSTART:'+dt,'DURATION:PT5M','RRULE:FREQ=DAILY','SUMMARY:Dagquiz Kunst met Laura','DESCRIPTION:Je nieuwe dagquiz staat klaar: https://laurabas123.github.io/kunst-met-laura/','URL:https://laurabas123.github.io/kunst-met-laura/','BEGIN:VALARM','TRIGGER:PT0M','ACTION:DISPLAY','DESCRIPTION:Dagquiz staat klaar','END:VALARM','END:VEVENT','END:VCALENDAR'].join('\r\n');
+  const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar'})); a.download='dagquiz-kunst-met-laura.ics'; document.body.appendChild(a); a.click(); setTimeout(()=>a.remove(),500); }
+function dqCard(){ const done=dqDone(), r=done?st.dq[dqDay()]:null, s=st.dqStreak||0, alive=st.dqLast===dqDay()||st.dqLast===dqPrevDay(dqDay());
+  const nx=dqNextAt(), hrs=Math.max(0,Math.floor((nx-Date.now())/3600e3)), mins=Math.max(0,Math.floor((nx-Date.now())/60e3)%60);
+  return `<button class="dq-card ${done?'done':'ready'}" onclick="dqStart()"><span class="dq-ic">${done?'✓':'☀️'}</span><span class="dq-tx"><b>${done?`Dagquiz gedaan · ${r.score}/${DQ_N}`:'De dagquiz van vandaag staat klaar'}</b><small>${done?`Nieuwe quiz over ${hrs} u ${mins} min (om 8:00)`:'5 vragen · max. 5 minuten · verdien XP en badges'}</small></span><span class="dq-st" title="dagen op rij">🔥 ${alive?s:0}${(st.dqFreeze||0)?` <i>🧊${st.dqFreeze}</i>`:''}</span></button>`; }
+
 /* ================= GIDSEN: complimenten, weetjes, band en beloningen ================= */
 const BKEY = g => g==='gala' ? 'laura' : g;          /* Laura in galajurk deelt de band met Laura */
 const BOND_LV = [{n:'Kennismaking',p:0},{n:'Leerling',p:6},{n:'Vertrouweling',p:16}];
@@ -3004,7 +3106,7 @@ function bondLevelUp(k,lv){ const g=k, G=GUIDES[g], L=BOND_LV[lv].n, nm=st.name?
 
 /* mijlpalen in een route: ronde af, halverwege, route voltooid */
 function roundMilestones(r){ const t=st.t, k=t+'|'+r; st.bondR=st.bondR||{}; st.mile=st.mile||{};
-  if(!st.bondR[k]){ st.bondR[k]=1; bondAdd(guideOf(t),3); }
+  if(!st.bondR[k]){ st.bondR[k]=1; bondAdd(guideOf(t),3); xpAdd(50,'ronde voltooid'); }
   const R=TRACKS[t].rounds.filter(x=>!x.soon), n=R.length, done=TRACKS[t].rounds.filter((x,i)=>!x.soon&&roundComplete(i,t)).length, g=guideOf(t), nm=st.name?`, ${st.name}`:'';
   if(trackDone(t) && !st.mile[t+'|d']){ st.mile[t+'|d']=1; st.mile[t+'|h']=1; save(); const B=freshArt([t]);
     return setTimeout(()=>rewardModal(g,'Route voltooid!',`Wat een prestatie${nm}! Je hebt <b>${TRACKS[t].title}</b> helemaal afgerond. Dit verdient een plek aan de muur.`,B),1200); }
@@ -3037,7 +3139,7 @@ function albumView(from){ if(from) albumBack=from; st.view='album';
       <div class="al-sub">Geheimen</div><div class="al-cards">${secrets.map(x=>x.have?`<div class="wk gold" onclick="this.classList.toggle('open')"><div class="wk-t">${x.s}</div></div>`:`<div class="wk back"><span>🔒</span><small>Bij ${BOND_LV[x.i+1].n.toLowerCase()}</small></div>`).join('')}</div>
       <div class="al-sub">Weetjes · ${have} van ${cards.length}</div>${have?`<div class="al-cards">${cards.filter(c=>c.have).map(c=>`<div class="wk"><div class="wk-t">${c.f}</div></div>`).join('')}</div>`:''}${have<cards.length?`<div class="al-mini">${cards.filter(c=>!c.have).map(()=>'<span>?</span>').join('')}</div><div class="muted" style="font-size:.76rem;margin-top:4px">Nog ${cards.length-have} te ontdekken</div>`:''}</div>`; };
   $(`<div><div class="hdr"><button class="chip" onclick="${albumBack==='fav'?'favView()':'hub()'}">‹ Terug</button></div>
-    <div class="eyebrow">Jouw verzameling</div><h1>Mijn gidsen</h1>
+    <div class="eyebrow">Jouw verzameling</div><h1>Mijn gidsen</h1>${xpBar()}<h3 class="rgroup">Dagquiz-badges · 🔥 record ${st.dqBest||0} dagen</h3>${dqBadgeGrid()}
     <p class="muted">Hoe vaker je met een gids meekijkt, hoe hechter jullie band. Elk weetje dat ze vertellen wordt een kaart, en bij een nieuwe band delen ze een geheim.</p>
     ${quietToggle()}
     ${BOND_GUIDES.map(sec).join('')}</div>`); }
@@ -3096,7 +3198,7 @@ function symAns(txt,giveUp){ if(!SYMQ||SYMQ.a!==null) return; txt=(txt||'').trim
   const S=SYMB[SYMQ.i]; const r=giveUp?'bad':symJudge(S,txt); SYMQ.a=r; SYMQ.txt=giveUp?'':txt; const prev=st.symStreak||0;
   if(r==='ok'){ st.symStreak=prev+1; st.symBest=Math.max(st.symBest||0,st.symStreak); st.symOk=(st.symOk||0)+1; }
   else if(r==='bad'){ SYMQ.lost=prev; st.symStreak=0; }
-  st.symN=(st.symN||0)+1; save(); symView(); try{ cameoNote(r==='ok'); strikeReward(st.symStreak); }catch(e){}
+  st.symN=(st.symN||0)+1; save(); symView(); try{ cameoNote(r==='ok'); strikeReward(st.symStreak); if(r==='ok') xpAdd(5); else if(r==='half') xpAdd(2); }catch(e){}
   if(r==='ok' && st.symStreak%10===0) setTimeout(()=>symStrike(st.symStreak),400);
   setTimeout(()=>{const f=document.getElementById('symfb'); if(f) f.scrollIntoView({behavior:'smooth',block:'start'});},80); }
 function symStrike(n){ const nm=st.name?`, ${st.name}`:''; const d=document.createElement('div'); d.className='lb gl-modal';
@@ -3610,7 +3712,7 @@ function storyNext(){ if(!STQ) return; auResume(); const S=storyById(STQ.id), be
   if(STQ.b<beats.length-1){ STQ.b++; storyView(); } else storyChapterDone(); }
 function storyBack(){ if(STQ&&STQ.b>0){ STQ.b--; storyView(true); } }
 function storyAns(j){ const x=storyById(STQ.id).chapters[STQ.c].beats[STQ.b]; if(STQ.ans[STQ.b]!==undefined) return; STQ.ans[STQ.b]=j; sfx(j===x.c?'magic':'gasp'); storyView(true); }
-function storyChapterDone(){ const S=storyById(STQ.id), c=STQ.c; st.story=st.story||{}; st.story[S.id]=Math.max(storyDone(S.id),c+1); save(); const last=c===S.chapters.length-1;
+function storyChapterDone(){ const S=storyById(STQ.id), c=STQ.c; st.story=st.story||{}; if(storyDone(S.id)<c+1) try{ xpAdd(30,'hoofdstuk'); }catch(e){} st.story[S.id]=Math.max(storyDone(S.id),c+1); save(); const last=c===S.chapters.length-1;
   speakStop(); if(!AU.el2) auMood(last?'triumph':'court'); sfx(last?['fanfare','clap']:'clap');
   const conf=Array.from({length:26},(_,k)=>`<i style="left:${(k*41)%100}%;animation-delay:${(k%7)*.18}s;background:${['#d7b46a','#c0645a','#3e63b0','#7fae7a','#efe4cf'][k%5]}"></i>`).join('');
   $(`<div class="story-end" style="--sc:${S.col}"><div class="confetti">${conf}</div><div class="se-fig">${scSVG(S.who,0,false,true)}</div>
@@ -4357,6 +4459,7 @@ function hub(){ st.view='start'; pathMode=null; save();
   $(`<div class="hub2">
     <div class="hb-top"><div class="hb-mark">Kunst met <i>Laura</i></div><button class="hb-av" onclick="editName()" aria-label="Naam aanpassen">${lauraSVG(0,true)}</button></div>
     <h1 class="hb-hello">${gr}${st.name?', '+st.name:''}</h1><p class="hb-q">Wat ga je vandaag ontdekken?</p>
+    ${xpBar()}${dqCard()}
     ${resumeCard()}
     <button class="hb-feat" onclick="openCourse()"><img src="${P('pB')}" alt=""><div class="tx"><b>Cursussen</b><small>Stap voor stap van De basis tot Meesterlijk kijken, en de Hollandse glorie.</small><div class="bar"><i style="width:${Math.round(bd/R.length*100)}%"></i></div></div></button>
     <div class="hb-grid">
@@ -8935,7 +9038,7 @@ function freePlay(){ st.view='free'; if(symOpen()&&!st.symSeen){ st.symSeen=1; s
 
 function pickRoute(t){ document.querySelectorAll('.lb.sheet').forEach(x=>x.remove()); routeTab=null; chooseTrack(t); }
 function setRouteTab(id){ routeTab=id; paths(); }
-function resumeCard(){ const rf = resumeFrom && TRACKS[resumeFrom.t||'basis'] && !roundComplete(resumeFrom.r, resumeFrom.t||'basis') ? resumeFrom : null; if(!rf) return '';
+function resumeCard(){ const rf = resumeFrom && Number.isInteger(resumeFrom.r) && ['q','big','kq','match','who','tl','final'].includes(resumeFrom.view) && TRACKS[resumeFrom.t||'basis'] && !roundComplete(resumeFrom.r, resumeFrom.t||'basis') ? resumeFrom : null; if(!rf) return '';
   const t=rf.t||'basis'; return `<button class="round resume" onclick="go(${rf.r},{view:'${rf.view}',i:${rf.i},bigStep:${rf.bigStep}},'${t}')"><div class="num">&#9654;&#xFE0E;</div><div><div class="t">Verder: ${SHORT[t]||TRACKS[t].title}</div><div class="s">${t==='hg'?'Niveau':'Ronde'} ${rf.r+1} · ${label(rf)}</div></div></button>`; }
 function paths(){
   st.view='paths'; if(!pathMode) pathMode=groupOf(st.t||'basis')==='mus'?'mus':'course'; let tab=routeTab||groupOf(st.t||'basis'); if(pathMode==='mus') tab='mus'; else if(tab==='mus') tab='symb';
@@ -9255,7 +9358,7 @@ function nav(d){ const s=steps(st.r); let p=pos()+d;
   if(p<0){ if(st.r>0){ const ps=steps(st.r-1); return go(st.r-1, ps[ps.length-1]); } return; }
   if(p>=s.length) return goNext();
   go(st.r, s[p]); }
-function render(){ const v=st.view; if((v==='q'||v==='big')&&!diffOf()) return diffView(); (v==='q'||v==='kq')?question():v==='big'?big():v==='match'?matchView():v==='who'?whoView():v==='tl'?timeline(st.tlMode):v==='final'?finalView():v==='gloss'?glossary():v==='paths'?paths():v==='onb'?onbView():v==='intro'?introView():v==='introDone'?introDone():v==='introAsk'?introAsk():v==='fav'?favView():v==='sym'?(symOpen()?symView():freePlay()):v==='start'?hub():v==='credits'?creditsView():v==='album'?albumView():v==='stories'?storiesView():v==='storyc'?storyOpen(st.storyId||'cara'):v==='story'?storiesView():v==='free'?freePlay():home(); }
+function render(){ const v=st.view; if((v==='q'||v==='big')&&!diffOf()) return diffView(); (v==='q'||v==='kq')?question():v==='big'?big():v==='match'?matchView():v==='who'?whoView():v==='tl'?timeline(st.tlMode):v==='final'?finalView():v==='gloss'?glossary():v==='paths'?paths():v==='onb'?onbView():v==='intro'?introView():v==='introDone'?introDone():v==='introAsk'?introAsk():v==='fav'?favView():v==='sym'?(symOpen()?symView():freePlay()):v==='start'?hub():v==='credits'?creditsView():v==='album'?albumView():v==='dqres'?(st.dq&&st.dq[dqDay()]?dqResult(st.dq[dqDay()]):hub()):v==='daily'?hub():v==='stories'?storiesView():v==='storyc'?storyOpen(st.storyId||'cara'):v==='story'?storiesView():v==='free'?freePlay():home(); }
 function label(x){ const R=TRACKS[x.t||'basis'].rounds[x.r]; if(!R) return ''; if(x.view==='final') return 'eindtoets'; if(x.view==='match') return 'koppelspel'; if(x.view==='kq') return 'kunstkennersles'; if(x.view==='who') return 'Wie ben ik?'; if(x.view==='tl') return 'tijdlijn'; return x.view==='q' ? `vraag ${x.i+1}: ${R.q[x.i].name.toLowerCase()}` : `meesterwerk: ${R.big.t}`; }
 
 function ctaBtn(){ const rf=resumeFrom&&Number.isInteger(resumeFrom.r)&&(resumeFrom.t||'basis')===st.t&&!roundComplete(resumeFrom.r,st.t)?resumeFrom:null; const W=st.t==='hg'?'niveau':'ronde';
@@ -9398,7 +9501,7 @@ function question(){
   }
   $(h+bottomNav()+'</div>');
 }
-function answer(k){ res(st.r,curT())[st.i]=k; try{ cameoNote(k===TR(st.r,curT()).q[st.i].c); }catch(e){} question(); setTimeout(()=>{const c=document.getElementById('fb'); c&&c.scrollIntoView({behavior:'smooth',block:'start'});},80); }
+function answer(k){ const wasA=(st.i in res(st.r,curT())); res(st.r,curT())[st.i]=k; try{ const ok=k===TR(st.r,curT()).q[st.i].c; cameoNote(ok); if(!wasA) xpAdd(ok?10:2); }catch(e){} question(); setTimeout(()=>{const c=document.getElementById('fb'); c&&c.scrollIntoView({behavior:'smooth',block:'start'});},80); }
 
 function big(){
   st.view='big';
@@ -9446,7 +9549,7 @@ function big(){
   }
   $(h+bottomNav()+'</div>');
 }
-function bigAnswer(k){ bres(st.r)[st.bigStep]=k; try{ cameoNote(k===TR(st.r).big.details[st.bigStep].c); }catch(e){} big(); setTimeout(()=>{const c=document.getElementById('fb'); c&&c.scrollIntoView({behavior:'smooth',block:'start'});},80); }
+function bigAnswer(k){ const wasA=(st.bigStep in bres(st.r)); bres(st.r)[st.bigStep]=k; try{ const ok=k===TR(st.r).big.details[st.bigStep].c; cameoNote(ok); if(!wasA) xpAdd(ok?10:2); }catch(e){} big(); setTimeout(()=>{const c=document.getElementById('fb'); c&&c.scrollIntoView({behavior:'smooth',block:'start'});},80); }
 
 /* Openen: meteen verder waar je was */
 setTrack(st.t||'basis');
