@@ -477,6 +477,7 @@ body.has-nav #nav{display:flex}body.has-nav .wrap{padding-bottom:96px}
 .wk.back{background:repeating-linear-gradient(45deg,#1b2747,#1b2747 8px,#202e54 8px,#202e54 16px);border-color:#34466f;color:#7f8db0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:1.3rem}
 .wk.back small{font-size:.7rem}.al-mini{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}.al-mini span{width:26px;height:34px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:.8rem;color:#7f8db0;background:repeating-linear-gradient(45deg,#1b2747,#1b2747 5px,#202e54 5px,#202e54 10px);border:1px solid #34466f}
 @media (prefers-reduced-motion:reduce){.cameo,.cm-fig,.cm-b::after,.rw-frame,.rw-shine{animation:none!important;transition:opacity .2s!important}}
+.jump .j-final{width:auto!important;padding:0 12px!important;border-radius:999px!important;border:1px solid #d7b46a!important;color:#d7b46a;font-weight:700;white-space:nowrap}.jump .j-final.ok{background:#d7b46a;color:#1d1608}.jump .j-arr{align-self:center;color:#d7b46a;margin:0 2px}.j-note{font-size:.78rem;color:var(--muted,#9aa3b8);margin-top:6px}
 </style>
 </head>
 <body>
@@ -3526,14 +3527,23 @@ const TRACKS_MUS = {
   loure:{t:'Loure uit Le Bourgeois gentilhomme', c:'Jean-Baptiste Lully, 1670', p:'Advent Chamber Orchestra (CC BY-SA)'},
   bourree:{t:'Bourrée uit Le Bourgeois gentilhomme', c:'Jean-Baptiste Lully, 1670', p:'Advent Chamber Orchestra (CC BY-SA)'},
   gavotte:{t:'Gavotte uit Le Bourgeois gentilhomme', c:'Jean-Baptiste Lully, 1670', p:'Advent Chamber Orchestra (CC BY-SA)'},
-  gymnopedie:{t:'Gymnopédie nr. 1', c:'Erik Satie, 1888', p:'Musopen (publiek domein)'}
+  gymnopedie:{t:'Gymnopédie nr. 1', c:'Erik Satie, 1888', p:'Musopen (publiek domein)'},
+  gymno3:{t:'Gymnopédie nr. 3', c:'Erik Satie, 1888', p:'Teknopazzo (CC0)'},
+  palestrina:{t:'Sicut lilium inter spinas', c:'Giovanni Pierluigi da Palestrina, 1569', p:'The Tudor Consort (CC BY 3.0)'},
+  susato:{t:'Pavane “La Bataille”', c:'Tielman Susato, 1551', p:'Musica3eso (CC BY-SA 3.0)'},
+  gagliarde:{t:'Gaillarde', c:'Pierre Attaingnant, ca. 1530', p:'Metzner (CC BY 3.0)'},
+  branle:{t:'Branle gay', c:'Pierre Attaingnant, ca. 1530', p:'Metzner (CC BY 3.0)'},
+  frescobaldi:{t:'Toccata terza', c:'Girolamo Frescobaldi, 1615', p:'Sylvia Kind (CC BY-SA 2.0)'}
 };
-const STORY_MUS = { cara:{main:'orfeo',sad:'ninfa'}, medici:{main:'josquin'}, leo:{main:'josquin'}, louis:{main:'bourree',feast:'gavotte'}, rem:{main:'loure'}, rubens:{main:'orfeo',sad:'ninfa'}, vincent:{main:'gymnopedie'} };
+const STORY_MUS = { cara:{main:['frescobaldi','orfeo','gagliarde'],sad:'ninfa'}, medici:{main:['josquin','gagliarde','palestrina','branle','susato'],sad:'palestrina'}, leo:{main:['josquin','branle','palestrina','gagliarde','susato'],sad:'palestrina'}, louis:{main:['bourree','loure','gavotte'],feast:'gavotte'}, rem:{main:['loure','frescobaldi','orfeo'],sad:'ninfa'}, rubens:{main:['orfeo','frescobaldi','gagliarde'],sad:'ninfa'}, vincent:{main:['gymnopedie','gymno3'],sad:'gymno3'} };
 const MUS_VOL = .32;
-function musTrackFor(sid,mood){ const M=STORY_MUS[sid]; if(!M) return null; return (mood==='sad'&&M.sad)||(mood==='feast'&&M.feast)||M.main; }
+function musPool(sid){ const M=STORY_MUS[sid]; return M?[].concat(M.main):[]; }
+function musTrackFor(sid,mood){ const M=STORY_MUS[sid]; if(!M) return null; if(mood==='sad'&&M.sad) return M.sad; if(mood==='feast'&&M.feast) return M.feast;
+  const P=musPool(sid), c=(typeof STQ!=='undefined'&&STQ&&STQ.c)||0; if(AU.trackId&&P.includes(AU.trackId)&&AU.poolCh===c) return AU.trackId; AU.poolCh=c; return P[c%P.length]; }
 function musPlay(id){ if(!id||!auOn()){ musStop(); return; } if(AU.trackId===id && AU.el2 && !AU.el2.paused) return;
   const old=AU.el2, oldG=AU.mg; AU.trackId=id;
-  const el=new Audio('music/'+id+'.mp3'); el.loop=true; el.preload='auto'; el.setAttribute('playsinline','');
+  const el=new Audio('music/'+id+'.mp3'); const pool=(typeof STQ!=='undefined'&&STQ&&STQ.id)?musPool(STQ.id):[]; el.loop=pool.length<2;
+  el.onended=()=>{ if(AU.el2!==el) return; const P=pool, nx=P[(P.indexOf(id)+1)%P.length]; AU.trackId=null; musPlay(nx); }; el.preload='auto'; el.setAttribute('playsinline','');
   let g=null; try{ if(auInit()){ const src=AU.ctx.createMediaElementSource(el); g=AU.ctx.createGain(); g.gain.value=0; src.connect(g); g.connect(AU.ctx.destination); g.gain.linearRampToValueAtTime(MUS_VOL,AU.ctx.currentTime+1.5); } }catch(e){ g=null; }
   if(!g) el.volume=MUS_VOL; AU.el2=el; AU.mg=g; el.play().catch(()=>{});
   if(old){ try{ if(oldG){ oldG.gain.linearRampToValueAtTime(0,AU.ctx.currentTime+1.2); setTimeout(()=>old.pause(),1300); } else old.pause(); }catch(e){ old.pause(); } }
@@ -3756,7 +3766,7 @@ const STORIES=[
     {out:'botticelli', q:'Wat denk je dat er gebeurde?', o:['Beide broers werden gedood','Giuliano werd vermoord, Lorenzo raakte gewond en vluchtte de sacristie in','De aanslag werd op tijd verraden en mislukte geheel'], c:1,
       e:'Giuliano werd doodgestoken. Lorenzo ontkwam met een snee in zijn nek en barricadeerde zich achter de zware bronzen deuren van de sacristie. Zelfs de paus, Sixtus IV, wist van het complot.'},
     {s:'lorenzo', x:'Florence koos mijn kant. De samenzweerders werden opgehangen. En Botticelli moest hun beeltenis op de muur van het Bargello schilderen, als waarschuwing.'},
-    {art:'med4', t:'Portret van Giuliano de’ Medici', a:'Sandro Botticelli', yr:'ca. 1478', x:'Na de moord gemaakt. De ogen neergeslagen, het halfopen raam en de tortelduif (een symbool van trouw tot in de dood) maken er een herdenkingsportret van.'}
+    {art:'med4', t:'Portret van Giuliano de’ Medici', a:'Sandro Botticelli', yr:'ca. 1478', x:'Na de moord gemaakt. De neergeslagen ogen, de halfopen deur en de <b>tortelduif linksonder op een dode tak</b> (een symbool van trouw tot in de dood) maken er een herdenkingsportret van. Er bestaan meerdere versies; deze hangt in Washington.'}
   ]},
   { t:'De jonge Michelangelo', y:'1489–1497', end:'Na Lorenzo gaat het mis met Florence. Maar de Medici krijgen er iets veel groters voor terug: de pauselijke troon.', beats:[
     {bg:'palace', in:'lorenzo', at:'l', n:'Lorenzo heeft een beeldentuin vol antieke sculpturen. Daar mogen jonge talenten oefenen.', y:'ca. 1489'},
@@ -8832,7 +8842,7 @@ const N3_BADGES = [
 
 const TRACKS = {
   basis:{id:'basis', name:'Basis', eyebrow:'Niveau 1 · De basis', title:'Symboliek in de Kunst', rank:'Beginner', grand:'Iconoloog', icon:'skull',
-    desc:'Van middeleeuwen tot 1900. Per ronde vijf symbolen: kies A, B of C, lees wat het betekent en ontdek waar het nog meer voorkomt. Na elke vijf vragen ontleden we samen een groot meesterwerk.',
+    desc:'Van middeleeuwen tot 1900. Per ronde vijf symbolen: kies A, B of C, lees wat het betekent en ontdek waar het nog meer voorkomt. Na de vijf vragen volgt de <b>eindtoets</b>: samen ontleden we een groot meesterwerk.',
     rounds:BASIS_ROUNDS, badges:BASIS_BADGES},
   mix:{id:'mix', name:'Deel 2 — Verdieping', eyebrow:'Niveau 2 · Verdieping (mix)', title:'Deel 2: Verdieping', rank:'Gevorderd', grand:'Iconoloog', icon:'grapes',
     desc:'Een mix van alles: mythologie, bloemen en dieren, Bijbelse verhalen en allegorieën. De logische volgende stap na de basis.',
@@ -9248,7 +9258,7 @@ function nav(d){ const s=steps(st.r); let p=pos()+d;
 function render(){ const v=st.view; if((v==='q'||v==='big')&&!diffOf()) return diffView(); (v==='q'||v==='kq')?question():v==='big'?big():v==='match'?matchView():v==='who'?whoView():v==='tl'?timeline(st.tlMode):v==='final'?finalView():v==='gloss'?glossary():v==='paths'?paths():v==='onb'?onbView():v==='intro'?introView():v==='introDone'?introDone():v==='introAsk'?introAsk():v==='fav'?favView():v==='sym'?(symOpen()?symView():freePlay()):v==='start'?hub():v==='credits'?creditsView():v==='album'?albumView():v==='stories'?storiesView():v==='storyc'?storyOpen(st.storyId||'cara'):v==='story'?storiesView():v==='free'?freePlay():home(); }
 function label(x){ const R=TRACKS[x.t||'basis'].rounds[x.r]; if(!R) return ''; if(x.view==='final') return 'eindtoets'; if(x.view==='match') return 'koppelspel'; if(x.view==='kq') return 'kunstkennersles'; if(x.view==='who') return 'Wie ben ik?'; if(x.view==='tl') return 'tijdlijn'; return x.view==='q' ? `vraag ${x.i+1}: ${R.q[x.i].name.toLowerCase()}` : `meesterwerk: ${R.big.t}`; }
 
-function ctaBtn(){ const rf=resumeFrom&&(resumeFrom.t||'basis')===st.t&&!roundComplete(resumeFrom.r,st.t)?resumeFrom:null; const W=st.t==='hg'?'niveau':'ronde';
+function ctaBtn(){ const rf=resumeFrom&&Number.isInteger(resumeFrom.r)&&(resumeFrom.t||'basis')===st.t&&!roundComplete(resumeFrom.r,st.t)?resumeFrom:null; const W=st.t==='hg'?'niveau':'ronde';
   if(rf) return `<button class="btn primary cta" onclick="go(${rf.r},{view:'${rf.view}',i:${rf.i},bigStep:${rf.bigStep}})">▶ Verder met ${W} ${rf.r+1}</button>`;
   const r=ROUNDS.findIndex(R=>!R.soon&&!roundComplete(ROUNDS.indexOf(R)));
   return r<0?'':`<button class="btn primary cta" onclick="openRound(${r})">▶ ${ROUNDS.some((_,k)=>roundDone(k)>0)?'Verder met':'Start'} ${W} ${r+1}</button>`; }
@@ -9263,7 +9273,7 @@ function home(){
     <div class="eyebrow">${T.eyebrow}${st.beta?' · <span class="betapill">BETA</span>':''}</div>
     <h1>${T.title}</h1>
     <div class="row" style="margin:2px 0 8px"><button class="chip" onclick="diffSheet()">Niveau: ${diffOf()?DIFFS[diffOf()].ic+' '+DIFFS[diffOf()].n:'nog kiezen'} ▾</button></div>
-    <p class="muted clamp">${T.desc}</p>
+    <p class="muted">${T.desc}</p>
     ${ctaBtn()}
     ${done?`<div class="card center award"><div class="eyebrow">Pad voltooid</div>
         <div class="grand-big pop" onclick="grandModal('${st.t}')">${grandSVG(st.t,false)}</div>
@@ -9275,8 +9285,8 @@ function home(){
         <div class="num">${['I','II','III','IV','V','VI','VII','VIII','IX','X'][r]}</div>
         <div><div class="t">${R.title.replace(/^.*? — /,'')}</div><div class="s">${R.sub} · daarna: <i>${R.big.t}</i></div><div class="soon-tag">Binnenkort</div></div></div>` : `<div class="round" onclick="openRound(${r})">
         <div class="num">${['I','II','III','IV','V','VI','VII','VIII','IX','X'][r]}</div>
-        <div><div class="t">${R.title.replace(/^.*? — /,'')}</div><div class="s">${R.sub} · daarna: <i>${R.big.t}</i></div>
-          <div class="jump">${R.q.map((q,i)=>`<button class="${i in res(r)?(res(r)[i]===q.c?'ok':'bad'):''}" onclick="event.stopPropagation();go(${r},{view:'q',i:${i}})">${i+1}</button>`).join('')}<button onclick="event.stopPropagation();go(${r},{view:'big',bigStep:-1})">★</button></div></div>
+        <div><div class="t">${R.title.replace(/^.*? — /,'')}</div><div class="s">${R.sub}</div>
+          <div class="jump">${R.q.map((q,i)=>`<button class="${i in res(r)?(res(r)[i]===q.c?'ok':'bad'):''}" onclick="event.stopPropagation();go(${r},{view:'q',i:${i}})">${i+1}</button>`).join('')}<span class="j-arr">→</span><button class="j-final ${bres(r)&&Object.keys(bres(r)).length>=R.big.details.length?'ok':''}" onclick="event.stopPropagation();go(${r},{view:'big',bigStep:-1})">★ Eindtoets</button></div><div class="j-note">5 symbolen, daarna de eindtoets: <i>${R.big.t}</i></div></div>
         <span class="badge ${roundComplete(r)?'bdone':''}">${roundComplete(r)?`✓ klaar · ${roundScore(r)}/${R.q.length} goed`:roundDone(r)?`${roundDone(r)}/${R.q.length} gedaan`:'start'}</span>
       </div>`).join('')}
     </div>
@@ -9382,7 +9392,7 @@ function question(){
       <h3>Ook te zien in…</h3>
       <div class="works">${Q.also.map(w=>`<div class="work"><div class="th" onclick="lb('${w.img}','<b>${esc(w.t).replace(/'/g,'&#39;')}</b><br><span>${esc(w.a).replace(/'/g,'&#39;')} · ${w.y}</span>')"><img src="${P(w.img)}" alt="${esc(w.t)}" loading="lazy"></div><div class="txt"><b>${w.t}</b><div class="meta">${w.a} · ${w.y}</div><div class="note">${linkTerms(w.n,used)}</div></div>${favBtn({...w,where:whereOf(w.img,w.t)},true)}</div>`).join('')}</div>
       ${termBox(ids)}
-      <div class="row"><button class="btn primary" onclick="nav(1)">${st.i<ROUNDS[st.r].q.length-1?'Volgende symbool →':'Op naar het meesterwerk →'}</button>
+      <div class="row"><button class="btn primary" onclick="nav(1)">${st.i<ROUNDS[st.r].q.length-1?'Volgende symbool →':'Door naar de eindtoets ★'}</button>
       <button class="btn small" onclick="delete res(st.r)[st.i];question()">↺ opnieuw</button></div>
     </div>`;
   }
