@@ -535,6 +535,7 @@ body.has-nav #nav{display:flex}body.has-nav .wrap{padding-bottom:96px}
 .t3{display:block;width:100%;text-align:left;color:inherit;cursor:pointer;margin:0 0 12px;padding:10px 12px;border-radius:16px;border:1px solid #d7b46a;background:linear-gradient(135deg,rgba(215,180,106,.2),rgba(31,47,110,.35))}
 .t3-h{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}.t3-h span{font-size:.8rem;color:#d7b46a}
 .t3-r{display:flex;align-items:center;gap:10px;padding:5px 2px;border-top:1px solid rgba(255,255,255,.07)}.t3-r b{flex:1}.t3-r small{color:#d7b46a;font-weight:700}.t3-r.me b{color:#f6dd97}.t3-e{font-size:.85rem;color:var(--muted,#9aa3b8);padding:4px 0}
+.bd-x{text-align:right}.bd-x small{display:block;font-size:.68rem;color:var(--muted,#9aa3b8);font-weight:500}.rank-uitleg{font-size:.86rem;line-height:1.45}.t3-u{font-size:.72rem;color:var(--muted,#9aa3b8);margin-top:6px}
 </style>
 </head>
 <body>
@@ -3161,10 +3162,17 @@ const sbOn=()=>!!(SB.url&&SB.key);
 function uid(){ if(!st.uid){ st.uid=(crypto.randomUUID?crypto.randomUUID():'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,c=>{const r=Math.random()*16|0;return (c==='x'?r:(r&3|8)).toString(16);})); st.utok=Math.random().toString(36).slice(2)+Math.random().toString(36).slice(2); save(); } return st.uid; }
 function sbFetch(path,opt={}){ return fetch(SB.url+'/rest/v1/'+path,{...opt,headers:{apikey:SB.key,Authorization:'Bearer '+SB.key,'Content-Type':'application/json',...(opt.headers||{})}}); }
 function modulesDone(){ let n=0; for(const t of TRACK_ORDER){ const T=TRACKS[t]; if(!T) continue; T.rounds.forEach((R,r)=>{ if(R&&!R.soon&&roundComplete(r,t)) n++; }); } return n; }
+/* ranglijst: 1 punt per goed beantwoorde vraag in de modules; bij gelijke stand wint wie minder fouten heeft.
+   Opgeslagen in de kolom xp als punten*1000 + (999 - fouten), zodat sorteren meteen de juiste volgorde geeft. */
+function compScore(){ let ok=0, bad=0; for(const t of TRACK_ORDER){ const T=TRACKS[t]; if(!T) continue; T.rounds.forEach((R,r)=>{ if(!R||R.soon) return; const a=(st.results||{})[K(r,t)]||{}, b=(st.bigRes||{})[K(r,t)]||{};
+    (R.q||[]).forEach((q,i)=>{ if(i in a){ a[i]===q.c?ok++:bad++; } }); ((R.big&&R.big.details)||[]).forEach((d,i)=>{ if(i in b){ b[i]===d.c?ok++:bad++; } }); }); } return {ok,bad}; }
+const rankVal = c => c.ok*1000 + Math.max(0,999-c.bad);
+const rankOk = v => Math.floor((v||0)/1000), rankBad = v => 999-((v||0)%1000);
+const RANK_UITLEG = 'Zo kom je op nummer 1: elke vraag die je goed beantwoordt in een module (een ronde van een cursus of museumroute, inclusief de eindtoets) levert <b>1 punt</b> op. Hoe meer modules je speelt, hoe meer punten je kunt verdienen. Bij een gelijke stand wint wie de <b>minste fouten</b> maakte. XP, kistjes, verhalen en de dagquiz tellen niet mee voor de ranglijst.';
 let compT=0, compTimer=null;
 function compSync(force){ if(!st.comp||st.comp.ok!==true||!sbOn()) return; const now=Date.now(); if(!force&&now-compT<20000){ clearTimeout(compTimer); compTimer=setTimeout(()=>compSync(true),20000); return; } compT=now; uid();
   const I=xpInfo(), alive=st.dqLast===dqDay()||st.dqLast===dqPrevDay(dqDay());
-  sbFetch('rpc/upsert_tester',{method:'POST',body:JSON.stringify({p_id:st.uid,p_token:st.utok,p_name:(st.comp.name||st.name||'Tester').slice(0,30),p_xp:I.x,p_lvl:I.l+1,p_streak:alive?(st.dqStreak||0):0,p_modules:modulesDone()})}).catch(()=>{}); }
+  sbFetch('rpc/upsert_tester',{method:'POST',body:JSON.stringify({p_id:st.uid,p_token:st.utok,p_name:(st.comp.name||st.name||'Tester').slice(0,30),p_xp:rankVal(compScore()),p_lvl:I.l+1,p_streak:alive?(st.dqStreak||0):0,p_modules:modulesDone()})}).catch(()=>{}); }
 function compLeave(){ if(sbOn()&&st.uid) sbFetch('rpc/delete_tester',{method:'POST',body:JSON.stringify({p_id:st.uid,p_token:st.utok})}).catch(()=>{}); st.comp={ok:false,at:Date.now(),asked:1}; save(); toast('Je doet niet meer mee aan de competitie'); boardView(); }
 function compJoin(name){ TOP3T=0; uid(); st.comp={ok:true,name:(name||st.name||'Tester').trim().slice(0,30),at:Date.now(),asked:1}; save(); compSync(true); }
 
@@ -3196,7 +3204,7 @@ function napStep(k){ const b=document.getElementById('napbub'), c=document.getEl
   const nx={n1:'n2',n2:'n3'}[k];
   if(nx) c.innerHTML=`<button class="btn primary big" onclick="napStep('${nx}')">Verder ›</button>`;
   else if(k==='n3') c.innerHTML=`<div class="nap-form"><label class="muted" style="font-size:.8rem">Naam op het scorebord</label><input id="napname" maxlength="30" value="${esc(st.name||'')}" placeholder="Je naam of bijnaam">
-      <p class="nap-small">Als je meedoet, slaan we alleen op: je gekozen naam, je XP, level, dagreeks en het aantal afgeronde modules. Andere testers zien die op het scorebord. Je kunt je altijd weer afmelden; dan wordt alles verwijderd.</p>
+      <p class="nap-small">Als je meedoet, slaan we alleen op: je gekozen naam, je aantal goede antwoorden en fouten, je level, je dagreeks en het aantal afgeronde modules. Andere testers zien die op het scorebord. Je kunt je altijd weer afmelden; dan wordt alles verwijderd.</p>
       <button class="btn primary big" onclick="napAnswer(true)">Ja, ik doe mee! ⚔️</button><button class="btn" style="margin-top:8px" onclick="napAnswer(false)">Nee, liever niet</button></div>`;
   else if(k==='n5'||k==='n6') c.innerHTML=`<button class="btn primary big" onclick="napExit()">Merci, Napoleon!</button>`; }
 function napAnswer(yes){ if(yes){ const n=(document.getElementById('napname')||{}).value; compJoin(n); napStep('n5'); try{ sfx('cheer'); }catch(e){} } else { st.comp={ok:false,asked:1,at:Date.now()}; save(); napStep('n6'); } }
@@ -3210,7 +3218,7 @@ let TOP3=null, TOP3T=0;
 function top3HTML(){ if(Date.now()-TOP3T>60000) top3Load(); const me=st.comp&&st.comp.ok===true; const medal=['🥇','🥈','🥉'];
   const rows=(TOP3||[]).slice(0,3);
   return `<button class="t3" onclick="boardView()"><div class="t3-h"><b>🏆 Testerscompetitie</b><span>${me?'Je doet mee':'Doe mee'} ›</span></div>
-   ${rows.length?rows.map((x,i)=>`<div class="t3-r ${x.id===st.uid?'me':''}"><span>${medal[i]}</span><b>${esc(x.name)}</b><small>${x.xp} XP</small></div>`).join(''):`<div class="t3-e">${TOP3===null?'Scorebord laden…':'Nog niemand op het scorebord. Word jij de eerste?'}</div>`}</button>`; }
+   ${rows.length?rows.map((x,i)=>`<div class="t3-r ${x.id===st.uid?'me':''}"><span>${medal[i]}</span><b>${esc(x.name)}</b><small>${rankOk(x.xp)} punten</small></div>`).join(''):`<div class="t3-e">${TOP3===null?'Scorebord laden…':'Nog niemand op het scorebord. Word jij de eerste?'}</div>`}<div class="t3-u">1 punt per goed antwoord in de modules · bij gelijke stand wint wie de minste fouten maakte</div></button>`; }
 async function top3Load(){ if(!sbOn()) return; TOP3T=Date.now(); try{ const r=await sbFetch('scoreboard?select=id,name,xp&order=xp.desc&limit=3'); const j=await r.json(); TOP3=Array.isArray(j)?j:[]; }catch(e){ TOP3=TOP3||[]; } const el=document.getElementById('top3'); if(el&&st.view==='start') el.innerHTML=top3HTML(); }
 /* ---------- scorebord ---------- */
 async function boardView(){ st.view='board'; save(); const me=st.comp&&st.comp.ok===true;
@@ -3222,8 +3230,8 @@ async function boardView(){ st.view='board'; save(); const me=st.comp&&st.comp.o
   if(st.view!=='board') return;
   if(rows===null){ $(head+`<div class="card center">Het scorebord is even niet bereikbaar. Probeer het straks nog eens.</div></div>`); return; }
   const medal=i=>['🥇','🥈','🥉'][i]||(i+1);
-  $(head+`<p class="muted">Punten = XP. Je verdient XP met elk goed antwoord, de dagquiz, verhalen en kistjes.</p>
-    <div class="board">${rows.map((x,i)=>`<div class="bd-r ${x.id===st.uid?'me':''}"><span class="bd-p">${medal(i)}</span><span class="bd-n"><b>${esc(x.name)}</b><small>Level ${x.lvl} · ${x.modules} modules · 🔥 ${x.streak}</small></span><span class="bd-x">${x.xp} XP</span></div>`).join('')||'<div class="card center muted">Nog niemand op het scorebord. Word jij de eerste?</div>'}</div>
+  $(head+`<div class="card rank-uitleg">🏆 ${RANK_UITLEG}</div>${me?`<p class="muted" style="font-size:.85rem">Jouw stand: <b>${compScore().ok} punten</b>, ${compScore().bad} fout${compScore().bad===1?'':'en'}.</p>`:''}
+    <div class="board">${rows.map((x,i)=>`<div class="bd-r ${x.id===st.uid?'me':''}"><span class="bd-p">${medal(i)}</span><span class="bd-n"><b>${esc(x.name)}</b><small>${x.modules} modules af · level ${x.lvl}</small></span><span class="bd-x">${rankOk(x.xp)} pnt<small>${rankBad(x.xp)} fout${rankBad(x.xp)===1?'':'en'}</small></span></div>`).join('')||'<div class="card center muted">Nog niemand op het scorebord. Word jij de eerste?</div>'}</div>
     ${me?`<button class="btn small" style="margin-top:12px" onclick="compLeave()">Afmelden voor de competitie</button>`:`<button class="btn primary big" style="margin-top:12px" onclick="napoleonScene(true)">Ik wil ook meedoen!</button>`}</div>`); }
 
 /* ================= GIDSEN: complimenten, weetjes, band en beloningen ================= */
