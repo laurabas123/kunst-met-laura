@@ -962,6 +962,26 @@ function keepView(){ st.view='keep'; save(); const c=rcode();
     <div class="hx-list" style="padding:16px;gap:10px"><input id="rcin" class="ob-input" placeholder="Bijv. ABCD-EFGH-JKLM" maxlength="16" style="text-transform:uppercase"><button class="btn" onclick="keepEnter()">Haal mijn voortgang op</button></div>
   </div>`); keepBackup(); }
 function keepAsk(){ const d=document.createElement('div'); d.className='kpm'; d.innerHTML=`<div class="hx-list" style="padding:18px;gap:10px;max-width:360px;margin:auto"><b>Voortgang terughalen</b><small class="muted">Vul je herstelcode in. Die vind je in de app onder Jij → Voortgang bewaren.</small><input id="rcin" class="ob-input" placeholder="ABCD-EFGH-JKLM" maxlength="16" style="text-transform:uppercase"><button class="btn primary" onclick="keepEnter()">Haal mijn voortgang op</button><button class="btn small" onclick="this.closest('.kpm').remove()">Annuleren</button></div>`; d.style.cssText='position:fixed;inset:0;z-index:9999;background:rgba(5,8,18,.8);display:flex;align-items:center;padding:20px'; document.body.appendChild(d); }
+/* ---------- Stel Laura een vraag ---------- */
+function askLaura(){ st.view='askl'; save(); const mine=(st.myQ||[]).slice(-3).reverse();
+  $(`<div class="hx"><div class="hdr"><button class="chip" onclick="meView()">‹ Terug</button></div>
+    <div style="display:flex;gap:12px;align-items:center;margin:10px 0 6px"><div style="width:56px;height:56px;border-radius:50%;overflow:hidden;flex:0 0 56px">${lauraSVG(0,true)}</div><h1 style="margin:0">Stel Laura een vraag</h1></div>
+    <p class="muted">Snap je een vraag of uitleg niet, wil je meer weten over een schilderij, of heb je een idee voor de app? Laura leest alle vragen zelf.</p>
+    <div class="hx-list" style="padding:16px;gap:10px;margin:14px 0">
+      <textarea id="aq" class="ob-input" rows="5" maxlength="1500" placeholder="Typ hier je vraag…" style="resize:vertical;min-height:110px;font:inherit"></textarea>
+      <input id="an" class="ob-input" placeholder="Je naam (mag ook leeg)" value="${esc(st.name||'')}" maxlength="40">
+      <input id="ac" class="ob-input" placeholder="E-mail, als je antwoord wilt" maxlength="80">
+      <button class="btn primary" onclick="askSend()">Verstuur naar Laura</button>
+    </div>
+    ${mine.length?`<h2 class="hx-h">Jouw verstuurde vragen</h2><div class="hx-list">${mine.map(q=>`<div class="hx-row" style="cursor:default"><span class="hx-ic">✉️</span><span class="hx-tx"><b style="font-weight:600">${q.v.replace(/[<>&]/g,'')}</b><small>${new Date(q.at).toLocaleDateString('nl-NL',{day:'numeric',month:'short'})}</small></span></div>`).join('')}</div>`:''}
+  </div>`); }
+async function askSend(){ const v=(document.getElementById('aq').value||'').trim(); if(v.length<3) return toast('Typ eerst je vraag');
+  const n=(document.getElementById('an').value||'').trim(), c=(document.getElementById('ac').value||'').trim();
+  const code='VRAAG-'+new Date().toISOString().slice(0,10)+'-'+Math.random().toString(36).slice(2,8).toUpperCase();
+  const body={type:'vraag',vraag:v,naam:n,contact:c,herstelcode:st.rcode||'',waar:(IN&&st.prevView)||'',at:new Date().toISOString()};
+  try{ const r=await fetch(SB.url+'/rest/v1/rpc/save_progress',{method:'POST',headers:{apikey:SB.key,Authorization:'Bearer '+SB.key,'Content-Type':'application/json'},body:JSON.stringify({p_code:code,p_state:JSON.stringify(body),p_updated:Date.now()})});
+    if(!r.ok) throw 0; (st.myQ=st.myQ||[]).push({v:v.slice(0,140),at:Date.now()}); if(n&&!st.name) st.name=n; save(); toast('Verstuurd! Laura leest je vraag ✓'); askLaura(); }
+  catch(e){ toast('Versturen lukte niet. Heb je internet?'); } }
 function keepCopy(){ const l=rcodeLink(); try{ navigator.clipboard.writeText(l).then(()=>toast('Link gekopieerd ✓'),()=>toast(l)); }catch(e){ toast(l); } }
 async function keepEnter(){ const el=document.getElementById('rcin'); const c=(el&&el.value||'').replace(/[^A-Za-z0-9]/g,'').toUpperCase(); if(c.length<10) return toast('Die code is te kort');
   toast('Even zoeken…'); const R=await keepLoad(c); if(!R||!R.state) return toast('Geen voortgang gevonden bij deze code');
@@ -2824,13 +2844,6 @@ function lauraSVG(size,head,clap,gala){ const C=gala?LAURA_GALA:LAURA;
   <g class="blink"><ellipse cx="109" cy="86" rx="3.2" ry="3.4" fill="#4a2c18"/><ellipse cx="132" cy="86" rx="3.2" ry="3.4" fill="#4a2c18"/>
     <circle cx="110.2" cy="84.8" r="1" fill="#fff"/><circle cx="133.2" cy="84.8" r="1" fill="#fff"/></g>
   <path d="M104 91 q5 3 10 0 M127 91 q5 3 10 0" stroke="${C.skinSh}" stroke-width="1.4" fill="none"/>
-  <!-- ronde blauwe bril met vlindertje -->
-  <g fill="none">
-    <circle cx="109" cy="86" r="11" stroke="${C.glasses}" stroke-width="2.6"/><circle cx="132" cy="86" r="11" stroke="${C.glasses}" stroke-width="2.6"/>
-    <circle cx="109" cy="86" r="11" stroke="#9fb7e6" stroke-width=".8" stroke-dasharray="1 5" opacity=".6"/><circle cx="132" cy="86" r="11" stroke="#9fb7e6" stroke-width=".8" stroke-dasharray="1 5" opacity=".6"/>
-    <path d="M120 85 q0.5 -2 1 0" stroke="${C.glasses}" stroke-width="2.4"/>
-    <path d="M98 84 L90 82 M143 84 L151 82" stroke="${C.glasses}" stroke-width="2.4" stroke-linecap="round"/>
-  </g>
   <g transform="translate(150 54) rotate(-28)"><path d="M-9 1 H9" stroke="${C.gold}" stroke-width="1.6" stroke-linecap="round"/><path d="M0 0 C-4 -9 -11 -8 -10 -2 C-9 3 -4 3 0 0Z M0 0 C4 -9 11 -8 10 -2 C9 3 4 3 0 0Z" fill="#3b6fd1" stroke="${C.gold}" stroke-width=".8"/>
     <path d="M0 0 C-3 5 -8 6 -7 2Z M0 0 C3 5 8 6 7 2Z" fill="#2a4fa0" stroke="${C.gold}" stroke-width=".6"/><path d="M0 -4 V4" stroke="${C.gold}" stroke-width="1.2"/></g>
   <!-- neus, wangen, grote lach -->
@@ -5085,12 +5098,12 @@ const ICON={
   me:'<circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4.5 4.5-6.5 8-6.5s6.5 2 8 6.5"/>'
 };
 const ic=(k,cls='ic')=>`<svg class="${cls}" viewBox="0 0 24 24">${ICON[k]}</svg>`;
-const NAVVIEWS=['keep','me','board','kvd','album','start','paths','free','stories','storyc','home','fav','gloss'];
+const NAVVIEWS=['askl','keep','me','board','kvd','album','start','paths','free','stories','storyc','home','fav','gloss'];
 function navInit(){ if(document.getElementById('nav')) return; const n=document.createElement('nav'); n.id='nav';
   n.innerHTML=[['home','Vandaag','hub()'],['learn','Leren','openCourse()'],['stories','Verhalen','storiesView()'],['museum','Musea','openMuseums()'],['me','Jij','meView()']]
     .map(([k,l,f])=>`<button data-k="${k}" onclick="${f}">${ic(k,'')}<span>${l}</span></button>`).join(''); document.body.appendChild(n); }
 function navUpdate(){ navInit(); const v=st.view; document.body.classList.toggle('has-nav',NAVVIEWS.includes(v));
-  const k= v==='start'||v==='kvd'?'home': (v==='me'||v==='keep'||v==='album'||v==='board'||v==='fav')?'me': v==='free'?'learn': (v==='stories'||v==='storyc')?'stories': (v==='paths'&&pathMode==='mus')?'museum': (v==='paths'||v==='home')?'learn':'';
+  const k= v==='start'||v==='kvd'?'home': (v==='me'||v==='keep'||v==='askl'||v==='album'||v==='board'||v==='fav')?'me': v==='free'?'learn': (v==='stories'||v==='storyc')?'stories': (v==='paths'&&pathMode==='mus')?'museum': (v==='paths'||v==='home')?'learn':'';
   document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.k===k)); }
 function showSplash(){ if(window._splashed) return; window._splashed=1; const d=document.createElement('div'); d.id='splash';
   d.innerHTML=`<div class="sp-frame"><svg viewBox="0 0 228 278"><rect class="fr" x="4" y="4" width="220" height="270" rx="2"/><rect class="fr2" x="12" y="12" width="204" height="254"/></svg><div class="sp-pic"><img src="${P('pB')}" alt=""></div></div>
@@ -5154,6 +5167,7 @@ function meView(){ st.view='me'; save(); const I=xpInfo(), alive=st.dqLast===dqD
     </div>
     <h2 class="hx-h">Meer</h2>
     <div class="hx-list">
+      <button class="hx-row" onclick="askLaura()"><span class="hx-ic">💬</span><span class="hx-tx"><b>Stel Laura een vraag</b><small>Over kunst, een vraag uit de app of een idee</small></span><span class="hx-r">›</span></button>
       <button class="hx-row" onclick="keepView()"><span class="hx-ic">🔐</span><span class="hx-tx"><b>Voortgang bewaren</b><small>Je persoonlijke link en herstelcode</small></span><span class="hx-r">›</span></button>
       <button class="hx-row" onclick="introPrev='start';startIntro('paths')"><span class="hx-ic">🎓</span><span class="hx-tx"><b>Startcursus</b><small>De 8 basisbegrippen</small></span><span class="hx-r">›</span></button>
       <button class="hx-row" onclick="glossary()"><span class="hx-ic">📖</span><span class="hx-tx"><b>Begrippenlijst</b><small>Alle termen op een rij</small></span><span class="hx-r">›</span></button>
@@ -5260,7 +5274,7 @@ function introView(){ st.view='intro'; const it=INTRO[IN.i]; if(!it) return path
     ${(it.img||it.pimg)?`<figure class="in-fig"><div class="in-tag">${it.id==='genre'?'Voorbeeld van een genrestuk':it.id==='embleem'?'Voorbeeld van een embleem':'👇 De vraag gaat over dit werk'}</div><div class="frame">${it.pimg?`<img src="${P(it.pimg)}" alt="">`:introImg(it.img)?`<img src="${introImg(it.img)}" alt="">`:'<div class="in-ph">Afbeelding laden…</div>'}</div><figcaption>${it.cap}</figcaption></figure>`:''}
     <p class="qtext">${it.q}</p><div class="opts">${opts}</div>
     ${a!==null?`<div class="card" id="infb"><div class="verdict ${a===it.c?'ok':'bad'}">${a===it.c?'Goed gezien!':'Net niet. Het juiste antwoord is '+corr+'.'}</div><p>${it.e}</p>
-      <button class="btn primary big" onclick="introNext()">${IN.i<INTRO.length-1?'Volgend begrip ›':'Afronden ›'}</button></div>`:''}</div>`); }
+      <button class="btn primary big" onclick="introNext()">${IN.i<INTRO.length-1?'Volgend begrip ›':'Afronden ›'}</button><p class="center" style="margin:10px 0 0"><button class="btn small" onclick="askLaura()">💬 Snap je het niet? Stel Laura een vraag</button></p></div>`:''}</div>`); }
 function introQuit(){ if(!st.introQuitAsked) return introQuitModal(); introQuitGo(); }
 function introQuitGo(){ if(IN.from==='onb'){ ob.s=2; return onbView(); } introBack(); }
 function introQuitModal(){ const m=document.createElement('div'); m.className='lb gl-modal'; m.onclick=()=>m.remove();
@@ -10050,7 +10064,7 @@ function nav(d){ const s=steps(st.r); let p=pos()+d;
   if(p<0){ if(st.r>0){ const ps=steps(st.r-1); return go(st.r-1, ps[ps.length-1]); } return; }
   if(p>=s.length) return goNext();
   go(st.r, s[p]); }
-function render(){ const v=st.view; if((v==='q'||v==='big')&&!diffOf()) return diffView(); (v==='q'||v==='kq')?question():v==='big'?big():v==='match'?matchView():v==='who'?whoView():v==='tl'?timeline(st.tlMode):v==='final'?finalView():v==='gloss'?glossary():v==='paths'?paths():v==='onb'?onbView():v==='intro'?introView():v==='introDone'?introDone():v==='introAsk'?introAsk():v==='fav'?favView():v==='sym'?(symOpen()?symView():freePlay()):v==='start'?hub():v==='credits'?creditsView():v==='me'?meView():v==='keep'?keepView():v==='album'?albumView():v==='board'?boardView():v==='ask'?hub():v==='kvd'?kvdView():v==='dqres'?(st.dq&&st.dq[dqDay()]?dqResult(st.dq[dqDay()]):hub()):v==='daily'?hub():v==='stories'?storiesView():v==='storyc'?storyOpen(st.storyId||'cara'):v==='story'?storiesView():v==='free'?freePlay():home(); }
+function render(){ const v=st.view; if((v==='q'||v==='big')&&!diffOf()) return diffView(); (v==='q'||v==='kq')?question():v==='big'?big():v==='match'?matchView():v==='who'?whoView():v==='tl'?timeline(st.tlMode):v==='final'?finalView():v==='gloss'?glossary():v==='paths'?paths():v==='onb'?onbView():v==='intro'?introView():v==='introDone'?introDone():v==='introAsk'?introAsk():v==='fav'?favView():v==='sym'?(symOpen()?symView():freePlay()):v==='start'?hub():v==='credits'?creditsView():v==='me'?meView():v==='keep'?keepView():v==='askl'?askLaura():v==='album'?albumView():v==='board'?boardView():v==='ask'?hub():v==='kvd'?kvdView():v==='dqres'?(st.dq&&st.dq[dqDay()]?dqResult(st.dq[dqDay()]):hub()):v==='daily'?hub():v==='stories'?storiesView():v==='storyc'?storyOpen(st.storyId||'cara'):v==='story'?storiesView():v==='free'?freePlay():home(); }
 function label(x){ const R=TRACKS[x.t||'basis'].rounds[x.r]; if(!R) return ''; if(x.view==='final') return 'eindtoets'; if(x.view==='match') return 'koppelspel'; if(x.view==='kq') return 'kunstkennersles'; if(x.view==='who') return 'Wie ben ik?'; if(x.view==='tl') return 'tijdlijn'; return x.view==='q' ? `vraag ${x.i+1}: ${R.q[x.i].name.toLowerCase()}` : `meesterwerk: ${R.big.t}`; }
 
 function ctaBtn(){ const rf=resumeFrom&&Number.isInteger(resumeFrom.r)&&(resumeFrom.t||'basis')===st.t&&!roundComplete(resumeFrom.r,st.t)?resumeFrom:null; const W=st.t==='hg'?'niveau':'ronde';
