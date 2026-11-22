@@ -887,7 +887,7 @@ const DEV = (()=>{ try{ if(/[?&]dev=laura\b/.test(location.search)) return true;
 function load(){ try{ const s=JSON.parse(localStorage.getItem('symb-quiz2')||'null'); if(s){ Object.assign(st,s); if(!DEV) st.beta=false; if(s.view && !['home','gloss','paths'].includes(s.view)) resumeFrom={t:s.t||'basis',view:s.view,r:s.r,i:s.i,bigStep:s.bigStep}; } }catch(e){} }
 let cloudRef=null, cloudBusy=false, cloudDirty=false, cloudTimer=null, lastSaved='';
 let cloudReady=false;
-function save(){ if(cloudReady) st.updated=Date.now(); const j=JSON.stringify(st); try{ localStorage.setItem('symb-quiz2', j); }catch(e){} scheduleCloud(); }
+function save(){ if(cloudReady) st.updated=Date.now(); st.saved=Date.now(); const j=JSON.stringify(st); try{ localStorage.setItem('symb-quiz2', j); }catch(e){} try{ keepSave(j); }catch(e){} scheduleCloud(); }
 function scheduleCloud(){ if(!cloudRef||!cloudReady) return; clearTimeout(cloudTimer); cloudTimer=setTimeout(pushCloud,700); }
 async function pushCloud(){ if(!cloudRef||!cloudReady) return; if(cloudBusy){ cloudDirty=true; return; }
   const {updated,...core}=st; const j=JSON.stringify(core); if(j===lastSaved) return;
@@ -922,6 +922,49 @@ async function initCloud(){
     setCloud('ok');
   }catch(e){ setCloud('off'); }
 }
+
+/* ---------- Geheugen: bewaar voortgang op 3 plekken (browser, IndexedDB, online met herstelcode) ---------- */
+const KEEP={db:null,t:null,bt:null,last:''};
+function idb(){ return new Promise(res=>{ if(KEEP.db) return res(KEEP.db); try{ const r=indexedDB.open('kunst-met-laura',1); r.onupgradeneeded=()=>r.result.createObjectStore('kv'); r.onsuccess=()=>{ KEEP.db=r.result; res(KEEP.db); }; r.onerror=()=>res(null); }catch(e){ res(null); } }); }
+async function idbGet(k){ const d=await idb(); if(!d) return null; return new Promise(res=>{ try{ const q=d.transaction('kv').objectStore('kv').get(k); q.onsuccess=()=>res(q.result||null); q.onerror=()=>res(null); }catch(e){ res(null); } }); }
+async function idbSet(k,v){ const d=await idb(); if(!d) return; try{ d.transaction('kv','readwrite').objectStore('kv').put(v,k); }catch(e){} }
+function rcode(){ if(!st.rcode){ const A='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; const b=new Uint8Array(12); crypto.getRandomValues(b); st.rcode=[...b].map(x=>A[x%32]).join(''); } return st.rcode; }
+const rcodeFmt = c => (c||'').replace(/(.{4})(?=.)/g,'$1-');
+const rcodeLink = () => 'https://laurabas123.github.io/kunst-met-laura/?code='+rcode();
+function keepSave(j){ clearTimeout(KEEP.t); if(KEEP.ready) KEEP.t=setTimeout(()=>idbSet('st',j),400);
+  if(!st.onb) return; clearTimeout(KEEP.bt); KEEP.bt=setTimeout(keepBackup,8000); }
+async function keepBackup(){ if(typeof sbOn==='function'&&!sbOn()) return; rcode(); const j=JSON.stringify(st); const core=j.replace(/"saved":\d+,?/,''); if(core===KEEP.last) return;
+  try{ const r=await fetch(SB.url+'/rest/v1/rpc/save_progress',{method:'POST',keepalive:j.length<60000,headers:{apikey:SB.key,Authorization:'Bearer '+SB.key,'Content-Type':'application/json'},body:JSON.stringify({p_code:st.rcode,p_state:j,p_updated:st.saved||Date.now()})}); if(r.ok){ KEEP.last=core; st.backedUp=Date.now(); try{ localStorage.setItem('symb-quiz2',JSON.stringify(st)); }catch(e){} } }catch(e){} }
+async function keepLoad(code){ try{ const r=await fetch(SB.url+'/rest/v1/rpc/load_progress',{method:'POST',headers:{apikey:SB.key,Authorization:'Bearer '+SB.key,'Content-Type':'application/json'},body:JSON.stringify({p_code:code})}); const j=await r.json(); return j&&j[0]?j[0]:null; }catch(e){ return null; } }
+function keepApply(json){ KEEP.ready=false; try{ localStorage.setItem('symb-quiz2',json); }catch(e){} idbSet('st',json); setTimeout(()=>location.reload(),120); }
+/* Bij het opstarten: haal de nieuwste versie terug als de browser iets vergeten is */
+async function keepRestore(){
+  try{ navigator.storage&&navigator.storage.persist&&navigator.storage.persist(); }catch(e){}
+  const m=(location.search.match(/[?&]code=([A-Za-z0-9-]{10,20})/)||[])[1]; const code=m?m.replace(/-/g,'').toUpperCase():null;
+  const mine=st.saved||0;
+  if(code){ const R=await keepLoad(code); let o=null; try{ o=R&&R.state?JSON.parse(R.state):null; }catch(e){}
+    if(o && ((R.updated||0)>mine || !st.onb) && !sessionStorage.getItem('kr-'+code)){ sessionStorage.setItem('kr-'+code,'1'); o.rcode=code; toast('Je voortgang wordt teruggezet…'); return keepApply(JSON.stringify(o)); }
+    KEEP.ready=true; if(st.rcode!==code) st.rcode=code; save(); if(st.onb) keepBackup(); return; }
+  const I=await idbGet('st'); if(I){ let o=null; try{ o=JSON.parse(I); }catch(e){} if(o&&((!st.onb&&o.onb)||(o.saved||0)>mine+2000)&&!sessionStorage.getItem('kr-idb')){ sessionStorage.setItem('kr-idb','1'); return keepApply(I); } }
+  KEEP.ready=true; save(); if(st.onb) keepBackup(); }
+function keepView(){ st.view='keep'; save(); const c=rcode();
+  $(`<div class="hx"><div class="hdr"><button class="chip" onclick="meView()">‹ Terug</button></div>
+    <h1 style="margin:10px 0 6px">Je voortgang bewaren</h1>
+    <p class="muted">De app onthoudt je voortgang in deze browser én online. Open je de app ergens anders (andere browser, telefoon of via een link in WhatsApp)? Gebruik dan je persoonlijke link of herstelcode.</p>
+    <div class="hx-list" style="padding:16px;gap:10px;margin:14px 0">
+      <small class="muted">Jouw herstelcode</small><b style="font-size:1.5rem;letter-spacing:.08em">${rcodeFmt(c)}</b>
+      <button class="btn primary" onclick="keepCopy()">Kopieer mijn persoonlijke link</button>
+      <small class="muted">Tip: zet deze link in je bladwijzers of op je beginscherm. Dan ga je altijd verder waar je was. Deel hem niet met anderen.</small>
+    </div>
+    <p class="muted" style="font-size:.85rem">${st.backedUp?'Laatst online bewaard: '+new Date(st.backedUp).toLocaleString('nl-NL',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):'Wordt zo online bewaard…'}</p>
+    <h2 class="hx-h">Al gespeeld op een ander apparaat?</h2>
+    <div class="hx-list" style="padding:16px;gap:10px"><input id="rcin" class="ob-input" placeholder="Bijv. ABCD-EFGH-JKLM" maxlength="16" style="text-transform:uppercase"><button class="btn" onclick="keepEnter()">Haal mijn voortgang op</button></div>
+  </div>`); keepBackup(); }
+function keepAsk(){ const d=document.createElement('div'); d.className='kpm'; d.innerHTML=`<div class="hx-list" style="padding:18px;gap:10px;max-width:360px;margin:auto"><b>Voortgang terughalen</b><small class="muted">Vul je herstelcode in. Die vind je in de app onder Jij → Voortgang bewaren.</small><input id="rcin" class="ob-input" placeholder="ABCD-EFGH-JKLM" maxlength="16" style="text-transform:uppercase"><button class="btn primary" onclick="keepEnter()">Haal mijn voortgang op</button><button class="btn small" onclick="this.closest('.kpm').remove()">Annuleren</button></div>`; d.style.cssText='position:fixed;inset:0;z-index:9999;background:rgba(5,8,18,.8);display:flex;align-items:center;padding:20px'; document.body.appendChild(d); }
+function keepCopy(){ const l=rcodeLink(); try{ navigator.clipboard.writeText(l).then(()=>toast('Link gekopieerd ✓'),()=>toast(l)); }catch(e){ toast(l); } }
+async function keepEnter(){ const el=document.getElementById('rcin'); const c=(el&&el.value||'').replace(/[^A-Za-z0-9]/g,'').toUpperCase(); if(c.length<10) return toast('Die code is te kort');
+  toast('Even zoeken…'); const R=await keepLoad(c); if(!R||!R.state) return toast('Geen voortgang gevonden bij deze code');
+  let o; try{ o=JSON.parse(R.state); }catch(e){ return toast('Er ging iets mis'); } o.rcode=c; toast('Gevonden! Je voortgang wordt teruggezet…'); keepApply(JSON.stringify(o)); }
 load();
 
 const L = ['A','B','C','D','E'];
@@ -5041,12 +5084,12 @@ const ICON={
   me:'<circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4.5 4.5-6.5 8-6.5s6.5 2 8 6.5"/>'
 };
 const ic=(k,cls='ic')=>`<svg class="${cls}" viewBox="0 0 24 24">${ICON[k]}</svg>`;
-const NAVVIEWS=['me','board','kvd','album','start','paths','free','stories','storyc','home','fav','gloss'];
+const NAVVIEWS=['keep','me','board','kvd','album','start','paths','free','stories','storyc','home','fav','gloss'];
 function navInit(){ if(document.getElementById('nav')) return; const n=document.createElement('nav'); n.id='nav';
   n.innerHTML=[['home','Vandaag','hub()'],['learn','Leren','openCourse()'],['stories','Verhalen','storiesView()'],['museum','Musea','openMuseums()'],['me','Jij','meView()']]
     .map(([k,l,f])=>`<button data-k="${k}" onclick="${f}">${ic(k,'')}<span>${l}</span></button>`).join(''); document.body.appendChild(n); }
 function navUpdate(){ navInit(); const v=st.view; document.body.classList.toggle('has-nav',NAVVIEWS.includes(v));
-  const k= v==='start'||v==='kvd'?'home': (v==='me'||v==='album'||v==='board'||v==='fav')?'me': v==='free'?'learn': (v==='stories'||v==='storyc')?'stories': (v==='paths'&&pathMode==='mus')?'museum': (v==='paths'||v==='home')?'learn':'';
+  const k= v==='start'||v==='kvd'?'home': (v==='me'||v==='keep'||v==='album'||v==='board'||v==='fav')?'me': v==='free'?'learn': (v==='stories'||v==='storyc')?'stories': (v==='paths'&&pathMode==='mus')?'museum': (v==='paths'||v==='home')?'learn':'';
   document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.k===k)); }
 function showSplash(){ if(window._splashed) return; window._splashed=1; const d=document.createElement('div'); d.id='splash';
   d.innerHTML=`<div class="sp-frame"><svg viewBox="0 0 228 278"><rect class="fr" x="4" y="4" width="220" height="270" rx="2"/><rect class="fr2" x="12" y="12" width="204" height="254"/></svg><div class="sp-pic"><img src="${P('pB')}" alt=""></div></div>
@@ -5110,6 +5153,7 @@ function meView(){ st.view='me'; save(); const I=xpInfo(), alive=st.dqLast===dqD
     </div>
     <h2 class="hx-h">Meer</h2>
     <div class="hx-list">
+      <button class="hx-row" onclick="keepView()"><span class="hx-ic">🔐</span><span class="hx-tx"><b>Voortgang bewaren</b><small>Je persoonlijke link en herstelcode</small></span><span class="hx-r">›</span></button>
       <button class="hx-row" onclick="introPrev='start';startIntro('paths')"><span class="hx-ic">🎓</span><span class="hx-tx"><b>Startcursus</b><small>De 8 basisbegrippen</small></span><span class="hx-r">›</span></button>
       <button class="hx-row" onclick="glossary()"><span class="hx-ic">📖</span><span class="hx-tx"><b>Begrippenlijst</b><small>Alle termen op een rij</small></span><span class="hx-r">›</span></button>
       <button class="hx-row" onclick="creditsView()"><span class="hx-ic">ℹ️</span><span class="hx-tx"><b>Over deze app</b><small>Bronnen, muziek en makers</small></span><span class="hx-r">›</span></button>
@@ -5127,7 +5171,7 @@ const obBubble = h => `<div class="ob-bubble">${h}</div>`;
 const obChoice = (ic,t,s,fn) => `<button class="round resume ob-choice" onclick="${fn}"><div class="num">${ic}</div><div><div class="t">${t}</div><div class="s">${s}</div></div></button>`;
 function onbView(){ st.view='onb'; const nm=st.name?`, ${st.name}`:'';
   let body='';
-  if(ob.s===0) body = obBubble(`Welkom bij de app <b>Kunst met Laura</b>! Voordat we gaan beginnen, heb ik een paar vragen aan je.`)+`<button class="btn primary big" onclick="obGo(1)">Laten we beginnen →</button>`;
+  if(ob.s===0) body = obBubble(`Welkom bij de app <b>Kunst met Laura</b>! Voordat we gaan beginnen, heb ik een paar vragen aan je.`)+`<button class="btn primary big" onclick="obGo(1)">Laten we beginnen →</button><p class="center" style="margin-top:14px"><button class="btn small" onclick="keepAsk()">Ik heb al eerder gespeeld</button></p>`;
   else if(ob.s===1) body = obBubble(`Hoe mag ik je noemen?`)+`<input id="obname" class="ob-input" maxlength="30" placeholder="Je voornaam" value="${(st.name||'').replace(/"/g,'&quot;')}" onkeydown="if(event.key==='Enter')obGo(st.introDone||st.introSkip?2:5)"><div class="bnav"><button class="btn" onclick="obGo(st.introDone||st.introSkip?2:5)">Sla over</button><button class="btn primary" onclick="obGo(st.introDone||st.introSkip?2:5)">Verder ›</button></div>`;
   else if(ob.s===2) body = obBubble(st.introDone||st.introSkip?`Mooi${nm}! <b>Waar wil je mee beginnen?</b>`:`Leuk je te ontmoeten${nm}! <b>Wat wil je leren?</b>`)
     + obChoice('🎨','De basis van symboliek','Je begint meteen bij niveau 1: schedels, lelies, hondjes en zeepbellen','obFinish(\'basis\')')
@@ -10005,7 +10049,7 @@ function nav(d){ const s=steps(st.r); let p=pos()+d;
   if(p<0){ if(st.r>0){ const ps=steps(st.r-1); return go(st.r-1, ps[ps.length-1]); } return; }
   if(p>=s.length) return goNext();
   go(st.r, s[p]); }
-function render(){ const v=st.view; if((v==='q'||v==='big')&&!diffOf()) return diffView(); (v==='q'||v==='kq')?question():v==='big'?big():v==='match'?matchView():v==='who'?whoView():v==='tl'?timeline(st.tlMode):v==='final'?finalView():v==='gloss'?glossary():v==='paths'?paths():v==='onb'?onbView():v==='intro'?introView():v==='introDone'?introDone():v==='introAsk'?introAsk():v==='fav'?favView():v==='sym'?(symOpen()?symView():freePlay()):v==='start'?hub():v==='credits'?creditsView():v==='me'?meView():v==='album'?albumView():v==='board'?boardView():v==='ask'?hub():v==='kvd'?kvdView():v==='dqres'?(st.dq&&st.dq[dqDay()]?dqResult(st.dq[dqDay()]):hub()):v==='daily'?hub():v==='stories'?storiesView():v==='storyc'?storyOpen(st.storyId||'cara'):v==='story'?storiesView():v==='free'?freePlay():home(); }
+function render(){ const v=st.view; if((v==='q'||v==='big')&&!diffOf()) return diffView(); (v==='q'||v==='kq')?question():v==='big'?big():v==='match'?matchView():v==='who'?whoView():v==='tl'?timeline(st.tlMode):v==='final'?finalView():v==='gloss'?glossary():v==='paths'?paths():v==='onb'?onbView():v==='intro'?introView():v==='introDone'?introDone():v==='introAsk'?introAsk():v==='fav'?favView():v==='sym'?(symOpen()?symView():freePlay()):v==='start'?hub():v==='credits'?creditsView():v==='me'?meView():v==='keep'?keepView():v==='album'?albumView():v==='board'?boardView():v==='ask'?hub():v==='kvd'?kvdView():v==='dqres'?(st.dq&&st.dq[dqDay()]?dqResult(st.dq[dqDay()]):hub()):v==='daily'?hub():v==='stories'?storiesView():v==='storyc'?storyOpen(st.storyId||'cara'):v==='story'?storiesView():v==='free'?freePlay():home(); }
 function label(x){ const R=TRACKS[x.t||'basis'].rounds[x.r]; if(!R) return ''; if(x.view==='final') return 'eindtoets'; if(x.view==='match') return 'koppelspel'; if(x.view==='kq') return 'kunstkennersles'; if(x.view==='who') return 'Wie ben ik?'; if(x.view==='tl') return 'tijdlijn'; return x.view==='q' ? `vraag ${x.i+1}: ${R.q[x.i].name.toLowerCase()}` : `meesterwerk: ${R.big.t}`; }
 
 function ctaBtn(){ const rf=resumeFrom&&Number.isInteger(resumeFrom.r)&&(resumeFrom.t||'basis')===st.t&&!roundComplete(resumeFrom.r,st.t)?resumeFrom:null; const W=st.t==='hg'?'niveau':'ronde';
@@ -10203,6 +10247,7 @@ setTrack(st.t||'basis');
 if(resumeFrom && resumeFrom.t && resumeFrom.t!==st.t) setTrack(resumeFrom.t);
 if(/kunst met laura/i.test(st.name||'')) st.name='';
 try{ showSplash(); }catch(e){} st.opens=(st.opens||0)+1; if(['intro','introDone','introAsk'].includes(st.view)) st.view='paths'; save(); if(!st.onb) startOnb(); else if(!st.introDone&&!st.introSkip&&st.opens<=3) introAsk(); else { hub(); try{ welcomeBack(); }catch(e){} }
+try{ keepRestore(); }catch(e){}
 initCloud();
 </script>
 </body>
