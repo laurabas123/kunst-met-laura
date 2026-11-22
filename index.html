@@ -574,6 +574,7 @@ body.has-nav #nav{display:flex}body.has-nav .wrap{padding-bottom:96px}
 .hx-grid .ic{width:24px;height:24px;stroke:#d7b46a;fill:none;stroke-width:1.6;margin-bottom:4px}.hx-grid b{font-size:.98rem}.hx-grid small{font-size:.78rem;color:var(--muted,#9aa3b8)}
 .me .hx-stats>div{cursor:default}.me .t3,.me .qcard,.me .chest-card{margin-bottom:12px}
 .dq-card.ready,.chest-card{animation:none!important}
+.in-tag{font-size:.8rem;font-weight:700;color:#d7b46a;margin:0 0 6px}
 </style>
 </head>
 <body>
@@ -2830,7 +2831,7 @@ function lauraSVG(size,head,clap,gala){ const C=gala?LAURA_GALA:LAURA;
     <path d="M120 85 q0.5 -2 1 0" stroke="${C.glasses}" stroke-width="2.4"/>
     <path d="M98 84 L90 82 M143 84 L151 82" stroke="${C.glasses}" stroke-width="2.4" stroke-linecap="round"/>
   </g>
-  <g transform="translate(144 74) rotate(-18)"><path d="M0 0 C-4 -9 -11 -8 -10 -2 C-9 3 -4 3 0 0Z M0 0 C4 -9 11 -8 10 -2 C9 3 4 3 0 0Z" fill="#3b6fd1" stroke="${C.gold}" stroke-width=".8"/>
+  <g transform="translate(150 54) rotate(-28)"><path d="M-9 1 H9" stroke="${C.gold}" stroke-width="1.6" stroke-linecap="round"/><path d="M0 0 C-4 -9 -11 -8 -10 -2 C-9 3 -4 3 0 0Z M0 0 C4 -9 11 -8 10 -2 C9 3 4 3 0 0Z" fill="#3b6fd1" stroke="${C.gold}" stroke-width=".8"/>
     <path d="M0 0 C-3 5 -8 6 -7 2Z M0 0 C3 5 8 6 7 2Z" fill="#2a4fa0" stroke="${C.gold}" stroke-width=".6"/><path d="M0 -4 V4" stroke="${C.gold}" stroke-width="1.2"/></g>
   <!-- neus, wangen, grote lach -->
   <path d="M120 90 q-3 10 1 12" stroke="${C.skinSh}" stroke-width="2" fill="none" stroke-linecap="round"/>
@@ -5199,44 +5200,44 @@ function onbView(){ st.view='onb'; const nm=st.name?`, ${st.name}`:'';
 const INTRO = [
  {id:'symbool', img:'s258', cap:'Gerrit Dou, Stilleven met zandloper', t:'Symbool', g:'symbool',
   u:'Een <b>symbool</b> is iets zichtbaars dat voor iets anders staat, meestal een idee. Een witte lelie is gewoon een bloem, maar op een schilderij betekent hij vaak: <i>zuiverheid</i>.',
-  q:'Op een schilderij staat een zandloper op tafel. Waar staat die zandloper als symbool meestal voor?',
+  q:'Op dit schilderij staat een zandloper op tafel. Waar staat die zandloper als symbool meestal voor?',
   o:['De tijd die verstrijkt','Geduld en volharding','Het uur van het gebed'], c:0,
   e:'Een zandloper loopt onverbiddelijk leeg. Daarom staat hij voor de <b>tijd die voorbijgaat</b>, en dus voor de vergankelijkheid van het leven.'},
  {id:'attribuut', img:'s321', cap:'Caravaggio, De heilige Catharina van Alexandrië', t:'Attribuut', g:'attribuut',
   u:'Een <b>attribuut</b> is een vast voorwerp waaraan je een persoon herkent, vooral heiligen en goden. Petrus draagt altijd sleutels, Mercurius een staf met slangen.',
-  q:'Je ziet een vrouw die leunt op een groot houten rad met spijkers. Wat is dat rad?',
+  q:'Op dit schilderij leunt een vrouw op een groot houten rad met spijkers. Wat is dat rad?',
   o:['Een allegorie van het draaiende lot','Haar attribuut: zo herken je wie ze is','Een symbool van het levenswiel'], c:1,
   e:'Het spijkerrad is het <b>attribuut</b> van de heilige Catharina van Alexandrië, die op zo’n rad gemarteld zou worden. Let op: de godin Fortuna heeft soms ook een rad, maar dan zonder spijkers.'},
  {id:'allegorie', img:'s508', cap:'Theodoor van Thulden, De Tijd onthult de Waarheid', t:'Allegorie', g:'allegorie',
   u:'Een <b>allegorie</b> vertelt een abstract idee, zoals Vrede, Tijd of Waarheid, met figuren en voorwerpen. Het is een soort beeldraadsel: wie de tekens kent, kan het lezen.',
-  q:'Een oude man met vleugels en een zeis trekt een naakte vrouw uit een donkere grot. Wat voor schilderij is dit waarschijnlijk?',
+  q:'Op dit schilderij trekt een oude man met vleugels een naakte vrouw uit het donker, terwijl duistere figuren haar tegenhouden. Wat voor schilderij is dit?',
   o:['Een mythe over een ontvoering','Een historiestuk over een redding','Een allegorie: de Tijd onthult de Waarheid'], c:2,
-  e:'De oude man met vleugels en zeis is <b>Vader Tijd</b>, de naakte vrouw de <b>Waarheid</b>: zij heeft niets te verbergen. Het zijn geen echte personen maar ideeën. Dat maakt het een allegorie.'},
+  e:'De oude man met vleugels is <b>Vader Tijd</b>, de naakte vrouw is de <b>Waarheid</b>. Waarom naakt? Een leugen verstopt zich achter mooie kleren en maskers, maar de waarheid heeft niets te verbergen: ze is <i>onverhuld</i>. Al de Romeinse dichter Horatius sprak van de “naakte Waarheid”, en daar komt ook onze uitdrukking <i>de naakte waarheid</i> vandaan. De boodschap: vroeg of laat brengt de tijd de waarheid aan het licht. Het zijn geen echte personen maar ideeën. Dat maakt het een allegorie.'},
  {id:'personificatie', img:'s384', cap:'Rafaël, De Rechtvaardigheid', t:'Personificatie', g:'allegorie',
   u:'Een <b>personificatie</b> is een idee in de vorm van een persoon. De Rechtvaardigheid wordt bijvoorbeeld een vrouw met een weegschaal en een zwaard. Personificaties zijn de “acteurs” van een allegorie.',
-  q:'Een vrouw draagt een harnas en houdt een zuil vast, met een leeuw aan haar voeten. Wie of wat is zij?',
-  o:['De Moed (Fortitudo), als persoon','Een koningin die ten strijde trekt','Een heilige die de leeuwen trotseerde'], c:0,
-  e:'Harnas, zuil en leeuw zijn de tekens van <b>Fortitudo</b>, de Moed of Sterkte. Geen echte vrouw, maar een deugd in mensengedaante: een personificatie.'},
+  q:'Op deze plafondschildering zit een vrouw op de wolken met een zwaard en een weegschaal, omringd door engeltjes. Wie of wat is zij?',
+  o:['De Rechtvaardigheid (Justitia), als persoon','Een koningin die recht spreekt','Een heilige die met het zwaard werd gedood'], c:0,
+  e:'Zwaard en weegschaal zijn de tekens van <b>Justitia</b>, de Rechtvaardigheid: met de weegschaal weegt ze af, met het zwaard straft ze. Ze is geen echte vrouw, maar een idee in mensengedaante: een personificatie. Je ziet haar nog steeds op rechtbanken.'},
  {id:'vanitas', img:'s246', cap:'Gerrit Dou, Stilleven met jongen die zeepbellen blaast', t:'Vanitas & memento mori', g:'vanitas',
   u:'Een <b>vanitas</b> (Latijn voor “ijdelheid”) is een stilleven dat je eraan herinnert dat alles vergaat: een schedel, een gedoofde kaars, verwelkende bloemen. De schedel zegt <i>memento mori</i>: gedenk dat je sterven zult.',
-  q:'Een stilleven met een kostbare zilveren beker, een uitgedoofde kaars en een zeepbel. Wat is de boodschap?',
-  o:['Geniet nu van wat je hebt','Rijkdom en leven zijn vergankelijk','Wees zuinig met kaarsen en drank'], c:1,
-  e:'Kaars en zeepbel zijn zo weer weg, en ook de mooie beker neem je niet mee. Het is een <b>vanitas</b>: alles wat aards is, vergaat. “Geniet nu” klinkt verleidelijk, maar de schilder bedoelt juist: denk aan wat blijvend is.'},
+  q:'Op dit schilderij blaast een jongen zeepbellen, en rechtsboven, in het donker, ligt een schedel. Wat is de boodschap?',
+  o:['Geniet nu van je jeugd','Het leven is kort en vergankelijk','Kinderen moeten niet met vuur en zeep spelen'], c:1,
+  e:'Een zeepbel is prachtig, maar spat in een tel uit elkaar, net als het leven. De schedel erboven zegt <i>memento mori</i>: gedenk dat je sterven zult. Samen maken ze er een <b>vanitas</b> van. “Geniet nu” klinkt verleidelijk, maar de schilder bedoelt juist: denk aan wat blijvend is.'},
  {id:'temperament', img:'s274', cap:'Rembrandt, Man aan een tafel vol boeken', t:'De vier temperamenten', g:'temperament',
   u:'Vroeger dacht men dat vier lichaamssappen je karakter bepaalden. Zo ontstonden de vier <b>temperamenten</b>: <b>sanguinisch</b> (vrolijk), <b>cholerisch</b> (opvliegend), <b>flegmatisch</b> (rustig, traag) en <b>melancholisch</b> (somber en peinzend).',
-  q:'Een man zit met zijn hoofd op zijn hand voor zich uit te staren, tussen boeken en meetinstrumenten. Welk temperament past daarbij?',
+  q:'Op deze tekening zit een geleerde diep over een boek gebogen, tussen stapels boeken, helemaal in gedachten verzonken. Welk temperament past daarbij?',
   o:['Flegmatisch: rustig en traag','Cholerisch: driftig en opvliegend','Melancholisch: somber en peinzend'], c:2,
-  e:'Het hoofd op de hand is dé houding van de <b>melancholie</b>: somberheid, maar ook nadenken en genialiteit. Een flegmaticus is eerder lui en tevreden dan piekerend.'},
+  e:'Peinzende geleerden golden als <b>melancholisch</b>: de melancholie stond niet alleen voor somberheid, maar ook voor diep nadenken en genialiteit. Let op schilderijen ook op de typische houding: het hoofd op de hand. Een flegmaticus is eerder lui en tevreden dan piekerend.'},
  {id:'genre', img:'s700', cap:'Jan Steen, Het gebed voor de maaltijd', t:'Genrestuk', g:'genre',
   u:'Een <b>genrestuk</b> toont het dagelijks leven van gewone, naamloze mensen: een feest, een herberg, een moeder met haar kind. Vaak zit er een grap of een les in. Jan Steen is de bekendste genreschilder.',
   q:'Welk van deze drie schilderijen is een genrestuk?',
   o:['Het Laatste Avondmaal, in een Hollandse kamer','Een lachend gezin dat feestviert in de keuken','Een portret van een rijk echtpaar'], c:1,
   e:'Het feestende gezin zijn naamloze, gewone mensen: een <b>genrestuk</b>. Het Laatste Avondmaal blijft een bijbelverhaal (een historiestuk), ook in een Hollands decor, en een portret toont juist bekende, echte personen.'},
- {id:'embleem', img:'s402', cap:'Jan Steen, De papegaaienkooi', t:'Embleem', g:'embleem',
-  u:'Een <b>embleem</b> is een prentje met een spreuk erboven en een gedichtje eronder, die samen een les geven. In de Gouden Eeuw waren emblemenboeken razend populair, en schilders haalden er hun symbolen uit.',
+ {id:'embleem', pimg:'s1', cap:'Adriaen van de Venne, embleem uit <i>Maechden-plicht</i> van Jacob Cats (1618)', t:'Embleem', g:'embleem',
+  u:'Een <b>embleem</b> is een prentje met een spreuk erboven en een gedichtje eronder, die samen een les geven. Hier zie je er een: bovenaan het motto <i>Amor elegantiae pater</i> (“de liefde is de vader van de verfijning”), in het midden de prent, onderaan de uitleg. In de Gouden Eeuw waren emblemenboeken razend populair, en schilders haalden er hun symbolen uit.',
   q:'Waarom helpen emblemenboeken kunsthistorici om oude schilderijen te begrijpen?',
   o:['Ze leggen uit welke les een voorwerp had','Ze zijn voorstudies van bekende schilderijen','Ze vertellen het leven van de schilders'], c:0,
-  e:'In een embleem staat letterlijk uitgelegd wat een beeld betekent. Zie je dezelfde kooi, kaars of hond op een schilderij, dan weet je welke <b>les</b> de kijker van toen erin las.'}
+  e:'In een embleem staat letterlijk uitgelegd wat een beeld betekent. Zie je dezelfde vogelkooi, kaars of hond later op een schilderij van bijvoorbeeld Jan Steen, dan weet je welke <b>les</b> de kijker van toen erin las.'}
 ];
 let IN = {i:0, a:null, score:0, from:'paths'};
 let introImgState=null;
@@ -5256,7 +5257,7 @@ function introView(){ st.view='intro'; const it=INTRO[IN.i]; if(!it) return path
   $(`<div class="intro"><div class="top"><button class="btn small" onclick="introQuit()">‹ Stoppen</button><div class="in-dots">${dots}</div></div>
     <div class="eyebrow">Startcursus · begrip ${IN.i+1} van ${INTRO.length}</div><h1>${it.t}</h1>
     <div class="card in-uitleg"><div class="in-lh">${lauraSVG(0,true)}</div><p>${it.u}</p></div>
-    ${it.img?`<figure class="in-fig"><div class="frame">${introImg(it.img)?`<img src="${introImg(it.img)}" alt="${it.cap}">`:'<div class="in-ph">Afbeelding laden…</div>'}</div><figcaption>${it.cap}</figcaption></figure>`:''}
+    ${(it.img||it.pimg)?`<figure class="in-fig"><div class="in-tag">${it.id==='genre'?'Voorbeeld van een genrestuk':it.id==='embleem'?'Voorbeeld van een embleem':'👇 De vraag gaat over dit werk'}</div><div class="frame">${it.pimg?`<img src="${P(it.pimg)}" alt="">`:introImg(it.img)?`<img src="${introImg(it.img)}" alt="">`:'<div class="in-ph">Afbeelding laden…</div>'}</div><figcaption>${it.cap}</figcaption></figure>`:''}
     <p class="qtext">${it.q}</p><div class="opts">${opts}</div>
     ${a!==null?`<div class="card" id="infb"><div class="verdict ${a===it.c?'ok':'bad'}">${a===it.c?'Goed gezien!':'Net niet. Het juiste antwoord is '+corr+'.'}</div><p>${it.e}</p>
       <button class="btn primary big" onclick="introNext()">${IN.i<INTRO.length-1?'Volgend begrip ›':'Afronden ›'}</button></div>`:''}</div>`); }
