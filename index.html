@@ -1007,13 +1007,13 @@ load();
 const L = ['A','B','C','D','E'];
 const $ = h => { const a=document.getElementById('app'); a.innerHTML=h; a.firstElementChild&&a.firstElementChild.classList.add('fade'); try{ navUpdate(); }catch(e){} try{ goldDecorate(); }catch(e){} window.scrollTo({top:0,behavior:'smooth'}); save(); setTimeout(()=>{ if(typeof maybeGuide==='function') maybeGuide(); },350); setTimeout(()=>{ try{ cameoFlush(); }catch(e){} },1100); };
 const BLANK='data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
-const P = k => { if(window.IMG&&window.IMG[k]) return window.IMG[k]; if(/^n3_/.test(k)){ ensureBundle('n3'); return BLANK; } const m=EXTRA_MUSEUMS.find(m=>m.bre.test(k)); if(!m) return 'img/'+k+'.jpg';
+const P = k => { if(window.IMG&&window.IMG[k]) return window.IMG[k]; if(/^n3_/.test(k)){ ensureBundle('n3'); return BLANK; } const m=EXTRA_MUSEUMS.find(m=>m.bre.test(k)); if(!m) return 'img/'+k+'.jpg?v=3';
   const cur=TRACKS[st.t]&&TRACKS[st.t].bundle; if(cur && cur!==m.bundle && BUNDLES[cur]!=='ok') return BLANK; ensureBundle(m.bundle); return BLANK; };
 const BUNDLES={};
-function ensureBundle(id){ if(BUNDLES[id]) return; BUNDLES[id]='loading'; const s=document.createElement('script'); s.src='img/mus_'+id+'.js'; s.async=true; s.onerror=()=>{BUNDLES[id]=null;}; document.head.appendChild(s); }
+function ensureBundle(id){ if(BUNDLES[id]) return; BUNDLES[id]='loading'; const s=document.createElement('script'); s.src='img/mus_'+id+'.js?v=3'; s.async=true; s.onerror=()=>{BUNDLES[id]=null;}; document.head.appendChild(s); }
 function ensureBundleFor(k){ const m=EXTRA_MUSEUMS.find(m=>m.bre.test(k)); if(m) ensureBundle(m.bundle); }
 window.bundleLoaded = id => { BUNDLES[id]='ok'; if(['q','big','kq','who','match','tl','final','home','paths','fav'].includes(st.view)){ const y=window.scrollY; render(); setTimeout(()=>window.scrollTo(0,y),0);} };
-['mix','deugd','bijbel','myth','musea','hg'].forEach(g=>{const s=document.createElement('script');s.src='img/also_'+g+'.js';s.async=true;document.head.appendChild(s);});
+['mix','deugd','bijbel','myth','musea','hg'].forEach(g=>{const s=document.createElement('script');s.src='img/also_'+g+'.js?v=3';s.async=true;document.head.appendChild(s);});
 const esc = t => String(t).replace(/"/g,'&quot;');
 function lb(k,cap){ const d=document.createElement('div'); d.className='lb'; d.innerHTML=`<img src="${P(k)}" alt=""><div class="cap">${cap}</div><button class="btn primary lbclose">Sluit afbeelding</button><div class="hint">of tik ergens op het scherm</div>`; d.onclick=()=>d.remove(); document.body.appendChild(d); }
 const photo = (o,icon) => `<div class="photo" onclick="lb('${o.img}','<b>${esc(o.t).replace(/'/g,'&#39;')}</b><br><span>${esc(o.a).replace(/'/g,'&#39;')} · ${o.y}</span>')"><img src="${P(o.img)}" alt="${esc(o.t)}"><span class="zoom">⤢ vergroten</span>${icon?`<span class="badge-ic">${ICONS[icon]}</span>`:''}${o.where&&!/Titel volgt/.test(o.t)?favBtn(o):''}</div>`;
@@ -1267,7 +1267,7 @@ const termBox = ids => ids.length ? `<div class="gl-list"><h3>📖 Begrippen uit
 let glossBack=null;
 function glossary(){ if(st.view!=='gloss') glossBack=st.view; st.view='gloss';
   const ids=Object.keys(GLOSS).sort((a,b)=>GLOSS[a].t.localeCompare(GLOSS[b].t,'nl'));
-  $(`<div><div class="top"><button class="btn small" onclick="${glossBack==='start'?'hub()':glossBack==='paths'?'paths()':'home()'}">${glossBack==='start'?'‹ Start':glossBack==='paths'?'‹ Routes':'☰ Overzicht'}</button></div>
+  $(`<div><div class="top"><button class="btn small" onclick="${glossBack==='start'?'hub()':glossBack==='paths'?'paths()':'home()'}">${glossBack==='start'?'‹ Hoofdmenu':glossBack==='paths'?'‹ Routes':'☰ Overzicht'}</button></div>
     <div class="eyebrow">Naslag</div><h1>Begrippenlijst</h1>
     <p class="muted">Alle termen uit de quiz, met de misvattingen die vaak de ronde doen. Tik op een begrip om het open te klappen.</p>
     <div class="gl-list">${ids.map(id=>`<details><summary>${GLOSS[id].t}${GLOSS[id].mis?' <span class="gl-tag">misvatting!</span>':''}</summary>${termHTML(id)}</details>`).join('')}</div></div>`); }
@@ -3037,7 +3037,7 @@ function bankQ(it,seed){ const S=SYMB[it.si], im=S.i[it.ii], R=rng('q'+seed+it.s
   const ds=pick(2), pos=Math.floor(R()*3), mk=(right,wrongs)=>{ const o=wrongs.slice(); o.splice(pos,0,right); return o; };
   const first=e=>e.split(/(?<=\.)\s/)[0];
   let question, opts;
-  if(it.t===1){ question=`Op dit werk van ${by} speelt <b>${symArt(S)}</b> een rol. Waar staat dit symbool traditioneel voor?`; opts=mk(S.m,ds.map(o=>o.m)); }
+  if(it.t===1){ question= /^(Sint|Johannes|Petrus|Paulus|Maria Magdalena|Mercurius|Neptunus|Jupiter$|Venus|Mars|Bacchus|Diana|Apollo|Minerva|Hercules|Hi[eë]ronymus|Catharina|Barbara|Joris|Micha[eë]l|Lucas|Marcus|Matt[eh]|Mozes|David|Judith|De evangelist)/.test(S.m) ? `Op dit werk van ${by} zie je dit attribuut: <b>${symArt(S)}</b>. Bij wie hoort het?` : `Op dit werk van ${by} is dit symbool te zien: <b>${symArt(S)}</b>. Waar staat het traditioneel voor?`; opts=mk(S.m,ds.map(o=>o.m)); }
   else if(it.t===2){ question=`Welk symbool op dit werk van ${by} staat traditioneel voor <b>${S.m.toLowerCase()}</b>?`; opts=mk(S.n,ds.map(o=>o.n)); }
   else { question=`Kijk goed naar dit werk van ${by}. Welk symbool met een vaste betekenis zit erin verstopt?`; opts=mk(S.n,ds.map(o=>o.n)); }
   return {question,opts,c:pos,exp:`<b>${S.n}</b> = ${S.m.toLowerCase()}. ${S.e}`,img:im[0],chunk:Math.floor(it.si/25),cap:`${im[1]} · ${by}`,bank:1}; }
@@ -3116,7 +3116,7 @@ function dqFinish(){ clearInterval(dqTimer); if(!DQ) return; const score=DQ.item
 const DQB={first:['🌅','Eerste dagquiz','Je eerste dagquiz gespeeld'],perfect:['💯','Perfecte dag','Alle vijf vragen goed'],early:['☕','Vroege vogel','Dagquiz vóór 9:00 gespeeld'],fast:['⚡','Snelle blik','Binnen 90 seconden, minstens 4 goed'],
   s3:['🔥','Drie op rij','3 dagen achter elkaar'],s7:['🗓️','Een hele week','7 dagen achter elkaar'],s14:['🏛️','Vaste bezoeker','14 dagen achter elkaar'],s30:['👑','Maandkaarthouder','30 dagen achter elkaar'],p5:['🎯','Scherpschutter','5 keer een perfecte dag'],c10:['📚','Trouwe speurder','10 dagquizzen gespeeld']};
 function dqResult(r,fresh){ st.view='dqres'; const nm=st.name?`, ${st.name}`:''; const nx=dqNextAt();
-  $(`<div class="dq"><div class="hdr"><button class="chip" onclick="hub()">‹ Start</button></div>
+  $(`<div class="dq"><div class="hdr"><button class="chip" onclick="hub()">‹ Hoofdmenu</button></div>
    <div class="eyebrow">Dagquiz van vandaag</div><h1>${r.score===DQ_N?'Perfect'+nm+'!':r.score>=3?'Goed gedaan'+nm+'!':'Morgen weer een kans'+nm+'!'}</h1>
    <div class="dq-score"><div><b>${r.score}/${DQ_N}</b><small>goed</small></div><div><b>🔥 ${r.streak}</b><small>${r.streak===1?'dag':'dagen'} op rij</small></div><div><b>${Math.floor(r.secs/60)}:${String(r.secs%60).padStart(2,'0')}</b><small>tijd</small></div></div>
    ${r.over?`<p class="muted center">De tijd was op. Morgen heb je weer vijf minuten.</p>`:''}
@@ -3126,7 +3126,7 @@ function dqResult(r,fresh){ st.view='dqres'; const nm=st.name?`, ${st.name}`:'';
    <div class="card center"><p style="margin:0 0 6px">De volgende dagquiz staat klaar op</p><b style="font-size:1.1rem">${nx.toLocaleDateString('nl-NL',{weekday:'long'})} om 8:00</b>
    <p class="muted" style="font-size:.82rem;margin:8px 0 0">Tip: zet een dagelijkse herinnering in je agenda.</p><button class="btn small" style="margin-top:8px" onclick="dqIcs()">📅 Herinnering om 8:00 toevoegen</button></div>
    <h3 class="rgroup">Alle dagquiz-badges</h3>${dqBadgeGrid()}
-   <button class="btn primary big" onclick="hub()">Terug naar start</button></div>`);
+   <button class="btn primary big" onclick="hub()">Terug naar het hoofdmenu</button></div>`);
   if(fresh&&r.newB&&r.newB.length){ try{ sfx(['fanfare']); }catch(e){} } }
 const dqBadgeGrid=()=>`<div class="dqb-row">${Object.keys(DQB).map(id=>{ const has=st.dqBadges&&st.dqBadges[id]; return `<div class="dqb ${has?'':'off'}"><span>${has?DQB[id][0]:'🔒'}</span><b>${DQB[id][1]}</b><small>${DQB[id][2]}</small></div>`; }).join('')}</div>`;
 function dqIcs(){ const d=dqNextAt(), p=n=>String(n).padStart(2,'0'); const dt=`${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}T080000`;
@@ -3382,7 +3382,7 @@ function top3HTML(){ if(Date.now()-TOP3T>60000) top3Load(); const me=st.comp&&st
 async function top3Load(){ if(!sbOn()) return; TOP3T=Date.now(); try{ const r=await sbFetch('scoreboard?select=id,name,xp&order=xp.desc&limit=3'); const j=await r.json(); TOP3=Array.isArray(j)?j:[]; }catch(e){ TOP3=TOP3||[]; } const el=document.getElementById('top3'); if(el&&st.view==='start') el.innerHTML=top3HTML(); }
 /* ---------- scorebord ---------- */
 async function boardView(){ st.view='board'; save(); const me=st.comp&&st.comp.ok===true;
-  const head=`<div><div class="hdr"><button class="chip" onclick="hub()">‹ Start</button></div><div class="eyebrow">Testerscompetitie</div><h1>Het scorebord</h1>`;
+  const head=`<div><div class="hdr"><button class="chip" onclick="hub()">‹ Hoofdmenu</button></div><div class="eyebrow">Testerscompetitie</div><h1>Het scorebord</h1>`;
   if(!sbOn()){ $(head+`<div class="card center"><div style="font-size:2rem">🏗️</div><p><b>Het scorebord gaat binnenkort live.</b></p><p class="muted">${me?`Je bent aangemeld als <b>${esc(st.comp.name)}</b>. Zodra het scorebord online staat, verschijn je er meteen op met al je punten.`:'Meld je aan, dan verschijn je meteen op het scorebord zodra het live gaat.'}</p></div>${me?`<button class="btn small" onclick="compLeave()">Afmelden voor de competitie</button>`:`<button class="btn primary big" onclick="napoleonScene(true)">Napoleon, ik wil meedoen!</button>`}</div>`); return; }
   $(head+`<div class="card center muted">Scorebord laden…</div></div>`);
   if(me) compSync(true);
@@ -3477,13 +3477,13 @@ function kvdView(){ const T=kvdToday(); st.view='kvd'; const {S,im,Q,K}=T, a=K.a
   if(SYMCH[T.chunk]!=='ok'){ $(`<div class="card center" style="margin-top:40px">Kunstwerk laden…</div>`); setTimeout(()=>{ if(st.view==='kvd') kvdView(); },500); return; }
   if(!K.seen){ K.seen=1; save(); setTimeout(()=>xpAdd(10,'kunstwerk van de dag'),400); }
   const by=`${im[2]}${im[3]?', '+im[3]:''}`;
-  $(`<div class="kvd"><div class="hdr"><button class="chip" onclick="hub()">‹ Start</button><span class="muted" style="font-size:.85rem">Alleen vandaag · nieuw werk om 8:00</span></div>
+  $(`<div class="kvd"><div class="hdr"><button class="chip" onclick="hub()">‹ Hoofdmenu</button><span class="muted" style="font-size:.85rem">Alleen vandaag · nieuw werk om 8:00</span></div>
    <div class="eyebrow">Kunstwerk van de dag</div><h1>${im[2]}</h1><p class="muted" style="margin-top:-6px">${im[3]?im[3]+' · ':''}bekend als <i>${im[1]}</i></p>
    <button class="kvd-img" onclick="kvdZoom()"><img src="${symImg(im[0])}" alt=""><span>🔍 Tik om te vergroten</span></button>
    <div class="card"><div class="al-sub" style="margin-top:0">🔎 Kijkopdracht</div><p class="qtext" style="margin:4px 0 8px">In dit schilderij zit een symbool met een vaste betekenis verstopt. Welk?</p>
     <div class="opts">${Q.opts.map((o,j)=>`<button class="opt ${a===undefined?'':j===Q.c?'correct':j===a?'wrong':'dim'}" ${a!==undefined?'disabled':''} onclick="kvdAns(${j})"><span class="L">${'ABC'[j]}</span><span>${o}</span></button>`).join('')}</div>
     ${a!==undefined?`<div class="card fb ${a===Q.c?'good':'bad'}" style="margin-top:10px"><b>${a===Q.c?'Goed gezien! Dit werk hangt nu in je museum.':'Helaas! Het was '+S.n.toLowerCase()+'.'}</b> <b>${S.n}</b> staat traditioneel voor <b>${S.m.toLowerCase()}</b>. ${S.e}</div>`:''}</div>
-   <button class="btn primary big" onclick="hub()">Terug naar start</button></div>`); }
+   <button class="btn primary big" onclick="hub()">Terug naar het hoofdmenu</button></div>`); }
 function kvdZoom(){ const T=kvdToday(); const d=document.createElement('div'); d.className='lb'; d.innerHTML=`<img src="${symImg(T.im[0])}" alt=""><div class="cap"><i>${T.im[1]}</i> · ${T.im[2]}${T.im[3]?', '+T.im[3]:''}</div><button class="btn primary lbclose">Sluit afbeelding</button>`; d.onclick=()=>d.remove(); document.body.appendChild(d); }
 function kvdAns(j){ const T=kvdToday(); if(T.K.ans!==undefined) return; T.K.ans=j; const ok=j===T.Q.c; if(ok){ st.kvdWon=st.kvdWon||{}; st.kvdWon[T.im[0]]={t:T.im[1],a:T.im[2],y:T.im[3],s:T.S.n,at:Date.now()}; xpAdd(15,'goed gezien'); } save(); try{ sfx(ok?'bell':'whoosh'); }catch(e){} kvdView(); }
 function kvdRoomHTML(){ const W=Object.entries(st.kvdWon||{}); return `<h3 class="rgroup">🖼️ Zaal van de dagwerken <span class="muted" style="font-size:.8rem">· ${W.length}</span></h3>${W.length?`<div class="mus-wall">${W.map(([k,v])=>`<div class="mus-slot on"><img src="${symImg(k)}" alt=""><small>${v.a}</small></div>`).join('')}</div>`:`<p class="muted" style="font-size:.85rem">Elk kunstwerk van de dag dat je goed bekijkt, krijgt hier een plek. Elke dag één nieuwe kans.</p>`}`; }
@@ -3650,10 +3650,11 @@ const SECART={'laura:s0':{p:'kB1',c:'Leonardo da Vinci, Dame met de hermelijn (c
  'rembrandt:s0':{st:'rem3',c:'Rembrandt, Saskia als Flora (1634), geschilderd in het jaar van hun huwelijk.'},'rembrandt:s1':{sec:'rs1',c:'Rembrandt, Hendrickje Stoffels (ca. 1654), Louvre, Parijs.'},
  'catharina:s0':{st:'st_m11',c:'Atelier van François Clouet, Catharina de’ Medici (ca. 1560).'},'catharina:s1':{sec:'cs1',c:'Atelier van François Clouet, Diane de Poitiers.'},
  'durer:s0':{sec:'ds0',c:'Albrecht Dürer, zelfportret op dertienjarige leeftijd (1484), zilverstift. Albertina, Wenen.'},'durer:s1':{sec:'ds1',c:'Albrecht Dürer, Willibald Pirckheimer (1524), gravure.'}};
-function secLoad(){ if(window.SECIMG||window._secL) return; window._secL=1; const s=document.createElement('script'); s.src='img/secret.js'; s.async=true; s.onerror=()=>{window._secL=0;}; document.head.appendChild(s); }
+function secLoad(){ if(window.SECIMG||window._secL) return; window._secL=1; const s=document.createElement('script'); s.src='img/secret.js?v=3'; s.async=true; s.onerror=()=>{window._secL=0;}; document.head.appendChild(s); }
 window.secLoaded=()=>{ document.querySelectorAll('img[data-sec]').forEach(i=>{ i.src=secSrc(i.dataset.sec); }); };
+function secFix(n){ let left=0; document.querySelectorAll('img[data-sec]').forEach(im=>{ const v=secSrc(im.dataset.sec); if(v&&v!==BLANK){ if(im.src!==v) im.src=v; } else left++; }); if(left&&(n||0)<40) setTimeout(()=>secFix((n||0)+1),250); }
 function secSrc(id){ const A=SECART[id]; if(!A) return ''; if(A.p) return P(A.p); if(A.st){ storyEnsure(); return storyImg(A.st); } secLoad(); return (window.SECIMG&&SECIMG[A.sec])||BLANK; }
-const secFig = id => SECART[id]?`<figure class="sec-fig" onclick="event.stopPropagation();const d=document.createElement('div');d.className='lb';d.innerHTML='<img src=&quot;'+this.querySelector('img').src+'&quot;><div class=cap>'+this.querySelector('figcaption').innerHTML+'</div>';d.onclick=()=>d.remove();document.body.appendChild(d)"><img data-sec="${id}" src="${secSrc(id)}" alt=""><figcaption>${SECART[id].c}</figcaption></figure>`:'';
+const secFig = id => SECART[id]?`<figure class="sec-fig" onclick="event.stopPropagation();const d=document.createElement('div');d.className='lb';d.innerHTML='<img src=&quot;'+this.querySelector('img').src+'&quot;><div class=cap>'+this.querySelector('figcaption').innerHTML+'</div>';d.onclick=()=>d.remove();document.body.appendChild(d)"><img data-sec="${id}" src="${secSrc(id)}" alt="" onload="" onerror="">${(setTimeout(secFix,200),'')}<figcaption>${SECART[id].c}</figcaption></figure>`:'';
 function bondLevelUp(k,lv){ const g=k, G=GUIDES[g], L=BOND_LV[lv].n, nm=st.name?`, ${st.name}`:'';
   const sec=GLINES[g].secrets[lv-1]; st.cards=st.cards||{}; st.cards[g+':s'+(lv-1)]=Date.now(); save();
   const B = lv===2 ? freshArt(g==='laura'?['basis','rijks','maur']:g==='rembrandt'?['hg']:g==='durer'?['mix','n3']:['deugden','bijbel','myth','ge','kenner']) : null;
@@ -3734,7 +3735,7 @@ const famOf = s => SYMFAM[s.g] || ('_'+s.g);
 let SYMQ = null;   // huidige vraag
 const SYMCH={}; const symChunk=i=>Math.floor(i/25);
 function symReady(i){ if(i===undefined) i=SYMQ?SYMQ.i:0; return SYMCH[symChunk(i)]==='ok'; }
-function symLoadChunk(c,tries=0){ if(SYMCH[c]==='ok'||SYMCH[c]==='loading') return; SYMCH[c]='loading'; const s=document.createElement('script'); s.src='img/sym_'+c+'.js'; s.async=true;
+function symLoadChunk(c,tries=0){ if(SYMCH[c]==='ok'||SYMCH[c]==='loading') return; SYMCH[c]='loading'; const s=document.createElement('script'); s.src='img/sym_'+c+'.js?v=3'; s.async=true;
   s.onerror=()=>{ SYMCH[c]=null; s.remove(); if(tries<4) setTimeout(()=>symLoadChunk(c,tries+1),1500*(tries+1)); else if(st.view==='sym') symView(); }; document.head.appendChild(s); }
 function symLoad(){ symLoadChunk(SYMQ?symChunk(SYMQ.i):0); }
 function symPrefetch(){ const n=Math.ceil(SYMB.length/25); const nxt=(st.symDeck||[])[0]; if(nxt!==undefined&&!SYMCH[symChunk(nxt)]) return symLoadChunk(symChunk(nxt)); for(let c=0;c<n;c++) if(!SYMCH[c]){ symLoadChunk(c); break; } }
@@ -4270,7 +4271,7 @@ function storyChoiceModal(){ if(storyCredits()<=0) return; const L=STORIES.filte
    <div class="sch-list">${L.map(S=>`<button class="sch" style="--sc:${S.col}" onclick="this.closest('.lb').remove();storyUnlock('${S.id}')"><span class="sch-f">${scSVG(S.who,0,true)}</span><span><b>${S.t}</b><small>${S.sub}</small></span></button>`).join('')}</div>
    <button class="btn" style="margin-top:8px" onclick="this.closest('.lb').remove()">Later kiezen</button></div>`; qModal(m); try{ sfx(['fanfare']); }catch(e){} }
 function storiesView(){ st.view='stories'; save(); storyEnsure(); auLeave();
-  $(`<div><div class="hdr"><button class="chip" onclick="hub()">‹ Start</button><button class="chip snd-btn" onclick="soundToggle()">${auOn()?'🔊':'🔇'}</button></div>
+  $(`<div><div class="hdr"><button class="chip" onclick="hub()">‹ Hoofdmenu</button><button class="chip snd-btn" onclick="soundToggle()">${auOn()?'🔊':'🔇'}</button></div>
    <h1 style="margin:8px 0 2px">Levensverhalen</h1><p class="serif" style="margin:0 0 6px;color:var(--gold2);font-size:1.15rem;font-style:italic">Kunst aan de hand van bekende personen</p><p class="muted" style="margin:0 0 12px">Stap in het leven van schilders, vorsten en verzamelaars. Beleef hun avonturen in geanimeerde scènes, raad wat er gebeurde, en bewonder onderweg de kunst die ze maakten of lieten maken.</p>
    ${storyCredits()>0?`<button class="dq-card ready" onclick="storyChoiceModal()"><span class="dq-ic">🎁</span><span class="dq-tx"><b>Je hebt een nieuw verhaal verdiend</b><small>Tik om zelf te kiezen welk verhaal je vrijspeelt</small></span></button>`:''}
    ${STORIES.slice().sort((a,b)=>storyIsOpen(b.id)-storyIsOpen(a.id)).map(S=>{ const d=storyDone(S.id), n=S.chapters.length, open=storyIsOpen(S.id);
@@ -4347,7 +4348,7 @@ function storyView(still){ const S=storyById(STQ.id), C=S.chapters[STQ.c], beats
   if(x.art) storyEnsure(); }
 function qImg(C,b){ const x=C.beats[b]; if(x.img===false) return null; if(x.img) return x.img; for(let i=b-1;i>=Math.max(0,b-4);i--){ if(C.beats[i].art) return C.beats[i].art; } return null; }
 function storyImg(k){ return (window.STIMG&&window.STIMG[k])||BLANK; }
-function storyEnsure(){ if(window.STIMG||window._stLoading) return; window._stLoading=1; const s=document.createElement('script'); s.src='img/story.js'; s.async=true; s.onerror=()=>{window._stLoading=0;}; document.head.appendChild(s); }
+function storyEnsure(){ if(window.STIMG||window._stLoading) return; window._stLoading=1; const s=document.createElement('script'); s.src='img/story.js?v=3'; s.async=true; s.onerror=()=>{window._stLoading=0;}; document.head.appendChild(s); }
 window.storyLoaded=()=>{ if(st.view==='story'&&STQ&&!STQ.intro) storyView(true); };
 /* regie-laag: extra scènes en effecten bovenop de basisverhalen */
 function applyStaging(){ for(const S of STORIES){ const G=STAGE[S.id]; if(!G||S._staged) continue; S._staged=1; if(G.mood) S.mood=G.mood;
@@ -5136,7 +5137,7 @@ function showSplash(){ if(window._splashed) return; window._splashed=1; const d=
 
 function creditsView(){ st.view='credits'; save();
   const mus=Object.entries(TRACKS_MUS).map(([k,t])=>`<li><b>${t.t}</b> — ${t.c}. Uitvoering: ${t.p}.</li>`).join('');
-  $(`<div><div class="hdr"><button class="chip" onclick="hub()">‹ Start</button></div><h1>Over deze app</h1>
+  $(`<div><div class="hdr"><button class="chip" onclick="hub()">‹ Hoofdmenu</button></div><h1>Over deze app</h1>
    <p>Kunst met Laura is een leerapp over symboliek en kunstgeschiedenis, gemaakt door Laura Bas. Deze testversie is bedoeld voor een kleine groep testers.</p>
    <h3>Afbeeldingen</h3><p class="muted">Kunstwerken van vóór 1900, in het publiek domein. Afbeeldingen via WikiArt en Wikimedia Commons.</p>
    <h3>Muziek</h3><ul class="muted" style="padding-left:18px">${mus}</ul><p class="muted small">Opnames via Wikimedia Commons. Opnames met CC BY-SA worden gebruikt onder die licentie (creativecommons.org/licenses/by-sa/3.0).</p>
@@ -5317,7 +5318,7 @@ const INTRO = [
 ];
 let IN = {i:0, a:null, score:0, from:'paths'};
 let introImgState=null;
-function introLoad(tries=0){ if(window.INTROIMG||introImgState==='loading') return; introImgState='loading'; const sc=document.createElement('script'); sc.src='img/intro.js'; sc.async=true;
+function introLoad(tries=0){ if(window.INTROIMG||introImgState==='loading') return; introImgState='loading'; const sc=document.createElement('script'); sc.src='img/intro.js?v=3'; sc.async=true;
   sc.onerror=()=>{ introImgState=null; sc.remove(); if(tries<4) setTimeout(()=>introLoad(tries+1),1200*(tries+1)); }; document.head.appendChild(sc); }
 window.introLoaded=()=>{ introImgState='ok'; if(st.view==='intro'){ const y=scrollY; introView(); scrollTo(0,y); } };
 const introImg=k=>(window.INTROIMG&&window.INTROIMG[k])||'';
@@ -9794,7 +9795,7 @@ function openCourse(){ pathMode='course'; routeTab=(routeTab==='mus'||!routeTab)
 function openMuseums(){ pathMode='mus'; routeTab='mus'; paths(); }
 function freePlay(){ st.view='free'; if(symOpen()&&!st.symSeen){ st.symSeen=1; setTimeout(symUnlockedModal,300); } save();
   const sp=SPECS.filter(t=>TRACKS[t]);
-  $(`<div><div class="hdr"><button class="chip" onclick="hub()">‹ Start</button></div>
+  $(`<div><div class="hdr"><button class="chip" onclick="hub()">‹ Hoofdmenu</button></div>
     <h1 style="margin:6px 0 4px">Vrij spelen</h1><p class="muted" style="margin:0 0 12px">Geen vaste volgorde: kies waar je zin in hebt.</p>
     <button class="sym-card ${symOpen()?'':'locked'}" onclick="startSym()"><span class="sc-ic">${symOpen()?'🎲':'🔒'}</span><span><b>Willekeurig symboliek oefenen</b><br><span class="muted">${symOpen()?`200 symbolen · strike-record ${st.symBest||0}`:`Gaat open na Niveau 1 · De basis (${TRACKS.basis.rounds.filter((_,i)=>roundComplete(i,'basis')).length}/${TRACKS.basis.rounds.length} rondes)`}</span></span><span class="sc-go">›</span></button>
     <h2 class="free-h">Specialisaties</h2>
@@ -9811,7 +9812,7 @@ function resumeCard(){ const rf = resumeFrom && Number.isInteger(resumeFrom.r) &
 function paths(){
   st.view='paths'; if(!pathMode) pathMode=groupOf(st.t||'basis')==='mus'?'mus':'course'; let tab=routeTab||groupOf(st.t||'basis'); if(pathMode==='mus') tab='mus'; else if(tab==='mus') tab='symb';
   $(`<div>
-    <div class="hdr" style="margin-top:4px"><button class="chip" onclick="hub()">‹ Start</button><button class="chip gold" onclick="openFav('paths')">♥ ${favCount()||''}</button></div>
+    <div class="hdr" style="margin-top:4px"><button class="chip" onclick="hub()">‹ Hoofdmenu</button><button class="chip gold" onclick="openFav('paths')">♥ ${favCount()||''}</button></div>
     <h1 style="margin:10px 0 10px">${pathMode==='mus'?'Kies een museum':'Kies een cursus'}</h1>
     ${pathMode==='mus'?'':segHtml(tab,'setRouteTab')}
     ${segNote(tab)}
@@ -10313,9 +10314,9 @@ function big(){
       <div class="card center"><div class="eyebrow">Jouw score deze ronde</div><div class="score">${sc} / ${ROUNDS[st.r].q.length}</div>
       <p class="muted">${sc===ROUNDS[st.r].q.length?'Foutloos. Jij kijkt als een kunsthistoricus!':sc>=3?'Mooi! Je oog voor symbolen groeit.':'Elke fout is een nieuw symbool dat je nu kent.'}</p>
       <div class="row" style="justify-content:center">${st.t==='basis'?`<button class="btn primary" onclick="nav(1)">Afsluiten met de kunstkennersles 🎓</button>`:`<button class="btn primary" onclick="goNext()">${nextLabel()}</button>`}
-      <button class="btn" onclick="resetRound(${st.r})">Ronde opnieuw</button><button class="btn" onclick="home()">Overzicht</button></div>${st.t==='basis'?'':nextNote()}</div>`;
+      <button class="btn" onclick="resetRound(${st.r})">Ronde opnieuw</button></div>${st.t==='basis'?'':nextNote()}</div>`;
   }
-  $(h+bottomNav()+'</div>');
+  $(h+`<div class="bnav"><button class="btn" onclick="nav(-1)">‹ 1 vraag terug</button><button class="btn primary" onclick="hub()">Terug naar het hoofdmenu</button></div>`+'</div>');
 }
 function bigAnswer(k){ const wasA=(st.bigStep in bres(st.r)); bres(st.r)[st.bigStep]=k; try{ const ok=k===TR(st.r).big.details[st.bigStep].c; cameoNote(ok); if(!wasA){ firstMark(K(st.r,st.t)+'|b|'+st.bigStep,ok); ansReward(ok,'b'); } }catch(e){} big(); setTimeout(()=>{const c=document.getElementById('fb'); c&&c.scrollIntoView({behavior:'smooth',block:'start'});},80); }
 
