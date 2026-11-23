@@ -575,6 +575,22 @@ body.has-nav #nav{display:flex}body.has-nav .wrap{padding-bottom:96px}
 .me .hx-stats>div{cursor:default}.me .t3,.me .qcard,.me .chest-card{margin-bottom:12px}
 .dq-card.ready,.chest-card{animation:none!important}
 .in-tag{font-size:.8rem;font-weight:700;color:#d7b46a;margin:0 0 6px}
+.wow{min-height:calc(100vh - 40px);display:flex;flex-direction:column;justify-content:center;gap:14px;padding:20px 4px 30px;position:relative}
+.wow h1{font-size:1.7rem;line-height:1.2;text-align:center;margin:0}.wow-hero{display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center}
+.wow-av{width:110px;height:110px;border-radius:50%;overflow:hidden;border:2px solid rgba(215,180,106,.6);background:#141c33}.wow-av svg{width:100%;height:100%}
+.wow-q{font-size:1.15rem;line-height:1.4;text-align:center;margin:0}.wow-cap{font-size:.85rem;color:var(--muted,#9aa3b8);text-align:center;margin:0}
+.wow-paint{position:relative;border-radius:14px;overflow:hidden;cursor:crosshair;box-shadow:0 14px 34px rgba(0,0,0,.45)}.wow-paint img{display:block;width:100%}
+.wow-paint.shake{animation:wshake .35s}@keyframes wshake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.wow-hint{position:absolute;left:20%;top:81%;width:58%;height:13%;transform:rotate(-24deg);border-radius:50%;box-shadow:0 0 0 3px rgba(230,196,122,.0);pointer-events:none;transition:box-shadow .4s}
+.wow-hint.on{animation:whint 1.4s infinite}@keyframes whint{50%{box-shadow:0 0 0 4px rgba(230,196,122,.9),0 0 30px rgba(230,196,122,.6)}}
+.wow-skull{position:relative;height:300px;border-radius:16px;overflow:hidden;background:#0a0e1c;-webkit-mask-image:radial-gradient(circle at 50% 50%,#000 55%,transparent 75%);mask-image:radial-gradient(circle at 50% 50%,#000 55%,transparent 75%)}
+.wow-sk-in{position:absolute;left:50%;top:50%;width:800px;height:311px;margin-left:-425px;margin-top:-157px;background:url(img/amb_skull.jpg) no-repeat;background-size:800px 311px;transform-origin:425px 157px;transform:scale(.42) rotate(-25.8deg) scaleX(1) rotate(25.8deg);transition:transform 2.2s cubic-bezier(.45,0,.2,1)}
+.wow-sk-in.fixed{transform:scale(1.15) rotate(-25.8deg) scaleX(.22) rotate(25.8deg)}
+.wow-pop{animation:wpop .6s both}@keyframes wpop{from{opacity:0;transform:translateY(8px)}}
+.wow-opts{display:flex;flex-direction:column;gap:10px}.wow-opts .btn.ok{background:#3f6b45;border-color:#7fae7a}.wow-opts .btn.bad{background:#6b3434;border-color:#c0645a}
+.wow-card{display:flex;flex-direction:column;gap:2px;padding:18px 26px;border-radius:16px;border:1.5px solid rgba(215,180,106,.7);background:rgba(215,180,106,.1)}.wow-card small{color:#d7b46a;font-weight:700}.wow-card b{font-size:1.4rem;font-family:inherit}.wow-card span{font-size:.9rem;color:var(--muted,#9aa3b8)}
+.wow-dots{display:flex;justify-content:center;gap:6px;margin-top:8px}.wow-dots i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.18)}.wow-dots i.on{background:#d7b46a}
+.wow-fig{margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:6px}.wow-fig img{max-height:34vh;max-width:70%;border-radius:10px;box-shadow:0 10px 26px rgba(0,0,0,.45)}.wow-fig figcaption{font-size:.8rem;color:var(--muted,#9aa3b8)}
 </style>
 </head>
 <body>
@@ -2844,6 +2860,13 @@ function lauraSVG(size,head,clap,gala){ const C=gala?LAURA_GALA:LAURA;
   <g class="blink"><ellipse cx="109" cy="86" rx="3.2" ry="3.4" fill="#4a2c18"/><ellipse cx="132" cy="86" rx="3.2" ry="3.4" fill="#4a2c18"/>
     <circle cx="110.2" cy="84.8" r="1" fill="#fff"/><circle cx="133.2" cy="84.8" r="1" fill="#fff"/></g>
   <path d="M104 91 q5 3 10 0 M127 91 q5 3 10 0" stroke="${C.skinSh}" stroke-width="1.4" fill="none"/>
+  <!-- ronde blauwe bril  -->
+  <g fill="none">
+    <circle cx="109" cy="86" r="11" stroke="${C.glasses}" stroke-width="2.6"/><circle cx="132" cy="86" r="11" stroke="${C.glasses}" stroke-width="2.6"/>
+    <circle cx="109" cy="86" r="11" stroke="#9fb7e6" stroke-width=".8" stroke-dasharray="1 5" opacity=".6"/><circle cx="132" cy="86" r="11" stroke="#9fb7e6" stroke-width=".8" stroke-dasharray="1 5" opacity=".6"/>
+    <path d="M120 85 q0.5 -2 1 0" stroke="${C.glasses}" stroke-width="2.4"/>
+    <path d="M98 84 L90 82 M143 84 L151 82" stroke="${C.glasses}" stroke-width="2.4" stroke-linecap="round"/>
+  </g>
   <g transform="translate(150 54) rotate(-28)"><path d="M-9 1 H9" stroke="${C.gold}" stroke-width="1.6" stroke-linecap="round"/><path d="M0 0 C-4 -9 -11 -8 -10 -2 C-9 3 -4 3 0 0Z M0 0 C4 -9 11 -8 10 -2 C9 3 4 3 0 0Z" fill="#3b6fd1" stroke="${C.gold}" stroke-width=".8"/>
     <path d="M0 0 C-3 5 -8 6 -7 2Z M0 0 C3 5 8 6 7 2Z" fill="#2a4fa0" stroke="${C.gold}" stroke-width=".6"/><path d="M0 -4 V4" stroke="${C.gold}" stroke-width="1.2"/></g>
   <!-- neus, wangen, grote lach -->
@@ -5167,6 +5190,7 @@ function meView(){ st.view='me'; save(); const I=xpInfo(), alive=st.dqLast===dqD
     </div>
     <h2 class="hx-h">Meer</h2>
     <div class="hx-list">
+      ${WOW_ON?`<button class="hx-row" onclick="wowStart()"><span class="hx-ic">✨</span><span class="hx-tx"><b>Nieuwe opening testen</b><small>De eerste minuut voor nieuwe gebruikers</small></span><span class="hx-r">›</span></button>`:''}
       <button class="hx-row" onclick="askLaura()"><span class="hx-ic">💬</span><span class="hx-tx"><b>Stel Laura een vraag</b><small>Over kunst, een vraag uit de app of een idee</small></span><span class="hx-r">›</span></button>
       <button class="hx-row" onclick="keepView()"><span class="hx-ic">🔐</span><span class="hx-tx"><b>Voortgang bewaren</b><small>Je persoonlijke link en herstelcode</small></span><span class="hx-r">›</span></button>
       <button class="hx-row" onclick="introPrev='start';startIntro('paths')"><span class="hx-ic">🎓</span><span class="hx-tx"><b>Startcursus</b><small>De 8 basisbegrippen</small></span><span class="hx-r">›</span></button>
@@ -5176,6 +5200,44 @@ function meView(){ st.view='me'; save(); const I=xpInfo(), alive=st.dqLast===dqD
   </div>`); }
 
 let ob = {s:0};
+
+/* ---------- Nieuwe opening: de eerste minuut (alleen in de testversie, niet op github.io) ---------- */
+const WOW_ON = location.hostname.indexOf('github.io')<0;
+const WOW={step:0,miss:0,au:null};
+function wowLoad(){ if(window.WOWVOX||WOW.loading) return; WOW.loading=1; const sc=document.createElement('script'); sc.src='vox/wow.js'; document.head.appendChild(sc); }
+function wowSay(k){ try{ if(WOW.au){ WOW.au.pause(); } if(!auOn()||!window.WOWVOX||!WOWVOX[k]) return; WOW.au=new Audio('data:audio/mpeg;base64,'+WOWVOX[k]); WOW.au.play().catch(()=>{}); }catch(e){} }
+function wowStart(){ WOW.step=0; WOW.miss=0; wowLoad(); wowView(); }
+function wowShell(inner,dots){ $(`<div class="wow">${inner}<div class="wow-dots">${[0,1,2,3,4].map(i=>`<i class="${i<=dots?'on':''}"></i>`).join('')}</div></div>`); const n=document.getElementById('nav'); if(n) n.style.display='none'; }
+function wowView(){ const S=WOW.step;
+  if(S===0) return wowShell(`<div class="wow-hero"><div class="wow-av">${lauraSVG(0,true)}</div>
+      <h1>Ik laat je iets zien wat bijna iedereen mist.</h1>
+      <button class="btn primary big" onclick="WOW.step=1;wowView();wowSay('w1')">Laat het me zien</button></div>`,0);
+  if(S===1) return wowShell(`<p class="wow-q">Zie jij wat hier niet klopt? <b>Tik erop.</b></p>
+      <div class="wow-paint" id="wowp" onclick="wowTap(event)"><img src="img/amb900.jpg" alt="Hans Holbein, De ambassadeurs (1533)"><span class="wow-hint ${WOW.miss>=2?'on':''}"></span></div>
+      <p class="wow-cap">Hans Holbein de Jonge, <i>De ambassadeurs</i>, 1533</p>`,1);
+  if(S===2) return wowShell(`<p class="wow-q">Goed gezien! Die vreemde vlek is een geheim.</p>
+      <div class="wow-skull" id="wows"><div class="wow-sk-in" id="wowsk"></div></div>
+      <p class="wow-cap">Holbein schilderde hem zo dat je hem alleen ziet als je er schuin langs kijkt.</p>
+      <button class="btn primary big" id="wowbtn" onclick="wowReveal()">Kijk er schuin langs ↗</button>`,2);
+  if(S===3) return wowShell(`<figure class="wow-fig"><img src="img/zandloper.jpg" alt="Gerrit Dou, Zandloper en inktpot op een plank"><figcaption>Gerrit Dou, <i>Zandloper en inktpot op een plank</i>, 1647</figcaption></figure><p class="wow-q">Dan een makkelijke. Wat betekent een <b>zandloper</b> op een schilderij?</p>
+      <div class="wow-opts">${[['De tijd tikt weg',1],['Rijkdom en luxe',0],['Een lange reis',0]].map(([t,c])=>`<button class="btn" onclick="wowAns(this,${c})">${t}</button>`).join('')}</div>`,3);
+  if(S===4) return wowShell(`<div class="wow-hero"><div class="wow-card"><small>Je eerste symbool</small><b>Memento mori</b><span>Gedenk dat je sterven zult</span></div>
+      <h1>Er zitten nog bijna 200 geheimen in de kunst verstopt.</h1><p class="wow-cap">Zal ik je morgen om 8:00 de volgende laten zien?</p>
+      <button class="btn primary big" onclick="wowEnd(1)">Ja, graag</button><button class="btn" style="margin-top:10px" onclick="wowEnd(0)">Eerst rondkijken</button></div>`,4);
+}
+function wowTap(e){ const el=document.getElementById('wowp'), r=el.getBoundingClientRect(); const x=(e.clientX-r.left)/r.width*1280, y=(e.clientY-r.top)/r.height*1261;
+  const ax=330,ay=1250,bx=920,by=965, dx=bx-ax, dy=by-ay, t=Math.max(0,Math.min(1,((x-ax)*dx+(y-ay)*dy)/(dx*dx+dy*dy))), d=Math.hypot(x-(ax+t*dx), y-(ay+t*dy));
+  if(d<95){ try{sfx('magic');}catch(_){} WOW.step=2; wowView(); wowSay('w3'); }
+  else { WOW.miss++; wowSay(WOW.miss>=2?'w2':'w2'); const h=el.querySelector('.wow-hint'); if(h&&WOW.miss>=2) h.classList.add('on'); el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake'); } }
+function wowReveal(){ const k=document.getElementById('wowsk'); if(!k||k.classList.contains('fixed')) return; k.classList.add('fixed'); wowSay('w4');
+  const b=document.getElementById('wowbtn'); if(b){ b.textContent='Verder →'; b.onclick=()=>{ WOW.step=3; wowView(); wowSay('w5'); }; }
+  setTimeout(()=>{ const s=document.getElementById('wows'); if(s) s.insertAdjacentHTML('afterend','<p class="wow-q wow-pop">Een schedel. Een <b>memento mori</b>: hoe rijk en machtig je ook bent, de dood kijkt altijd mee.</p>'); },1500); }
+function wowAns(b,c){ document.querySelectorAll('.wow-opts .btn').forEach(x=>x.disabled=true); b.classList.add(c?'ok':'bad');
+  if(!c){ const g=[...document.querySelectorAll('.wow-opts .btn')].find(x=>x.textContent==='De tijd tikt weg'); g&&g.classList.add('ok'); }
+  try{ if(c) sfx('bell'); }catch(_){} wowSay(c?'w6':'w6b'); if(c) document.querySelector('.wow').insertAdjacentHTML('beforeend',confHTML(24));
+  setTimeout(()=>{ WOW.step=4; wowView(); setTimeout(()=>wowSay('w7'),400); }, 2600); }
+function wowEnd(yes){ try{ if(WOW.au) WOW.au.pause(); }catch(e){} st.wowDone=1; if(yes){ st.wowRemind=1; toast('Top! Morgen om 8:00 staat het volgende geheim klaar'); }
+  const n=document.getElementById('nav'); if(n) n.style.display=''; save(); if(!st.onb) startOnb(); else hub(); }
 function startOnb(){ try{introLoad();}catch(e){} ob={s:0}; st.view='onb'; render(); }
 function obGo(s){ if(s===2||s===5){ const el=document.getElementById('obname'); if(el){ st.name=el.value.trim().slice(0,30); } if(ob.only){ ob={s:0}; save(); return paths(); } } ob.s=s; onbView(); }
 function obStories(){ st.onb=true; resumeFrom=null; save(); storiesView(); }
@@ -5186,7 +5248,7 @@ const obBubble = h => `<div class="ob-bubble">${h}</div>`;
 const obChoice = (ic,t,s,fn) => `<button class="round resume ob-choice" onclick="${fn}"><div class="num">${ic}</div><div><div class="t">${t}</div><div class="s">${s}</div></div></button>`;
 function onbView(){ st.view='onb'; const nm=st.name?`, ${st.name}`:'';
   let body='';
-  if(ob.s===0) body = obBubble(`Welkom bij de app <b>Kunst met Laura</b>! Voordat we gaan beginnen, heb ik een paar vragen aan je.`)+`<button class="btn primary big" onclick="obGo(1)">Laten we beginnen →</button><p class="center" style="margin-top:14px"><button class="btn small" onclick="keepAsk()">Ik heb al eerder gespeeld</button></p>`;
+  if(ob.s===0) body = obBubble(st.wowDone?`Fijn dat je er bent! Mag ik je een paar dingen vragen? Dan stem ik de app op jou af.`:`Welkom bij de app <b>Kunst met Laura</b>! Voordat we gaan beginnen, heb ik een paar vragen aan je.`)+`<button class="btn primary big" onclick="obGo(1)">Laten we beginnen →</button><p class="center" style="margin-top:14px"><button class="btn small" onclick="keepAsk()">Ik heb al eerder gespeeld</button></p>`;
   else if(ob.s===1) body = obBubble(`Hoe mag ik je noemen?`)+`<input id="obname" class="ob-input" maxlength="30" placeholder="Je voornaam" value="${(st.name||'').replace(/"/g,'&quot;')}" onkeydown="if(event.key==='Enter')obGo(st.introDone||st.introSkip?2:5)"><div class="bnav"><button class="btn" onclick="obGo(st.introDone||st.introSkip?2:5)">Sla over</button><button class="btn primary" onclick="obGo(st.introDone||st.introSkip?2:5)">Verder ›</button></div>`;
   else if(ob.s===2) body = obBubble(st.introDone||st.introSkip?`Mooi${nm}! <b>Waar wil je mee beginnen?</b>`:`Leuk je te ontmoeten${nm}! <b>Wat wil je leren?</b>`)
     + obChoice('🎨','De basis van symboliek','Je begint meteen bij niveau 1: schedels, lelies, hondjes en zeepbellen','obFinish(\'basis\')')
@@ -10261,7 +10323,7 @@ function bigAnswer(k){ const wasA=(st.bigStep in bres(st.r)); bres(st.r)[st.bigS
 setTrack(st.t||'basis');
 if(resumeFrom && resumeFrom.t && resumeFrom.t!==st.t) setTrack(resumeFrom.t);
 if(/kunst met laura/i.test(st.name||'')) st.name='';
-try{ showSplash(); }catch(e){} st.opens=(st.opens||0)+1; if(['intro','introDone','introAsk'].includes(st.view)) st.view='paths'; save(); if(!st.onb) startOnb(); else if(!st.introDone&&!st.introSkip&&st.opens<=3) introAsk(); else { hub(); try{ welcomeBack(); }catch(e){} }
+try{ showSplash(); }catch(e){} st.opens=(st.opens||0)+1; if(['intro','introDone','introAsk'].includes(st.view)) st.view='paths'; save(); if(/[?&]wow=1/.test(location.search)&&WOW_ON) wowStart(); else if(!st.onb){ if(WOW_ON&&!st.wowDone) wowStart(); else startOnb(); } else if(!st.introDone&&!st.introSkip&&st.opens<=3) introAsk(); else { hub(); try{ welcomeBack(); }catch(e){} }
 try{ keepRestore(); }catch(e){}
 initCloud();
 </script>
