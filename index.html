@@ -1033,13 +1033,17 @@ function museumOf(w){ if(!w) return 'Overige werken (museum nog niet bekend)'; l
 let favBack=null;
 function favView(){ st.view='fav'; const F=Object.values(st.fav||{}).sort((a,b)=>b.at-a.at); const G={}; F.forEach(f=>{const m=museumOf(f.w); (G[m]=G[m]||[]).push(f);});
   const keys=Object.keys(G).sort((a,b)=>(a==='Overige werken (museum nog niet bekend)')-(b==='Overige werken (museum nog niet bekend)')||G[b].length-G[a].length);
-  $(`<div><div class="hdr"><button class="chip" onclick="${favBack==='home'?'home()':favBack==='start'?'hub()':favBack==='me'?'meView()':'paths()'}">‹ Terug</button><span class="muted" style="font-size:.85rem">${F.length} ${F.length===1?'werk':'werken'} · ${keys.filter(k=>k!=='Overige werken (museum nog niet bekend)').length} musea</span></div>
+  $(`<div><div class="hdr"><button class="chip" onclick="${favBack==='home'?'home()':favBack==='start'?'hub()':favBack==='me'?'meView()':'paths()'}">‹ Terug</button><span class="muted" style="font-size:.85rem">${F.length} ${F.length===1?'werk':'werken'} · ${keys.filter(k=>k!=='Overige werken (museum nog niet bekend)').length} musea</span></div>${retBtn()}
    <div class="eyebrow">Jouw eigen museum</div><h1>${st.name?'Het museum van '+esc(st.name):'Mijn museum'}</h1><p><button class="chip" onclick="albumView('fav')">🃏 Mijn gidsen: weetjeskaarten en geheimen</button></p>
    ${museumRoomsHTML()}${kvdRoomHTML()}<h3 class="rgroup" style="margin-top:22px">♥ Je bewaarde favorieten</h3>
    ${F.length?`<p class="muted">Je favoriete schilderijen, gesorteerd per museum waar ze echt hangen. Tik op een werk om het te vergroten.</p>`:`<div class="card center"><div style="font-size:2.2rem">♡</div><p>Je museum is nog leeg.</p><p class="muted">Tik op het hartje bij een schilderij (na je antwoord, bij het meesterwerk of bij “Ook te zien in…”) om het hier te bewaren.</p><button class="btn primary" onclick="routeTab=null;paths()">Naar de routes</button></div>`}
    ${keys.map(k=>`<h3 class="rgroup">🏛️ ${esc(k)} <span class="muted" style="font-size:.8rem">· ${G[k].length}</span></h3><div class="favgrid">${G[k].map(f=>`<div class="favcard ${f.won?'won':''}">${f.won?'<span class="wonb">🏆 Gewonnen</span>':''}<div class="fth" onclick="lb('${f.img}','<b>${esc(f.t).replace(/'/g,'&#39;')}</b><br><span>${esc(f.a).replace(/'/g,'&#39;')} · ${f.y}</span>')"><img src="${P(f.img)}" alt="${esc(f.t)}" loading="lazy"></div><div class="ft"><b>${f.t}</b><div class="meta">${f.a}${f.y?' · '+f.y:''}</div></div><button class="fx" onclick="toggleFav('${f.img}')" aria-label="verwijderen">✕</button></div>`).join('')}</div>`).join('')}
   </div>`); }
-function openFav(from){ favBack=from; favView(); }
+const LESSONV=['q','big','kq','match','who','tl','final','dq'];
+function retMark(){ if(LESSONV.includes(st.view)) window.RETL={view:st.view,r:st.r,i:st.i,bigStep:st.bigStep,t:st.t,tlMode:st.tlMode}; }
+function retBtn(){ return window.RETL?`<button class="btn primary big" style="width:100%;margin:6px 0 14px" onclick="retLesson()">‹ Terug naar je les</button>`:''; }
+function retLesson(){ const R=window.RETL; window.RETL=null; if(!R) return hub(); if(R.view==='dq'){ return dqView?dqView():hub(); } if(R.t&&R.t!==st.t) setTrack(R.t); Object.assign(st,{view:R.view,r:R.r,i:R.i,bigStep:R.bigStep,tlMode:R.tlMode}); save(); render(); }
+function openFav(from){ retMark(); favBack=from; favView(); }
 const K = (r,t=st.t) => (t||'basis')==='basis' ? String(r) : t+':'+r;
 const TR = (r,t=st.t) => TRACKS[t||'basis'].rounds[r];
 const res = (r,t=st.t) => (st.results[K(r,t)] ||= {});
@@ -3535,22 +3539,22 @@ const GLINES = {
       'De Nachtwacht hangt aan het eind van de <b>Eregalerij</b>, als hoogtepunt van het hele museum.']
   },
   rembrandt:{
-    praise:['Bravo{nm}! Dat licht had ik zelf niet beter kunnen zetten.','Goed gezien. In mijn atelier had je meteen mogen blijven.','Ja! Jij kijkt zoals ik schilder: naar wat er écht gebeurt.','Prachtig{nm}. Daar maak ik een ets van.','Juist! Je ziet het verhaal achter het schilderij.','Knap gedaan{nm}. Mijn leerlingen deden er langer over.','Uitstekend. Jij laat je niet afleiden door de donkere hoeken.','Zo mag ik het horen{nm}! Ook Hollanders kunnen kijken.'],
-    enc:['Kop op{nm}! Ik ben zelf ook een paar keer gevallen, en kijk mij nu.','Niet getreurd. Kijk waar het licht valt: daar zit het antwoord vaak.','Geduld{nm}. Een goed schilderij bouw je ook laag voor laag op.'],
+    praise:['Bravo{nm}! Dat licht had ik zelf niet beter kunnen zetten.','Goed gezien. In mijn atelier had je meteen mogen blijven.','Ja! Jij kijkt zoals ik schilder: naar wat er écht gebeurt.','Prachtig{nm}. Daar maak ik een ets van.','Juist! Je ziet het verhaal achter het schilderij.','Knap gedaan{nm}. Mijn leerlingen deden er langer over.','Uitstekend. Jij laat je niet afleiden door de donkere hoeken.','Zo mag ik het horen{nm}! Jij hebt echt oog voor kunst.'],
+    enc:['Kop op{nm}! Ik heb zelf ook vaak misgegrepen, en kijk wat er van mij geworden is.','Niet getreurd. Kijk waar het licht valt: daar zit het antwoord vaak.','Geduld{nm}. Een goed schilderij bouw je ook laag voor laag op.'],
     facts:[
-      'Ik heb ongeveer <b>tachtig zelfportretten</b> gemaakt: schilderijen, etsen en tekeningen.',
-      'Ik ben ingeschreven aan de <b>Leidse universiteit</b>, maar koos toch voor de schilderkunst.',
-      'Mijn leermeester in Amsterdam was <b>Pieter Lastman</b>. Ik bleef maar een half jaar bij hem.',
-      'Ik ben <b>nooit naar Italië</b> geweest, terwijl dat voor schilders bijna verplicht was. Italië kwam vanzelf naar Amsterdam.',
+      'Ik heb zo’n <b>tachtig zelfportretten</b> gemaakt: geschilderd, geëtst en getekend.',
+      'Ik stond ingeschreven aan de <b>Leidse universiteit</b>, maar ik koos al snel voor de schilderkunst.',
+      'In Amsterdam ging ik in de leer bij <b>Pieter Lastman</b>. Na een half jaar had ik genoeg geleerd.',
+      'Ik ben <b>nooit in Italië</b> geweest, hoewel bijna elke schilder die reis maakte. Italiaanse kunst kon ik gewoon in Amsterdam zien.',
       'De Nachtwacht heet eigenlijk <b>De compagnie van kapitein Frans Banninck Cocq</b>. De bijnaam kwam pas later, toen het vernis donker was geworden.',
-      'Vanaf 1633 signeerde ik met alleen mijn <b>voornaam</b>, net als Titiaan en Rafaël.',
-      'Mijn grote ets heet de <b>Honderdguldenprent</b>, omdat er naar verluidt honderd gulden voor werd betaald.',
-      'Na mijn faillissement begonnen <b>Hendrickje en Titus</b> een kunsthandel, met mij in dienst. Zo konden schuldeisers niet aan mijn nieuwe werk komen.',
+      'Vanaf 1633 zette ik alleen nog mijn <b>voornaam</b> op mijn werk, net als Titiaan en Rafaël.',
+      'Mijn bekendste ets heet de <b>Honderdguldenprent</b>. Er zou ooit honderd gulden voor zijn betaald.',
+      'Na mijn faillissement begonnen <b>Hendrickje en Titus</b> een kunsthandel, en ik werkte voor hen. Zo konden mijn schuldeisers niet aan mijn nieuwe werk komen.',
       'Mijn zoon <b>Titus</b> stierf in 1668, een jaar vóór mij.',
-      'Mijn vrouw <b>Saskia</b> was een nicht van de kunsthandelaar Hendrick Uylenburgh, bij wie ik in Amsterdam werkte.'],
+      'Mijn vrouw <b>Saskia</b> was een nicht van kunsthandelaar Hendrick Uylenburgh, voor wie ik in Amsterdam werkte.'],
     secrets:[
-      'Drie dagen na onze ondertrouw tekende ik <b>Saskia</b> met een strohoed. Eronder schreef ik dat ze toen 21 was. Die tekening koester ik het meest.',
-      'Na Saskia’s dood kon ik niet hertrouwen: dan verloor ik het geld uit haar testament. Daarom woonde ik ongehuwd met <b>Hendrickje</b>. Zij werd daarvoor zelfs door de kerk berispt.']
+      'Drie dagen na onze ondertrouw tekende ik <b>Saskia</b> met een strohoed. Eronder schreef ik dat ze toen 21 jaar was. Van al mijn tekeningen koester ik die het meest.',
+      'Na Saskia’s dood kon ik niet hertrouwen, want dan verloor ik het geld uit haar testament. Daarom woonde ik ongetrouwd samen met <b>Hendrickje</b>. De kerk heeft haar daarvoor zelfs berispt.']
   },
   catharina:{
     praise:['Bravissima{nm}! Aan ons hof in Florence was je welkom geweest.','Magnifico! Kennis is macht, en jij verzamelt beide.','Esatto{nm}. Mijn familie zou je meteen een opdracht geven.','Goed zo! Zo scherp waren alleen de beste diplomaten.','Perfetto{nm}. Je hebt de blik van een echte verzamelaar.','Ja! Lorenzo il Magnifico had jou graag in zijn tuin gehad.','Benissimo. Geen enkel symbool ontsnapt aan jou.','Wat een kennis{nm}! Daar kan het Franse hof nog wat van leren.'],
@@ -3691,7 +3695,7 @@ function welcomeBack(){ const now=Date.now(), last=st.lastVisit||0, today=new Da
 function toggleQuiet(){ st.quiet=!st.quiet; save(); if(st.view==='album') albumView(); else if(st.view==='credits') creditsView(); }
 const quietToggle=()=>`<label class="ktoggle"><input type="checkbox" ${st.quiet?'checked':''} onchange="toggleQuiet()"><span class="kt-sw"></span><span><b>Rustige stand</b><br><span class="muted" style="font-size:.82rem">Gidsen komen niet meer tussendoor in beeld. Grote momenten en beloningen blijven.</span></span></label>`;
 let albumBack='start';
-function albumView(from){ if(from) albumBack=from; st.view='album';
+function albumView(from){ retMark(); if(from) albumBack=from; st.view='album';
   const sec=k=>{ const G=GUIDES[k], lv=bondLv(k), p=bondPts(k), nx=BOND_LV[lv+1], prev=BOND_LV[lv].p;
     const pools=k==='laura'?['laura','gala']:[k];
     const cards=pools.flatMap(g=>GLINES[g].facts.map((f,i)=>({g,i,f,have:cardHave(g+':'+i)})));
@@ -3702,7 +3706,7 @@ function albumView(from){ if(from) albumBack=from; st.view='album';
       <div class="progress"><i style="width:${nx?Math.min(100,(p-prev)/(nx.p-prev)*100):100}%"></i></div></div></div>
       <div class="al-sub">Geheimen</div><div class="al-cards">${secrets.map(x=>x.have?`<div class="wk gold"><div class="wk-t">${x.s}</div>${secFig(k+':s'+x.i)}</div>`:`<div class="wk back"><span>🔒</span><small>Bij ${BOND_LV[x.i+1].n.toLowerCase()}</small></div>`).join('')}</div>
       <div class="al-sub">Weetjes · ${have} van ${cards.length}</div>${have?`<div class="al-cards">${cards.filter(c=>c.have).map(c=>`<div class="wk"><div class="wk-t">${c.f}</div></div>`).join('')}</div>`:''}${have<cards.length?`<div class="al-mini">${cards.filter(c=>!c.have).map(()=>'<span>?</span>').join('')}</div><div class="muted" style="font-size:.76rem;margin-top:4px">Nog ${cards.length-have} te ontdekken</div>`:''}</div>`; };
-  $(`<div><div class="hdr"><button class="chip" onclick="${albumBack==='fav'?'favView()':albumBack==='me'?'meView()':'hub()'}">‹ Terug</button></div>
+  $(`<div><div class="hdr"><button class="chip" onclick="${albumBack==='fav'?'favView()':albumBack==='me'?'meView()':'hub()'}">‹ Terug</button></div>${retBtn()}
     <div class="eyebrow">Jouw verzameling</div><h1>Mijn gidsen</h1>${xpBar()}<h3 class="rgroup">Dagquiz-badges · 🔥 record ${st.dqBest||0} dagen</h3>${dqBadgeGrid()}
     <p class="muted">Hoe vaker je met een gids meekijkt, hoe hechter jullie band. Elk weetje dat ze vertellen wordt een kaart, en bij een nieuwe band delen ze een geheim.</p>
     ${quietToggle()}
@@ -5203,7 +5207,7 @@ function meView(){ st.view='me'; save(); const I=xpInfo(), alive=st.dqLast===dqD
 let ob = {s:0};
 
 /* ---------- Nieuwe opening: de eerste minuut (alleen in de testversie, niet op github.io) ---------- */
-const WOW_ON = location.hostname.indexOf('github.io')<0;
+const WOW_ON = true;
 const WOW={step:0,miss:0,au:null};
 function wowLoad(){ if(window.WOWVOX||WOW.loading) return; WOW.loading=1; const sc=document.createElement('script'); sc.src='vox/wow.js'; document.head.appendChild(sc); }
 function wowSay(k){ try{ if(WOW.au){ WOW.au.pause(); } if(!auOn()||!window.WOWVOX||!WOWVOX[k]) return; WOW.au=new Audio('data:audio/mpeg;base64,'+WOWVOX[k]); WOW.au.play().catch(()=>{}); }catch(e){} }
@@ -8137,7 +8141,7 @@ big:{ img:'hcB', t:'De terugkeer in Amsterdam van de tweede expeditie naar Oost-
     story:'<p>Hendrick Cornelisz Vroom (1566–1640) uit Haarlem was de eerste Hollandse <b>zeeschilder</b>. Zijn schilderijen van schepen en zeeslagen waren zeer gewild bij kooplieden en stadsbesturen.</p><p>Met deze terugkeer begint de periode die we de <b>Gouden Eeuw</b> noemen: een eeuw van handel, kunst en wetenschap, maar ook van oorlog en koloniale uitbuiting.</p>'
   }
 },
-{ title:"Hollandse glorie · Niveau 4 — Vrede, vloot en Rampjaar (1648–1702)", sub:"Het graf van Oranje, het kanonschot, de Gouden Bocht, Prinsjesdag en Hollands Brazilië",
+{ title:"Hollandse glorie · Niveau 4 — Vrede, vloot en Rampjaar (1648–1702)", sub:"Het graf van Oranje, het kanonschot, de Gouden Bocht, Prinsjesdag en een verre kolonie",
   q:[
 { icon:null, name:'Het graf van de prins',
     in:{img:'hd1', t:'Graftombe van Willem van Oranje in de Nieuwe Kerk, Delft', a:'Gerard Houckgeest', y:'1651', where:'Mauritshuis, Den Haag', s:'Houckgeest graftombe Willem van Oranje Mauritshuis'},
@@ -8175,7 +8179,7 @@ big:{ img:'hcB', t:'De terugkeer in Amsterdam van de tweede expeditie naar Oost-
       {img:'rb1', t:'Het Sint-Nicolaasfeest', a:'Jan Steen', y:'ca. 1665–1668', n:'Steen schilderde graag feesten, met humor en politiek.', s:'Steen Saint Nicholas'},
       {img:'rb1a', t:'Driekoningenavond', a:'Jan Steen', y:'1662', n:'Nog een volksfeest in huiselijke kring.', s:'Steen Twelfth Night'},
       {img:'hd1', t:'Graftombe van Willem van Oranje', a:'Gerard Houckgeest', y:'1651', n:'De Oranjecultus in de kerk.', s:'Houckgeest tomb'}]},
-  { icon:null, name:'Hollands Brazilië',
+  { icon:null, name:'Een verre kolonie',
     in:{img:'hd5', t:'Braziliaans landschap', a:'Frans Post', y:'17e eeuw', where:'Rijksmuseum, Amsterdam', s:'Frans Post Braziliaans landschap'},
     question:'Een exotisch landschap met palmen, een suikermolen en tot slaaf gemaakte Afrikanen aan het werk. Waar en waarom werd dit geschilderd?',
     opts:['In Nederlands-Brazilië, waar de WIC suikerplantages beheerde, met slavenarbeid','In Indonesië, als vakantieherinnering','In Spanje, als fantasie'], c:0,
