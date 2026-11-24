@@ -4473,7 +4473,7 @@ function storyView(still){ const S=storyById(STQ.id), C=S.chapters[STQ.c], beats
   if(x.art) storyEnsure(); }
 function qImg(C,b){ const x=C.beats[b]; if(x.img===false) return null; if(x.img) return x.img; for(let i=b-1;i>=Math.max(0,b-4);i--){ if(C.beats[i].art) return C.beats[i].art; } return null; }
 function storyImg(k){ if(k&&k.startsWith('P:')) return P(k.slice(2)); return (window.STIMG&&window.STIMG[k])||BLANK; }
-function storyEnsure(){ if(window.STIMG||window._stLoading) return; window._stLoading=1; const s=document.createElement('script'); s.src='img/story.js?v=4'; s.async=true; s.onerror=()=>{window._stLoading=0;}; document.head.appendChild(s); }
+function storyEnsure(){ if(window.STIMG||window._stLoading) return; window._stLoading=1; const s=document.createElement('script'); s.src='img/story.js?v=5'; s.async=true; s.onerror=()=>{window._stLoading=0;}; document.head.appendChild(s); }
 window.storyLoaded=()=>{ if(st.view==='story'&&STQ&&!STQ.intro) storyView(true); };
 /* regie-laag: extra scènes en effecten bovenop de basisverhalen */
 function applyStaging(){ for(const S of STORIES){ const G=STAGE[S.id]; if(!G||S._staged) continue; S._staged=1; if(G.mood) S.mood=G.mood;
@@ -4785,19 +4785,26 @@ const STORIES=[
       e:'Fouquet werd gearresteerd, verdacht van verduistering, en bleef tot zijn dood in 1680 gevangen. De arrestatie werd uitgevoerd door <b>d’Artagnan</b>, de echte musketier achter de romans van Alexandre Dumas.'},
     {in:'dartagnan', at:'c', s:'dartagnan', x:'Monsieur Fouquet, in naam van de koning: u staat onder arrest.'},
     {out:['fouquet','dartagnan'], s:'louis', x:'En nu neem ik zijn kunstenaars over. Le Vau, Le Brun, Le Nôtre: jullie gaan voor mij iets bouwen wat de wereld nog nooit gezien heeft.'},
-    {n:'De keuze valt op het jachtslot van zijn vader, in het dorp <b>Versailles</b>. Tienduizenden arbeiders werken er tientallen jaren aan.'},
+    {n:'In 1665 haalt hij de beroemdste beeldhouwer van Europa uit Rome naar Parijs: <b>Gian Lorenzo Bernini</b>.', y:'1665'},
+    {obj:1, art:'st_l5', t:'Buste van Lodewijk XIV', a:'Gian Lorenzo Bernini', yr:'1665', x:'Gehouwen uit één blok marmer. Kijk naar de haren en de sjaal: ze waaien op alsof de koning net de wind trotseert. Zo ziet een held eruit, niet een gewone man. Het buste staat nog altijd in Versailles, in de Salon van Diana.'},
+    {n:'Dan valt de keuze op het jachtslot van zijn vader, in het dorp <b>Versailles</b>. Tienduizenden arbeiders werken er tientallen jaren aan.'},
     {art:'lou1', t:'Gezicht op het kasteel van Versailles', a:'Pierre Patel', yr:'1668', x:'Versailles vanuit de lucht gezien, zoals niemand het toen echt kon zien. De lanen lopen als zonnestralen op het paleis af. Het paleis is het middelpunt van een geordende wereld.'}
   ]},
   { t:'De Spiegelzaal', y:'1678–1684', end:'Je hebt de Spiegelzaal gezien. Nu naar buiten, de tuinen in!', beats:[
     {bg:'mirrors', in:'louis', at:'l', n:'In 1682 verhuist het hof definitief naar Versailles. Het pronkstuk is de <b>Spiegelzaal</b>: 73 meter lang, met 357 spiegels.', y:'1682'},
+    {art:'st_l1', t:'De Spiegelzaal (Galerie des Glaces)', a:'Jules Hardouin-Mansart en Charles Le Brun', yr:'1678–1684', x:'Zeventien ramen kijken uit op de tuin. Tegenover elk raam hangt een boog vol spiegels, zodat het daglicht dubbel zo fel binnenkomt. ’s Avonds weerkaatsten de spiegels duizenden kaarsen in zilveren kandelaars.'},
     {s:'louis', x:'Welkom in mijn Galerie des Glaces. Spiegels waren peperduur. En deze zijn in Frankrijk gemaakt, niet in Venetië. Dat alleen al is een overwinning.'},
     {in:'courtier', at:'r', s:'courtier', x:'Sire, de gezanten uit Siam zijn verbluft. En de Hollanders… die kijken liever niet naar het plafond.'},
     {q:'Waarom zouden Hollanders liever niet naar het plafond kijken?', o:['Er staan naakte goden op','Le Brun schilderde er Lodewijks overwinningen, onder meer in de oorlog tegen de Republiek in 1672','Het plafond is in oranje geverfd'], c:1,
       e:'Het plafond van Charles Le Brun toont de daden van de koning, met de <b>Hollandse Oorlog</b> als hoofdthema. 1672 is bij ons het <b>Rampjaar</b>: Frankrijk viel de Republiek binnen. In Versailles is het een triomf.'},
-    {s:'louis', x:'Op het plafond sta ik zelf afgebeeld, als een Romeinse held tussen goden. Zo ziet iedereen die hier loopt wie Europa regeert.'},
-    {art:'lou2', t:'Lodewijk XIV in kroningsgewaad', a:'Hyacinthe Rigaud', yr:'1701', x:'Het beroemdste staatsportret ooit. Hermelijn en blauw fluweel met gouden <b>lelies</b> (het wapen van Frankrijk), het zwaard van Karel de Grote, de scepter. En kijk naar zijn benen en schoenen met rode hakken: hij was er trots op.'},
-    {q:'Rode hakken droegen aan het hof alleen…', o:['Soldaten','Mensen die de koning daar toestemming voor gaf: het was een statussymbool','Vrouwen'], c:1,
-      e:'<b>Rode hakken</b> (<i>talons rouges</i>) waren voorbehouden aan de hoge adel aan het hof. Mode als teken van rang: wie ze mocht dragen, hoorde erbij.'}
+    {art:'st_l2', t:'De koning regeert zelf (plafond van de Spiegelzaal)', a:'Charles Le Brun', yr:'1678–1684', x:'Het middenstuk van het plafond. De jonge Lodewijk zit als een Romeinse held op een wolk, omringd door goden. Het moment: 1661, het jaar dat hij besloot voortaan zonder eerste minister te regeren.'},
+    {n:'Niet alleen de muren en plafonds: álles in Versailles moest het mooiste van Europa zijn, en in Frankrijk gemaakt. Minister <b>Colbert</b> brengt de beste ambachtslieden samen in de koninklijke werkplaatsen van de <b>Gobelins</b> in Parijs.'},
+    {art:'st_l4', t:'De koning bezoekt de Gobelins', a:'Naar ontwerp van Charles Le Brun', yr:'1667 (wandtapijt ca. 1673–1680)', x:'Een wandtapijt over… het maken van kunst. Lodewijk bekijkt wat zijn werkplaatsen voor hem maken: tapijten, schilderijen, en meubels van massief <b>zilver</b>. Kijk naar de mannen die zware zilveren vazen en tafels naar binnen dragen.'},
+    {q:'Wat gebeurde er in 1689 met de zilveren meubels van Versailles?', o:['Ze werden aan de koning van Siam geschonken','Ze werden omgesmolten om de oorlogen te betalen','Ze werden verborgen in de kelders'], c:1,
+      e:'Lodewijk liet ze <b>omsmelten</b> tot munten om zijn oorlogen te betalen. Daarom bestaan ze niet meer, en kennen we ze alleen nog van wandtapijten en tekeningen zoals deze.'},
+    {obj:1, art:'st_l3', t:'Kast met papegaaien', a:'Toegeschreven aan André-Charles Boulle', yr:'ca. 1680–1700', x:'Boulle was de meubelmaker van de koning en had zijn werkplaats in het Louvre. Op de deuren zie je bloemen en vogels, helemaal gelegd uit stukjes hout in verschillende kleuren, met verguld brons erlangs.'},
+    {q:'Hoe heet die techniek, waarbij een afbeelding wordt gelegd uit dunne stukjes hout, schildpad of metaal?', o:['Fresco','Marqueterie (inlegwerk)','Lakwerk'], c:1,
+      e:'<b>Marqueterie</b>: een puzzel van flinterdunne stukjes fineer. Boulle werd zo beroemd met inlegwerk van schildpad en messing dat die techniek nu nog <b>boulle-werk</b> heet.'}
   ]},
   { t:'Een dag met de Zonnekoning', y:'ca. 1690', end:'Wat een dag. Nog één hoofdstuk: het einde van een eeuwigheid.', beats:[
     {bg:'bedroom', in:'louis', at:'c', n:'8 uur ’s ochtends. De slaapkamer van de koning ligt precies in het midden van het paleis. Nu begint de <b>lever</b>: het opstaan.', y:'08.00'},
@@ -4806,12 +4813,16 @@ const STORIES=[
       e:'Lodewijk maakte van zijn dagelijks leven een <b>toneelstuk met vaste rollen</b>. Edelen streden om kleine eretaken. Zo waren ze druk met elkaar, en kwamen ze niet meer in opstand zoals in de Fronde.'},
     {out:'courtier', bg:'garden', move:'louis', to:'l', n:'In de middag wandelt de koning door de tuinen van Le Nôtre. Hij schreef er zelf een rondleiding voor: “De manier om de tuinen van Versailles te tonen”.', y:'15.00'},
     {s:'louis', x:'Kijk, de Apollofontein. De zonnegod rijst met zijn wagen op uit het water, elke ochtend opnieuw. Net als ik.'},
+    {obj:1, art:'st_l6', t:'De Apollofontein', a:'Jean-Baptiste Tuby, naar ontwerp van Charles Le Brun', yr:'1668–1670', x:'Vier paarden trekken de zonnewagen uit het water, met tritons die op schelpen blazen. Het beeld is van lood, met bladgoud bedekt. Het staat precies op de lijn van de slaapkamer van de koning naar de horizon.'},
     {q:'De fonteinen spoten niet allemaal tegelijk de hele dag. Waarom niet?', o:['Er was te weinig water: knechten zetten ze aan net vóór de koning langskwam','Het geluid stoorde de koning','Ze waren alleen voor zondag'], c:0,
       e:'Water was in Versailles een groot probleem. Tuinknechten met fluitjes seinden elkaar dat de koning eraan kwam, zodat de fonteinen precies op tijd spoten. Later bouwde men een enorme waterpomp, de Machine van Marly.'},
     {art:'lou3', t:'De familie van Lodewijk XIV als Olympische goden', a:'Jean Nocret', yr:'1670', x:'De hele koninklijke familie verkleed als goden. Lodewijk zit in het midden als <b>Apollo</b>, met lauwerkrans en zonnestralen. Kunst als propaganda in zijn puurste vorm.'}
   ]},
   { t:'Het einde van een eeuwigheid', y:'1715', end:'', beats:[
     {bg:'bedroom', in:'louis', at:'c', n:'Augustus 1715. De koning is 76 en ernstig ziek. Hij heeft zijn zoon en kleinzoon al overleefd. Zijn opvolger is zijn achterkleinzoon van vijf.', y:'1715'},
+    {art:'lou2', t:'Lodewijk XIV in kroningsgewaad', a:'Hyacinthe Rigaud', yr:'1701', x:'Het beroemdste staatsportret ooit. Hermelijn en blauw fluweel met gouden <b>lelies</b> (het wapen van Frankrijk), het zwaard van Karel de Grote, de scepter. En kijk naar zijn benen en schoenen met rode hakken: hij was er trots op.'},
+    {q:'Rode hakken droegen aan het hof alleen…', o:['Soldaten','Mensen die de koning daar toestemming voor gaf: het was een statussymbool','Vrouwen'], c:1,
+      e:'<b>Rode hakken</b> (<i>talons rouges</i>) waren voorbehouden aan de hoge adel aan het hof. Mode als teken van rang: wie ze mocht dragen, hoorde erbij.'},
     {q:'Lodewijk zou ooit gezegd hebben: “L’État, c’est moi”, “De staat, dat ben ik”. Klopt dat?', o:['Ja, hij zei het tegen het parlement in 1655','Waarschijnlijk niet: die uitspraak is pas later aan hem toegeschreven','Ja, het staat op zijn grafsteen'], c:1,
       e:'Er is geen betrouwbare bron voor. Het past wel perfect bij hoe hij regeerde. Op zijn sterfbed zou hij juist iets anders gezegd hebben: “Ik ga, maar de staat blijft altijd bestaan.”'},
     {s:'louis', x:'Ik heb te veel van de oorlog gehouden. Doe mij daarin niet na.'},
