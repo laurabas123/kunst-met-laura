@@ -576,7 +576,7 @@ body.has-nav #nav{display:flex}body.has-nav .wrap{padding-bottom:96px}
 .dq-card.ready,.chest-card{animation:none!important}
 .in-tag{font-size:.8rem;font-weight:700;color:#d7b46a;margin:0 0 6px}
 .wow{min-height:calc(100vh - 40px);display:flex;flex-direction:column;justify-content:center;gap:14px;padding:20px 4px 30px;position:relative}
-.wow h1{font-size:1.7rem;line-height:1.2;text-align:center;margin:0}.wow-hero{display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center}
+.wow h1{font-size:1.7rem;line-height:1.2;text-align:center;margin:0}.wow-hi{margin:0 0 -8px;color:#d7b46a;font-weight:600;font-size:1.05rem}.wow-sub{margin:0;color:var(--muted,#9aa3b8);font-size:1.02rem;line-height:1.45;max-width:320px}.wow-hero{display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center}
 .wow-av{width:110px;height:110px;border-radius:50%;overflow:hidden;border:2px solid rgba(215,180,106,.6);background:#141c33}.wow-av svg{width:100%;height:100%}
 .wow-q{font-size:1.15rem;line-height:1.4;text-align:center;margin:0}.wow-cap{font-size:.85rem;color:var(--muted,#9aa3b8);text-align:center;margin:0}
 .wow-paint{position:relative;border-radius:14px;overflow:hidden;cursor:crosshair;box-shadow:0 14px 34px rgba(0,0,0,.45)}.wow-paint img{display:block;width:100%}
@@ -620,6 +620,11 @@ body.has-nav #nav{display:flex}body.has-nav .wrap{padding-bottom:96px}
 .orc-bar:focus-within{border-color:#d7b46a}
 .hx-ask .hx-av{flex:0 0 44px;height:44px;border-radius:50%;overflow:hidden;border:1.5px solid rgba(215,180,106,.55)}
 .hx-ask .hx-go{flex:0 0 34px;height:34px;border-radius:50%;background:#d7b46a;color:#1d1a16;display:flex;align-items:center;justify-content:center}
+.nxbar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:rgba(13,19,34,.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid rgba(210,174,98,.25);animation:nxin .25s ease-out}
+.nxbar.ok{border-top-color:rgba(127,174,122,.6)}.nxbar .nx-v{font-weight:700;font-size:.95rem;color:var(--muted,#9aa3b8)}.nxbar.ok .nx-v{color:#8fc48a}
+.nxbar .btn{margin:0;min-width:58%;padding:14px 18px;font-size:1rem}
+body:has(.nxbar) .wrap,body:has(.nxbar) .dq{padding-bottom:110px}.nxbar.bad .nx-v{color:#e0a07a}
+@keyframes nxin{from{transform:translateY(100%)}to{transform:none}}@media (prefers-reduced-motion:reduce){.nxbar{animation:none}}
 .or-bub{background:#f3ecdc;color:#1d1a16;border-radius:18px;padding:14px 16px;line-height:1.5}.or-bub p{margin:0 0 8px}.or-fig{margin:6px 0 0}.or-fig img{width:100%;border-radius:10px}.or-fig figcaption{font-size:.8rem;color:#6b5a3e;margin-top:4px}
 .hx-more{background:rgba(255,255,255,.045);border-radius:16px;padding:12px 14px;margin-bottom:10px}.hx-more summary{cursor:pointer;font-weight:700;list-style:none}.hx-more summary::after{content:' ▾';color:#d7b46a}.hx-more[open] summary::after{content:' ▴'}
 </style>
@@ -2871,7 +2876,7 @@ function kennerRender(Q,a,T){
       <p>${linkTerms(Q.exp,used)}</p>
       ${Q.look?`<h3>🔍 Waar let een kenner op?</h3><ul class="look">${Q.look.map(x=>`<li>${x}</li>`).join('')}</ul>`:''}
       ${termBox(termsIn(Q.question+' '+Q.exp))}
-      <div class="row"><button class="btn primary" onclick="nav(1)">${inBasis&&st.i===TRACKS[T].rounds[st.r].q.length-1?(st.r<ROUNDS.length-1?'Op naar de volgende les →':'Afronden →'):'Verder →'}</button><button class="btn small" onclick="delete res(st.r,curT())[st.i];question()">↺ opnieuw</button></div></div>`; }
+      <div class="row"><button class="btn small" onclick="delete res(st.r,curT())[st.i];question()">↺ opnieuw</button></div>${nextBar(`${inBasis&&st.i===TRACKS[T].rounds[st.r].q.length-1?(st.r<ROUNDS.length-1?'Op naar de volgende les →':'Afronden →'):'Verder →'}`,'nav(1)',a===Q.c)}</div>`; }
   $(h+bottomNav()+'</div>');
 }
 function toggleBeta(){ if(!DEV) return; st.beta=!st.beta; render(); }
@@ -3172,7 +3177,7 @@ function dqView(){ st.view='daily'; const q=dqQ(), a=DQ.ans[DQ.i], x=DQ.items[DQ
    <p class="qtext">${q.question}</p>
    <div class="opts">${q.opts.map((o,k)=>`<button class="opt ${a===undefined?'':k===q.c?'correct':k===a?'wrong':'dim'}" ${a!==undefined?'disabled':''} onclick="dqAns(${k})"><span class="L">${'ABCD'[k]}</span><span>${o}</span></button>`).join('')}</div>
    ${a!==undefined?`<div class="card fb ${a===q.c?'good':'bad'}"><b>${a===q.c?'Goed!':'Helaas.'}</b> ${q.exp.split('. ').slice(0,2).join('. ').replace(/<\/?[^>]+>/g,m=>/^<\/?(b|i)>$/.test(m)?m:'')}${/\.$/.test(q.exp.split('. ').slice(0,2).join('. '))?'':'.'}<div class="muted" style="font-size:.8rem;margin-top:6px">${q.cap}</div></div>
-   <button class="btn primary big" onclick="dqNext()">${DQ.i<DQ_N-1?'Volgende vraag →':'Bekijk je score →'}</button>`:''}</div>`); }
+   ${nextBar(DQ.i<DQ_N-1?'Volgende vraag →':'Bekijk je score →','dqNext()',a===q.c)}`:''}</div>`); }
 function dqAns(k){ if(!DQ||DQ.ans[DQ.i]!==undefined) return; DQ.ans[DQ.i]=k; const ok=k===dqQ().c; { const x=DQ.items[DQ.i], wk=x.id; if(ok&&st.weak&&st.weak[wk]){ delete st.weak[wk]; setTimeout(()=>toast('🔁 Herkansing geslaagd!'),300); } else if(!ok){ st.weak=st.weak||{}; st.weak[wk]=dqDay(); } } try{ sfx(ok?'bell':'whoosh'); }catch(e){} if(ok) xpAdd(10); dqView();
   setTimeout(()=>{ const f=document.querySelector('.dq .fb'); if(f) f.scrollIntoView({behavior:'smooth',block:'center'}); },60); }
 function dqNext(){ if(DQ.i<DQ_N-1){ DQ.i++; dqView(); scrollTo(0,0); } else dqFinish(); }
@@ -5387,7 +5392,9 @@ function wowStart(){ WOW.step=0; WOW.miss=0; wowLoad(); wowView(); }
 function wowShell(inner,dots){ $(`<div class="wow">${inner}<div class="wow-dots">${[0,1,2,3,4].map(i=>`<i class="${i<=dots?'on':''}"></i>`).join('')}</div></div>`); const n=document.getElementById('nav'); if(n) n.style.display='none'; }
 function wowView(){ const S=WOW.step;
   if(S===0) return wowShell(`<div class="wow-hero"><div class="wow-av">${lauraSVG(0,true)}</div>
-      <h1>Ik laat je iets zien wat bijna iedereen mist.</h1>
+      <p class="wow-hi">Hoi, ik ben Laura.</p>
+      <h1>Wist je dat museumbezoekers gemiddeld maar 27&nbsp;seconden naar een schilderij kijken?</h1>
+      <p class="wow-sub">Zo mis je bijna alle geheimen die de schilder erin verstopte. Ik laat je er één zien.</p>
       <button class="btn primary big" onclick="WOW.step=1;wowView();wowSay('w1')">Laat het me zien</button></div>`,0);
   if(S===1) return wowShell(`<p class="wow-q">Zie jij wat hier niet klopt? <b>Tik erop.</b></p>
       <div class="wow-paint" id="wowp" onclick="wowTap(event)"><img src="img/amb900.jpg" alt="Hans Holbein, De ambassadeurs (1533)"><span class="wow-hint ${WOW.miss>=2?'on':''}"></span></div>
@@ -5396,7 +5403,7 @@ function wowView(){ const S=WOW.step;
       <div class="wow-skull" id="wows"><div class="wow-sk-in" id="wowsk"></div></div>
       <p class="wow-cap">Holbein schilderde hem zo dat je hem alleen ziet als je er schuin langs kijkt.</p>
       <button class="btn primary big" id="wowbtn" onclick="wowReveal()">Kijk er schuin langs ↗</button>`,2);
-  if(S===3) return wowShell(`<figure class="wow-fig"><img src="img/hieronymus.jpg" alt="Albrecht Dürer, Hiëronymus in zijn studeerkamer"><figcaption>Albrecht Dürer, <i>Hiëronymus in zijn studeerkamer</i>, 1514 (detail)</figcaption></figure><p class="wow-q">Dan een makkelijke. Achter de geleerde hangt een <b>zandloper</b> aan de muur. Waar herinnert die hem aan?</p>
+  if(S===3) return wowShell(`<figure class="wow-fig"><img src="img/hieronymus.jpg?v=2" alt="Albrecht Dürer, Hiëronymus in zijn studeerkamer"><figcaption>Albrecht Dürer, <i>Hiëronymus in zijn studeerkamer</i>, 1514 (detail)</figcaption></figure><p class="wow-q">Dan een makkelijke. Achter de geleerde hangt een <b>zandloper</b> aan de muur. Waar herinnert die hem aan?</p>
       <div class="wow-opts">${[['Dat zijn tijd kostbaar is',1],['Dat het bijna etenstijd is',0],['Dat hij moet gaan slapen',0]].map(([t,c])=>`<button class="btn" onclick="wowAns(this,${c})">${t}</button>`).join('')}</div>`,3);
   if(S===4) return wowShell(`<div class="wow-hero"><div class="wow-card"><small>Je eerste symbool</small><b>Memento mori</b><span>Gedenk dat je sterven zult</span></div>
       <h1>Er zitten nog bijna 200 geheimen in de kunst verstopt.</h1><p class="wow-cap">Zullen we meteen het volgende ontdekken?</p>
@@ -5514,7 +5521,7 @@ function introView(){ st.view='intro'; const it=INTRO[IN.i]; if(!it) return path
     ${(it.img||it.pimg)?`<figure class="in-fig"><div class="in-tag">${it.id==='genre'?'Voorbeeld van een genrestuk':it.id==='embleem'?'Voorbeeld van een embleem':'👇 De vraag gaat over dit werk'}</div><div class="frame">${it.pimg?`<img src="${P(it.pimg)}" alt="">`:introImg(it.img)?`<img src="${introImg(it.img)}" alt="">`:'<div class="in-ph">Afbeelding laden…</div>'}</div><figcaption>${it.cap}</figcaption></figure>`:''}
     <p class="qtext">${it.q}</p><div class="opts">${opts}</div>
     ${a!==null?`<div class="card" id="infb"><div class="verdict ${a===it.c?'ok':'bad'}">${a===it.c?'Goed gezien!':'Net niet. Het juiste antwoord is '+corr+'.'}</div><p>${it.e}</p>
-      <button class="btn primary big" onclick="introNext()">${IN.i<INTRO.length-1?'Volgend begrip ›':'Afronden ›'}</button><p class="center" style="margin:10px 0 0"><button class="btn small" onclick="askLaura()">💬 Snap je het niet? Stel Laura een vraag</button></p></div>`:''}</div>`); }
+      ${nextBar(IN.i<INTRO.length-1?'Volgend begrip →':'Afronden →','introNext()',a===it.c)}<p class="center" style="margin:10px 0 0"><button class="btn small" onclick="askLaura()">💬 Snap je het niet? Stel Laura een vraag</button></p></div>`:''}</div>`); }
 function introQuit(){ if(!st.introQuitAsked) return introQuitModal(); introQuitGo(); }
 function introQuitGo(){ if(IN.from==='onb'){ ob.s=2; return onbView(); } introBack(); }
 function introQuitModal(){ const m=document.createElement('div'); m.className='lb gl-modal'; m.onclick=()=>m.remove();
@@ -10368,6 +10375,7 @@ function topBar(){
     <div class="dots">${[...ROUNDS[st.r].q.keys()].map(k=>`<button class="${k in R?(R[k]===ROUNDS[st.r].q[k].c?'ok':'bad'):''} ${st.view==='q'&&k===st.i?'cur':''}" onclick="go(${st.r},{view:'q',i:${k}})" aria-label="vraag ${k+1}"></button>`).join('')}${st.t==='basis'?`<button class="star ${st.view==='kq'?'cur':''} ${Object.keys(res(st.r,'kenner')).length>=4?'done':''}" onclick="go(${st.r},{view:'kq',i:0})" aria-label="kunstkenner">🎓</button>`:''}<button class="star ${st.view==='big'?'cur':''}" onclick="go(${st.r},{view:'big',bigStep:-1})" aria-label="meesterwerk">★</button></div></div>
     <div class="eyebrow">${ROUNDS[st.r].title}</div>`;
 }
+const nextBar=(lbl,fn,ok)=>`<div class="nxbar ${ok===true?'ok':ok===false?'bad':''}"><span class="nx-v">${ok===true?'✓ Goed!':ok===false?'Net niet':''}</span><button class="btn primary" onclick="${fn}">${lbl}</button></div>`;
 const bottomNav = () => `<div class="bnav"><button class="btn" onclick="nav(-1)">‹ Vorige</button><button class="btn primary" onclick="nav(1)">Volgende ›</button></div>`;
 
 const DIFFS={b:{n:'Makkelijk',ic:'🌱',s:'3 antwoorden, waarvan er één duidelijk niet past. Toch moet je goed kijken.'},m:{n:'Gemiddeld',ic:'🎨',s:'3 antwoorden die allemaal kunnen kloppen. Alleen wie het symbool kent, weet het zeker.'},g:{n:'Moeilijk',ic:'🎓',s:'3 antwoorden die allemaal kunnen kloppen, en geen hulp van maker, jaartal of museum. Voor echte kenners.'}};
@@ -10452,9 +10460,8 @@ function question(){ window.ROUND_END=false;
       <h3>Ook te zien in…</h3>
       <div class="works">${Q.also.map(w=>`<div class="work"><div class="th" onclick="lb('${w.img}','<b>${esc(w.t).replace(/'/g,'&#39;')}</b><br><span>${esc(w.a).replace(/'/g,'&#39;')} · ${w.y}</span>')"><img src="${P(w.img)}" alt="${esc(w.t)}" loading="lazy"></div><div class="txt"><b>${w.t}</b><div class="meta">${w.a} · ${w.y}</div><div class="note">${linkTerms(w.n,used)}</div></div>${favBtn({...w,where:whereOf(w.img,w.t)},true)}</div>`).join('')}</div>
       ${termBox(ids)}
-      <div class="row"><button class="btn primary" onclick="nav(1)">${st.i<ROUNDS[st.r].q.length-1?'Volgende symbool →':'Door naar de eindtoets ★'}</button>
-      <button class="btn small" onclick="delete res(st.r)[st.i];question()">↺ opnieuw</button></div>
-    </div>`;
+      <div class="row"><button class="btn small" onclick="delete res(st.r)[st.i];question()">↺ opnieuw</button></div>
+    </div>${nextBar(st.i<ROUNDS[st.r].q.length-1?'Volgende vraag →':'Door naar de eindtoets ★','nav(1)',good)}`;
   }
   $(h+bottomNav()+'</div>');
 }
@@ -10479,7 +10486,7 @@ function big(){
       <p style="font-size:1.05rem"><b>${D.q}</b></p>
       ${optsHtml(D,bKey(),a,'bigAnswer')}`;
     if(a!==null) h += `<div class="card" id="fb"><div class="verdict ${a===D.c?'ok':'bad'}">${a===D.c?'Klopt!':'Bijna. Het juiste antwoord is '+corrL(D,bKey())+'.'}</div><p>${linkTerms(D.e)}</p>${termBox(termsIn(D.d+' '+D.e))}
-      <div class="row"><button class="btn primary" onclick="nav(1)">${st.bigStep<n-1?'Volgend detail →':'Het hele verhaal →'}</button></div></div>`;
+      </div>${nextBar(st.bigStep<n-1?'Volgend detail →':'Het hele verhaal →','nav(1)',a===D.c)}`;
   } else { window.ROUND_END=true;
     const sc=roundScore(st.r);
     const done=roundComplete(st.r);
