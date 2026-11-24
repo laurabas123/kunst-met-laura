@@ -5358,11 +5358,12 @@ function wowView(){ const S=WOW.step;
       <div class="wow-skull" id="wows"><div class="wow-sk-in" id="wowsk"></div></div>
       <p class="wow-cap">Holbein schilderde hem zo dat je hem alleen ziet als je er schuin langs kijkt.</p>
       <button class="btn primary big" id="wowbtn" onclick="wowReveal()">Kijk er schuin langs ↗</button>`,2);
-  if(S===3) return wowShell(`<figure class="wow-fig"><img src="img/zandloper.jpg" alt="Gerrit Dou, Zandloper en inktpot op een plank"><figcaption>Gerrit Dou, <i>Zandloper en inktpot op een plank</i>, 1647</figcaption></figure><p class="wow-q">Dan een makkelijke. Wat betekent een <b>zandloper</b> op een schilderij?</p>
-      <div class="wow-opts">${[['De tijd tikt weg',1],['Rijkdom en luxe',0],['Een lange reis',0]].map(([t,c])=>`<button class="btn" onclick="wowAns(this,${c})">${t}</button>`).join('')}</div>`,3);
+  if(S===3) return wowShell(`<figure class="wow-fig"><img src="img/ridder.jpg" alt="Albrecht Dürer, Ridder, dood en duivel"><figcaption>Albrecht Dürer, <i>Ridder, dood en duivel</i>, 1513</figcaption></figure><p class="wow-q">Dan een makkelijke. De Dood houdt de ridder een <b>zandloper</b> voor. Wat bedoelt hij?</p>
+      <div class="wow-opts">${[['Je tijd raakt op',1],['Hij vraagt hoe laat het is',0],['Hij biedt een geschenk aan',0]].map(([t,c])=>`<button class="btn" onclick="wowAns(this,${c})">${t}</button>`).join('')}</div>`,3);
   if(S===4) return wowShell(`<div class="wow-hero"><div class="wow-card"><small>Je eerste symbool</small><b>Memento mori</b><span>Gedenk dat je sterven zult</span></div>
-      <h1>Er zitten nog bijna 200 geheimen in de kunst verstopt.</h1><p class="wow-cap">Zal ik je morgen om 8:00 de volgende laten zien?</p>
-      <button class="btn primary big" onclick="wowEnd(1)">Ja, graag</button><button class="btn" style="margin-top:10px" onclick="wowEnd(0)">Eerst rondkijken</button></div>`,4);
+      <h1>Er zitten nog bijna 200 geheimen in de kunst verstopt.</h1><p class="wow-cap">Zullen we meteen het volgende ontdekken?</p>
+      <button class="btn primary big" onclick="wowEnd(1)">Ja, ik wil meer! →</button><button class="btn" style="margin-top:10px" onclick="wowEnd(0)">Eerst rondkijken</button>
+      <p class="wow-cap" style="font-size:.78rem">En elke ochtend om 8:00 staat er een extra dagquiz voor je klaar.</p></div>`,4);
 }
 function wowTap(e){ const el=document.getElementById('wowp'), r=el.getBoundingClientRect(); const x=(e.clientX-r.left)/r.width*1280, y=(e.clientY-r.top)/r.height*1261;
   const ax=330,ay=1250,bx=920,by=965, dx=bx-ax, dy=by-ay, t=Math.max(0,Math.min(1,((x-ax)*dx+(y-ay)*dy)/(dx*dx+dy*dy))), d=Math.hypot(x-(ax+t*dx), y-(ay+t*dy));
@@ -5372,10 +5373,10 @@ function wowReveal(){ const k=document.getElementById('wowsk'); if(!k||k.classLi
   const b=document.getElementById('wowbtn'); if(b){ b.textContent='Verder →'; b.onclick=()=>{ WOW.step=3; wowView(); wowSay('w5'); }; }
   setTimeout(()=>{ const s=document.getElementById('wows'); if(s) s.insertAdjacentHTML('afterend','<p class="wow-q wow-pop">Een schedel. Een <b>memento mori</b>: hoe rijk en machtig je ook bent, de dood kijkt altijd mee.</p>'); },1500); }
 function wowAns(b,c){ document.querySelectorAll('.wow-opts .btn').forEach(x=>x.disabled=true); b.classList.add(c?'ok':'bad');
-  if(!c){ const g=[...document.querySelectorAll('.wow-opts .btn')].find(x=>x.textContent==='De tijd tikt weg'); g&&g.classList.add('ok'); }
+  if(!c){ const g=[...document.querySelectorAll('.wow-opts .btn')].find(x=>x.textContent==='Je tijd raakt op'); g&&g.classList.add('ok'); }
   try{ if(c) sfx('bell'); }catch(_){} wowSay(c?'w6':'w6b'); if(c) document.querySelector('.wow').insertAdjacentHTML('beforeend',confHTML(24));
   setTimeout(()=>{ WOW.step=4; wowView(); setTimeout(()=>wowSay('w7'),400); }, 2600); }
-function wowEnd(yes){ try{ if(WOW.au) WOW.au.pause(); }catch(e){} st.wowDone=1; if(yes){ st.wowRemind=1; toast('Top! Morgen om 8:00 staat het volgende geheim klaar'); }
+function wowEnd(yes){ try{ if(WOW.au) WOW.au.pause(); }catch(e){} st.wowDone=1; if(yes){ st.wowGo=1; }
   const n=document.getElementById('nav'); if(n) n.style.display=''; save(); if(!st.onb) startOnb(); else hub(); }
 function startOnb(){ try{introLoad();}catch(e){} ob={s:0}; st.view='onb'; render(); }
 function obGo(s){ if(s===2||s===5){ const el=document.getElementById('obname'); if(el){ st.name=el.value.trim().slice(0,30); } if(ob.only){ ob={s:0}; save(); return paths(); } } ob.s=s; onbView(); }
