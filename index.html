@@ -10486,7 +10486,7 @@ function big(){
       <p style="font-size:1.05rem"><b>${D.q}</b></p>
       ${optsHtml(D,bKey(),a,'bigAnswer')}`;
     if(a!==null) h += `<div class="card" id="fb"><div class="verdict ${a===D.c?'ok':'bad'}">${a===D.c?'Klopt!':'Bijna. Het juiste antwoord is '+corrL(D,bKey())+'.'}</div><p>${linkTerms(D.e)}</p>${termBox(termsIn(D.d+' '+D.e))}
-      </div>${nextBar(st.bigStep<n-1?'Volgend detail →':'Het hele verhaal →','nav(1)',a===D.c)}`;
+      </div>${nextBar('Terug naar het hoofdmenu','hub()',a===D.c)}`;
   } else { window.ROUND_END=true;
     const sc=roundScore(st.r);
     const done=roundComplete(st.r);
@@ -10513,7 +10513,8 @@ function big(){
     if(!((st.diffAsked||{})[st.t])) h+=`<div class="card diffask" id="diffask"><div style="display:flex;gap:12px;align-items:center"><div style="width:52px;height:52px;flex:0 0 52px;border-radius:50%;overflow:hidden">${lauraSVG(0,true)}</div><p style="margin:0"><b>Hoe ging deze les?</b> Dan stem ik de moeilijkheid op jou af.</p></div>
       <div class="row" style="justify-content:center;margin-top:12px">${[['b','Te moeilijk'],['m','Precies goed'],['g','Te makkelijk']].map(([k,t])=>`<button class="btn ${k==='m'?'primary':''}" onclick="diffAnswer('${k}')">${t}</button>`).join('')}</div></div>`;
   }
-  $(h+`<div class="bnav"><button class="btn" onclick="nav(-1)">‹ 1 vraag terug</button><button class="btn primary" onclick="hub()">Terug naar het hoofdmenu</button></div>`+'</div>');
+  const bd=st.bigStep>=0&&st.bigStep<n&&(st.bigStep in bres(st.r));
+  $(h+`<div class="bnav"><button class="btn" onclick="nav(-1)">‹ 1 vraag terug</button>${bd?`<button class="btn primary" onclick="nav(1)">${st.bigStep<n-1?'Volgend detail →':'Het hele verhaal →'}</button>`:`<button class="btn primary" onclick="hub()">Terug naar het hoofdmenu</button>`}</div>`+'</div>');
 }
 function bigAnswer(k){ const wasA=(st.bigStep in bres(st.r)); bres(st.r)[st.bigStep]=k; try{ const ok=k===TR(st.r).big.details[st.bigStep].c; cameoNote(ok); if(!wasA){ firstMark(K(st.r,st.t)+'|b|'+st.bigStep,ok); ansReward(ok,'b'); } }catch(e){} big(); setTimeout(()=>{const c=document.getElementById('fb'); c&&c.scrollIntoView({behavior:'smooth',block:'start'});},80); }
 
