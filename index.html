@@ -176,6 +176,7 @@ p{margin:.5em 0}
 .opt.ok .l{background:var(--ok);border-color:var(--ok);color:#13200f}
 .opt.bad{border-color:var(--bad);background:rgba(201,112,92,.13)}
 .opt.bad .l{background:var(--bad);border-color:var(--bad);color:#2a120c}
+.opt.dim{opacity:.55}
 .opt[disabled]{cursor:default}
 .verdict{font-family:Fell,Georgia,serif;font-size:1.5rem;font-weight:700;margin:4px 0}
 .verdict.ok{color:var(--ok)} .verdict.bad{color:var(--bad)}
@@ -3123,9 +3124,9 @@ function bankQ(it,seed){ const S=SYMB[it.si], im=S.i[it.ii], R=rng('q'+seed+it.s
   const first=e=>e.split(/(?<=\.)\s/)[0];
   let question, opts;
   if(it.t===1){ question= /^(Sint|Johannes|Petrus|Paulus|Maria Magdalena|Mercurius|Neptunus|Jupiter$|Venus|Mars|Bacchus|Diana|Apollo|Minerva|Hercules|Hi[eë]ronymus|Catharina|Barbara|Joris|Micha[eë]l|Lucas|Marcus|Matt[eh]|Mozes|David|Judith|De evangelist)/.test(S.m) ? `Op dit werk van ${by} zie je dit attribuut: <b>${symArt(S)}</b>. Bij wie hoort het?` : `Op dit werk van ${by} is dit symbool te zien: <b>${symArt(S)}</b>. Waar staat het traditioneel voor?`; opts=mk(S.m,ds.map(o=>o.m)); }
-  else if(it.t===2){ question=`Welk symbool op dit werk van ${by} staat traditioneel voor <b>${S.m.toLowerCase()}</b>?`; opts=mk(S.n,ds.map(o=>o.n)); }
+  else if(it.t===2){ question=`Welk symbool op dit werk van ${by} staat traditioneel voor <b>${lcM(S.m)}</b>?`; opts=mk(S.n,ds.map(o=>o.n)); }
   else { question=`Kijk goed naar dit werk van ${by}. Welk symbool met een vaste betekenis zit erin verstopt?`; opts=mk(S.n,ds.map(o=>o.n)); }
-  return {question,opts,c:pos,exp:`<b>${S.n}</b> = ${S.m.toLowerCase()}. ${S.e}`,img:im[0],chunk:Math.floor(it.si/25),cap:`${im[1]} · ${by}`,bank:1}; }
+  return {question,opts,c:pos,exp:`<b>${S.n}</b> = ${lcM(S.m)}. ${S.e}`,img:im[0],chunk:Math.floor(it.si/25),cap:`${im[1]} · ${by}`,bank:1}; }
 function bankDay(day){ const B=bankBuild(), n=dayNum(day), L=B.d.length, base=(n*5)%L; const out=[]; for(let k=0;k<5;k++){ const idx=(base+k)%L; out.push({id:'b|'+idx, Q:bankQ(B.d[idx],day)}); } return out; }
 function bankById(id){ const idx=+id.split('|')[1]; const it=bankBuild().d[idx]; return it?bankQ(it,'w'+id):null; }
 function kvdBank(day){ const B=bankBuild(), n=dayNum(day), idx=n%B.k.length, it=B.k[idx]; const S=SYMB[it.si], im=S.i[it.ii];
@@ -3167,6 +3168,7 @@ function dqGo(day,items){ DQ={day,items,i:0,ans:[],t0:Date.now(),over:false}; st
 function dqTick(){ clearInterval(dqTimer); dqTimer=setInterval(()=>{ if(!DQ||st.view!=='daily'){ clearInterval(dqTimer); return; } const left=DQ_SECS-Math.floor((Date.now()-DQ.t0)/1000); const el=document.getElementById('dqclock'); if(el){ el.textContent=Math.max(0,Math.floor(left/60))+':'+String(Math.max(0,left%60)).padStart(2,'0'); el.classList.toggle('low',left<=30); }
   const bar=document.getElementById('dqbar'); if(bar) bar.style.width=Math.max(0,left/DQ_SECS*100)+'%'; if(left<=0){ clearInterval(dqTimer); DQ.over=true; dqFinish(); } },500); }
 function dqQ(){ return DQ.items[DQ.i].Q; }
+const lcM=m=>/^([A-ZÀ-Ý][a-zà-ÿ]+ [A-Z]|Sint|Maria|Jezus|Christus|God\b|De Heilige|Johannes|Petrus|Paulus|Mercurius|Neptunus|Jupiter|Venus|Mars|Bacchus|Diana|Apollo|Minerva|Hercules|Hi|Catharina|Barbara|Joris|Mich|Lucas|Marcus|Matt|Mozes|David|Judith)/.test(m)?m:m.charAt(0).toLowerCase()+m.slice(1);
 const dqSrc = Q => Q.bank? symImg(Q.img) : P(Q.img);
 function dqView(){ st.view='daily'; const q=dqQ(), a=DQ.ans[DQ.i], x=DQ.items[DQ.i]; const left=DQ_SECS-Math.floor((Date.now()-DQ.t0)/1000);
   $(`<div class="dq"><div class="top"><button class="btn small" onclick="dqQuit()">✕ Stoppen</button><span class="dq-clock" id="dqclock">${Math.floor(left/60)}:${String(left%60).padStart(2,'0')}</span></div>
@@ -3175,7 +3177,7 @@ function dqView(){ st.view='daily'; const q=dqQ(), a=DQ.ans[DQ.i], x=DQ.items[DQ
    <div class="dq-dots">${DQ.items.map((_,k)=>`<i class="${k<DQ.i||(k===DQ.i&&a!==undefined)?(DQ.ans[k]===DQ.items[k].Q.c?'ok':'bad'):k===DQ.i?'cur':''}"></i>`).join('')}</div>
    <div class="frame dq-img">${q.bank&&!SYMCH[q.chunk==null?0:q.chunk]?'':''}<img src="${dqSrc(q)}" alt=""></div>
    <p class="qtext">${q.question}</p>
-   <div class="opts">${q.opts.map((o,k)=>`<button class="opt ${a===undefined?'':k===q.c?'correct':k===a?'wrong':'dim'}" ${a!==undefined?'disabled':''} onclick="dqAns(${k})"><span class="L">${'ABCD'[k]}</span><span>${o}</span></button>`).join('')}</div>
+   <div class="opts">${q.opts.map((o,k)=>`<button class="opt ${a===undefined?'':k===q.c?'ok':k===a?'bad':'dim'}" ${a!==undefined?'disabled':''} onclick="dqAns(${k})"><span class="l">${'ABCD'[k]}</span><span>${o}</span></button>`).join('')}</div>
    ${a!==undefined?`<div class="card fb ${a===q.c?'good':'bad'}"><b>${a===q.c?'Goed!':'Helaas.'}</b> ${q.exp.split('. ').slice(0,2).join('. ').replace(/<\/?[^>]+>/g,m=>/^<\/?(b|i)>$/.test(m)?m:'')}${/\.$/.test(q.exp.split('. ').slice(0,2).join('. '))?'':'.'}<div class="muted" style="font-size:.8rem;margin-top:6px">${q.cap}</div></div>
    ${nextBar(DQ.i<DQ_N-1?'Volgende vraag →':'Bekijk je score →','dqNext()',a===q.c)}`:''}</div>`); }
 function dqAns(k){ if(!DQ||DQ.ans[DQ.i]!==undefined) return; DQ.ans[DQ.i]=k; const ok=k===dqQ().c; { const x=DQ.items[DQ.i], wk=x.id; if(ok&&st.weak&&st.weak[wk]){ delete st.weak[wk]; setTimeout(()=>toast('🔁 Herkansing geslaagd!'),300); } else if(!ok){ st.weak=st.weak||{}; st.weak[wk]=dqDay(); } } try{ sfx(ok?'bell':'whoosh'); }catch(e){} if(ok) xpAdd(10); dqView();
@@ -3566,8 +3568,8 @@ function kvdView(){ lauraTip('kvd'); const T=kvdToday(); st.view='kvd'; const {S
    <div class="eyebrow">Kunstwerk van de dag</div><h1>${im[2]}</h1><p class="muted" style="margin-top:-6px">${im[3]?im[3]+' · ':''}bekend als <i>${im[1]}</i></p>
    <button class="kvd-img" onclick="kvdZoom()"><img src="${symImg(im[0])}" alt=""><span>🔍 Tik om te vergroten</span></button>
    <div class="card"><div class="al-sub" style="margin-top:0">🔎 Kijkopdracht</div><p class="qtext" style="margin:4px 0 8px">In dit schilderij zit een symbool met een vaste betekenis verstopt. Welk?</p>
-    <div class="opts">${Q.opts.map((o,j)=>`<button class="opt ${a===undefined?'':j===Q.c?'correct':j===a?'wrong':'dim'}" ${a!==undefined?'disabled':''} onclick="kvdAns(${j})"><span class="L">${'ABC'[j]}</span><span>${o}</span></button>`).join('')}</div>
-    ${a!==undefined?`<div class="card fb ${a===Q.c?'good':'bad'}" style="margin-top:10px"><b>${a===Q.c?'Goed gezien! Dit werk hangt nu in je museum.':'Helaas! Het was '+S.n.toLowerCase()+'.'}</b> <b>${S.n}</b> staat traditioneel voor <b>${S.m.toLowerCase()}</b>. ${S.e}</div>`:''}</div>
+    <div class="opts">${Q.opts.map((o,j)=>`<button class="opt ${a===undefined?'':j===Q.c?'ok':j===a?'bad':'dim'}" ${a!==undefined?'disabled':''} onclick="kvdAns(${j})"><span class="l">${'ABC'[j]}</span><span>${o}</span></button>`).join('')}</div>
+    ${a!==undefined?`<div class="card fb ${a===Q.c?'good':'bad'}" style="margin-top:10px"><b>${a===Q.c?'Goed gezien! Dit werk hangt nu in je museum.':'Helaas! Het was '+S.n.toLowerCase()+'.'}</b> <b>${S.n}</b> staat traditioneel voor <b>${lcM(S.m)}</b>. ${S.e}</div>`:''}</div>
    <button class="btn primary big" onclick="hub()">Terug naar het hoofdmenu</button></div>`); }
 function kvdZoom(){ const T=kvdToday(); const d=document.createElement('div'); d.className='lb'; d.innerHTML=`<img src="${symImg(T.im[0])}" alt=""><div class="cap"><i>${T.im[1]}</i> · ${T.im[2]}${T.im[3]?', '+T.im[3]:''}</div><button class="btn primary lbclose">Sluit afbeelding</button>`; d.onclick=()=>d.remove(); document.body.appendChild(d); }
 function kvdAns(j){ const T=kvdToday(); if(T.K.ans!==undefined) return; T.K.ans=j; const ok=j===T.Q.c; if(ok){ st.kvdWon=st.kvdWon||{}; st.kvdWon[T.im[0]]={t:T.im[1],a:T.im[2],y:T.im[3],s:T.S.n,at:Date.now()}; xpAdd(15,'goed gezien'); } save(); try{ sfx(ok?'bell':'whoosh'); }catch(e){} kvdView(); }
