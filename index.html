@@ -5394,7 +5394,7 @@ function wowView(){ const S=WOW.step;
   if(S===0) return wowShell(`<div class="wow-hero"><div class="wow-av">${lauraSVG(0,true)}</div>
       <p class="wow-hi">Hoi, ik ben Laura.</p>
       <h1>Wist je dat museumbezoekers gemiddeld maar 27&nbsp;seconden naar een schilderij kijken?</h1>
-      <p class="wow-sub">Zo mis je bijna alle geheimen die de schilder erin verstopte. Ik laat je er één zien.</p>
+      <p class="wow-sub">Zo mis je bijna alle geheimen die de schilder erin verstopte. Laat me je er eentje zien.</p>
       <button class="btn primary big" onclick="WOW.step=1;wowView();wowSay('w1')">Laat het me zien</button></div>`,0);
   if(S===1) return wowShell(`<p class="wow-q">Zie jij wat hier niet klopt? <b>Tik erop.</b></p>
       <div class="wow-paint" id="wowp" onclick="wowTap(event)"><img src="img/amb900.jpg" alt="Hans Holbein, De ambassadeurs (1533)"><span class="wow-hint ${WOW.miss>=2?'on':''}"></span></div>
