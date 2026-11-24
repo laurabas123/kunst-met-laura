@@ -626,6 +626,15 @@ body.has-nav #nav{display:flex}body.has-nav .wrap{padding-bottom:96px}
 .nxbar .btn{margin:0;min-width:58%;padding:14px 18px;font-size:1rem}
 body:has(.nxbar) .wrap,body:has(.nxbar) .dq{padding-bottom:110px}.nxbar.bad .nx-v{color:#e0a07a}
 @keyframes nxin{from{transform:translateY(100%)}to{transform:none}}@media (prefers-reduced-motion:reduce){.nxbar{animation:none}}
+.gtree{padding:12px 12px 14px;background:rgba(255,255,255,.03);border:1px solid rgba(215,180,106,.25);border-radius:16px;margin-top:10px;text-align:center}
+.gt-lbl{font-size:.72rem;color:var(--muted,#9aa3b8);margin:8px 0 4px}.gt-lbl:first-child{margin-top:0}
+.gt-row{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px}
+.gt-n{display:inline-flex;flex-direction:column;align-items:center;padding:5px 9px;border-radius:10px;background:rgba(215,180,106,.1);border:1px solid rgba(215,180,106,.3);line-height:1.15}
+.gt-n b{font-size:.86rem;font-weight:600}.gt-n small{font-size:.7rem;color:#d7b46a}.gt-n i{font-size:.62rem;color:var(--muted,#9aa3b8)}
+.gt-n.new{background:#d7b46a;color:#1d1a16;border-color:#d7b46a;animation:gtpop .5s ease-out}.gt-n.new small,.gt-n.new i{color:#4a3a1a}
+.gt-wed{color:#d7b46a;font-size:1rem}.gt-wed.hi{font-size:1.3rem;text-shadow:0 0 8px rgba(215,180,106,.8)}.gt-gap{width:10px}
+@keyframes gtpop{from{transform:scale(.6);opacity:0}to{transform:none;opacity:1}}@media (prefers-reduced-motion:reduce){.gt-n.new{animation:none}}
+.round.pre-round{border-style:dashed}.round.pre-round .num{color:#d7b46a}
 .or-bub{background:#f3ecdc;color:#1d1a16;border-radius:18px;padding:14px 16px;line-height:1.5}.or-bub p{margin:0 0 8px}.or-fig{margin:6px 0 0}.or-fig img{width:100%;border-radius:10px}.or-fig figcaption{font-size:.8rem;color:#6b5a3e;margin-top:4px}
 .hx-more{background:rgba(255,255,255,.045);border-radius:16px;padding:12px 14px;margin-bottom:10px}.hx-more summary{cursor:pointer;font-weight:700;list-style:none}.hx-more summary::after{content:' ▾';color:#d7b46a}.hx-more[open] summary::after{content:' ▴'}
 </style>
@@ -3090,6 +3099,15 @@ function guideCheer(r){ const g=guideOf(), G=GUIDES[g], arr=GCHEER[g], nm=st.nam
   const conf=Array.from({length:22},(_,k)=>`<i style="left:${(k*41)%100}%;animation-delay:${(k%6)*.2}s;background:${['#d7b46a','#c0645a','#3e63b0','#7fae7a','#efe4cf'][k%5]}"></i>`).join('');
   return `<div class="guide-cheer"><div class="confetti">${conf}</div><div class="gc-fig">${G.svg(0,false,true)}</div>
     <div class="ob-bubble gc-b"><b>${G.name}:</b> ${arr[r%arr.length].replace('!',nm+'!')}</div></div>`; }
+function preStart(t){ const S=PRE_OF(t); if(!S) return; setTrack(t); storyEnsure(); document.querySelectorAll('.lb').forEach(x=>x.remove()); storyPlay(S.id,0); }
+function preSkip(t){ st.pre=st.pre||{}; st.pre[t]='skip'; save(); document.querySelectorAll('.lb').forEach(x=>x.remove()); openRound(0); }
+function preOffer(){ const t=st.t, S=PRE_OF(t), g=guideOf(t), G=GUIDES[g], nm=st.name?`, ${st.name}`:''; st.gseen=st.gseen||{}; const hello=!st.gseen['g:'+g]?GHELLO[g](nm)+'<br><br>':''; st.gseen['g:'+g]=1; save(); storyEnsure();
+  const what=t==='myth'?'Ik neem je eerst mee in wat mythologie eigenlijk is, en we lopen samen langs mijn stamboom. Wie is familie van wie?':'Eerst stel ik je voor aan Cesare Ripa. Zijn boek <i>Iconologia</i> is het spiekboek achter bijna alle deugden en ondeugden die je gaat zien.';
+  const d=document.createElement('div'); d.className='lb gl-modal';
+  d.innerHTML=`<div class="gl-box guide-box" onclick="event.stopPropagation()"><div class="gb-fig">${G.svg()}</div><div class="eyebrow center">${G.name} · ${G.role}</div>
+    <div class="ob-bubble">${hello}<b>Voor je begint:</b> er is een korte voorkenniscursus van 3 minuten. ${what} Ik raad hem je ten zeerste aan: dan begrijp je de lessen veel beter.</div>
+    <button class="btn primary big" onclick="preStart('${t}')">Doe de voorkenniscursus</button><button class="btn" style="margin-top:8px" onclick="preSkip('${t}')">Sla over, meteen naar les 1</button></div>`;
+  document.body.appendChild(d); }
 function guideModal(g,html){ const G=GUIDES[g]; const d=document.createElement('div'); d.className='lb gl-modal';
   d.innerHTML=`<div class="gl-box guide-box" onclick="event.stopPropagation()"><div class="gb-fig">${G.svg()}</div>
     <div class="eyebrow center">${G.name} · ${G.role}</div><div class="ob-bubble">${html}</div>
@@ -3957,6 +3975,7 @@ SC.diane = {name:'Diane de Poitiers', hood:'#111111', hair:'#c9a46a', hairDk:'#8
 SC.zeus = {name:'Zeus', male:1, hairStyle:'curly', hair:'#e8e4dc', hairDk:'#b9b2a6', beard:'full', hat:'crown', hatC:'#d7b46a', coat:'#efe8d8', coatSh:'#cfc4ab', cuff:'#d7b46a', hose:'#cfc4ab', collar:'white', chain:1};
 SC.hera = {name:'Hera', hairStyle:'bun', hair:'#3a2618', hat:'crown', hatC:'#d7b46a', coat:'#3b5aa0', coatSh:'#2a4278', cuff:'#f4efe4', hose:'#2a4278', pearls:1};
 SC.napoleon = {name:'Napoleon Bonaparte', male:1, hairStyle:'short', hair:'#3a2618', hat:'bicorne', hatC:'#141414', coat:'#1f2f6e', coatSh:'#142050', cuff:'#f4efe4', hose:'#f1ece2', collar:'jabot', chain:1};
+SC.ripa = {name:'Cesare Ripa', male:1, hairStyle:'short', hair:'#3a2a1e', hairDk:'#22160e', beard:'full', hat:'cap', hatC:'#141414', coat:'#24202a', coatSh:'#141218', cuff:'#f4efe4', hose:'#141218', collar:'white'};
 SC.galileo = {name:'Galileo Galilei', male:1, hairStyle:'short', hair:'#cfc9bf', beard:'full', coat:'#2a2420', coatSh:'#1a1612', cuff:'#e9dfcc', hose:'#1a1612', collar:'shirt'};
 const scSVG = (id,size,head,clap,emo) => id==='laura' ? lauraSVG(size,head,clap) : charSVG(emo?Object.assign({},SC[id],{emo}):SC[id], size, head, clap, 'stand');
 
@@ -4358,7 +4377,62 @@ document.addEventListener('visibilitychange',()=>{ if(document.hidden){ auStopMu
 
 /* ---------- state & helpers (v2: menigtes, emoties, muziek) ---------- */
 let STQ=null; // {id, c, b, ans:{}, intro}
-const storyById = id => STORIES.find(s=>s.id===id);
+const PRE_LIST = [
+{ id:'pre_deugden', pre:'deugden', t:'Voorkennis Deugden', sub:'Het spiekboek van de schilders', yrs:'1593', who:'ripa', col:'#5a2a3a',
+  intro:'', outro:'Nu weet je waar al die vrouwen met ankers, bazuinen en weegschalen vandaan komen. Kijk in de lessen goed naar wat ze vasthouden: daar zit het verhaal.',
+  chapters:[
+  { t:'Het spiekboek van de schilders', y:'Rome, 1593', end:'', beats:[
+    {bg:'palace', in:'catharina', at:'l', s:'catharina', x:'Voor we aan de deugden beginnen, stel ik je voor aan iemand die je overal zult tegenkomen. Zonder hem zag de helft van de schilderijen in deze cursus er heel anders uit.'},
+    {in:'ripa', at:'r', s:'ripa', x:'Cesare Ripa, tot uw dienst! Ik werkte als voorsnijder aan het hof van een kardinaal in Rome. Ik sneed het vlees aan tafel. En ondertussen las ik alles wat los en vast zat.'},
+    {n:'In 1593 verschijnt in Rome zijn boek <b>Iconologia</b>: een soort woordenboek in beelden.', y:'1593'},
+    {s:'ripa', x:'Stel, je moet de Hoop schilderen, of de Roem. Hoe schilder je iets wat je niet kunt zien? In mijn boek staat het precies: welke kleren, welke kleur, wat ze in haar hand houdt.'},
+    {q:'Een vrouw die “de Hoop” voorstelt, noemen we een…', o:['Portret','Personificatie: een abstract begrip, afgebeeld als mens','Heiligenbeeld'], c:1,
+      e:'Een <b>personificatie</b> maakt van een idee een persoon. Deugden, ondeugden, de seizoenen, de kunsten: bij Ripa krijgen ze allemaal een gezicht. Meestal een vrouw, omdat die woorden in het Latijn en Italiaans vrouwelijk zijn.', img:false},
+    {art:'st_p1', t:'Houtsnede uit de Iconologia', a:'Cesare Ripa', yr:'editie Rome, 1603', x:'In de eerste druk stonden alleen beschrijvingen. Vanaf 1603 kwamen er houtsneden bij, zodat schilders konden zien hoe een begrip eruitzag. Elk voorwerp betekent iets: een fakkel, een kruik, een vogel boven het hoofd.'},
+    {s:'ripa', x:'Die voorwerpen heten attributen. Ken je de attributen, dan kun je het schilderij lezen. Zo simpel is het.'},
+    {q:'Ripa’s Gerechtigheid draagt een weegschaal, een zwaard en soms een blinddoek. Waarom die blinddoek?', o:['Omdat ze blind is','Omdat ze oordeelt zonder te kijken wie er voor haar staat: rijk of arm, vriend of vijand','Omdat ze moe is'], c:1,
+      e:'De <b>blinddoek</b> betekent onpartijdigheid. De <b>weegschaal</b> weegt de argumenten, het <b>zwaard</b> voert de straf uit. Je ziet haar nog steeds op rechtbanken.', img:false},
+    {in:'catharina', at:'l', s:'catharina', x:'Het boek werd een bestseller. Het verscheen in het Frans, Duits en Engels. En in 1644 ook in het Nederlands.'},
+    {n:'De Amsterdamse uitgever <b>Dirck Pietersz Pers</b> vertaalde het boek. Zo kwam het ook bij Hollandse schilders in de werkplaats terecht.', y:'1644'},
+    {art:'P:rB', t:'Allegorie op het geloof', a:'Johannes Vermeer', yr:'ca. 1670–1672', x:'Vermeer volgde Ripa bijna woord voor woord: de vrouw in wit en blauw, haar voet op een wereldbol, de verpletterde slang. In les 2 van deze cursus ga je dit schilderij helemaal ontcijferen.'},
+    {q:'Waarom was zo’n handboek zo handig?', o:['Het was goedkoop','Schilders en kijkers gebruikten dezelfde “woordenlijst”: wie het boek kende, kon het schilderij lezen','De kerk verplichtte het'], c:1,
+      e:'Ripa gaf de kunst een <b>gedeelde taal</b>. Een opdrachtgever kon zeggen: “schilder de Voorzichtigheid zoals bij Ripa”, en iedereen wist wat er bedoeld werd.', img:false},
+    {s:'ripa', x:'De deugden en ondeugden zijn mijn lievelingen. Voorzichtigheid, Hoop en Gerechtigheid, maar ook Hoogmoed en Afgunst. Kijk goed wat ze vasthouden. Daar zit het verhaal.'},
+    {s:'catharina', x:'Klaar? We beginnen met de zeven hoofdzonden, zoals Bruegel ze tekende. Let op de details!'}
+  ]}
+]},
+{ id:'pre_myth', pre:'myth', t:'Voorkennis Mythologie', sub:'Wat is mythologie, en wie is familie van wie?', yrs:'de oudheid', who:'zeus', col:'#2c4a7a',
+  intro:'', outro:'Nu ken je mijn familie, sterveling. Zie je een drietand, een helm met vleugeltjes of een adelaar? Dan weet je wie er bedoeld wordt.',
+  chapters:[
+  { t:'Wat is mythologie?', y:'de oudheid', end:'', beats:[
+    {bg:'palace', in:'zeus', at:'c', s:'zeus', x:'Voor je mijn afdeling binnenloopt, eerst een vraag. Weet je eigenlijk wat mythologie is?'},
+    {n:'Een <b>mythe</b> is een heel oud verhaal over goden, helden en monsters. De Grieken vertelden ze al bijna drieduizend jaar geleden, bij dichters als <b>Homerus</b> en <b>Hesiodus</b>.', y:'ca. 700 v.Chr.'},
+    {s:'zeus', x:'Met die verhalen verklaarden mensen de wereld. Onweer? Dat ben ik, met mijn bliksem. Een storm op zee? Mijn broer Poseidon is boos.'},
+    {s:'zeus', x:'Later namen de Romeinen ons over, met nieuwe namen. Bij hen heet ik Jupiter.'},
+    {q:'Waarom is dat belangrijk als je naar schilderijen kijkt?', o:['Romeinse goden zien er heel anders uit','Schilders gebruiken meestal de Romeinse namen: Venus in plaats van Aphrodite, Jupiter in plaats van Zeus','Griekse goden werden nooit geschilderd'], c:1,
+      e:'Kunstenaars in de renaissance lazen vooral Latijnse schrijvers, zoals <b>Ovidius</b>. Daarom heten de schilderijen <i>Venus en Mars</i> en <i>Diana en Actaeon</i>. Je hebt dus beide namen nodig.', img:false},
+    {s:'zeus', x:'Kom, ik laat je mijn familie zien. Het begint helemaal bij het begin.'},
+    {tree:1, n:'Eerst waren er <b>Gaia</b>, de Aarde, en <b>Uranus</b>, de Hemel. Hun kinderen waren de reusachtige <b>titanen</b>.'},
+    {tree:2, s:'zeus', x:'Twee van die titanen waren mijn ouders: Kronos en Rhea. Ja, ze waren broer en zus.'},
+    {q:'Broer en zus die samen kinderen krijgen. Hoe moet je dat zien?', o:['Dat was bij de Grieken heel gewoon','In de oertijd waren er nog geen anderen: het zijn verhalen over het ontstaan van de wereld, geen voorbeeld voor mensen','Het is een vertaalfout'], c:1,
+      e:'Bij gewone Grieken was trouwen met je broer of zus <b>taboe</b>. Maar de eerste goden hadden niemand anders. De mythen gaan over hoe de wereld ontstond, niet over hoe mensen moesten leven.', img:false},
+    {tree:3, s:'zeus', x:'Mijn vader slikte zijn kinderen in, uit angst dat een van ons hem van de troon zou stoten. Ik ontsnapte en bevrijdde mijn broers en zussen: Hestia, Demeter, Hera, Hades en Poseidon.'},
+    {tree:4, s:'zeus', x:'Daarna trouwde ik met Hera. Mijn zus, inderdaad. Een familietraditie.'},
+    {tree:5, n:'Zeus kreeg kinderen met Hera, maar ook met vele anderen. <b>Apollo</b> en <b>Artemis</b> met Leto, <b>Hermes</b> met Maia, <b>Dionysos</b> met de sterfelijke Semele. En <b>Athena</b> sprong volgens de mythe in volle wapenrusting uit zijn hoofd.'},
+    {q:'Welke twee goden zijn een tweeling?', o:['Ares en Athena','Apollo en Artemis','Hermes en Dionysos'], c:1,
+      e:'<b>Apollo</b>, god van het licht en de muziek, en <b>Artemis</b>, godin van de jacht en de maan, zijn de tweeling van Leto. Bij de Romeinen heet Artemis <b>Diana</b>. Je herkent haar aan de maansikkel in haar haar.', img:false},
+    {tree:6, n:'Zo krijg je de goden van de Olympus. Hier staan ze met hun Romeinse naam erbij: die kom je in musea het vaakst tegen.'},
+    {art:'st_p3', t:'Het godenconcilie', a:'Rafaël en werkplaats', yr:'1517–1518', x:'De goden van de Olympus bij elkaar op een plafond in Rome. Herken je ze? Jupiter met zijn adelaar, Neptunus met zijn drietand, Mercurius met zijn gevleugelde helm, Juno met haar pauw.'},
+    {s:'zeus', x:'Dat is het geheim: iedere god heeft vaste attributen. Mijn bliksem en adelaar, de drietand van Neptunus, de helm met vleugeltjes van Mercurius. Leer die, en je herkent ons overal.'},
+    {q:'Je ziet een man met een drietand, en om hem heen water. Wie is het?', o:['Mars','Neptunus (bij de Grieken Poseidon)','Vulcanus'], c:1, img:'P:y1',
+      e:'De <b>drietand</b> is het attribuut van Neptunus, de god van de zee. Op dit schilderij liet admiraal Andrea Doria zich zelfs als Neptunus portretteren. Die zie je straks terug in les 1.'},
+    {s:'zeus', x:'Genoeg gepraat. Op naar de eerste les: de Olympische goden!'}
+  ]}
+]}
+];
+
+const storyById = id => STORIES.find(s=>s.id===id)||PRE_LIST.find(s=>s.id===id);
+const PRE_OF = t => PRE_LIST.find(s=>s.pre===t);
 const storyDone = id => (st.story&&st.story[id])||0;
 function storySceneState(S,c,b){ const beats=S.chapters[c].beats; let bg='white', actors={}, order=[], crowd=null, crowdN=8, weather='', props={}, mood=S.mood||'renaissance', emo={};
   for(let i=0;i<=b;i++){ const x=beats[i]; if(!x) break; if(x.bg) bg=x.bg;
@@ -4405,7 +4479,7 @@ function storiesView(){ st.view='stories'; save(); setTimeout(storiesGift,500); 
      return askChip.replace(/^/,'')+`<button class="story-card" onclick="storyOpen('${S.id}')" style="--sc:${S.col}"><div class="stc-fig">${scSVG(S.who,0,true)}</div>
       <div class="stc-tx"><div class="eyebrow">${S.yrs}</div><b>${S.t}</b><small>${S.sub}</small><div class="pbar"><i style="width:${Math.round(d/n*100)}%"></i></div><small class="muted">${d>=n?'🏅 uitgespeeld':`${d} van ${n} hoofdstukken`}</small></div></button>`; }).join('')}
   </div>`); }
-function storyOpen(id){ if(!storyIsOpen(id)) return storyLocked(id); voxLoad(id); const S=storyById(id); st.view='storyc'; st.storyId=id; save(); const d=storyDone(id); auLeave();
+function storyOpen(id){ { const P0=PRE_LIST.find(x=>x.id===id); if(P0){ auLeave(); setTrack(P0.pre); return home(); } } if(!storyIsOpen(id)) return storyLocked(id); voxLoad(id); const S=storyById(id); st.view='storyc'; st.storyId=id; save(); const d=storyDone(id); auLeave();
   $(`<div><div class="hdr"><button class="chip" onclick="storiesView()">‹ Alle verhalen</button><button class="chip snd-btn" onclick="soundToggle()">${auOn()?'🔊':'🔇'}</button></div>
    <div class="story-head" style="--sc:${S.col}"><div class="sh-fig">${scSVG(S.who,0,false)}</div><div><div class="eyebrow">${S.yrs}</div><h1 style="margin:2px 0">${S.t}</h1><p class="muted" style="margin:0">${S.intro}</p></div></div>
    ${S.chapters.map((C,i)=>{ const lock=i>d; return `<button class="ch-row ${lock?'locked':''} ${i<d?'done':''}" ${lock?'':`onclick="storyPlay('${id}',${i})"`}><span class="ch-n">${i<d?'✓':i+1}</span><span><b>${C.t}</b><br><small class="muted">${C.y||''}</small></span><span class="ch-go">${lock?'🔒':'▶'}</span></button>`; }).join('')}
@@ -4417,8 +4491,8 @@ function storyIntro(){ const S=storyById(STQ.id), C=S.chapters[STQ.c]; const fir
   $(`<div class="storyv"><div class="hdr"><button class="chip" onclick="STQ=null;storyOpen('${S.id}')">‹ ${S.t}</button><button class="chip snd-btn" onclick="soundToggle()">${auOn()?'🔊':'🔇'}</button></div>
     <div class="stage intro-stage" onclick="storyStart()"><div class="s-bg">${BG[first.bg]||BG.white}</div>
       <div class="curtain cl"></div><div class="curtain cr"></div>
-      <div class="ch-card"><div class="eyebrow">Hoofdstuk ${STQ.c+1} van ${S.chapters.length}</div><div class="serif ch-t">${C.t}</div><div class="ch-y">${C.y||''}</div><div class="ch-fig">${scSVG(S.who,0,false,true)}</div></div></div>
-    <div class="s-ctrl one"><button class="btn primary big" onclick="storyStart()">Start het hoofdstuk ▶</button></div>${auOn()?`<p class="center muted small" style="margin-top:8px">🔊 Met muziek en geluid. Hoor je niets? Zet het volume hoger.</p>`:`<p class="center muted small" style="margin-top:8px">🔇 Geluid staat uit. Tik rechtsboven op 🔇 om het aan te zetten.</p>`}</div>`);
+      <div class="ch-card"><div class="eyebrow">${S.pre?'Voorkenniscursus · 3 minuten':'Hoofdstuk '+(STQ.c+1)+' van '+S.chapters.length}</div><div class="serif ch-t">${C.t}</div><div class="ch-y">${C.y||''}</div><div class="ch-fig">${scSVG(S.who,0,false,true)}</div></div></div>
+    <div class="s-ctrl one"><button class="btn primary big" onclick="storyStart()">${S.pre?'Start ▶':'Start het hoofdstuk ▶'}</button></div>${auOn()?`<p class="center muted small" style="margin-top:8px">🔊 Met muziek en geluid. Hoor je niets? Zet het volume hoger.</p>`:`<p class="center muted small" style="margin-top:8px">🔇 Geluid staat uit. Tik rechtsboven op 🔇 om het aan te zetten.</p>`}</div>`);
   setTimeout(()=>{ const el=document.querySelector('.intro-stage'); if(el) el.classList.add('open'); },350); }
 function storyStart(){ if(!STQ) return; auResume(); STQ.intro=false; STQ.b=0; storyView(); }
 function storyNext(){ if(!STQ) return; auResume(); const S=storyById(STQ.id), beats=S.chapters[STQ.c].beats, x=beats[STQ.b];
@@ -4426,14 +4500,14 @@ function storyNext(){ if(!STQ) return; auResume(); const S=storyById(STQ.id), be
   if(STQ.b<beats.length-1){ STQ.b++; storyView(); } else storyChapterDone(); }
 function storyBack(){ if(STQ&&STQ.b>0){ STQ.b--; storyView(true); } }
 function storyAns(j){ const x=storyById(STQ.id).chapters[STQ.c].beats[STQ.b]; if(STQ.ans[STQ.b]!==undefined) return; STQ.ans[STQ.b]=j; sfx(j===x.c?'magic':'gasp'); storyView(true); }
-function storyChapterDone(){ const S=storyById(STQ.id), c=STQ.c; st.story=st.story||{}; if(storyDone(S.id)<c+1) try{ xpAdd(30,'hoofdstuk'); questEv('chapter'); }catch(e){} st.story[S.id]=Math.max(storyDone(S.id),c+1); save(); const last=c===S.chapters.length-1;
+function storyChapterDone(){ const S=storyById(STQ.id), c=STQ.c; if(S.pre){ st.pre=st.pre||{}; st.pre[S.pre]='done'; } st.story=st.story||{}; if(storyDone(S.id)<c+1) try{ xpAdd(30,'hoofdstuk'); questEv('chapter'); }catch(e){} st.story[S.id]=Math.max(storyDone(S.id),c+1); save(); const last=c===S.chapters.length-1;
   speakStop(); if(!AU.el2) auMood(last?'triumph':'court'); sfx(last?['fanfare','clap']:'clap');
   const conf=Array.from({length:26},(_,k)=>`<i style="left:${(k*41)%100}%;animation-delay:${(k%7)*.18}s;background:${['#d7b46a','#c0645a','#3e63b0','#7fae7a','#efe4cf'][k%5]}"></i>`).join('');
   $(`<div class="story-end" style="--sc:${S.col}"><div class="confetti">${conf}</div><div class="se-fig">${scSVG(S.who,0,false,true)}</div>
-    <div class="eyebrow">${last?'Verhaal uitgespeeld':'Hoofdstuk '+(c+1)+' klaar'}</div><h2 class="serif" style="margin:4px 0 8px">${last?S.t+' 🏅':S.chapters[c].t}</h2>
+    <div class="eyebrow">${S.pre?'Voorkenniscursus klaar':last?'Verhaal uitgespeeld':'Hoofdstuk '+(c+1)+' klaar'}</div><h2 class="serif" style="margin:4px 0 8px">${S.pre?S.chapters[0].t+' ✓':last?S.t+' 🏅':S.chapters[c].t}</h2>
     <div class="ob-bubble">${last?S.outro:S.chapters[c].end||'Goed gedaan! Op naar het volgende hoofdstuk.'}</div>
-    ${last?'':`<button class="btn primary big" onclick="storyPlay('${S.id}',${c+1})">Hoofdstuk ${c+2}: ${S.chapters[c+1].t} ›</button>`}
-    ${last&&ASK[S.id]?`<button class="btn primary big" onclick="auLeave();askOpen('${S.id}')">💬 Stel ${ASK[S.id].name} een vraag</button>`:''}<button class="btn" style="margin-top:8px" onclick="auLeave();storyOpen('${S.id}')">Naar het overzicht</button></div>`); STQ=null; if(last&&ASK[S.id]&&!(st.askUnl&&st.askUnl[S.id])){ st.askUnl=st.askUnl||{}; st.askUnl[S.id]=1; save(); setTimeout(()=>askUnlockModal(S.id),1600); } }
+    ${S.pre?`<button class="btn primary big" onclick="auLeave();setTrack('${S.pre}');openRound(0)">Op naar les 1 →</button>`:last?'':`<button class="btn primary big" onclick="storyPlay('${S.id}',${c+1})">Hoofdstuk ${c+2}: ${S.chapters[c+1].t} ›</button>`}
+    ${last&&ASK[S.id]?`<button class="btn primary big" onclick="auLeave();askOpen('${S.id}')">💬 Stel ${ASK[S.id].name} een vraag</button>`:''}<button class="btn" style="margin-top:8px" onclick="auLeave();storyOpen('${S.id}')">${S.pre?'Naar de cursus':'Naar het overzicht'}</button></div>`); STQ=null; if(last&&ASK[S.id]&&!(st.askUnl&&st.askUnl[S.id])){ st.askUnl=st.askUnl||{}; st.askUnl[S.id]=1; save(); setTimeout(()=>askUnlockModal(S.id),1600); } }
 function storyView(still){ const S=storyById(STQ.id), C=S.chapters[STQ.c], beats=C.beats, x=beats[STQ.b]; st.view='story';
   const prev=STQ.b>0?storySceneState(S,STQ.c,STQ.b-1):{actors:{},bg:null,crowd:null,weather:'',props:{},emo:{}}; const cur=storySceneState(S,STQ.c,STQ.b);
   { const tr=musTrackFor(STQ.id,cur.mood); if(tr){ auStopMusic(); musPlay(tr); } else auMood(cur.mood); }
@@ -4456,6 +4530,7 @@ function storyView(still){ const S=storyById(STQ.id), C=S.chapters[STQ.c], beats
   let over='', panel='';
   if(x.art){ over=`<div class="s-art ${x.obj?'obj':''}" onclick="event.stopPropagation();storyLb('${x.art}')"><div class="sa-frame"><img src="${storyImg(x.art)}" alt=""><span class="sa-zoom">🔍 Tik om te vergroten</span></div></div>`;
     panel=`<div class="sp-art ${x.obj?'sp-obj':''}">${x.obj?'<span class="sp-tag">🪑 Voorwerp uit die tijd</span>':''}<i>${x.t}</i> · ${x.a}${x.yr?', '+x.yr:''}<p>${x.x}</p></div>`; }
+  if(x.tree&&!x.q) panel=godTree(x.tree);
   if(x.q){ const a=STQ.ans[STQ.b];
     const qk=qImg(C,STQ.b); panel=`<div class="sp-q">${qk?`<button class="sq-img" onclick="storyLb('${qk}')"><img src="${storyImg(qk)}" alt=""><span>🔍 Tik om te vergroten</span></button>`:''}<div class="sq-t">${x.q}</div><div class="opts">${x.o.map((o,j)=>{ let c=''; if(a!==undefined){ if(j===x.c) c='ok'; else if(j===a) c='bad'; } return `<button class="opt ${c}" ${a!==undefined?'disabled':''} onclick="storyAns(${j})"><span class="l">${L[j]}</span><span>${o}</span></button>`; }).join('')}</div>
       ${a!==undefined?`<div class="verdict ${a===x.c?'ok':'bad'}">${a===x.c?'Goed geraden!':'Niet helemaal!'}</div><p class="sq-e">${x.e}</p>`:''}</div>`; }
@@ -4471,9 +4546,14 @@ function storyView(still){ const S=storyById(STQ.id), C=S.chapters[STQ.c], beats
     <div class="s-ctrl"><button class="btn" ${STQ.b?'':'disabled'} onclick="storyBack()">‹</button><button class="btn primary big" ${canNext?'':'disabled'} onclick="storyNext()">${STQ.b===beats.length-1?'Einde hoofdstuk ✓':'Verder ›'}</button></div>
     <div class="s-prog"><i style="width:${Math.round((STQ.b+1)/beats.length*100)}%"></i></div><div class="mus-now muted small center">${(()=>{const t=TRACKS_MUS[musTrackFor(STQ.id,cur.mood)];return t&&auOn()?'♪ '+t.t+' — '+t.c:'';})()}</div></div>`);
   if(x.art) storyEnsure(); }
+const GTREE=[[['Gaia','Terra',1],['⚭'],['Uranus','Caelus',1]],[['Kronos','Saturnus',2],['⚭'],['Rhea','Ops',2],['|'],['Aphrodite','Venus',6,'uit het zeeschuim']],[['Hestia','Vesta',3],['Demeter','Ceres',3],['Hades','Pluto',3],['Poseidon','Neptunus',3],['Hera','Juno',3,'',1],['⚭',4],['Zeus','Jupiter',3,'',1]],[['Athena','Minerva',5],['Apollo','Apollo',5],['Artemis','Diana',5],['Ares','Mars',5],['Hephaistos','Vulcanus',5],['Hermes','Mercurius',5],['Dionysos','Bacchus',5]]];
+const GTL=['De oergoden','De titanen','Kinderen van Kronos en Rhea','Kinderen van Zeus'];
+function godTree(step){ return `<div class="gtree">${GTREE.map((row,ri)=>{ const vis=row.filter(n=>(n[2]||(n[1]&&typeof n[1]==='number'?n[1]:0)||0)<=step||n[0]==='⚭'||n[0]==='|'); const anyVis=row.some(n=>n.length>2&&n[2]<=step); if(!anyVis) return '';
+  return `<div class="gt-lbl">${GTL[ri]}</div><div class="gt-row">${row.map(n=>{ if(n[0]==='|') return step>=6?'<span class="gt-gap"></span>':''; if(n[0]==='⚭'){ const need=n[1]||0; const pair=ri<2?(row[0][2]<=step):step>=need; return pair?`<span class="gt-wed ${need&&step===need?'hi':''}">⚭</span>`:''; }
+    if(n[2]>step) return ''; const isNew=n[2]===step||(n[4]&&step===4); return `<span class="gt-n ${isNew?'new':''}"><b>${n[0]}</b>${step>=6?`<small>${n[1]}</small>`:''}${n[3]&&step>=6?`<i>${n[3]}</i>`:''}</span>`; }).join('')}</div>`; }).join('')}</div>`; }
 function qImg(C,b){ const x=C.beats[b]; if(x.img===false) return null; if(x.img) return x.img; for(let i=b-1;i>=Math.max(0,b-4);i--){ if(C.beats[i].art) return C.beats[i].art; } return null; }
 function storyImg(k){ if(k&&k.startsWith('P:')) return P(k.slice(2)); return (window.STIMG&&window.STIMG[k])||BLANK; }
-function storyEnsure(){ if(window.STIMG||window._stLoading) return; window._stLoading=1; const s=document.createElement('script'); s.src='img/story.js?v=5'; s.async=true; s.onerror=()=>{window._stLoading=0;}; document.head.appendChild(s); }
+function storyEnsure(){ if(window.STIMG||window._stLoading) return; window._stLoading=1; const s=document.createElement('script'); s.src='img/story.js?v=6'; s.async=true; s.onerror=()=>{window._stLoading=0;}; document.head.appendChild(s); }
 window.storyLoaded=()=>{ if(st.view==='story'&&STQ&&!STQ.intro) storyView(true); };
 /* regie-laag: extra scènes en effecten bovenop de basisverhalen */
 function applyStaging(){ for(const S of STORIES){ const G=STAGE[S.id]; if(!G||S._staged) continue; S._staged=1; if(G.mood) S.mood=G.mood;
@@ -10348,6 +10428,7 @@ function home(){
         <p>${st.t==='basis'?'Je beheerst de basis! Kies nu hoe je verder wilt: Deel 2 met een mix van alles, of meteen een specialisatie.':'Je hebt deze cursus helemaal voltooid. Kies een nieuw pad of speel lessen opnieuw voor een hogere kleur.'}</p>
         <button class="btn primary" onclick="paths()">Kies je vervolg →</button></div>`:''}
     <div class="rounds" style="margin-top:12px">
+    ${PRE_OF(st.t)?`<div class="round pre-round" onclick="preStart('${st.t}')"><div class="num">✦</div><div><div class="t">Voorkenniscursus</div><div class="s">${PRE_OF(st.t).sub} · 3 minuten</div></div><span class="badge ${(st.pre||{})[st.t]==='done'?'bdone':''}">${(st.pre||{})[st.t]==='done'?'✓ gedaan':'aanbevolen'}</span></div>`:''}
     ${ROUNDS.map((R,r)=> R.soon ? `<div class="round soon">
         <div class="num">${['I','II','III','IV','V','VI','VII','VIII','IX','X'][r]}</div>
         <div><div class="t">${R.title.replace(/^.*? — /,'')}</div><div class="s">${R.sub} · daarna: <i>${R.big.t}</i></div><div class="soon-tag">Binnenkort</div></div></div>` : `<div class="round" onclick="openRound(${r})">
@@ -10369,7 +10450,7 @@ function home(){
 function tlCard(mode){ const S=tlState(), n=tlItems().length, r=S[mode]; const ok=r&&!r.skipped;
   if(mode==='end' && !trackDone(st.t)) return `<div class="round soon tlcard"><div class="num">🕰️</div><div><div class="t">Eindtijdlijn</div><div class="s">Wordt beschikbaar als je alle vier de lessen van deze cursus hebt afgerond.</div></div></div>`;
   return `<button class="round resume tlcard" onclick="tlWork=null;st.r=0;timeline('${mode}')"><div class="num">🕰️</div><div><div class="t">${mode==='start'?'Starttijdlijn':'Eindtijdlijn'}</div><div class="s">${ok?`${r.score} van ${n} goed${mode==='end'&&S.start&&!S.start.skipped?` (begin: ${S.start.score})`:''} · tik om opnieuw te doen`:mode==='start'?'Zet de schilderijen van deze cursus op volgorde, vóór je begint':'Dezelfde tijdlijn als aan het begin: hoeveel ben je gegroeid?'}</div></div>${ok?`<span class="badge">${r.score}/${n}</span>`:''}</button>`; }
-function openRound(r){ if(ROUNDS[r].soon) return;  const i=[...ROUNDS[r].q.keys()].find(k=>!(k in res(r))); if(i!==undefined) return go(r,{view:'q',i}); const n=ROUNDS[r].big.details.length; const b=[...Array(n).keys()].find(k=>!(k in bres(r))); go(r,{view:'big',bigStep:b===undefined?(Object.keys(bres(r)).length?n:-1):b}); }
+function openRound(r){ if(ROUNDS[r].soon) return; if(r===0&&PRE_OF(st.t)&&!(st.pre||{})[st.t]&&!Object.keys(res(0)).length) return preOffer();  const i=[...ROUNDS[r].q.keys()].find(k=>!(k in res(r))); if(i!==undefined) return go(r,{view:'q',i}); const n=ROUNDS[r].big.details.length; const b=[...Array(n).keys()].find(k=>!(k in bres(r))); go(r,{view:'big',bigStep:b===undefined?(Object.keys(bres(r)).length?n:-1):b}); }
 function resetRound(r){ st.results[K(r)]={}; st.bigRes[K(r)]={}; go(r,{view:'q',i:0}); }
 function resetAll(){ st.results={}; st.bigRes={}; resumeFrom=null; home(); }
 
