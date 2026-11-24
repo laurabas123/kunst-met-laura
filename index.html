@@ -4473,7 +4473,7 @@ function storyView(still){ const S=storyById(STQ.id), C=S.chapters[STQ.c], beats
   if(x.art) storyEnsure(); }
 function qImg(C,b){ const x=C.beats[b]; if(x.img===false) return null; if(x.img) return x.img; for(let i=b-1;i>=Math.max(0,b-4);i--){ if(C.beats[i].art) return C.beats[i].art; } return null; }
 function storyImg(k){ if(k&&k.startsWith('P:')) return P(k.slice(2)); return (window.STIMG&&window.STIMG[k])||BLANK; }
-function storyEnsure(){ if(window.STIMG||window._stLoading) return; window._stLoading=1; const s=document.createElement('script'); s.src='img/story.js?v=3'; s.async=true; s.onerror=()=>{window._stLoading=0;}; document.head.appendChild(s); }
+function storyEnsure(){ if(window.STIMG||window._stLoading) return; window._stLoading=1; const s=document.createElement('script'); s.src='img/story.js?v=4'; s.async=true; s.onerror=()=>{window._stLoading=0;}; document.head.appendChild(s); }
 window.storyLoaded=()=>{ if(st.view==='story'&&STQ&&!STQ.intro) storyView(true); };
 /* regie-laag: extra scènes en effecten bovenop de basisverhalen */
 function applyStaging(){ for(const S of STORIES){ const G=STAGE[S.id]; if(!G||S._staged) continue; S._staged=1; if(G.mood) S.mood=G.mood;
