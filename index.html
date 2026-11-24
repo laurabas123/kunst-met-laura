@@ -3026,7 +3026,9 @@ const GHELLO = {
   gala: nm=>`Welkom in de museumroute${nm}! Voor de musea heb ik mijn <b>mooiste jurk</b> aangetrokken. We gaan langs de topstukken, zodat je straks met andere ogen door de zalen loopt.`,
   rembrandt: nm=>`Goedendag${nm}! Ik ben <b>Rembrandt van Rijn</b>, schilder uit Leiden en Amsterdam. Ik neem je mee door de Hollandse geschiedenis, van de middeleeuwen tot nu. Kijk goed: licht en donker vertellen het verhaal.`,
   catharina: nm=>`Jeetje${nm}, ik vroeg me al af wanneer je hier eens langs zou komen! Ik ben <b>Catharina de’ Medici</b>. Wij Medici zijn de enigen die álles weten over kunst en kennis: mijn familie betaalde Botticelli en Michelangelo. Rond één les af in mijn specialisaties, dan vertel ik je mijn hele levensverhaal.`,
-  zeus: nm=>`<i>Een donderslag…</i> Sorry, Catharina! Leuk dat dit jouw specialisme is, maar over mythologie kan maar één iemand de baas zijn. En wie kan dat beter dan <b>oppergod Zeus</b>? Ik loods je persoonlijk door de verhalen van de Olympus${nm}. Speel ze allemaal uit, dan vertel ik je mijn eigen verhaal.`,
+  zeus: nm=>(st.gseen&&st.gseen['g:catharina'])
+    ? `<i>Een donderslag…</i> Sorry, Catharina! Leuk dat dit jouw specialisme is, maar over mythologie kan maar één iemand de baas zijn. En wie kan dat beter dan <b>oppergod Zeus</b>? Ik neem het hier over en loods je persoonlijk door de verhalen van de Olympus${nm}. Speel ze allemaal uit, dan vertel ik je mijn eigen verhaal.`
+    : `<i>Een donderslag…</i> Welkom${nm}! Mythologie is mijn afdeling. Ik ben <b>Zeus</b>, oppergod van de Olympus. De andere specialisaties heeft Catharina de’ Medici al ingepikt, maar mythologie blijft natuurlijk gewoon van de oppergod. Speel alle verhalen uit, dan vertel ik je mijn eigen levensverhaal.`,
   durer: nm=>`Grüß Gott${nm}! Ik ben <b>Albrecht Dürer</b> uit Neurenberg. Ik tekende en graveerde alles wat ik zag, van een haas tot Adam en Eva, en ik verstopte er graag symbolen in. Zullen we samen dieper graven?`
 };
 const GROUND = {
@@ -5358,8 +5360,8 @@ function wowView(){ const S=WOW.step;
       <div class="wow-skull" id="wows"><div class="wow-sk-in" id="wowsk"></div></div>
       <p class="wow-cap">Holbein schilderde hem zo dat je hem alleen ziet als je er schuin langs kijkt.</p>
       <button class="btn primary big" id="wowbtn" onclick="wowReveal()">Kijk er schuin langs ↗</button>`,2);
-  if(S===3) return wowShell(`<figure class="wow-fig"><img src="img/ridder.jpg" alt="Albrecht Dürer, Ridder, dood en duivel"><figcaption>Albrecht Dürer, <i>Ridder, dood en duivel</i>, 1513</figcaption></figure><p class="wow-q">Dan een makkelijke. De Dood houdt de ridder een <b>zandloper</b> voor. Wat bedoelt hij?</p>
-      <div class="wow-opts">${[['Je tijd raakt op',1],['Hij vraagt hoe laat het is',0],['Hij biedt een geschenk aan',0]].map(([t,c])=>`<button class="btn" onclick="wowAns(this,${c})">${t}</button>`).join('')}</div>`,3);
+  if(S===3) return wowShell(`<figure class="wow-fig"><img src="img/hieronymus.jpg" alt="Albrecht Dürer, Hiëronymus in zijn studeerkamer"><figcaption>Albrecht Dürer, <i>Hiëronymus in zijn studeerkamer</i>, 1514 (detail)</figcaption></figure><p class="wow-q">Dan een makkelijke. Achter de geleerde hangt een <b>zandloper</b> aan de muur. Waar herinnert die hem aan?</p>
+      <div class="wow-opts">${[['Dat zijn tijd kostbaar is',1],['Dat het bijna etenstijd is',0],['Dat hij moet gaan slapen',0]].map(([t,c])=>`<button class="btn" onclick="wowAns(this,${c})">${t}</button>`).join('')}</div>`,3);
   if(S===4) return wowShell(`<div class="wow-hero"><div class="wow-card"><small>Je eerste symbool</small><b>Memento mori</b><span>Gedenk dat je sterven zult</span></div>
       <h1>Er zitten nog bijna 200 geheimen in de kunst verstopt.</h1><p class="wow-cap">Zullen we meteen het volgende ontdekken?</p>
       <button class="btn primary big" onclick="wowEnd(1)">Ja, ik wil meer! →</button><button class="btn" style="margin-top:10px" onclick="wowEnd(0)">Eerst rondkijken</button>
@@ -5373,7 +5375,7 @@ function wowReveal(){ const k=document.getElementById('wowsk'); if(!k||k.classLi
   const b=document.getElementById('wowbtn'); if(b){ b.textContent='Verder →'; b.onclick=()=>{ WOW.step=3; wowView(); wowSay('w5'); }; }
   setTimeout(()=>{ const s=document.getElementById('wows'); if(s) s.insertAdjacentHTML('afterend','<p class="wow-q wow-pop">Een schedel. Een <b>memento mori</b>: hoe rijk en machtig je ook bent, de dood kijkt altijd mee.</p>'); },1500); }
 function wowAns(b,c){ document.querySelectorAll('.wow-opts .btn').forEach(x=>x.disabled=true); b.classList.add(c?'ok':'bad');
-  if(!c){ const g=[...document.querySelectorAll('.wow-opts .btn')].find(x=>x.textContent==='Je tijd raakt op'); g&&g.classList.add('ok'); }
+  if(!c){ const g=[...document.querySelectorAll('.wow-opts .btn')].find(x=>x.textContent==='Dat zijn tijd kostbaar is'); g&&g.classList.add('ok'); }
   try{ if(c) sfx('bell'); }catch(_){} wowSay(c?'w6':'w6b'); if(c) document.querySelector('.wow').insertAdjacentHTML('beforeend',confHTML(24));
   setTimeout(()=>{ WOW.step=4; wowView(); setTimeout(()=>wowSay('w7'),400); }, 2600); }
 function wowEnd(yes){ try{ if(WOW.au) WOW.au.pause(); }catch(e){} st.wowDone=1; if(yes){ st.wowGo=1; }
