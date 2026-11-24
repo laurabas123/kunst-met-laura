@@ -10332,9 +10332,9 @@ function topBar(){
 }
 const bottomNav = () => `<div class="bnav"><button class="btn" onclick="nav(-1)">‹ Vorige</button><button class="btn primary" onclick="nav(1)">Volgende ›</button></div>`;
 
-const DIFFS={b:{n:'Beginner',ic:'🌱',s:'3 antwoorden en een hulpknop die één fout antwoord wegstreept.'},m:{n:'Gemiddeld',ic:'🎨',s:'4 antwoorden, waarvan één slimme afleider uit de rest van de app.'},g:{n:'Gevorderd',ic:'🎓',s:'5 antwoorden met twee lastige afleiders, en geen hulp.'}};
+const DIFFS={b:{n:'Makkelijk',ic:'🌱',s:'3 antwoorden, waarvan er één duidelijk niet past. Toch moet je goed kijken.'},m:{n:'Gemiddeld',ic:'🎨',s:'3 antwoorden die allemaal kunnen kloppen. Alleen wie het symbool kent, weet het zeker.'},g:{n:'Moeilijk',ic:'🎓',s:'3 antwoorden die allemaal kunnen kloppen, en geen hulp van maker, jaartal of museum. Voor echte kenners.'}};
 const diffOf=(t=st.t)=>(st.diff&&st.diff[t])||'m';
-function diffAnswer(k){ st.diffAsked=st.diffAsked||{}; st.diffAsked[st.t]=1; setDiff(st.t,k); const el=document.getElementById('diffask'); if(el) el.innerHTML=`<p class="center" style="margin:0">${k==='b'?'Top, ik maak het je wat makkelijker: 3 antwoorden en een hulpknop.':k==='g'?'Uitdaging aangenomen! Vanaf nu 5 antwoorden en geen hulp.':'Mooi, dan houden we dit tempo aan.'} Je kunt dit altijd wijzigen met de knop Niveau.</p>`; }
+function diffAnswer(k){ st.diffAsked=st.diffAsked||{}; st.diffAsked[st.t]=1; setDiff(st.t,k); const el=document.getElementById('diffask'); if(el) el.innerHTML=`<p class="center" style="margin:0">${k==='b'?'Top, ik maak het je wat makkelijker: er zit nu steeds één antwoord bij dat duidelijk niet past.':k==='g'?'Uitdaging aangenomen! Vanaf nu zie je maker, jaartal en museum pas na je antwoord.':'Mooi, dan houden we dit tempo aan.'} Je kunt dit altijd wijzigen met de knop Niveau.</p>`; }
 function setDiff(t,d){ st.diff=st.diff||{}; st.diff[t]=d; save(); }
 function hashS(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return h>>>0;}
 function rng(a){return ()=>{a=(a+0x6D2B79F5)|0;let t=Math.imul(a^a>>>15,1|a);t=(t+Math.imul(t^t>>>7,61|t))^t;return((t^t>>>14)>>>0)/4294967296;};}
@@ -10363,13 +10363,25 @@ function decoys(item,key,n){ if(!n) return []; const ck=key+'|'+n; if(DECOY[ck])
   sc.sort((x,y)=>y.s-x.s); const top=sc.slice(0,10), r=rng(hashS(ck)), out=[];
   while(out.length<n && top.length){ out.push(top.splice(Math.floor(r()*top.length),1)[0].a); }
   return DECOY[ck]=out; }
-function optSet(item,key){ const d=diffOf()||'b', extra=d==='m'?1:d==='g'?2:0; const o=item.opts.map((txt,k)=>({txt,orig:k})); decoys(item,key,extra).forEach(txt=>o.push({txt,orig:-1}));
+function decoy2(item,key,mode){ const ck=key+'|'+mode; if(DECOY[ck]) return DECOY[ck]; if(!OPTPOOL) buildPool();
+  const corr=item.opts[item.c]||'', ctk=toks(corr), own=new Set(item.opts), fam=qFam(item), tr=key.split('|')[0], cwc=corr.split(/\s+/).length, cnm=/^[A-ZÀ-Ý]/.test(corr)&&cwc<=4, sc=[];
+  for(const p of OPTPOOL){ if(own.has(p.a)) continue; let oc=0; for(const w of p.tk) if(ctk.has(w)) oc++; const ratio=ctk.size?oc/Math.max(2,Math.min(ctk.size,p.tk.size)):0; if(ratio>0.7) continue;
+    const shape=(cnm===p.nm?2:-3)-2*Math.abs(Math.log(p.wc/cwc));
+    sc.push({a:p.a,s: mode==='near' ? shape+(p.f===fam?5:0)+(p.t===tr?2:0)+ratio*6 : shape+(p.f===fam?-4:2)+(p.t===tr?-1:0)-ratio*6}); }
+  sc.sort((x,y)=>y.s-x.s); const top=sc.slice(0,mode==='near'?5:12), r=rng(hashS(ck)); return DECOY[ck]=top.length?[top[Math.floor(r()*top.length)].a]:[]; }
+function optSet(item,key){ const d=diffOf()||'m', c=item.c, corr=item.opts[c], ctk=toks(corr||'');
+  const sim=x=>{ const t=toks(x.txt); let o=0; t.forEach(w=>{ if(ctk.has(w)) o++; }); return o/Math.max(1,Math.min(t.size,ctk.size||1)); };
+  const wr=item.opts.map((txt,k)=>({txt,orig:k})).filter(x=>x.orig!==c).sort((a,b)=>sim(b)-sim(a));
+  let o=[{txt:corr,orig:c}];
+  if(d==='b'){ if(wr.length) o.push(wr[wr.length-1]); const f=decoy2(item,key,'far'); if(f.length) o.push({txt:f[0],orig:-1}); }
+  else o.push(...wr.slice(0,2));
+  for(const w of wr){ if(o.length>=3) break; if(!o.includes(w)) o.push(w); } o=o.slice(0,3);
   const r=rng(hashS(key+'#'+d)); for(let i=o.length-1;i>0;i--){ const j=Math.floor(r()*(i+1)); [o[i],o[j]]=[o[j],o[i]]; } return o; }
 const HELP={};
 function optsHtml(item,key,a,fn){ const o=optSet(item,key), hid=HELP[key]; return `<div class="opts">${o.map((x,k)=>{ if(a===null&&hid===k) return '';
     let cls=''; if(a!==null){ if(x.orig===item.c) cls='ok'; else if(a>=100?k===a-100:x.orig===a) cls='bad'; }
     return `<button class="opt ${cls}" ${a!==null?'disabled':''} onclick="${fn}(${x.orig>=0?x.orig:100+k})"><span class="l">${L[k]}</span><span>${x.txt}</span></button>`;}).join('')}</div>
-  ${a===null&&(diffOf()||'b')==='b'&&hid===undefined?`<div class="hint"><button class="chip" onclick="useHelp('${key}')">💡 Hulp: streep één fout antwoord weg</button></div>`:''}`; }
+  `; }
 function useHelp(key){ const parts=key.split('|'); const it=parts[2][0]==='q'?TRACKS[parts[0]].rounds[+parts[1]].q[+parts[2].slice(1)]:TRACKS[parts[0]].rounds[+parts[1]].big.details[+parts[2].slice(1)];
   const o=optSet(it,key); const wrong=o.map((x,k)=>x.orig!==it.c?k:-1).filter(k=>k>=0); HELP[key]=wrong[Math.floor(Math.random()*wrong.length)]; render(); }
 const corrL=(item,key)=>L[optSet(item,key).findIndex(x=>x.orig===item.c)];
@@ -10390,7 +10402,7 @@ function question(){ window.ROUND_END=false;
   let h = `<div>${topBar()}
     <h2>${a===null?`Vraag ${st.i+1}`:`${st.i+1}. ${Q.name}`}</h2>
     ${photo(a===null?{...Q.in,t:'Titel volgt na je antwoord'}:Q.in,Q.icon)}
-    <div class="context"><div><b>${a===null?'<span class="muted">🔒 Titel volgt na je antwoord</span>':Q.in.t}</b><div class="meta">${Q.in.a} · ${Q.in.y} · ${Q.in.where}</div></div></div>
+    <div class="context"><div><b>${a===null?'<span class="muted">🔒 Titel volgt na je antwoord</span>':Q.in.t}</b><div class="meta">${a===null&&diffOf()==='g'?'Maker, jaartal en museum zie je na je antwoord':`${Q.in.a} · ${Q.in.y} · ${Q.in.where}`}</div></div></div>
     <p style="margin-top:14px;font-size:1.05rem">${Q.question}</p>
     ${optsHtml(Q,qKey(),a,'answer')}`;
   if(a!==null){
