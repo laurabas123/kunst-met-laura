@@ -597,6 +597,29 @@ body.has-nav #nav{display:flex}body.has-nav .wrap{padding-bottom:96px}
 .tip-av{width:58px;height:58px;flex:0 0 58px;border-radius:50%;overflow:hidden;background:#141c33;border:2px solid #d7b46a}.tip-av svg{width:100%;height:100%}
 .tip-card small{color:#8a6a2c;font-weight:700;font-size:.78rem}.tip-card b{display:block;font-size:1.1rem;margin:1px 0 4px}.tip-card p{margin:0 0 10px;font-size:.95rem;line-height:1.45}
 .hx-ask{display:flex;align-items:center;gap:12px;width:100%;margin:16px 0 0;padding:12px 14px;border-radius:16px;border:1.5px solid rgba(215,180,106,.45);background:rgba(215,180,106,.08);color:inherit;text-align:left;cursor:pointer;font:inherit}
+.orc{display:flex;flex-direction:column;min-height:calc(100dvh - 120px)}
+.orc .hdr{display:flex;justify-content:space-between}
+.orc-log{flex:1;display:flex;flex-direction:column;gap:14px;padding:10px 0 150px}
+.orc-hello{text-align:center;margin:auto 0;padding:24px 8px}
+.orc-big{width:84px;height:84px;border-radius:50%;overflow:hidden;margin:0 auto 14px;border:1.5px solid rgba(215,180,106,.55)}
+.orc-hello h1{margin:0 0 6px;font-size:1.7rem}.orc-hello p{color:var(--muted,#9aa3b8);margin:0 auto 18px;max-width:300px;line-height:1.45}
+.orc-sug{display:grid;grid-template-columns:1fr 1fr;gap:8px;text-align:left}
+.orc-sug button{font:inherit;font-size:.86rem;line-height:1.3;color:inherit;background:rgba(255,255,255,.04);border:1px solid rgba(215,180,106,.28);border-radius:14px;padding:11px 12px;cursor:pointer}
+.orc-row{display:flex;gap:8px;align-items:flex-end}.orc-row.u{justify-content:flex-end}
+.orc-me{max-width:80%;background:#d7b46a;color:#1d1a16;padding:10px 14px;border-radius:18px 18px 4px 18px;line-height:1.4;white-space:pre-wrap;word-wrap:break-word}
+.orc-av{flex:0 0 30px;width:30px;height:30px;border-radius:50%;overflow:hidden;border:1px solid rgba(215,180,106,.5)}
+.orc-row.l .or-bub{max-width:84%;border-radius:18px 18px 18px 4px}
+.or-act{margin-top:4px;font:inherit;font-weight:600;font-size:.9rem;color:#1d1a16;background:none;border:1.5px solid #b8954f;border-radius:999px;padding:8px 14px;cursor:pointer}
+.or-more{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;align-items:center}.or-more small{width:100%;color:#6b5a3e;font-size:.78rem}
+.or-more button{font:inherit;font-size:.84rem;color:#1d1a16;background:rgba(184,149,79,.16);border:0;border-radius:999px;padding:6px 11px;cursor:pointer}
+.orc-bar{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(74px + env(safe-area-inset-bottom));width:calc(100% - 24px);max-width:620px;z-index:49;display:flex;align-items:flex-end;gap:6px;padding:6px 6px 6px 16px;background:#1f2638;border:1px solid rgba(215,180,106,.35);border-radius:26px;box-shadow:0 8px 28px rgba(0,0,0,.45)}
+.orc-bar textarea{flex:1;resize:none;border:0;outline:0;background:none;color:inherit;font:inherit;font-size:16px;line-height:1.4;padding:9px 0;max-height:120px}
+.orc-bar textarea::placeholder{color:var(--muted,#9aa3b8)}
+.orc-bar button{flex:0 0 38px;height:38px;border-radius:50%;border:0;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.08);color:var(--muted,#9aa3b8);cursor:pointer;transition:background .15s}
+.orc-bar.has button{background:#d7b46a;color:#1d1a16}
+.orc-bar:focus-within{border-color:#d7b46a}
+.hx-ask .hx-av{flex:0 0 44px;height:44px;border-radius:50%;overflow:hidden;border:1.5px solid rgba(215,180,106,.55)}
+.hx-ask .hx-go{flex:0 0 34px;height:34px;border-radius:50%;background:#d7b46a;color:#1d1a16;display:flex;align-items:center;justify-content:center}
 .or-bub{background:#f3ecdc;color:#1d1a16;border-radius:18px;padding:14px 16px;line-height:1.5}.or-bub p{margin:0 0 8px}.or-fig{margin:6px 0 0}.or-fig img{width:100%;border-radius:10px}.or-fig figcaption{font-size:.8rem;color:#6b5a3e;margin-top:4px}
 .hx-more{background:rgba(255,255,255,.045);border-radius:16px;padding:12px 14px;margin-bottom:10px}.hx-more summary{cursor:pointer;font-weight:700;list-style:none}.hx-more summary::after{content:' ▾';color:#d7b46a}.hx-more[open] summary::after{content:' ▴'}
 </style>
@@ -998,21 +1021,34 @@ function orSearch(q){ const words=orNorm(q).split(/\s+/).filter(w=>w.length>2&&!
     if(sc&&hit/words.length>=0.67) R.push({k:'s',S,sc}); });
   Object.entries(GLOSS).forEach(([id,G])=>{ const hay=orNorm((G.t||'')+' '+id); let sc=0, hit=0; words.forEach(w=>{ const st=orStem(w); if(hay.split(/\s+/).some(n=>n===w||orStem(n)===st)){ sc+=9; hit++; } else if(st.length>4&&hay.includes(st)){ sc+=4; hit++; } }); if(sc&&hit/words.length>=0.67) R.push({k:'g',id,G,sc}); });
   return R.sort((a,b)=>b.sc-a.sc).slice(0,4); }
+window.ORLOG=window.ORLOG||[];
+const ORSEND='<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5.5 11.5L12 5l6.5 6.5"/></svg>';
+function orAv(){ return `<div class="orc-av">${lauraSVG(0,true)}</div>`; }
+function orMsgHTML(m){ return m.who==='u'?`<div class="orc-row u"><div class="orc-me">${esc(m.t)}</div></div>`:`<div class="orc-row l">${orAv()}<div class="or-bub">${m.h}</div></div>`; }
 function oracleView(q){ st.view='oracle'; save(); lauraTip('oracle');
-  $(`<div class="hx"><div class="hdr"><button class="chip" onclick="hub()">‹ Hoofdmenu</button></div>
-    <div style="display:flex;gap:12px;align-items:center;margin:8px 0 10px"><div class="wow-av" style="width:62px;height:62px;border-width:1.5px">${lauraSVG(0,true)}</div><h1 style="margin:0;font-size:1.6rem">Vraag het Laura</h1></div>
-    <form onsubmit="event.preventDefault();oracleAsk(document.getElementById('orq').value)" style="display:flex;gap:8px"><input id="orq" class="ob-input" placeholder="Bijv. waar staan handschoenen voor?" value="${q?esc(q):''}" style="flex:1"><button class="btn primary">Vraag</button></form>
-    <div id="orout" style="margin-top:14px">${q?'':`<p class="muted">Probeer: ${['handschoenen','schedel','lelie','vanitas','hond'].map(w=>`<button class="chip" onclick="oracleAsk('${w}')">${w}</button>`).join(' ')}</p>`}</div></div>`);
+  const empty=!ORLOG.length;
+  $(`<div class="hx orc"><div class="hdr"><button class="chip" onclick="hub()">‹ Hoofdmenu</button>${ORLOG.length?`<button class="chip" onclick="ORLOG.length=0;oracleView()">Nieuw gesprek</button>`:''}</div>
+    <div id="orout" class="orc-log">${empty?`<div class="orc-hello"><div class="orc-big">${lauraSVG(0,true)}</div><h1>Vraag het Laura</h1><p>Zag je een symbool en weet je niet meer wat het betekent? Typ het hieronder.</p><div class="orc-sug">${['Waar staan handschoenen voor?','Wat betekent een schedel?','Wat is vanitas?','Waar staat een pauw voor?'].map(w=>`<button onclick="oracleAsk(this.textContent)">${w}</button>`).join('')}</div></div>`:ORLOG.map(orMsgHTML).join('')}</div>
+    <form class="orc-bar" onsubmit="event.preventDefault();const i=document.getElementById('orq');oracleAsk(i.value)"><textarea id="orq" rows="1" placeholder="Vraag Laura iets…" enterkeyhint="send" oninput="this.style.height='auto';this.style.height=Math.min(this.scrollHeight,120)+'px';this.form.classList.toggle('has',!!this.value.trim())" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();this.form.requestSubmit()}"></textarea><button type="submit" aria-label="Verstuur">${ORSEND}</button></form></div>`);
+  setTimeout(()=>{ const o=document.getElementById('orout'); if(o&&!empty) o.lastElementChild&&o.lastElementChild.scrollIntoView({block:'end'}); },30);
+  if(!empty) orFixImgs();
   if(q) oracleAsk(q); }
-function oracleAsk(q){ const out=document.getElementById('orout'); if(!out) return oracleView(q); const R=orSearch(q);
-  if(!R.length){ out.innerHTML=`<div class="or-bub"><p>Hmm, dat staat niet in mijn lessen. Probeer het met één woord, zoals ‘lelie’ of ‘schedel’. Of stel je vraag aan mij persoonlijk, dan lees ik hem zelf.</p><button class="btn" onclick="askLaura()">Stel Laura een vraag</button></div>`; return; }
-  const A=R[0]; let html='';
-  if(A.k==='s'){ const S=A.S, im=(S.i||[])[0]; if(im) try{ symLoadChunk(symChunkOf(im[0])); }catch(e){}
-    html=`<div class="or-bub"><p><b>${S.n}</b> ${/en$|s$/.test(S.n)&&!/is$/.test(S.n)?'staan':'staat'} voor <b>${S.m.charAt(0).toLowerCase()+S.m.slice(1)}</b>. ${S.e}</p>${im?`<figure class="or-fig"><img data-symk="${im[0]}" src="${symImg(im[0])}" alt=""><figcaption>${im[2]}${im[3]?', '+im[3]:''}</figcaption></figure>`:''}</div>`;
-    if(im) setTimeout(function fix(n){ const el=document.querySelector('img[data-symk]'); if(!el) return; const v=symImg(el.dataset.symk); if(v&&v!==el.src&&v.length>200){ el.src=v; } else if((n||0)<30) setTimeout(()=>fix((n||0)+1),300); },300); }
-  else { const G=A.G; html=`<div class="or-bub"><p><b>${G.t}</b>: ${G.wat}</p></div>`; }
-  const more=R.slice(1).map(x=>x.k==='s'?x.S.n:x.G.t);
-  out.innerHTML=html+(more.length?`<p class="muted" style="margin-top:10px">Bedoelde je misschien: ${more.map(m=>`<button class="chip" onclick="document.getElementById('orq').value='${m.replace(/'/g,'')}';oracleAsk('${m.replace(/'/g,'')}')">${m}</button>`).join(' ')}</p>`:''); }
+function oracleAsk(q){ q=(q||'').trim(); if(!q) return; if(!document.getElementById('orout')) return oracleView(q);
+  const R=orSearch(q); let html='';
+  if(!R.length){ html=`<p>Hmm, dat staat niet in mijn lessen. Probeer het met één woord, zoals ‘lelie’ of ‘schedel’. Of stel je vraag aan mij persoonlijk, dan lees ik hem zelf.</p><button class="or-act" onclick="askLaura()">Stel Laura persoonlijk een vraag</button>`; }
+  else { const A=R[0];
+    if(A.k==='s'){ const S=A.S, im=(S.i||[])[0]; if(im) try{ symLoadChunk(symChunkOf(im[0])); }catch(e){}
+      html=`<p><b>${S.n}</b> ${/en$|s$/.test(S.n)&&!/is$/.test(S.n)?'staan':'staat'} voor <b>${S.m.charAt(0).toLowerCase()+S.m.slice(1)}</b>. ${S.e}</p>${im?`<figure class="or-fig"><img data-symk="${im[0]}" src="${symImg(im[0])}" alt=""><figcaption>${im[2]}${im[3]?', '+im[3]:''}</figcaption></figure>`:''}`; }
+    else { const G=A.G; html=`<p><b>${G.t}</b>: ${G.wat}</p>`; }
+    const more=R.slice(1).map(x=>x.k==='s'?x.S.n:x.G.t);
+    if(more.length) html+=`<div class="or-more"><small>Bedoelde je misschien</small>${more.map(m=>`<button onclick="oracleAsk('${m.replace(/'/g,'')}')">${m}</button>`).join('')}</div>`; }
+  const first=!ORLOG.length; ORLOG.push({who:'u',t:q},{who:'l',h:html});
+  if(first) return oracleView();
+  const o=document.getElementById('orout'); o.insertAdjacentHTML('beforeend',orMsgHTML(ORLOG[ORLOG.length-2])+orMsgHTML(ORLOG[ORLOG.length-1]));
+  const i=document.getElementById('orq'); i.value=''; i.style.height='auto'; i.form.classList.remove('has');
+  o.lastElementChild.previousElementSibling.scrollIntoView({block:'start',behavior:'smooth'});
+  orFixImgs(); }
+function orFixImgs(){ setTimeout(function fix(n){ let pend=0; document.querySelectorAll('#orout img[data-symk]').forEach(el=>{ const v=symImg(el.dataset.symk); if(v&&v!==el.src&&v.length>200) el.src=v; else if(!el.dataset.ok&&el.naturalWidth<2) pend++; }); if(pend&&(n||0)<30) setTimeout(()=>fix((n||0)+1),300); },300); }
 /* ---------- Stel Laura een vraag ---------- */
 function askLaura(){ st.view='askl'; save(); const mine=(st.myQ||[]).slice(-3).reverse();
   $(`<div class="hx"><div class="hdr"><button class="chip" onclick="meView()">‹ Terug</button></div>
@@ -5306,7 +5342,7 @@ function hub(){ st.view='start'; pathMode=null; save();
       ${ch?row('🎁',`${ch} ${ch===1?'kistje':'kistjes'} te openen`,'Wat zit erin?','›','chestOpen()',false):''}
     </div>
     <div id="top3" style="margin-top:14px">${top3HTML()}</div>
-    <button class="hx-ask" onclick="oracleView()"><span class="hx-ic">💬</span><span class="hx-tx"><b>Vraag het Laura</b><small>Waar stond dat symbool ook alweer voor?</small></span><span class="hx-r">›</span></button>
+    <button class="hx-ask" onclick="oracleView()"><span class="hx-av">${lauraSVG(0,true)}</span><span class="hx-tx"><b>Vraag het Laura</b><small>Waar stond dat symbool ook alweer voor?</small></span><span class="hx-go">${ORSEND}</span></button>
     <h2 class="hx-h">Ontdek</h2>
     <div class="hx-grid">
       <button onclick="openCourse()">${ic('learn')}<b>Cursussen</b><small>Leer stap voor stap</small></button>
