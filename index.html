@@ -3647,7 +3647,7 @@ const GLINES = {
     praise:['Bravissima{nm}! Aan ons hof in Florence was je welkom geweest.','Magnifico! Kennis is macht, en jij verzamelt beide.','Esatto{nm}. Mijn familie zou je meteen een opdracht geven.','Goed zo! Zo scherp waren alleen de beste diplomaten.','Perfetto{nm}. Je hebt de blik van een echte verzamelaar.','Ja! Lorenzo il Magnifico had jou graag in zijn tuin gehad.','Benissimo. Geen enkel symbool ontsnapt aan jou.','Wat een kennis{nm}! Daar kan het Franse hof nog wat van leren.'],
     enc:['Coraggio{nm}! Ook een koningin verliest weleens een zet.','Niet opgeven. In Florence leerden we: wie volhoudt, wint.','Adem rustig in{nm}. Kijk naar de attributen: die liegen nooit.'],
     facts:[
-      'Ik werd in 1519 in Florence geboren. Binnen een maand verloor ik mijn vader én mijn moeder.',
+      'Ik was nog geen maand oud toen ik wees werd. Mijn moeder en mijn vader stierven allebei vlak na mijn geboorte in 1519.',
       'De <b>Uffizi</b> was eerst een kantoorgebouw: <i>uffici</i> betekent kantoren. Nu hangt er onze kunstcollectie.',
       'Mijn overgrootvader <b>Lorenzo il Magnifico</b> nam de jonge Michelangelo bij zich in huis op.',
       'Drie van mijn zonen werden koning van Frankrijk: <b>Frans II, Karel IX en Hendrik III</b>.',
@@ -3709,7 +3709,7 @@ function cameoFlush(){ if(!CAM.pend||st.quiet) return; if(!['q','kq','big','sym'
   if(document.querySelector('.lb')) return; const p=CAM.pend; CAM.pend=null; cameoShow(p.g,p.type); }
 function cameoShow(g,type,prefix){ const G=GUIDES[g]; if(!G) return; document.querySelectorAll('.cameo').forEach(x=>x.remove());
   let txt='', tag='', dur=5200;
-  if(type==='fact'){ const i=nextFact(g); if(i<0){ type='praise'; } else { st.cards=st.cards||{}; st.cards[g+':'+i]=Date.now(); txt=(prefix||'Wist je dat… ')+GLINES[g].facts[i]; tag='Weetje · nieuwe kaart in je album!'; dur=9000; bondAdd(g,1); } }
+  if(type==='fact'){ const i=nextFact(g); if(i<0){ type='praise'; } else { st.cards=st.cards||{}; st.cards[g+':'+i]=Date.now(); txt=(prefix||'')+GLINES[g].facts[i]; tag='Weetje · nieuwe kaart in je album!'; dur=9000; bondAdd(g,1); } }
   if(type==='praise'){ txt=nmF(nextLine(g,'praise')); tag=''; }
   if(type==='enc'){ txt=nmF(nextLine(g,'enc')); tag=''; dur=6000; }
   bondAdd(g,1); save();
@@ -3796,7 +3796,7 @@ function welcomeBack(){ const now=Date.now(), last=st.lastVisit||0, today=new Da
   if(!last||now-last<2*864e5||st.lastGreet===today){ save(); return; } st.lastGreet=today; save();
   const away=Math.floor((now-last)/864e5); setTimeout(()=>{ try{ welcomeChest(away); }catch(e){} },4300); if(st.quiet) return; return;
   const g=guideOf(st.t||'basis'), gg=(g==='gala'&&nextFact('gala')<0)?'laura':g;
-  setTimeout(()=>{ if(st.view==='start'&&!document.querySelector('.lb')) cameoShow(gg,'fact',`Fijn dat je er weer bent${st.name?', '+st.name:''}! Wist je dat… `); },4300); }
+  setTimeout(()=>{ if(st.view==='start'&&!document.querySelector('.lb')) cameoShow(gg,'fact',`Fijn dat je er weer bent${st.name?', '+st.name:''}! `); },4300); }
 
 /* ---------- album: mijn gidsen ---------- */
 function toggleQuiet(){ st.quiet=!st.quiet; save(); if(st.view==='album') albumView(); else if(st.view==='credits') creditsView(); }
