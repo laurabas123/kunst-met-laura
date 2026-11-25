@@ -6380,6 +6380,215 @@ EXTRA_MUSEUMS.push({id:'fhm', museum:true, bundle:'fhm', bre:/^w[abc][0-9B]/, ri
   {img:'wc1', a:1, opts:['Rachel Ruysch','Judith Leyster','Maria Sibylla Merian','Clara Peeters'], clues:['Ik werd in 1609 in Haarlem geboren.','Mijn vader was brouwer.','In 1633 trad ik toe tot het Sint-Lucasgilde.','Ik trouwde met de schilder Jan Miense Molenaer.'],
    e:'<b>Judith Leyster</b> (1609–1660).'}]});
 
+const DOR_ROUNDS = [
+{ title:"Dordrechts Museum · Les 1 — Rembrandts leerlingen in Dordrecht", sub:"De luistervink, Paris en Venus, kinderen als goden, een oude dame en de bevrijding van Petrus",
+  q:[
+  { icon:null, name:'De luistervink',
+    in:{img:'oa1', t:'De luistervink', a:'Nicolaes Maes', y:'1657', where:'Dordrechts Museum, Dordrecht', s:'Nicolaes Maes De luistervink Dordrecht'},
+    question:'Een vrouw staat op de trap en legt haar vinger tegen haar lippen terwijl ze naar ons kijkt. Beneden, in de kelder, staat een meid met een man. Wat gebeurt hier?',
+    opts:['De vrouw betrapt de meid met een vrijer en maakt ons medeplichtig: ssst, luister mee','De vrouw zingt een lied','De vrouw is haar sleutels kwijt'], c:0,
+    exp:'De vrouw des huizes is een <b>luistervink</b>: ze heeft ontdekt dat haar dienstmeid beneden met een vrijer staat, in plaats van te werken. Met haar <b>vinger op de lippen</b> kijkt ze ons aan, alsof wij haar geheimpje delen. Zo wordt de kijker <b>medeplichtig</b>. Het schilderij speelt met <b>nieuwsgierigheid en roddel</b>, en met de vraag wie zich hier eigenlijk misdraagt: de luie meid of de gluurende meesteres. <br><br><b>Kunst:</b> <b>Nicolaes Maes</b> uit Dordrecht leerde bij Rembrandt in Amsterdam. Hij maakte een hele reeks luistervinken, met doorkijkjes door deuren en trappen.',
+    also:[
+      {img:'g3', t:'Het minnekozie (Het doktersbezoek)', a:'Jan Steen', y:'ca. 1660', n:'Ook bij Jan Steen speelt een stiekeme liefde de hoofdrol.', s:'Steen doctor'},
+      {img:'rb2', t:'Interieur met vrouwen bij een linnenkast', a:'Pieter de Hooch', y:'1663', n:'Doorkijkjes in een Hollands huis, met een heel andere moraal: ijver.', s:'De Hooch'},
+      {img:'ra4', t:'Brieflezende vrouw in het blauw', a:'Johannes Vermeer', y:'ca. 1663', n:'Een stil, geheim moment in een Hollands interieur.', s:'Vermeer letter'}]},
+  { icon:'apple', name:'Paris en Venus',
+    in:{img:'oa2', t:'Portret van Wigbold Slicher en Elisabeth Spiegel als Paris en Venus', a:'Ferdinand Bol', y:'1656', where:'Dordrechts Museum, Dordrecht', s:'Ferdinand Bol Slicher Spiegel Paris Venus'},
+    question:'Een Amsterdams echtpaar laat zich schilderen als een herder en een halfnaakte godin met een klein jongetje. Wie spelen zij?',
+    opts:['Paris en Venus, met hun zoon als Cupido: een portret “in vermomming”, een portrait historié','Adam en Eva','Jozef en Maria'], c:0,
+    exp:'Bij een <b>portrait historié</b> liet je jezelf schilderen als figuur uit de Bijbel of de mythologie. Hier spelen de echtgenoten <b>Paris</b>, de prins die de gouden appel aan de mooiste gaf, en <b>Venus</b>, de godin van de liefde. Hun zoontje is <b>Cupido</b>. De boodschap: in dit huwelijk heeft de liefde gewonnen, en de man koos de mooiste vrouw. <br><br><b>Kunst:</b> <b>Ferdinand Bol</b> kwam uit Dordrecht en werd een van Rembrandts succesvolste leerlingen. Later trouwde hij rijk en stopte hij met schilderen.',
+    also:[
+      {img:'fB', t:'Het oordeel van Paris', a:'Peter Paul Rubens', y:'ca. 1632–1635', n:'Het verhaal waar Bol naar verwijst: Paris kiest Venus.', s:'Rubens Paris'},
+      {img:'ra2', t:'Het Joodse bruidje', a:'Rembrandt', y:'ca. 1665–1669', n:'Ook Rembrandt schilderde een echtpaar als bijbelse figuren.', s:'Jewish Bride'},
+      {img:'oa3', t:'Portret van vier kinderen als mythologische figuren', a:'Nicolaes Maes', y:'ca. 1670', n:'Ook kinderen werden als goden geschilderd.', s:'Maes children'}]},
+  { icon:null, name:'Kinderen als goden',
+    in:{img:'oa3', t:'Portret van vier kinderen als mythologische figuren', a:'Nicolaes Maes', y:'ca. 1670', where:'Dordrechts Museum, Dordrecht', s:'Nicolaes Maes vier kinderen mythologisch'},
+    question:'Vier kinderen in een landschap, verkleed als figuren uit de mythologie. Eén kind zweeft met vleugels boven de anderen. Wat kon zo’n gevleugeld kind in een familieportret betekenen?',
+    opts:['Vaak een broertje of zusje dat al was overleden, en zo toch bij het gezin werd afgebeeld','Dat het kind kon vliegen','Dat het kind een vogel als huisdier had'], c:0,
+    exp:'Kindersterfte was in de 17e eeuw heel gewoon. In familieportretten werden <b>overleden kinderen</b> daarom soms afgebeeld als <b>engeltjes of putti met vleugels</b>, zwevend boven hun broertjes en zusjes. Zo hoorden ze er nog bij. Kinderen verkleed als jagers, herders of goden waren daarnaast gewoon <b>modieus</b>: elegant, Arcadisch en een beetje Frans. <br><br><b>Kunst:</b> later in zijn leven veranderde <b>Maes</b> van stijl: van Rembrandts donkere licht naar sierlijke, kleurige portretten in Vlaamse en Franse trant.',
+    also:[
+      {img:'oa2', t:'Portret van Wigbold Slicher en Elisabeth Spiegel als Paris en Venus', a:'Ferdinand Bol', y:'1656', n:'Een ouderpaar als mythologische figuren.', s:'Bol'},
+      {img:'ob3', t:'De herderin', a:'Jacob Gerritsz Cuyp', y:'ca. 1630–1640', n:'Ook het Arcadische herdersleven was een geliefde vermomming.', s:'Cuyp shepherdess'},
+      {img:'q18b', t:'Cupido die zeepbellen blaast', a:'Rembrandt', y:'1634', n:'Een gevleugeld kind als Cupido, bij Rembrandt.', s:'Rembrandt Cupid'}]},
+  { icon:null, name:'De oude dame',
+    in:{img:'oa4', t:'Portret van Margaretha de Geer op 86-jarige leeftijd', a:'Nicolaes Maes', y:'ca. 1670', where:'Dordrechts Museum, Dordrecht', s:'Nicolaes Maes Margaretha de Geer'},
+    question:'Een oude, rijke weduwe in het zwart met een ouderwetse molensteenkraag kijkt ons rustig aan. Waarom droeg zij in 1670 nog zo’n kraag, terwijl die al lang uit de mode was?',
+    opts:['Ze bleef trouw aan de deftige mode van haar jeugd: de ouderwetse kraag stond voor waardigheid, soberheid en traditie','Omdat ze het koud had','Omdat de schilder hem erbij verzon'], c:0,
+    exp:'<b>Margaretha de Geer</b> was de weduwe van de schatrijke Dordtse koopman <b>Jacob Trip</b>. Oudere mensen bleven vaak de mode van hun jeugd dragen. De grote <b>molensteenkraag</b>, rond 1670 hopeloos ouderwets, straalde juist <b>waardigheid, vroomheid en traditie</b> uit. Het zwart was deftig en duur. Haar handen en gezicht laten eerlijk de <b>ouderdom</b> zien. <br><br><b>Kunst:</b> ook <b>Rembrandt</b> schilderde haar, rond 1661. Zijn leerling Maes deed het hem jaren later na.',
+    also:[
+      {img:'wc5', t:'Portret van Nicolaes Woutersz van der Meer', a:'Frans Hals', y:'1631', n:'Ook hier een deftige molensteenkraag, veertig jaar eerder.', s:'Hals'},
+      {img:'waB', t:'De regentessen van het Oudemannenhuis', a:'Frans Hals', y:'1664', n:'Oude, waardige vrouwen in het zwart, in Haarlem.', s:'Regentessen'},
+      {img:'rc4', t:'Zelfportret als de apostel Paulus', a:'Rembrandt', y:'1661', n:'Rembrandt, de leermeester van Maes, schilderde ouderdom eerlijk.', s:'Rembrandt'}]},
+  { icon:'keys', name:'De bevrijding van Petrus',
+    in:{img:'oa5', t:'De bevrijding van Petrus', a:'Benjamin Gerritsz Cuyp', y:'ca. 1631–1635', where:'Dordrechts Museum, Dordrecht', s:'Benjamin Cuyp bevrijding van Petrus'},
+    question:'In een donkere kerker verschijnt een stralende engel bij een oude man; de soldaten om hem heen slapen. Welk verhaal is dit?',
+    opts:['Een engel bevrijdt de apostel Petrus uit de gevangenis, terwijl de bewakers slapen','Daniël in de leeuwenkuil','Jona in de walvis'], c:0,
+    exp:'In de Handelingen van de Apostelen zat <b>Petrus</b> vastgeketend in de gevangenis van koning Herodes. ’s Nachts verscheen een <b>engel</b>, de ketenen vielen van zijn handen en hij liep langs de <b>slapende bewakers</b> naar buiten. Het licht komt van de engel zelf: een <b>wonder</b> in het donker. <br><br><b>Kunst:</b> <b>Benjamin Cuyp</b> was een halfbroer van Jacob Gerritsz Cuyp, de oom van Aelbert. Hij schilderde los en snel, met het licht-donker van <b>Rembrandt</b>.',
+    also:[
+      {img:'rc4a', t:'De apostel Paulus', a:'Rembrandt', y:'ca. 1657', n:'Ook Paulus zat gevangen: een apostel bij Rembrandt.', s:'Rembrandt Paul'},
+      {img:'l4', t:'Christus in de storm op het meer van Galilea', a:'Rembrandt', y:'1633', n:'Petrus’ leven was vol wonderen, ook op het water.', s:'Rembrandt storm'},
+      {img:'ob2', t:'Paulus aan zijn schrijftafel', a:'Jacob Gerritsz Cuyp', y:'17e eeuw', n:'De andere grote apostel, door Benjamins halfbroer.', s:'Cuyp Paul'}]}
+  ],
+  big:{ img:'oaB', t:'Trompe-l’oeil stilleven (brievenbord)', a:'Samuel van Hoogstraten', y:'ca. 1664', where:'Dordrechts Museum, Dordrecht', s:'Samuel van Hoogstraten trompe l oeil Dordrecht',
+    intro:'Een brievenbord met rode linten, vol brieven, een kam, een schaar en een penneschacht. Het lijkt zo echt dat je het van de muur wilt pakken. Maar alles is plat geschilderd.',
+    details:[
+      {d:'Achter rode linten zitten brieven, een kam, een schaar, een pennenmes en een ganzenveer.', q:'Hoe heet dit soort schilderij dat je ogen wil bedriegen?', opts:['Een trompe-l’oeil, Frans voor “bedrieg het oog”','Een fresco','Een icoon'], c:0,
+        e:'Een <b>trompe-l’oeil</b> wil de kijker laten geloven dat de voorwerpen echt zijn. Op ware grootte, met harde schaduwen en alles plat tegen de muur, werkt de illusie het best. <b>Samuel van Hoogstraten</b> uit Dordrecht was er een meester in.'},
+      {d:'Tussen de linten hangt een gouden medaille aan een ketting.', q:'Van wie kreeg Hoogstraten een gouden medaille met ketting voor zijn bedrieglijke stillevens?', opts:['Van keizer Ferdinand III in Wenen','Van de paus','Van een tulpenhandelaar'], c:0,
+        e:'Toen Hoogstraten in <b>1651</b> in <b>Wenen</b> was, was <b>keizer Ferdinand III</b> zo onder de indruk van een trompe-l’oeil dat hij hem een <b>gouden ketting met medaille</b> schonk. Hoogstraten was er zo trots op dat hij de medaille vaak in zijn schilderijen opnam: een soort visitekaartje.'},
+      {d:'Op het bord steken ook een boekje en brieven met adressen.', q:'Wat vertellen die persoonlijke voorwerpen?', opts:['Ze zijn een verborgen portret van de schilder: zijn brieven, zijn boekje, zijn eer','Ze zijn willekeurig gekozen','Het is een winkeletalage'], c:0,
+        e:'Hoogstraten stopte vaak <b>persoonlijke spullen</b> in zijn brievenborden: brieven aan hemzelf, zijn eigen gedichtenbundel en zijn medaille. Zo wordt het stilleven een soort <b>zelfportret zonder gezicht</b>.'},
+      {d:'Hoogstraten was ook schrijver en toneeldichter. In 1678 verscheen zijn grote boek over schilderkunst.', q:'Wie was de leermeester van Samuel van Hoogstraten?', opts:['Rembrandt','Michelangelo','Vermeer'], c:0,
+        e:'Hoogstraten leerde in de jaren 1640 bij <b>Rembrandt</b> in Amsterdam, net als zijn stadgenoten <b>Bol</b> en <b>Maes</b>. In zijn boek <i>Inleyding tot de hooge schoole der schilderkonst</i> (1678) schreef hij over zijn leermeester en over illusie in de kunst.'},
+      {d:'De schaduwen vallen allemaal dezelfde kant op, alsof het licht uit een echt raam komt.', q:'Waar hing zo’n trompe-l’oeil liefst?', opts:['Op een plek waar een echt brievenbord had kunnen hangen, met het licht in dezelfde richting als het echte raam','In een donkere kelder','Op het plafond'], c:0,
+        e:'De illusie werkte het best als het licht in het schilderij overeenkwam met het <b>echte licht</b> in de kamer. Verzamelaars hingen zulke stukken op een plek waar gasten erin konden trappen. Daarna volgde de verbazing, en het gesprek over de knappe schilder.'}
+    ],
+    story:'<p>Dordrecht was in de 17e eeuw een rijke handelsstad aan de rivieren. Uit de stad kwamen drie leerlingen van Rembrandt: Ferdinand Bol, Nicolaes Maes en Samuel van Hoogstraten.</p><p>Het Dordrechts Museum, opgericht in 1842, is een van de oudste kunstmusea van Nederland.</p>'
+  }
+},
+{ title:"Dordrechts Museum · Les 2 — De familie Cuyp", sub:"Een tulpenbed, Paulus aan tafel, de herderin, de rivier en de stal",
+  q:[
+  { icon:'tulip', name:'Het tulpenbed',
+    in:{img:'ob1', t:'Tulpenbed', a:'Jacob Gerritsz Cuyp', y:'1638', where:'Dordrechts Museum, Dordrecht', s:'Jacob Gerritsz Cuyp Tulpenbed 1638'},
+    question:'Een rij gevlamde tulpen, nog gewoon in de grond. Cuyp schilderde dit in 1638, één jaar na een beroemde crash. Welke?',
+    opts:['Het instorten van de tulpenhandel in 1637, na de tulpenmanie','Een overstroming van de rivier','Een brand in Dordrecht'], c:0,
+    exp:'Tijdens de <b>tulpenmanie</b> werden bollen van gevlamde tulpen voor fortuinen verhandeld, vaak al voordat ze uit de grond kwamen. In februari <b>1637</b> stortte de markt plotseling in. Dit schilderij van tulpen in een <b>bloembed</b>, in plaats van in een vaas, is daarom heel ongewoon: je ziet de bollen nog in de aarde, het kapitaal van de kweker. Na de crash werd de tulp ook een teken van <b>dwaasheid en vergankelijkheid</b>. <br><br><b>Kunst:</b> <b>Jacob Gerritsz Cuyp</b> was de vader van de beroemde landschapschilder Aelbert Cuyp.',
+    also:[
+      {img:'wc1', t:'Tulp (uit een tulpenboek)', a:'Judith Leyster', y:'1643', n:'Een gevlamde tulp, zoals ze in tulpenboeken werden vastgelegd.', s:'Leyster tulip'},
+      {img:'q6b', t:'Tulpen, lelies en irissen in een urn', a:'Mario Nuzzi', y:'17e eeuw', n:'Ook in Italië hield men van tulpen.', s:'Nuzzi'},
+      {img:'z1b', t:'Narcissen en tulpen', a:'Henri Fantin-Latour', y:'1862', n:'Tulpen, twee eeuwen later.', s:'Fantin-Latour'}]},
+  { icon:null, name:'Paulus aan tafel',
+    in:{img:'ob2', t:'Paulus aan zijn schrijftafel', a:'Jacob Gerritsz Cuyp', y:'17e eeuw', where:'Dordrechts Museum, Dordrecht', s:'Jacob Gerritsz Cuyp Paulus'},
+    question:'Een kalende man met een lange baard zit te schrijven aan een tafel vol boeken. Het is de apostel Paulus. Waarom wordt hij zo vaak schrijvend afgebeeld?',
+    opts:['Hij schreef veel van de brieven in het Nieuwe Testament, aan de eerste christelijke gemeenten','Hij was boekhouder','Hij schreef romans'], c:0,
+    exp:'De apostel <b>Paulus</b> schreef <b>brieven</b> aan de jonge christelijke gemeenten, zoals in Rome, Korinthe en Efeze. Ze staan in het Nieuwe Testament. Daarom zie je hem vaak met <b>pen en boek</b>. Zijn andere vaste attribuut is het <b>zwaard</b>: daarmee werd hij in Rome onthoofd. Hij wordt vaak kalend en met een lange donkere baard afgebeeld. <br><br><b>Weetje:</b> Paulus was een geliefd onderwerp in de protestantse Republiek, waar het lezen van de Bijbel zo belangrijk was.',
+    also:[
+      {img:'rc4a', t:'De apostel Paulus', a:'Rembrandt', y:'ca. 1657', n:'Ook bij Rembrandt: Paulus met zijn brieven en zwaard.', s:'Rembrandt Paul'},
+      {img:'rc4', t:'Zelfportret als de apostel Paulus', a:'Rembrandt', y:'1661', n:'Rembrandt speelde zelf Paulus, met het zwaard onder zijn mantel.', s:'Rembrandt Paul self'},
+      {img:'oa5', t:'De bevrijding van Petrus', a:'Benjamin Gerritsz Cuyp', y:'ca. 1631–1635', n:'De andere grote apostel, door Jacobs halfbroer.', s:'Peter'}]},
+  { icon:'lamb', name:'De herderin',
+    in:{img:'ob3', t:'De herderin', a:'Jacob Gerritsz Cuyp', y:'ca. 1630–1640', where:'Dordrechts Museum, Dordrecht', s:'Jacob Gerritsz Cuyp De herderin'},
+    question:'Een jonge vrouw met een strooien hoed ligt met een kind tussen schapen, geiten en een hond. Ze ziet er netjes en stralend uit, niet als een echte boerin. Wat is dit?',
+    opts:['Een geïdealiseerd herderstafereel: het Arcadische leven als droombeeld van liefde en eenvoud, populair bij rijke stedelingen','Een foto van een echte boerderij','Een reclame voor wol'], c:0,
+    exp:'In de jaren 1620–1640 waren <b>herderstaferelen</b> enorm in de mode. Ze verwezen naar <b>Arcadië</b>, het onbedorven herdersland uit de klassieke dichtkunst, waar het leven draaide om <b>liefde, muziek en eenvoud</b>. Rijke burgers lieten zich zelfs als herder of herderin portretteren. Het <b>lam</b> en de <b>hond</b> konden staan voor onschuld en trouw. <br><br><b>Kunst:</b> het genre kwam uit Utrecht, waar <b>Jacob Gerritsz Cuyp</b> in de leer was geweest bij Abraham Bloemaert.',
+    also:[
+      {img:'cb3', t:'De fluitspeler', a:'Abraham Bloemaert', y:'1621', n:'Een herder met fluit, door Cuyps leermeester Bloemaert.', s:'Bloemaert'},
+      {img:'oa3', t:'Portret van vier kinderen als mythologische figuren', a:'Nicolaes Maes', y:'ca. 1670', n:'Ook kinderen werden in een Arcadisch landschap gezet.', s:'Maes'},
+      {img:'ob5', t:'Stalinterieur', a:'Aelbert Cuyp', y:'17e eeuw', n:'Het echte boerenleven, door Jacobs zoon Aelbert.', s:'Cuyp stable'}]},
+  { icon:null, name:'De rivier in gouden licht',
+    in:{img:'ob4', t:'Hollands riviergezicht', a:'Aelbert Cuyp', y:'ca. 1645–1650', where:'Dordrechts Museum, Dordrecht', s:'Aelbert Cuyp Hollands riviergezicht'},
+    question:'Een brede rivier met zeilschepen en twee wandelaars op de dijk, alles badend in een warm, goudachtig licht. Waar haalde Aelbert Cuyp dat zonnige licht vandaan, terwijl hij nooit in Italië was?',
+    opts:['Van Hollandse schilders die in Italië waren geweest, zoals Jan Both: hij paste hun gouden zuiderse licht toe op het Hollandse landschap','Hij woonde in Spanje','Het is een foto met een filter'], c:0,
+    exp:'Aelbert Cuyp kwam vrijwel nooit buiten Dordrecht en omgeving. Toch baden zijn landschappen in een <b>warm, Italiaans licht</b>. Dat leerde hij van de <b>Italianisanten</b>, zoals <b>Jan Both</b> uit Utrecht, die in Rome had gewerkt. Cuyp zette dat licht op de Hollandse rivieren en weilanden. Het resultaat: een <b>ideaal Holland</b>, rustig en welvarend. <br><br><b>Weetje:</b> in de 18e eeuw werd Cuyp mateloos populair in <b>Engeland</b>. Veel van zijn beste werken hangen daar nog steeds.',
+    also:[
+      {img:'obB', t:'Rustende ruiters in een landschap', a:'Aelbert Cuyp', y:'ca. 1655', n:'Hetzelfde gouden licht, met paarden en ruiters.', s:'Cuyp riders'},
+      {img:'l3', t:'Gezicht op Haarlem met bleekvelden (“Haarlempje”)', a:'Jacob van Ruisdael', y:'ca. 1670–1675', n:'Een Hollands landschap met een heel ander, koeler licht.', s:'Ruisdael'},
+      {img:'hd2', t:'Het kanonschot', a:'Willem van de Velde de Jonge', y:'ca. 1680', n:'Schepen op kalm water, bij de grote zeeschilder.', s:'Van de Velde'}]},
+  { icon:null, name:'De koeien in de stal',
+    in:{img:'ob5', t:'Stalinterieur', a:'Aelbert Cuyp', y:'17e eeuw', where:'Dordrechts Museum, Dordrecht', s:'Aelbert Cuyp Stalinterieur'},
+    question:'Een donkere stal met koeien; door de open deur valt licht naar binnen. Aelbert Cuyp schilderde koeien zo vaak dat het zijn handelsmerk werd. Waar stond de koe in de Gouden Eeuw ook voor?',
+    opts:['Voor de welvaart van Holland: melk, boter en kaas, en zelfs voor het land zelf','Voor oorlog','Voor de dood'], c:0,
+    exp:'Koeien waren de basis van de Hollandse <b>zuivel</b>: melk, boter en kaas, die tot ver over de grenzen werden verkocht. Een dikke, gezonde koe stond voor <b>voorspoed en vrede</b>. In politieke prenten werd de Nederlanden zelfs als een <b>koe</b> afgebeeld, waaraan buitenlandse vorsten trokken en die de Oranjes molken. <br><br><b>Kunst:</b> Cuyps koeien, liefst in het tegenlicht aan de rivier, werden zo beroemd dat Engelse verzamelaars later forse bedragen voor ze betaalden.',
+    also:[
+      {img:'ma3c', t:'De geslachte os', a:'Rembrandt', y:'1655', n:'Een heel ander rund: een vanitas in de slachterij.', s:'Rembrandt ox'},
+      {img:'ob4', t:'Hollands riviergezicht', a:'Aelbert Cuyp', y:'ca. 1645–1650', n:'De rivier waaraan Cuyps koeien graag stonden.', s:'Cuyp river'},
+      {img:'ob3', t:'De herderin', a:'Jacob Gerritsz Cuyp', y:'ca. 1630–1640', n:'Het geïdealiseerde boerenleven, door Aelberts vader.', s:'shepherdess'}]}
+  ],
+  big:{ img:'obB', t:'Rustende ruiters in een landschap', a:'Aelbert Cuyp', y:'ca. 1655', where:'Dordrechts Museum, Dordrecht', s:'Aelbert Cuyp Rustende ruiters',
+    intro:'Deftige ruiters houden halt in een wijd landschap vol goudgeel avondlicht. Paardrijden was het teken van een elite die het zich kon veroorloven.',
+    details:[
+      {d:'Een ruiter op een schimmel kijkt uit over het land; een knecht houdt een ander paard vast.', q:'Wat zegt het paard over de ruiter?', opts:['Paarden waren duur: wie reed voor zijn plezier, behoorde tot de rijke elite','Dat hij postbode was','Dat hij boer was'], c:0,
+        e:'Een rijpaard houden was kostbaar. <b>Paardrijden</b> voor je plezier, of op jacht, was een <b>privilege van adel en patriciërs</b>. Rijke Dordtenaren lieten Cuyp hun familie te paard schilderen, als landheren op hun buitengoed.'},
+      {d:'Rechts staat een <b>knecht</b> te voet, in eenvoudige kleding.', q:'Waarom staat er een knecht te voet bij?', opts:['Om het verschil in stand te laten zien: de heer rijdt, de knecht loopt en dient','Omdat zijn paard gestolen was','Omdat het een wandelwedstrijd was'], c:0,
+        e:'De <b>knecht</b> te voet maakt de rangorde zichtbaar, net als de dienstmeid bij de regentessen van Hals. Wie rijdt, is heer; wie loopt, dient.'},
+      {d:'Het licht is warm en laag, alsof de zon net ondergaat; de schaduwen zijn lang.', q:'Welk effect heeft dat gouden avondlicht?', opts:['Het maakt het tafereel rustig en vredig, als een ideaal Holland vol welvaart','Het maakt het eng','Het heeft geen effect'], c:0,
+        e:'Het <b>gouden licht</b> was Cuyps handelsmerk. Het geeft het gewone Hollandse land een feestelijke, bijna <b>Arcadische rust</b>: alsof er nooit oorlog of storm is. Precies wat de welvarende kopers wilden zien.'},
+      {d:'Cuyp maakte zulke schilderijen rond 1655. Daarna schilderde hij steeds minder.', q:'Waarom stopte Aelbert Cuyp vrijwel met schilderen?', opts:['Hij trouwde in 1658 met een rijke weduwe en werd een gegoede burger met bestuursfuncties in de stad','Hij werd blind','Hij verhuisde naar Italië'], c:0,
+        e:'In <b>1658</b> trouwde Cuyp met de vermogende weduwe <b>Cornelia Bosman</b>. Hij werd een gerespecteerd burger, diaken in de kerk en lid van het stadsbestuur. Schilderen hoefde niet meer voor het geld, en er zijn maar weinig werken van na die tijd.'},
+      {d:'Twee eeuwen later stonden Engelse verzamelaars in de rij voor Cuyps landschappen.', q:'Welke grote Engelse schilder bewonderde Cuyps licht en liet zich erdoor inspireren?', opts:['J.M.W. Turner','Picasso','Andy Warhol'], c:0,
+        e:'Engelse landschapschilders, onder wie <b>Turner</b>, bewonderden Cuyps gouden licht. Het Dordrechts Museum liet in een grote tentoonstelling zien hoe Cuyp Gainsborough, Constable en Turner inspireerde.'}
+    ],
+    story:'<p>Drie generaties Cuyp werkten in Dordrecht: Jacob Gerritsz Cuyp, zijn halfbroer Benjamin en zijn zoon Aelbert. Samen vertellen ze het verhaal van de Dordtse schilderkunst.</p><p>Aelbert Cuyp werd de beroemdste. Het Dordrechts Museum heeft zijn werk in al zijn veelzijdigheid bijeengebracht.</p>'
+  }
+},
+{ title:"Dordrechts Museum · Les 3 — Ary Scheffer en de negentiende eeuw", sub:"De trooster, een romantisch zelfportret, Maria Magdalena, een vroegmiddeleeuwse dichter en paarden in de sneeuw",
+  q:[
+  { icon:null, name:'De trooster',
+    in:{img:'oc1', t:'Christus Consolator', a:'Ary Scheffer', y:'1837', where:'Dordrechts Museum, Dordrecht', s:'Ary Scheffer Christus Consolator'},
+    question:'Christus zit in het midden, met zijn armen open naar een menigte lijdende mensen: een moeder met een dood kind, gevangenen en een man die zijn ketenen ziet breken. Wat is de boodschap?',
+    opts:['Christus als trooster van alle onderdrukten en lijdenden, van slaven tot rouwende moeders','Christus als rechter op de jongste dag','Een feest in de hemel'], c:0,
+    exp:'<b>Christus Consolator</b> betekent “Christus de Trooster”. Scheffer omringde hem met allerlei <b>lijdende mensen</b>: rouwenden, zieken, gevangenen, en een geketende <b>slaaf</b> wiens ketenen breken. Dat laatste paste bij de strijd tegen de slavernij, waar veel van Scheffers vrienden zich voor inzetten. Het schilderij werd via prenten <b>wereldberoemd</b> en hing in talloze huiskamers. <br><br><b>Kunst:</b> <b>Ary Scheffer</b> werd in 1795 in Dordrecht geboren en werd een van de beroemdste <b>romantische</b> schilders van Parijs.',
+    also:[
+      {img:'vc2', t:'Pietà (naar Delacroix)', a:'Vincent van Gogh', y:'1889', n:'Troost en rouw, bij een andere Nederlander in Frankrijk.', s:'Pieta'},
+      {img:'uB', t:'De terugkeer van de verloren zoon', a:'Rembrandt', y:'ca. 1668', n:'Vergeving en troost, bij Rembrandt.', s:'Prodigal son'},
+      {img:'oc3', t:'Christus verschijnt aan Maria Magdalena', a:'Ary Scheffer', y:'19e eeuw', n:'Nog een tedere Christus van Scheffer.', s:'Scheffer Magdalene'}]},
+  { icon:null, name:'De romantische schilder',
+    in:{img:'oc2', t:'Zelfportret op 43-jarige leeftijd', a:'Ary Scheffer', y:'1838', where:'Dordrechts Museum, Dordrecht', s:'Ary Scheffer zelfportret 43'},
+    question:'Een man met warrig donker haar, een donkere jas en een ernstige, dromerige blik, tegen een donkere achtergrond. Welke stroming in de kunst hoort bij dit beeld van de kunstenaar?',
+    opts:['De romantiek: de kunstenaar als gevoelig, eenzaam genie','Het kubisme','De pop-art'], c:0,
+    exp:'In de <b>romantiek</b> (ca. 1800–1850) draaide alles om <b>gevoel, verbeelding en het individu</b>. De kunstenaar was een gevoelig, soms eenzaam <b>genie</b>, met warrig haar en een diepe blik. Scheffer schilderde zichzelf precies zo. Hij was in Parijs een beroemdheid, gaf les aan de kinderen van koning <b>Louis-Philippe</b> en had een salon waar schrijvers en musici als Chopin en Liszt kwamen. <br><br><b>Weetje:</b> in Dordrecht staat sinds 1862 zijn standbeeld op het Scheffersplein.',
+    also:[
+      {img:'va5', t:'Zelfportret als schilder', a:'Vincent van Gogh', y:'1887–1888', n:'Een halve eeuw later: weer een Nederlandse schilder in Parijs.', s:'Van Gogh'},
+      {img:'kb4', t:'Zelfportret', a:'Vincent van Gogh', y:'1887', n:'Ook Van Gogh werkte in Parijs.', s:'Van Gogh self'},
+      {img:'rc4', t:'Zelfportret als de apostel Paulus', a:'Rembrandt', y:'1661', n:'De grote Hollandse zelfportrettist.', s:'Rembrandt'}]},
+  { icon:null, name:'Raak mij niet aan',
+    in:{img:'oc3', t:'Christus verschijnt aan Maria Magdalena', a:'Ary Scheffer', y:'19e eeuw', where:'Dordrechts Museum, Dordrecht', s:'Ary Scheffer Christus verschijnt aan Maria Magdalena'},
+    question:'Een vrouw met lang, los haar knielt voor de opgestane Christus en reikt naar hem; hij houdt haar zacht op afstand. Welk moment is dit?',
+    opts:['Paasmorgen: Maria Magdalena herkent de opgestane Christus, die zegt “Raak mij niet aan” (Noli me tangere)','De bruiloft te Kana','Het Laatste Avondmaal'], c:0,
+    exp:'Op de <b>paasmorgen</b> vond <b>Maria Magdalena</b> het graf leeg. Ze zag een man die ze voor de tuinman hield, tot hij haar naam noemde: het was <b>Christus</b>. Toen ze naar hem reikte, zei hij: “<b>Noli me tangere</b>”, raak mij niet aan, want hij was nog niet opgevaren naar de hemel. Maria Magdalena herken je aan haar <b>lange, losse haar</b> en vaak een zalfpotje. <br><br><b>Kunst:</b> Scheffer schilderde zijn religieuze onderwerpen zacht en gevoelig, met veel aandacht voor de emotie.',
+    also:[
+      {img:'oc1', t:'Christus Consolator', a:'Ary Scheffer', y:'1837', n:'Scheffers beroemdste religieuze werk.', s:'Consolator'},
+      {img:'x1b', t:'De Visitatie', a:'Rembrandt', y:'1640', n:'Een andere tedere ontmoeting uit het Nieuwe Testament.', s:'Visitation'},
+      {img:'vc3', t:'De opwekking van Lazarus (naar Rembrandt)', a:'Vincent van Gogh', y:'1890', n:'Opstaan uit de dood: Lazarus, een voorbode van Pasen.', s:'Lazarus'}]},
+  { icon:null, name:'De dichter en de koningin',
+    in:{img:'oc4', t:'Venantius Fortunatus leest zijn gedichten voor aan Radegonde', a:'Lourens Alma-Tadema', y:'1862', where:'Dordrechts Museum, Dordrecht', s:'Alma-Tadema Venantius Fortunatus'},
+    question:'In een klooster uit de vroege middeleeuwen leest een dichter voor aan twee vrouwen. De schilder, een Fries, zou later wereldberoemd worden met heel andere taferelen. Waarmee?',
+    opts:['Met schitterende scènes uit het oude Rome, vol marmer en bloemen','Met abstracte vlakken','Met Hollandse polders'], c:0,
+    exp:'De dichter <b>Venantius Fortunatus</b> leest in de 6e eeuw voor aan koningin <b>Radegonde</b>, die een klooster in Poitiers stichtte. <b>Lourens Alma-Tadema</b> werd in 1836 in Friesland geboren en begon met zulke middeleeuwse, Frankische onderwerpen. Later vestigde hij zich in <b>Londen</b> en werd hij beroemd, en zelfs geridderd, met zijn levensechte scènes uit het <b>oude Rome</b>: marmer, rozen en zonlicht. <br><br><b>Weetje:</b> Hollywood-filmmakers gebruikten zijn schilderijen later als voorbeeld voor films over de oudheid.',
+    also:[
+      {img:'oc2', t:'Zelfportret op 43-jarige leeftijd', a:'Ary Scheffer', y:'1838', n:'Ook een Nederlandse schilder die in het buitenland beroemd werd.', s:'Scheffer'},
+      {img:'q3c', t:'Hendrik de Vrome en Catharina van Mecklenburg', a:'Lucas Cranach de Oude', y:'1514', n:'Echte middeleeuwse en renaissancevorsten, door een tijdgenoot geschilderd.', s:'Cranach'},
+      {img:'hc3', t:'Interieur van de Sint-Bavokerk in Haarlem', a:'Pieter Saenredam', y:'1648', n:'Een kerkinterieur, nauwkeurig geschilderd.', s:'Saenredam'}]},
+  { icon:null, name:'Paarden in de sneeuw',
+    in:{img:'oc5', t:'Sleperspaarden in de sneeuw', a:'George Hendrik Breitner', y:'1893', where:'Dordrechts Museum, Dordrecht', s:'Breitner sleperspaarden in de sneeuw'},
+    question:'Zware paarden trekken sleden door een besneeuwde Amsterdamse straat; de mannen en de paarden zijn net aangesneden door de rand van het doek. Waar haalde Breitner die “afgesneden” blik vandaan?',
+    opts:['Uit de fotografie: hij fotografeerde zelf veel in de stad en gebruikte zijn foto’s als voorbeeld','Uit middeleeuwse kerkramen','Uit droomdagboeken'], c:0,
+    exp:'<b>George Hendrik Breitner</b> liep met een camera door Amsterdam en fotografeerde werklieden, paarden en straatleven. Daardoor kregen zijn schilderijen een <b>snapshot</b>-gevoel: figuren worden door de rand <b>afgesneden</b>, alsof het moment toevallig is vastgelegd. De <b>slepers</b> vervoerden goederen met paard en slede door de stad. Breitner noemde zichzelf graag de “schilder van het volk”. <br><br><b>Kunst:</b> hij hoort bij de <b>Amsterdamse impressionisten</b>.',
+    also:[
+      {img:'gc5', t:'Het kanonschot (artillerie op de heide)', a:'George Hendrik Breitner', y:'19e eeuw', n:'Breitner hield van paarden in actie.', s:'Breitner'},
+      {img:'hg2', t:'Meisje in witte kimono', a:'G.H. Breitner', y:'1894', n:'Een jaar later: Breitners beroemde kimonomeisje.', s:'Breitner kimono'},
+      {img:'rbB', t:'Winterlandschap met schaatsers', a:'Hendrick Avercamp', y:'ca. 1608', n:'Een Hollandse winter, bijna drie eeuwen eerder.', s:'Avercamp'}]}
+  ],
+  big:{ img:'ocB', t:'De hemelse en de aardse liefde', a:'Ary Scheffer', y:'1850', where:'Dordrechts Museum, Dordrecht', s:'Ary Scheffer Hemelse en aardse liefde',
+    intro:'Twee vrouwen naast elkaar: de één gesluierd, de ander naakt. Scheffer zette een eeuwenoud kunstdebat over liefde opnieuw in beeld.',
+    details:[
+      {d:'Links een vrouw in een witte sluier die omhoogkijkt; rechts een naakte vrouw met een rode doek.', q:'Welke van de twee stelt de hemelse liefde voor?', opts:['De gesluierde vrouw die omhoogkijkt, naar de hemel','De naakte vrouw','Allebei niet'], c:0,
+        e:'De <b>gesluierde</b> vrouw kijkt omhoog: haar liefde is geestelijk, gericht op God en het hogere. De naakte vrouw staat voor de <b>aardse, lichamelijke</b> liefde. Samen vormen ze twee kanten van de liefde.'},
+      {d:'De naakte vrouw wordt omhuld door een felrode doek.', q:'Waar staat het rood bij haar voor?', opts:['Hartstocht en aardse begeerte','Kou','Rouw'], c:0,
+        e:'<b>Rood</b> is de kleur van <b>hartstocht</b>, bloed en begeerte. Tegenover het koele wit van de hemelse liefde maakt het de tegenstelling meteen zichtbaar.'},
+      {d:'Het onderwerp is al eeuwen oud.', q:'Welke beroemde renaissanceschilder maakte een bekend schilderij dat later “Hemelse en aardse liefde” werd genoemd?', opts:['Titiaan','Vermeer','Van Gogh'], c:0,
+        e:'<b>Titiaan</b> schilderde rond 1514 een beroemd doek met een geklede en een naakte vrouw bij een fontein (nu in Rome, in de Galleria Borghese). Het kreeg later de titel <i>Hemelse en aardse liefde</i>. Scheffer gaat met dat beroemde voorbeeld in gesprek.'},
+      {d:'De vrouwen zijn glad en zacht geschilderd, met dromerige gezichten.', q:'Welke stroming herken je in deze gevoelvolle, idealiserende stijl?', opts:['De romantiek','Het kubisme','Het realisme van de Haagse School'], c:0,
+        e:'Scheffer was een <b>romanticus</b>: hij koos onderwerpen uit literatuur, religie en mythen, en schilderde ze <b>gevoelvol en geïdealiseerd</b>, met zachte overgangen en dromerige blikken.'},
+      {d:'Het Dordrechts Museum bezit honderden werken van Scheffer.', q:'Waarom heeft juist Dordrecht zo veel werk van Scheffer?', opts:['Hij werd er geboren, en zijn familie liet veel werk aan zijn geboortestad na: het museum heeft de grootste Scheffer-collectie ter wereld','Omdat hij er een winkel had','Omdat Parijs zijn werk weigerde'], c:0,
+        e:'Scheffer werd in <b>1795</b> in Dordrecht geboren. Na zijn dood belandde dankzij schenkingen uit zijn familie veel van zijn werk in zijn <b>geboortestad</b>. Het Dordrechts Museum heeft daardoor de <b>grootste Scheffer-collectie</b> ter wereld.'}
+    ],
+    story:'<p>Ary Scheffer was in de 19e eeuw een van de beroemdste schilders van Europa. Na zijn dood raakte hij wat vergeten, maar in Dordrecht kun je zijn werk nog volop bewonderen.</p><p>In het Dordrechts Museum hangt het naast Breitner, Alma-Tadema en de Haagse School.</p>'
+  }
+}
+];
+const DOR_BADGES = [
+  {name:'Luistervink', icon:'keys', txt:'Maes, Bol en Hoogstraten: je kent de Dordtse leerlingen van Rembrandt.'},
+  {name:'Cuypkenner', icon:'tulip', txt:'Tulpen, herderinnen en gouden licht: de familie Cuyp heeft geen geheimen meer.'},
+  {name:'Romanticus', icon:'rose', txt:'Scheffer, Alma-Tadema en Breitner: de negentiende eeuw in Dordrecht.'}];
+EXTRA_MUSEUMS.push({id:'dor', museum:true, bundle:'dmo', bre:/^o[abc][0-9B]/, ribbon:'Museumkenner', name:"Museum: Dordrechts Museum", eyebrow:"Museum · Zuid-Holland · Dordrechts Museum, Dordrecht", title:"Het Dordrechts Museum", rank:"Kenner van het Dordrechts Museum", grand:"Dordtgids", icon:'keys', desc:"Een van de oudste kunstmusea van Nederland: Rembrandts Dordtse leerlingen Maes, Bol en Hoogstraten, drie generaties Cuyp en de grootste Ary Scheffer-collectie ter wereld.", obT:"Dordrechts Museum, Dordrecht", obS:"De luistervink, het tulpenbed, Cuyps gouden licht, Ary Scheffer…", rounds:DOR_ROUNDS, badges:DOR_BADGES, theme:{"shape": "crest", "rib": ["#c8102e", "#f4efe6"], "leaf": "#6f8a4a"}, who:[
+  {img:'oaB', a:0, opts:['Samuel van Hoogstraten','Ferdinand Bol','Nicolaes Maes','Carel Fabritius'], clues:['Ik werd in 1627 in Dordrecht geboren.','Ik leerde bij Rembrandt in Amsterdam.','Een keizer gaf mij een gouden ketting.','Ik schreef in 1678 een boek over de schilderkunst.'],
+   e:'<b>Samuel van Hoogstraten</b> (1627–1678).'},
+  {img:'ob4', a:1, opts:['Jan van Goyen','Aelbert Cuyp','Jacob van Ruisdael','Paulus Potter'], clues:['Ik werd in 1620 in Dordrecht geboren.','Mijn vader was ook schilder.','Ik schilderde koeien in gouden licht.','Engelse verzamelaars waren later gek op mij.'],
+   e:'<b>Aelbert Cuyp</b> (1620–1691).'},
+  {img:'oc2', a:2, opts:['Jozef Israëls','Lourens Alma-Tadema','Ary Scheffer','Vincent van Gogh'], clues:['Ik werd in 1795 in Dordrecht geboren.','Ik verhuisde als jongen naar Parijs.','Chopin en Liszt kwamen bij mij op bezoek.','Mijn standbeeld staat op een plein in mijn geboortestad.'],
+   e:'<b>Ary Scheffer</b> (1795–1858).'}]});
+
 const CM_ROUNDS = [
 { title:"Centraal Museum · Les 1 — Van Scorel tot Bloemaert", sub:"Wilde rozen, een tiran, de herders, een schilder met kraag en Orpheus",
   q:[
