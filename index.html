@@ -5535,7 +5535,7 @@ function onbView(){ st.view='onb'; const nm=st.name?`, ${st.name}`:'';
     + obChoice('🎭','Kunst aan de hand van bekende personen','Beleef het leven van Caravaggio, de Medici, Leonardo, Lodewijk XIV, Rembrandt, Rubens en Van Gogh, met scènes, muziek en stemmen','obStories()')
     + obChoice('🔎','Een heel specifiek onderwerp','Deugden, Bijbel, mythologie, Gouden Eeuw of goede kunst herkennen','obGo(4)');
   else if(ob.s===5) body = obBubble(`Leuk je te ontmoeten${nm}! <b>Ben je nieuw in de kunstgeschiedenis of de symboliek?</b>`)
-    + obChoice('🎓','Ja, ik ben (bijna) nieuw','We leren eerst acht begrippen, zoals allegorie en temperament, met korte vragen','startIntro(\'onb\')')
+    + obChoice('🎓','Ja, ik ben (bijna) nieuw','We leren eerst zes begrippen, zoals allegorie en temperament, met korte vragen','startIntro(\'onb\')')
     + obChoice('🖼️','Nee, ik weet er al wat van','Kies meteen waar je mee wilt beginnen','st.introSkip=true;save();obGo(2)');
   else if(ob.s===3) body = obBubble(`Welk museum wil je${nm?nm:''} straks met andere ogen bekijken?`)
     + obChoice(museumIcon('rijks'),'Rijksmuseum, Amsterdam','Melkmeisje, Joodse bruidje, Staalmeesters, De bedreigde zwaan…','obFinish(\'rijks\')')
@@ -5552,26 +5552,16 @@ function onbView(){ st.view='onb'; const nm=st.name?`, ${st.name}`:'';
 
 /* ---------- Startcursus: begrippen voor beginners ---------- */
 const INTRO = [
- {id:'symbool', img:'s258', cap:'Gerrit Dou, Stilleven met zandloper', t:'Symbool', g:'symbool',
-  u:'Een <b>symbool</b> is iets zichtbaars dat voor iets anders staat, meestal een idee. Een witte lelie is gewoon een bloem, maar op een schilderij betekent hij vaak: <i>zuiverheid</i>.',
-  q:'Op dit schilderij staat een zandloper op tafel. Waar staat die zandloper als symbool meestal voor?',
-  o:['De tijd die verstrijkt','Geduld en volharding','Het uur van het gebed'], c:0,
-  e:'Een zandloper loopt onverbiddelijk leeg. Daarom staat hij voor de <b>tijd die voorbijgaat</b>, en dus voor de vergankelijkheid van het leven.'},
  {id:'attribuut', img:'s321', cap:'Caravaggio, De heilige Catharina van Alexandrië', t:'Attribuut', g:'attribuut',
   u:'Een <b>attribuut</b> is een vast voorwerp waaraan je een persoon herkent, vooral heiligen en goden. Petrus draagt altijd sleutels, Mercurius een staf met slangen.',
   q:'Op dit schilderij leunt een vrouw op een groot houten rad met spijkers. Wat is dat rad?',
   o:['Een allegorie van het draaiende lot','Haar attribuut: zo herken je wie ze is','Een symbool van het levenswiel'], c:1,
   e:'Het spijkerrad is het <b>attribuut</b> van de heilige Catharina van Alexandrië, die op zo’n rad gemarteld zou worden. Let op: de godin Fortuna heeft soms ook een rad, maar dan zonder spijkers.'},
  {id:'allegorie', img:'s508', cap:'Theodoor van Thulden, De Tijd onthult de Waarheid', t:'Allegorie', g:'allegorie',
-  u:'Een <b>allegorie</b> vertelt een abstract idee, zoals Vrede, Tijd of Waarheid, met figuren en voorwerpen. Het is een soort beeldraadsel: wie de tekens kent, kan het lezen.',
+  u:'Een <b>allegorie</b> vertelt een abstract idee, zoals Vrede, Tijd of Waarheid, met figuren en voorwerpen. Zo’n idee in mensengedaante heet een <b>personificatie</b>, zoals Justitia met weegschaal en zwaard. Het is een soort beeldraadsel: wie de tekens kent, kan het lezen.',
   q:'Op dit schilderij trekt een oude man met vleugels een naakte vrouw uit het donker, terwijl duistere figuren haar tegenhouden. Wat voor schilderij is dit?',
   o:['Een mythe over een ontvoering','Een historiestuk over een redding','Een allegorie: de Tijd onthult de Waarheid'], c:2,
   e:'De oude man met vleugels is <b>Vader Tijd</b>, de naakte vrouw is de <b>Waarheid</b>. Waarom naakt? Een leugen verstopt zich achter mooie kleren en maskers, maar de waarheid heeft niets te verbergen: ze is <i>onverhuld</i>. Al de Romeinse dichter Horatius sprak van de “naakte Waarheid”, en daar komt ook onze uitdrukking <i>de naakte waarheid</i> vandaan. De boodschap: vroeg of laat brengt de tijd de waarheid aan het licht. Het zijn geen echte personen maar ideeën. Dat maakt het een allegorie.'},
- {id:'personificatie', img:'s384', cap:'Rafaël, De Rechtvaardigheid', t:'Personificatie', g:'allegorie',
-  u:'Een <b>personificatie</b> is een idee in de vorm van een persoon. De Rechtvaardigheid wordt bijvoorbeeld een vrouw met een weegschaal en een zwaard. Personificaties zijn de “acteurs” van een allegorie.',
-  q:'Op deze plafondschildering zit een vrouw op de wolken met een zwaard en een weegschaal, omringd door engeltjes. Wie of wat is zij?',
-  o:['De Rechtvaardigheid (Justitia), als persoon','Een koningin die recht spreekt','Een heilige die met het zwaard werd gedood'], c:0,
-  e:'Zwaard en weegschaal zijn de tekens van <b>Justitia</b>, de Rechtvaardigheid: met de weegschaal weegt ze af, met het zwaard straft ze. Ze is geen echte vrouw, maar een idee in mensengedaante: een personificatie. Je ziet haar nog steeds op rechtbanken.'},
  {id:'vanitas', img:'s246', cap:'Gerrit Dou, Stilleven met jongen die zeepbellen blaast', t:'Vanitas & memento mori', g:'vanitas',
   u:'Een <b>vanitas</b> (Latijn voor “ijdelheid”) is een stilleven dat je eraan herinnert dat alles vergaat: een schedel, een gedoofde kaars, verwelkende bloemen. De schedel zegt <i>memento mori</i>: gedenk dat je sterven zult.',
   q:'Op dit schilderij blaast een jongen zeepbellen, en rechtsboven, in het donker, ligt een schedel. Wat is de boodschap?',
@@ -5583,10 +5573,10 @@ const INTRO = [
   o:['Flegmatisch: rustig en traag','Cholerisch: driftig en opvliegend','Melancholisch: somber en peinzend'], c:2,
   e:'Peinzende geleerden golden als <b>melancholisch</b>: de melancholie stond niet alleen voor somberheid, maar ook voor diep nadenken en genialiteit. Let op schilderijen ook op de typische houding: het hoofd op de hand. Een flegmaticus is eerder lui en tevreden dan piekerend.'},
  {id:'genre', img:'s700', cap:'Jan Steen, Het gebed voor de maaltijd', t:'Genrestuk', g:'genre',
-  u:'Een <b>genrestuk</b> toont het dagelijks leven van gewone, naamloze mensen: een feest, een herberg, een moeder met haar kind. Vaak zit er een grap of een les in. Jan Steen is de bekendste genreschilder.',
-  q:'Welk van deze drie schilderijen is een genrestuk?',
-  o:['Het Laatste Avondmaal, in een Hollandse kamer','Een lachend gezin dat feestviert in de keuken','Een portret van een rijk echtpaar'], c:1,
-  e:'Het feestende gezin zijn naamloze, gewone mensen: een <b>genrestuk</b>. Het Laatste Avondmaal blijft een bijbelverhaal (een historiestuk), ook in een Hollands decor, en een portret toont juist bekende, echte personen.'},
+  u:'Een <b>genrestuk</b> toont het dagelijks leven van gewone, naamloze mensen: een feest, een herberg, een gezin aan tafel. Vaak zit er een grap of een les in. Jan Steen is de bekendste genreschilder.',
+  q:'Een eenvoudig gezin bidt aan tafel voor het eten. Waarom is dit schilderij een genrestuk?',
+  o:['Het vertelt een verhaal uit de Bijbel','Het toont gewone, naamloze mensen in hun dagelijks leven','Het is een portret van een rijke familie'], c:1,
+  e:'Deze mensen hebben geen naam en geen beroemd verhaal: het is een gewoon gezin op een gewone dag. Dat maakt het een <b>genrestuk</b>. Dat ze bidden, maakt het nog geen bijbelverhaal (een historiestuk), en een portret van rijke, bekende personen is het ook niet: kijk maar naar het eenvoudige interieur. Wel zit er een les in: het gezin is arm, maar dankbaar voor het brood op tafel.'},
  {id:'embleem', pimg:'s1', cap:'Adriaen van de Venne, embleem uit <i>Maechden-plicht</i> van Jacob Cats (1618)', t:'Embleem', g:'embleem',
   u:'Een <b>embleem</b> is een prentje met een spreuk erboven en een gedichtje eronder, die samen een les geven. Hier zie je er een: bovenaan het motto <i>Amor elegantiae pater</i> (“de liefde is de vader van de verfijning”), in het midden de prent, onderaan de uitleg. In de Gouden Eeuw waren emblemenboeken razend populair, en schilders haalden er hun symbolen uit.',
   q:'Waarom helpen emblemenboeken kunsthistorici om oude schilderijen te begrijpen?',
@@ -5631,8 +5621,8 @@ function introRoute(){ if(!st.onb){ ob.s=2; return onbView(); } paths(); }
 let introPrev='paths';
 function introAsk(){ if(!['introAsk','intro','introDone','onb'].includes(st.view)) introPrev=st.view||'paths'; st.view='introAsk'; const nm=st.name?` ${st.name}`:'';
   $(`<div class="onb"><div class="eyebrow center">Kunst met Laura</div><div class="ob-stage">${lauraSVG()}</div>
-    ${obBubble(`Hoi${nm}! <b>Ben je nieuw in de kunstgeschiedenis of de symboliek?</b> Dan leren we eerst even acht begrippen, zoals <i>allegorie</i> en <i>temperament</i>. Zo begrijp je de symboliek straks meteen beter.`)}
-    ${obChoice('🎓','Ja, leer me eerst de begrippen','Een korte startcursus van acht vragen','startIntro(\'paths\')')}
+    ${obBubble(`Hoi${nm}! <b>Ben je nieuw in de kunstgeschiedenis of de symboliek?</b> Dan leren we eerst even zes begrippen, zoals <i>allegorie</i> en <i>temperament</i>. Zo begrijp je de symboliek straks meteen beter.`)}
+    ${obChoice('🎓','Ja, leer me eerst de begrippen','Een korte startcursus van zes vragen','startIntro(\'paths\')')}
     ${obChoice('🖼️','Nee, ik weet er al wat van','Ga meteen naar de cursuss','introNo()')}
     <p class="center"><button class="btn small" onclick="introLater()">Misschien later</button></p></div>`); }
 function introBack(){ const v=introPrev||'paths'; if(['paths','home','gloss','fav','start'].includes(v)||!resumeFrom) return hub(); st.view=v; render(); }
