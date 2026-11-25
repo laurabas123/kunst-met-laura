@@ -3743,7 +3743,7 @@ function compLeave(){ if(sbOn()&&st.uid) sbFetch('rpc/delete_tester',{method:'PO
 function compJoin(name){ TOP3T=0; uid(); st.comp={ok:true,name:(name||st.name||'Tester').trim().slice(0,30),at:Date.now(),asked:1}; save(); compSync(true); }
 
 /* ================= DELEN VIA WHATSAPP ================= */
-const SITE=()=>{ try{ if(/kunstmetlaura\.nl$/.test(location.hostname)) return 'https://kunstmetlaura.nl/'; }catch(e){} return 'https://laurabas123.github.io/kunst-met-laura/'; };
+const SITE=()=>'https://kunstmetlaura.nl/';
 const waHref=(text,url)=>'https://wa.me/?text='+encodeURIComponent(text+'\n'+(url||SITE()));
 function shareBtn(kind,text,url,label,cls){ return `<a class="btn wa-btn ${cls||''}" href="${waHref(text,url)}" target="_blank" rel="noopener" onclick="shareTrack('${kind}')"><span class="wa-ic" aria-hidden="true"></span>${label||'Deel via WhatsApp'}</a>`; }
 function shareTrack(kind){ try{ tr('share',kind); }catch(e){} st.shares=(st.shares||0)+1; save(); }
