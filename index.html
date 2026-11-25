@@ -5856,7 +5856,11 @@ let ob = {s:0};
 const WOW_ON = true;
 const WOW={step:0,miss:0,au:null};
 function wowLoad(){ if(window.WOWVOX||WOW.loading) return; WOW.loading=1; const sc=document.createElement('script'); sc.src='vox/wow.js?v='+VOXV; document.head.appendChild(sc); }
-function wowSay(k){ try{ if(WOW.au){ WOW.au.pause(); } if(!auOn()||!window.WOWVOX||!WOWVOX[k]) return; WOW.au=new Audio('data:audio/mpeg;base64,'+WOWVOX[k]); WOW.auP=WOW.au.play(); WOW.auP&&WOW.auP.catch(()=>{}); }catch(e){} }
+/* via de (al ontgrendelde) Web Audio-context: werkt op iPhone ook zonder nieuwe tik */
+function wowStop(){ try{ if(WOW.src){ WOW.src.onended=null; WOW.src.stop(); } }catch(e){} WOW.src=null; }
+function wowSay(k,cb){ const done=ok=>{ try{ cb&&cb(ok); }catch(e){} }; try{ wowStop(); if(!auOn()||!window.WOWVOX||!WOWVOX[k]||!auInit()) return done(false);
+  try{ auResume&&auResume(); }catch(e){} const bin=atob(WOWVOX[k]), arr=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) arr[i]=bin.charCodeAt(i);
+  AU.ctx.decodeAudioData(arr.buffer,buf=>{ const s=AU.ctx.createBufferSource(); s.buffer=buf; s.connect(AU.ctx.destination); s.onended=()=>{ if(WOW.src===s){ WOW.src=null; done(true); } }; WOW.src=s; s.start(); },()=>done(false)); }catch(e){ done(false); } }
 function wowStart(){ WOW.step=0; WOW.miss=0; wowLoad(); wowView(); }
 function wowShell(inner,dots){ $(`<div class="wow">${inner}<div class="wow-dots">${[0,1,2,3,4].map(i=>`<i class="${i<=dots?'on':''}"></i>`).join('')}</div></div>`); const n=document.getElementById('nav'); if(n) n.style.display='none'; }
 function wowView(){ const S=WOW.step;
@@ -5886,15 +5890,11 @@ function wowTap(e){ const el=document.getElementById('wowp'), r=el.getBoundingCl
 function wowReveal(){ const k=document.getElementById('wowsk'); if(!k||k.classList.contains('fixed')) return; k.classList.add('fixed'); wowSay('w4');
   const b=document.getElementById('wowbtn'); if(b){ b.textContent='Verder →'; b.onclick=()=>{ WOW.step=3; wowView(); wowSay('w5'); }; }
   setTimeout(()=>{ const s=document.getElementById('wows'); if(s) s.insertAdjacentHTML('afterend','<p class="wow-q wow-pop">Een schedel. Een <b>memento mori</b>: hoe rijk en machtig je ook bent, de dood kijkt altijd mee.</p>'); },1500); }
-function wowAns(b,c){ document.querySelectorAll('.wow-opts .btn').forEach(x=>x.disabled=true); b.classList.add(c?'ok':'bad');
+function wowAns(b,c){ let gone=false; const go=()=>{ if(gone||WOW.step!==3) return; gone=true; WOW.step=4; wowView(); setTimeout(()=>wowSay('w7'),400); }; document.querySelectorAll('.wow-opts .btn').forEach(x=>x.disabled=true); b.classList.add(c?'ok':'bad');
   if(!c){ const g=[...document.querySelectorAll('.wow-opts .btn')].find(x=>x.textContent==='Dat zijn tijd kostbaar is'); g&&g.classList.add('ok'); }
-  try{ if(c) sfx('bell'); }catch(_){} wowSay(c?'w6':'w6b'); if(c) document.querySelector('.wow').insertAdjacentHTML('beforeend',confHTML(24));
-  let gone=false; const go=()=>{ if(gone||WOW.step!==3) return; gone=true; WOW.step=4; wowView(); setTimeout(()=>wowSay('w7'),400); };
-  const au=WOW.au, pr=WOW.auP; if(au&&pr&&auOn()){ const t0=Date.now();
-    au.addEventListener('ended',()=>setTimeout(go,700),{once:true});
-    pr.then(()=>{ const left=()=>isFinite(au.duration)&&au.duration>0?(au.duration-au.currentTime)*1000:7000; setTimeout(go,Math.max(2600-(Date.now()-t0),left()+1500)); },()=>setTimeout(go,2600)); }
-  else setTimeout(go,2600); }
-function wowEnd(yes){ try{ if(WOW.au) WOW.au.pause(); }catch(e){} st.wowDone=1; if(yes){ st.wowGo=1; }
+  try{ if(c) sfx('bell'); }catch(_){} const t0=Date.now(); wowSay(c?'w6':'w6b',ok=>setTimeout(go,ok?700:Math.max(0,2600-(Date.now()-t0)))); if(c) document.querySelector('.wow').insertAdjacentHTML('beforeend',confHTML(24));
+  setTimeout(go,12000); }
+function wowEnd(yes){ wowStop(); st.wowDone=1; if(yes){ st.wowGo=1; }
   const n=document.getElementById('nav'); if(n) n.style.display=''; save(); if(!st.onb) startOnb(); else hub(); }
 function startOnb(){ try{introLoad();}catch(e){} ob={s:0}; st.view='onb'; render(); }
 function obGo(s){ if(s===2||s===5){ const el=document.getElementById('obname'); if(el){ st.name=el.value.trim().slice(0,30); } if(ob.only){ ob={s:0}; save(); return paths(); } } ob.s=s; onbView(); }
