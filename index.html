@@ -11629,6 +11629,19 @@ initCloud();
 { const _hub=hub; hub=function(...a){ const r=_hub.apply(this,a); if(st.fgPending) setTimeout(()=>{ try{ fgInviteCheck(); }catch(e){} },900); return r; }; }
 try{ const o=new URLSearchParams(location.search).get('open'); if(st.onb&&o==='kvd') setTimeout(()=>kvdView(),700); else if(st.onb&&o==='dq') setTimeout(()=>dqStart(),700); else if(st.fgPending&&st.onb) setTimeout(()=>fgInviteCheck(),1200); }catch(e){}
 
+/* Laura spreekt de begrippen van de startcursus in */
+let INSRC=null;
+function introVoxLoad(){ if(window.INTROVOX||window._inL) return; window._inL=1; const sc=document.createElement('script'); sc.src='vox/intro.js?v='+VOXV; sc.async=true; sc.onerror=()=>{ window._inL=0; }; document.head.appendChild(sc); }
+function introStop(){ try{ if(INSRC){ INSRC.onended=null; INSRC.stop(); musDuck(false); } }catch(e){} INSRC=null; }
+function introSpeak(k,tries=0){ introStop(); if(!auOn()) return; if(!window.INTROVOX){ introVoxLoad(); if(tries<12) setTimeout(()=>{ if((k==='done'?st.view==='introDone':st.view==='intro'&&INTRO[IN.i]&&INTRO[IN.i].id===k)) introSpeak(k,tries+1); },400); return; }
+  const b64=INTROVOX[k]; if(!b64||!auInit()) return; const bin=atob(b64), arr=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) arr[i]=bin.charCodeAt(i);
+  AU.ctx.decodeAudioData(arr.buffer,buf=>{ if(k==='done'?st.view!=='introDone':st.view!=='intro') return; const s=AU.ctx.createBufferSource(); s.buffer=buf; s.connect(AU.ctx.destination); try{ musDuck(true); }catch(e){} s.onended=()=>{ if(INSRC===s){ INSRC=null; try{ musDuck(false); }catch(e){} } }; INSRC=s; s.start(); },()=>{}); }
+{ const W=(n,f)=>{ const o=window[n]; if(typeof o!=='function') return; window[n]=function(...a){ const r=o.apply(this,a); try{ f(); }catch(e){} return r; }; };
+  W('startIntro',()=>{ introVoxLoad(); introSpeak(INTRO[0].id); });
+  W('introNext',()=>{ if(st.view==='intro') introSpeak(INTRO[IN.i].id); });
+  W('introDone',()=>introSpeak('done'));
+  ['hub','paths','home'].forEach(n=>W(n,introStop)); }
+
 /* ================= METEN: anonieme gebruiksdata (alleen op de echte website) ================= */
 const TRK=(()=>{ let did=null, isNew=false, on=false, Q=[], seen=new Set();
   try{ const u=new URLSearchParams(location.search); if(u.get('notrack')==='1') localStorage.setItem('kml-notrack','1'); const sk=u.get('stats'); if(sk){ localStorage.setItem('kml-statskey',sk); localStorage.setItem('kml-notrack','1'); }
