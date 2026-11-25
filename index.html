@@ -5778,7 +5778,7 @@ function navUpdate(){ navInit(); const v=st.view; document.body.classList.toggle
   document.querySelectorAll('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.k===k)); }
 function showSplash(){ if(window._splashed) return; window._splashed=1; const d=document.createElement('div'); d.id='splash';
   d.innerHTML=`<div class="sp-frame"><svg viewBox="0 0 228 278"><rect class="fr" x="4" y="4" width="220" height="270" rx="2"/><rect class="fr2" x="12" y="12" width="204" height="254"/></svg><div class="sp-pic"><img src="${P('pB')}" alt=""></div></div>
-    <div class="sp-word">Kunst met Laura</div><div class="sp-sub">Leer kijken. Leer lezen wat je ziet.</div><div class="sp-skip">Tik om verder te gaan</div>`;
+    <div class="sp-word">Kunst met Laura</div><div class="sp-sub">Zie wat anderen missen.</div><div class="sp-skip">Tik om verder te gaan</div>`;
   const close=()=>{ if(d.classList.contains('out')) return; d.classList.add('out'); setTimeout(()=>d.remove(),950); };
   d.onclick=close; document.body.appendChild(d); setTimeout(close,3600); }
 
