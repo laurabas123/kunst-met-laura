@@ -3184,7 +3184,8 @@ function rng(seed){ let h=hashS(seed)>>>0; return ()=>{ h^=h<<13; h>>>=0; h^=h>>
 function dqPool(){ const out=[]; for(const t of TRACK_ORDER){ const T=TRACKS[t]; if(!T||T.bundle) continue; T.rounds.forEach((R,r)=>{ if(!R||R.soon) return; (R.q||[]).forEach((q,i)=>{ if(q&&q.in&&q.in.img&&q.opts&&q.opts.length>=3) out.push({t,r,i,played:!!(st.results&&st.results[K(r,t)]&&(i in st.results[K(r,t)]))}); }); }); } return out; }
 function courseQ(t,r,i){ const q=TRACKS[t]&&TRACKS[t].rounds[r]&&TRACKS[t].rounds[r].q[i]; if(!q) return null; return {question:q.question,opts:q.opts,c:q.c,exp:q.exp,img:q.in.img,cap:`${q.in.t} · ${q.in.a}${q.in.y?', '+q.in.y:''}`}; }
 function dqPick(day){ const items=bankDay(day); const wk=weekKey(); const R=rng('dqw'+day+(st.uid||''));
-  const weak=Object.entries(st.weak||{}).filter(([k,d])=>d<day && (()=>{ const [y,m,dd]=String(d).split('-').map(Number); if(!y) return false; const x=new Date(y,m-1,dd); const dow=(x.getDay()+6)%7; x.setDate(x.getDate()-dow); return x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0')===wk; })()).map(([k])=>k);
+  const okd=st.weakOk||{}; const weak=Object.entries(st.weak||{}).filter(([k,d])=>String(d)<day&&!okd[k]).map(([k])=>k);
+  if(weak.length<2){ for(const fk in (st.first||{})){ if(st.first[fk]!==0) continue; const m=fk.match(/^(?:(.+):)?(\d+)\|q\|(\d+)$/); if(!m) continue; const id=(m[1]||'basis')+'|'+m[2]+'|'+m[3]; if(!weak.includes(id)&&!okd[id]) weak.push(id); } }
   const herk=[]; const pool=weak.slice(); while(herk.length<2&&pool.length){ const k=pool.splice(Math.floor(R()*pool.length),1)[0]; const Q=k.startsWith('b|')?bankById(k):(()=>{ const [t,r,i]=k.split('|'); return courseQ(t,+r,+i); })(); if(Q) herk.push({id:k,Q,weak:1}); }
   const fresh=items.slice(0,DQ_N-herk.length); const out=fresh.slice(); if(herk.length===1) out.splice(2,0,herk[0]); else if(herk.length===2){ out.splice(1,0,herk[0]); out.splice(3,0,herk[1]); } return out.slice(0,DQ_N); }
 let DQ=null, dqTimer=null;
@@ -3206,7 +3207,7 @@ function dqView(){ st.view='daily'; const q=dqQ(), a=DQ.ans[DQ.i], x=DQ.items[DQ
    <div class="opts">${q.opts.map((o,k)=>`<button class="opt ${a===undefined?'':k===q.c?'ok':k===a?'bad':'dim'}" ${a!==undefined?'disabled':''} onclick="dqAns(${k})"><span class="l">${'ABCD'[k]}</span><span>${o}</span></button>`).join('')}</div>
    ${a!==undefined?`<div class="card fb ${a===q.c?'good':'bad'}"><b>${a===q.c?'Goed!':'Helaas.'}</b> ${q.exp.split('. ').slice(0,2).join('. ').replace(/<\/?[^>]+>/g,m=>/^<\/?(b|i)>$/.test(m)?m:'')}${/\.$/.test(q.exp.split('. ').slice(0,2).join('. '))?'':'.'}<div class="muted" style="font-size:.8rem;margin-top:6px">${q.cap}</div></div>
    ${nextBar(DQ.i<DQ_N-1?'Volgende vraag →':'Bekijk je score →','dqNext()',a===q.c)}`:''}</div>`); }
-function dqAns(k){ if(!DQ||DQ.ans[DQ.i]!==undefined) return; DQ.ans[DQ.i]=k; const ok=k===dqQ().c; { const x=DQ.items[DQ.i], wk=x.id; if(ok&&st.weak&&st.weak[wk]){ delete st.weak[wk]; setTimeout(()=>toast('🔁 Herkansing geslaagd!'),300); } else if(!ok){ st.weak=st.weak||{}; st.weak[wk]=dqDay(); } } try{ sfx(ok?'bell':'whoosh'); }catch(e){} if(ok) xpAdd(10); dqView();
+function dqAns(k){ if(!DQ||DQ.ans[DQ.i]!==undefined) return; DQ.ans[DQ.i]=k; const ok=k===dqQ().c; { const x=DQ.items[DQ.i], wk=x.id; if(ok&&x.weak){ if(st.weak) delete st.weak[wk]; (st.weakOk=st.weakOk||{})[wk]=1; setTimeout(()=>toast('🔁 Herkansing geslaagd!'),300); } else if(!ok){ st.weak=st.weak||{}; st.weak[wk]=dqDay(); if(st.weakOk) delete st.weakOk[wk]; } } try{ sfx(ok?'bell':'whoosh'); }catch(e){} if(ok) xpAdd(10); dqView();
   setTimeout(()=>{ const f=document.querySelector('.dq .fb'); if(f) f.scrollIntoView({behavior:'smooth',block:'center'}); },60); }
 function dqNext(){ if(DQ.i<DQ_N-1){ DQ.i++; dqView(); scrollTo(0,0); } else dqFinish(); }
 function dqQuit(){ if(!DQ||!DQ.ans.length){ clearInterval(dqTimer); DQ=null; return hub(); }
@@ -3384,7 +3385,7 @@ function chestCardHub(){ const n=st.chests||0; if(!n) return ''; return `<button
 /* ---------- gouden vragen ---------- */
 const GOLD={};
 function ansReward(ok,kind){ const gk=goldKey(), gold=GOLD[gk]===true; const wk=curT()+'|'+st.r+'|'+st.i; st.weak=st.weak||{};
-  if(kind==='q'){ if(ok) delete st.weak[wk]; else st.weak[wk]=dqDay(); }
+  if(kind==='q'){ if(ok) delete st.weak[wk]; else { st.weak[wk]=dqDay(); if(st.weakOk) delete st.weakOk[wk]; } }
   if(!ok){ xpAdd(2); return; } questEv('correct');
   let x=10; if(st.goldBoost>0){ x*=2; st.goldBoost--; } if(gold){ x=50; questEv('gold'); if(Math.random()<.5) setTimeout(()=>chestAdd(1,'gouden vraag'),900); }
   xpAdd(x, gold?'gouden vraag':(x===20?'boost':'')); }
