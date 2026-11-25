@@ -3844,7 +3844,7 @@ let NAPSRC=null;
 function napSpeak(k){ try{ if(NAPSRC){ NAPSRC.onended=null; NAPSRC.stop(); } }catch(e){} NAPSRC=null; if(!auOn()||!auInit()||!window.NAPVOX||!NAPVOX[k]) return;
   const bin=atob(NAPVOX[k]), arr=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) arr[i]=bin.charCodeAt(i);
   AU.ctx.decodeAudioData(arr.buffer,buf=>{ const s=AU.ctx.createBufferSource(); s.buffer=buf; s.connect(AU.ctx.destination); musDuck(true); s.onended=()=>{ if(NAPSRC===s){ NAPSRC=null; musDuck(false); } }; NAPSRC=s; s.start(); },()=>{}); }
-var VOXV='20261125s';
+var VOXV='20261125t';
 function napLoad(){ if(window.NAPVOX||window._napL) return; window._napL=1; const s=document.createElement('script'); s.src='vox/napoleon.js?v='+VOXV; s.async=true; s.onerror=()=>{window._napL=0;}; document.head.appendChild(s); }
 const NAPL={
  n1:'<b>Bonjour, lieve testers!</b> Ik ben Napoleon Bonaparte. Laura heeft mij gevraagd of ik leuk nieuws met jullie wilde delen.',
@@ -3992,9 +3992,9 @@ function kvdZoom(){ const T=kvdToday(); const d=document.createElement('div'); d
 function kvdAns(j){ const T=kvdToday(); if(T.K.ans!==undefined) return; T.K.ans=j; const ok=j===T.Q.c; if(ok){ st.kvdWon=st.kvdWon||{}; st.kvdWon[T.im[0]]={t:T.im[1],a:T.im[2],y:T.im[3],s:T.S.n,at:Date.now()}; xpAdd(15,'goed gezien'); } save(); try{ sfx(ok?'bell':'whoosh'); }catch(e){} kvdView(); }
 function kvdRoomHTML(){ const W=Object.entries(st.kvdWon||{}); return `<h3 class="rgroup">🖼️ Zaal van de dagwerken <span class="muted" style="font-size:.8rem">· ${W.length}</span></h3>${W.length?`<div class="mus-wall">${W.map(([k,v])=>`<div class="mus-slot on"><img src="${symImg(k)}" alt=""><small>${v.a}</small></div>`).join('')}</div>`:`<p class="muted" style="font-size:.85rem">Elk kunstwerk van de dag dat je goed bekijkt, krijgt hier een plek. Elke dag één nieuwe kans.</p>`}`; }
 /* ---------- welkom-terug-kist ---------- */
-function welcomeChest(daysAway){ chestAdd(1,'welkom terug'); const G=GUIDES.laura; const m=document.createElement('div'); m.className='lb gl-modal kcel';
+function welcomeChest(daysAway){ chestAdd(1,'welkom terug'); const G=GUIDES.laura; const m=document.createElement('div'); m.className='lb gl-modal kcel'; m.dataset.vox='guides|welcome_back';
   m.innerHTML=`${confHTML(26)}<div class="gl-box guide-box in-done" onclick="event.stopPropagation()"><div class="gb-fig kc-fig">${G.svg(0,false,true)}</div>
-   <div class="ob-bubble"><b>Welkom terug${st.name?', '+esc(st.name):''}!</b> Wat fijn dat je er weer bent. Je was ${daysAway} dagen weg, dus ik heb iets voor je klaargezet: een <b>welkom-terug-kist</b>. 🎁</div>
+   <div class="ob-bubble"><b>Welkom terug${st.name?', '+esc(st.name):''}!</b> Wat fijn dat je er weer bent. Je was een tijdje weg, dus ik heb iets voor je klaargezet: een <b>welkom-terug-kist</b>. 🎁</div>
    <button class="btn primary big" onclick="this.closest('.lb').remove();chestOpen()">Open de kist</button><button class="btn" style="margin-top:8px" onclick="this.closest('.lb').remove()">Later</button></div>`; qModal(m); try{ sfx(['magic','bell']); }catch(e){} }
 
 /* ================= GIDSEN: complimenten, weetjes, band en beloningen ================= */
@@ -4155,7 +4155,7 @@ const TIPS={
  oracle:['Vraag het Laura','Vergeten waar een symbool voor stond? Typ het hier, bijvoorbeeld ‘handschoenen’ of ‘wat betekent een schedel’. Ik zoek het voor je op, met een schilderij erbij.']
 };
 function lauraTip(k){ st.tips=st.tips||{}; if(st.tips[k]||!TIPS[k]) return; st.tips[k]=1; save(); const [t,x]=TIPS[k];
-  const m=document.createElement('div'); m.className='lb tipm'; m.innerHTML=`<div class="tip-card"><div class="tip-av">${lauraSVG(0,true)}</div><div><small>Laura legt uit</small><b>${t}</b><p>${x}</p><button class="btn primary" onclick="this.closest('.lb').remove()">Snap ik</button></div></div>`;
+  const m=document.createElement('div'); m.className='lb tipm'; m.dataset.vox='guides|tip_'+k; m.innerHTML=`<div class="tip-card"><div class="tip-av">${lauraSVG(0,true)}</div><div><small>Laura legt uit</small><b>${t}</b><p>${x}</p><button class="btn primary" onclick="this.closest('.lb').remove()">Snap ik</button></div></div>`;
   setTimeout(()=>qModal(m),450); }
 const DEFER=[];
 function midLesson(){ if(st.view==='q'&&st.i===0&&!Object.keys(res(st.r)).length) return false; return !window.ROUND_END && ['q','big','kq','match','who','tl'].includes(st.view); }
@@ -4204,7 +4204,7 @@ function bondLevelUp(k,lv){ const g=k, G=GUIDES[g], L=BOND_LV[lv].n, nm=st.name?
   const sec=GLINES[g].secrets[lv-1]; st.cards=st.cards||{}; st.cards[g+':s'+(lv-1)]=Date.now(); save();
   const B = lv===2 ? freshArt(g==='laura'?['basis','rijks','maur']:g==='rembrandt'?['hg']:g==='durer'?['mix','n3']:['deugden','bijbel','myth','ge','kenner']) : null;
   const o = B ? winArt(B) : null;
-  const m=document.createElement('div'); m.className='lb gl-modal kcel rwd'; if(g==='zeus') m.dataset.vox='guides|bond_zeus_'+lv;
+  const m=document.createElement('div'); m.className='lb gl-modal kcel rwd'; if(g==='zeus'||g==='laura') m.dataset.vox='guides|bond_'+g+'_'+lv;
   m.innerHTML=`${confHTML(30)}<div class="gl-box guide-box in-done" onclick="event.stopPropagation()"><div class="eyebrow center">Jullie band groeit</div>
     <div class="rw-stage"><div class="rw-g kc-fig">${G.svg(0,false,true)}</div>${o?`<div class="rw-frame"><img src="${P(o.img)}" alt="${o.t}"><i class="rw-shine"></i></div>`:''}</div>
     <div class="bl-badge">${['🤝','🎨','💛'][lv]} ${L}</div>
@@ -4296,7 +4296,7 @@ function symNext(){ st.symDeck=(st.symDeck||[]).filter(i=>i<SYMB.length); if(!st
 const symOpen=()=>basisDone()||st.beta||!!st.symUnl;
 function symLockedModal(){ const R=TRACKS.basis.rounds, d=R.filter((_,i)=>roundComplete(i,'basis')).length; const m=document.createElement('div'); m.className='lb gl-modal'; m.onclick=()=>m.remove();
   m.innerHTML=`<div class="gl-box guide-box" onclick="event.stopPropagation()"><div class="gb-fig">${lauraSVG(0,false)}</div><div class="ob-bubble">Symbolen raden kan zodra je <b>Deel 1 · De basis</b> hebt afgerond. Dan ken je genoeg symbolen om het zelf te proberen!<br><br>Je hebt nu <b>${d} van ${R.length}</b> lessen af.</div><button class="btn primary big" onclick="this.closest('.lb').remove();pathMode='course';routeTab='symb';chooseTrack('basis')">Naar De basis →</button><button class="btn" style="margin-top:8px" onclick="this.closest('.lb').remove()">Sluiten</button></div>`; document.body.appendChild(m); }
-function symUnlockedModal(){ const m=document.createElement('div'); m.className='lb gl-modal'; m.onclick=()=>m.remove(); m.innerHTML=`<div class="gl-box guide-box in-done" onclick="event.stopPropagation()"><div class="gb-fig">${lauraSVG(0,false,true)}</div><div class="ob-bubble"><b>Nieuw ontgrendeld!</b> Je hebt De basis afgerond, dus nu kun je symbolen zelf raden. Hoe lang wordt jouw strike?</div><button class="btn primary big" onclick="this.closest('.lb').remove();startSym()">Probeer het →</button></div>`; document.body.appendChild(m); }
+function symUnlockedModal(){ const m=document.createElement('div'); m.className='lb gl-modal'; m.onclick=()=>m.remove(); m.innerHTML=`<div class="gl-box guide-box in-done" onclick="event.stopPropagation()"><div class="gb-fig">${lauraSVG(0,false,true)}</div><div class="ob-bubble"><b>Nieuw ontgrendeld!</b> Je hebt De basis afgerond, dus nu kun je symbolen zelf raden. Hoe lang wordt jouw reeks?</div><button class="btn primary big" onclick="this.closest('.lb').remove();startSym()">Probeer het →</button></div>`; document.body.appendChild(m); }
 function startSym(){ if(!symOpen()) return symLockedModal(); symLoad(); if(!SYMQ||SYMQ.a!==null) symNext(); st.view='sym'; symView(); }
 const SYM_STOP=new Set('de het een en van in of op met voor door ook die dat is te aan naar sint st heilige ware als wat zijn'.split(' '));
 const SYM_WEAK=new Set(['christus','jezus','maria','god','gods','kerk','hemel','leven']);
@@ -4785,7 +4785,7 @@ const VOXBUF={}; let VOXSRC=null;
 function voxLoad(sid){ if((window.VOX&&window.VOX[sid])||(window._voxL||{})[sid]) return; window._voxL=window._voxL||{}; window._voxL[sid]=1; const s=document.createElement('script'); s.src='vox/'+sid+'.js?v='+VOXV; s.async=true; s.onerror=()=>{window._voxL[sid]=0;}; document.head.appendChild(s); }
 window.voxLoaded=sid=>{};
 function speak(sid,html,free){ speakStop(); if(!auOn()||!auInit()) return; const t=voxNorm(html), d=window.VOX&&window.VOX[sid]; if(!d||!d[t]) return;
-  const k=sid+'|'+t; const play=buf=>{ if(!free&&(!STQ||!cur_lines().includes(t))) return; if(free&&!document.querySelector(free==='end'?'.story-end':'.guide-box')) return; const src=AU.ctx.createBufferSource(); src.buffer=buf; const g=AU.ctx.createGain(); g.gain.value=1.0; src.connect(g); g.connect(AU.ctx.destination); musDuck(true); src.onended=()=>{ if(VOXSRC===src){ VOXSRC=null; musDuck(false); } }; VOXSRC=src; src.start(); };
+  const k=sid+'|'+t; const play=buf=>{ if(!free&&(!STQ||!cur_lines().includes(t))) return; if(free&&!document.querySelector(free==='end'?'.story-end':'.guide-box,.tip-card')) return; const src=AU.ctx.createBufferSource(); src.buffer=buf; const g=AU.ctx.createGain(); g.gain.value=1.0; src.connect(g); g.connect(AU.ctx.destination); musDuck(true); src.onended=()=>{ if(VOXSRC===src){ VOXSRC=null; musDuck(false); } }; VOXSRC=src; src.start(); };
   if(VOXBUF[k]) return play(VOXBUF[k]);
   const bin=atob(d[t]), arr=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) arr[i]=bin.charCodeAt(i);
   AU.ctx.decodeAudioData(arr.buffer,buf=>{ VOXBUF[k]=buf; play(buf); },()=>{}); }
@@ -4891,8 +4891,8 @@ function storyLocked(id){ const S=storyById(id); if(STORY_EARN[id]){ const E=STO
 function storyUnlock(id){ if(storyCredits()<=0) return; st.storyUnl=st.storyUnl||{}; st.storyUnl[id]=Date.now(); save(); const S=storyById(id);
   rewardModal(S.who in GUIDES?S.who:'laura','Nieuw verhaal vrijgespeeld!',`Het levensverhaal van <b>${S.t}</b> staat nu voor je klaar. Veel plezier!`,null); if(st.view==='stories') storiesView(); }
 function storyChoiceModal(){ if(storyCredits()<=0) return; const L=STORIES.filter(S=>!storyIsOpen(S.id)&&!STORY_EARN[S.id]); if(!L.length) return; const nm=st.name?`, ${st.name}`:'';
-  const m=document.createElement('div'); m.className='lb gl-modal kcel';
-  m.innerHTML=`${confHTML(30)}<div class="gl-box guide-box in-done" onclick="event.stopPropagation()"><div class="eyebrow center">Beloning: een nieuw levensverhaal</div><div class="ob-bubble">Gefeliciteerd${nm}! Je hebt <b>Symboliek in de Kunst · De basis</b> helemaal afgerond. Kies zelf welk verhaal je vrijspeelt:</div>
+  const m=document.createElement('div'); m.className='lb gl-modal kcel'; m.dataset.vox='guides|story_choice';
+  m.innerHTML=`${confHTML(30)}<div class="gl-box guide-box in-done" onclick="event.stopPropagation()"><div class="eyebrow center">Beloning: een nieuw levensverhaal</div><div class="ob-bubble">Gefeliciteerd${nm}! Je hebt <b>De basis</b> helemaal afgerond. Kies zelf welk verhaal je vrijspeelt:</div>
    <div class="sch-list">${L.map(S=>`<button class="sch" style="--sc:${S.col}" onclick="this.closest('.lb').remove();storyUnlock('${S.id}')"><span class="sch-f">${scSVG(S.who,0,true)}</span><span><b>${S.t}</b><small>${S.sub}</small></span></button>`).join('')}</div>
    <button class="btn" style="margin-top:8px" onclick="this.closest('.lb').remove()">Later kiezen</button></div>`; qModal(m); try{ sfx(['fanfare']); }catch(e){} }
 function storiesGift(){ st.tips=st.tips||{}; if(st.tips.stories) return; st.tips.stories=1; save(); const nm=st.name?`, ${st.name}`:'';
