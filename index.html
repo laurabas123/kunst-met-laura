@@ -3396,7 +3396,7 @@ function guideModal(g,html){ const G=GUIDES[g]; const d=document.createElement('
     <div class="eyebrow center">${G.name} · ${G.role}</div><div class="ob-bubble">${html}</div>
     <button class="btn primary big" onclick="speakStop();this.closest('.lb').remove()">Laten we beginnen →</button></div>`;
   document.body.appendChild(d); }
-function helloSay(g,n){ n=n||0; voxLoad('guides'); if(window.VOX&&VOX.guides){ if(VOX.guides['hello_'+g]){ try{ auResume(); }catch(e){} speak('guides','hello_'+g,true); } return; } if(n<30) setTimeout(()=>helloSay(g,n+1),150); }
+function helloSay(g,n){ n=n||0; voxLoad('guides'); if(window.VOX&&VOX.guides){ const k=g==='zeus'&&st.gseen&&st.gseen['g:catharina']?'hello_zeus2':'hello_'+g; if(VOX.guides[k]){ try{ auResume(); }catch(e){} if(g==='zeus'){ try{ sfx('thunder'); }catch(e){} setTimeout(()=>{ if(document.querySelector('.guide-box')) speak('guides',k,true); },1300); } else speak('guides',k,true); } return; } if(n<30) setTimeout(()=>helloSay(g,n+1),150); }
 function maybeGuide(){ const v=st.view; if(!(v==='q'||v==='big')||!diffOf()||!st.t||document.querySelector('.guide-box')) return;
   st.gseen=st.gseen||{}; const g=guideOf(), nm=st.name?`, ${st.name}`:''; const parts=[];
   let hi=false; if(!st.gseen['g:'+g]){ parts.push(GHELLO[g](nm)); st.gseen['g:'+g]=1; hi=true; }
@@ -3807,7 +3807,7 @@ let NAPSRC=null;
 function napSpeak(k){ try{ if(NAPSRC){ NAPSRC.onended=null; NAPSRC.stop(); } }catch(e){} NAPSRC=null; if(!auOn()||!auInit()||!window.NAPVOX||!NAPVOX[k]) return;
   const bin=atob(NAPVOX[k]), arr=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) arr[i]=bin.charCodeAt(i);
   AU.ctx.decodeAudioData(arr.buffer,buf=>{ const s=AU.ctx.createBufferSource(); s.buffer=buf; s.connect(AU.ctx.destination); musDuck(true); s.onended=()=>{ if(NAPSRC===s){ NAPSRC=null; musDuck(false); } }; NAPSRC=s; s.start(); },()=>{}); }
-var VOXV='20261125l';
+var VOXV='20261125m';
 function napLoad(){ if(window.NAPVOX||window._napL) return; window._napL=1; const s=document.createElement('script'); s.src='vox/napoleon.js?v='+VOXV; s.async=true; s.onerror=()=>{window._napL=0;}; document.head.appendChild(s); }
 const NAPL={
  n1:'<b>Bonjour, lieve testers!</b> Ik ben Napoleon Bonaparte. Laura heeft mij gevraagd of ik leuk nieuws met jullie wilde delen.',
