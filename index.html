@@ -655,6 +655,17 @@ body:has(.nxbar) .wrap,body:has(.nxbar) .dq{padding-bottom:110px}.nxbar.bad .nx-
 .vc-hint.out{opacity:0;transition:opacity .4s}.vc-hint b{display:inline-block;font-size:1.1rem;margin-right:42px;animation:vcBob 1s ease-in-out infinite}
 @keyframes vcBob{0%,100%{transform:translateY(4px)}50%{transform:translateY(-5px)}}@keyframes vcIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.vc-hint b{animation:none}}
+.wo-scene{position:relative;height:300px;margin:-6px -4px 4px;overflow:hidden;border-radius:18px;background:radial-gradient(90% 80% at 62% 10%,#2b3767 0%,#18203f 55%,#10152b 100%)}
+.wo-beam{position:absolute;left:62%;top:-30px;width:260px;height:300px;transform:translateX(-50%);background:radial-gradient(50% 65% at 50% 0%,rgba(255,226,160,.42),rgba(255,226,160,0) 72%);animation:woBeam .9s ease-out .15s both}
+.wo-frame{position:absolute;left:62%;top:34px;width:150px;margin:0;transform:translateX(-50%);padding:9px;background:linear-gradient(145deg,#b88d3e,#ecd08a 45%,#8a6526);border-radius:3px;box-shadow:0 18px 40px rgba(0,0,0,.55);animation:woIn .6s ease-out both}
+.wo-frame img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover}
+.wo-timer{position:absolute;left:50%;bottom:-34px;transform:translateX(-50%);white-space:nowrap;padding:5px 11px;border-radius:999px;background:#f1ece0;color:#1d1a16;font-size:.82rem;font-weight:600;animation:woIn .4s ease-out .45s both}.wo-timer b{font-variant-numeric:tabular-nums}
+.wo-laura{position:absolute;left:4%;bottom:-6px;width:128px;height:192px;animation:woWalk .9s cubic-bezier(.3,.7,.4,1) .1s both}.wo-laura svg{width:100%;height:100%;animation:woSway 3s ease-in-out 1.1s infinite;transform-origin:50% 100%}
+.wo-floor{position:absolute;left:0;right:0;bottom:0;height:34px;background:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.35))}
+.wo-txt>*{animation:woUp .45s ease-out both}.wo-txt>:nth-child(2){animation-delay:.35s}.wo-txt>:nth-child(3){animation-delay:.6s}.wo-txt>:nth-child(4){animation-delay:.85s}
+@keyframes woIn{from{opacity:0;transform:translateX(-50%) translateY(8px)}to{opacity:1;transform:translateX(-50%)}}@keyframes woBeam{0%{opacity:0}30%{opacity:.9}45%{opacity:.3}100%{opacity:1}}
+@keyframes woWalk{from{transform:translateX(-160px)}to{transform:none}}@keyframes woSway{0%,100%{transform:rotate(0)}50%{transform:rotate(-2deg)}}@keyframes woUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.wo-scene *,.wo-txt>*{animation:none!important}}
 </style>
 </head>
 <body>
@@ -5868,11 +5879,14 @@ function wowSay(k,cb){ const done=ok=>{ try{ cb&&cb(ok); }catch(e){} }; try{ wow
 function wowStart(){ WOW.step=0; WOW.miss=0; wowLoad(); wowView(); }
 function wowShell(inner,dots){ $(`<div class="wow">${inner}<div class="wow-dots">${[0,1,2,3,4].map(i=>`<i class="${i<=dots?'on':''}"></i>`).join('')}</div></div>`); const n=document.getElementById('nav'); if(n) n.style.display='none'; }
 function wowView(){ const S=WOW.step;
-  if(S===0) return wowShell(`<div class="wow-hero"><div class="wow-av">${lauraSVG(0,true)}</div>
-      <p class="wow-hi">Hoi, ik ben Laura.</p>
+  if(S===0){ wowShell(`<div class="wo-scene" aria-hidden="true"><div class="wo-beam"></div>
+      <figure class="wo-frame"><img src="${P('pB')}" alt=""><span class="wo-timer">⏱ <b id="wocnt">0</b> sec</span></figure>
+      <div class="wo-laura">${lauraSVG(0,false)}</div><div class="wo-floor"></div></div>
+      <div class="wow-hero wo-txt"><p class="wow-hi">Hoi, ik ben Laura.</p>
       <h1>Wist je dat museumbezoekers gemiddeld maar 27&nbsp;seconden naar een schilderij kijken?</h1>
       <p class="wow-sub">Zo mis je bijna alle geheimen die de schilder erin verstopte. Laat me je er eentje zien.</p>
       <button class="btn primary big" onclick="WOW.step=1;wowView();wowSay('w1')">Laat het me zien</button></div>`,0);
+    const t0=performance.now(), el=document.getElementById('wocnt'); const tick=now=>{ if(!el.isConnected) return; const k=Math.min(1,(now-t0-500)/1500); el.textContent=Math.max(0,Math.round(27*(k<0?0:1-Math.pow(1-k,3)))); if(k<1) requestAnimationFrame(tick); }; requestAnimationFrame(tick); return; }
   if(S===1) return wowShell(`<p class="wow-q">Zie jij wat hier niet klopt? <b>Tik op de plek waar je het ziet!</b></p>
       <div class="wow-paint" id="wowp" onclick="wowTap(event)"><img src="img/amb900.jpg" alt="Hans Holbein, De ambassadeurs (1533)"><span class="wow-hint ${WOW.miss>=2?'on':''}"></span></div>
       <p class="wow-cap">Hans Holbein de Jonge, <i>De ambassadeurs</i>, 1533</p>`,1);
