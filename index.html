@@ -662,7 +662,9 @@ body:has(.nxbar) .wrap,body:has(.nxbar) .dq{padding-bottom:110px}.nxbar.bad .nx-
 .wo-timer{position:absolute;left:50%;bottom:-34px;transform:translateX(-50%);white-space:nowrap;padding:5px 11px;border-radius:999px;background:#f1ece0;color:#1d1a16;font-size:.82rem;font-weight:600;animation:woIn .4s ease-out .45s both}.wo-timer b{font-variant-numeric:tabular-nums}
 .wo-laura{position:absolute;left:4%;bottom:-6px;width:128px;height:192px;animation:woWalk .9s cubic-bezier(.3,.7,.4,1) .1s both}.wo-laura svg{width:100%;height:100%;animation:woSway 3s ease-in-out 1.1s infinite;transform-origin:50% 100%}
 .wo-floor{position:absolute;left:0;right:0;bottom:0;height:34px;background:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.35))}
-.wo-txt>*{animation:woUp .45s ease-out both}.wo-txt>:nth-child(2){animation-delay:.35s}.wo-txt>:nth-child(3){animation-delay:.6s}.wo-txt>:nth-child(4){animation-delay:.85s}
+.wo-txt>*{animation:woUp .5s ease-out both}.wo-txt>:nth-child(1){animation-delay:.5s}.wo-txt>:nth-child(2){animation-delay:.8s}.wo-txt>:nth-child(3){animation-delay:1.9s}.wo-txt>:nth-child(4){animation-delay:2.5s}
+.wo-laura .blink ellipse{animation:woLook .5s ease-in-out 1.1s both}@keyframes woLook{from{transform:none}to{transform:translate(2.6px,-1.4px)}}
+.wo-glint{position:absolute;left:68%;top:26%;width:16px;height:16px;margin:-8px;background:radial-gradient(circle,#fff 0 18%,rgba(255,236,180,.9) 30%,rgba(255,236,180,0) 70%);border-radius:50%;opacity:0;animation:woGlint 2.4s ease-in-out 2.2s infinite}@keyframes woGlint{0%,100%{opacity:0;transform:scale(.4)}45%{opacity:1;transform:scale(1.3)}60%{opacity:.8;transform:scale(1)}}
 @keyframes woIn{from{opacity:0;transform:translateX(-50%) translateY(8px)}to{opacity:1;transform:translateX(-50%)}}@keyframes woBeam{0%{opacity:0}30%{opacity:.9}45%{opacity:.3}100%{opacity:1}}
 @keyframes woWalk{from{transform:translateX(-160px)}to{transform:none}}@keyframes woSway{0%,100%{transform:rotate(0)}50%{transform:rotate(-2deg)}}@keyframes woUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.wo-scene *,.wo-txt>*{animation:none!important}}
@@ -5880,13 +5882,13 @@ function wowStart(){ WOW.step=0; WOW.miss=0; wowLoad(); wowView(); }
 function wowShell(inner,dots){ $(`<div class="wow">${inner}<div class="wow-dots">${[0,1,2,3,4].map(i=>`<i class="${i<=dots?'on':''}"></i>`).join('')}</div></div>`); const n=document.getElementById('nav'); if(n) n.style.display='none'; }
 function wowView(){ const S=WOW.step;
   if(S===0){ wowShell(`<div class="wo-scene" aria-hidden="true"><div class="wo-beam"></div>
-      <figure class="wo-frame"><img src="${P('pB')}" alt=""><span class="wo-timer">⏱ <b id="wocnt">0</b> sec</span></figure>
+      <figure class="wo-frame"><img src="${P('pB')}" alt=""><i class="wo-glint"></i><span class="wo-timer">⏱ <b id="wocnt">0</b> sec</span></figure>
       <div class="wo-laura">${lauraSVG(0,false)}</div><div class="wo-floor"></div></div>
       <div class="wow-hero wo-txt"><p class="wow-hi">Hoi, ik ben Laura.</p>
       <h1>Wist je dat museumbezoekers gemiddeld maar 27&nbsp;seconden naar een schilderij kijken?</h1>
       <p class="wow-sub">Zo mis je bijna alle geheimen die de schilder erin verstopte. Laat me je er eentje zien.</p>
       <button class="btn primary big" onclick="WOW.step=1;wowView();wowSay('w1')">Laat het me zien</button></div>`,0);
-    const t0=performance.now(), el=document.getElementById('wocnt'); const tick=now=>{ if(!el.isConnected) return; const k=Math.min(1,(now-t0-500)/1500); el.textContent=Math.max(0,Math.round(27*(k<0?0:1-Math.pow(1-k,3)))); if(k<1) requestAnimationFrame(tick); }; requestAnimationFrame(tick); return; }
+    const t0=performance.now(), el=document.getElementById('wocnt'); const tick=now=>{ if(!el.isConnected) return; const k=Math.min(1,(now-t0-600)/2000); el.textContent=Math.max(0,Math.round(27*(k<0?0:1-Math.pow(1-k,3)))); if(k<1) requestAnimationFrame(tick); }; requestAnimationFrame(tick); return; }
   if(S===1) return wowShell(`<p class="wow-q">Zie jij wat hier niet klopt? <b>Tik op de plek waar je het ziet!</b></p>
       <div class="wow-paint" id="wowp" onclick="wowTap(event)"><img src="img/amb900.jpg" alt="Hans Holbein, De ambassadeurs (1533)"><span class="wow-hint ${WOW.miss>=2?'on':''}"></span></div>
       <p class="wow-cap">Hans Holbein de Jonge, <i>De ambassadeurs</i>, 1533</p>`,1);
