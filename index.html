@@ -3721,7 +3721,7 @@ const CAM={pend:null, hits:{}, done:{}, wrong:0, encUsed:false};
 function camGuide(){ return st.view==='sym' ? 'laura' : guideOf(curT()==='kenner'?'kenner':st.t); }
 function camKey(){ return st.view==='sym' ? 'sym|'+Math.floor((st.symN||0)/12) : (st.t||'x')+'|'+st.r; }
 function cameoNote(ok){ if(st.quiet) return; const g=camGuide();
-  if(!ok){ CAM.wrong++; if(CAM.wrong>=3 && !CAM.encUsed){ CAM.encUsed=true; CAM.wrong=0; CAM.pend={g,type:'enc'}; } return; }
+  if(!ok){ CAM.wrong++; const k0=camKey(); if(CAM.wrong>=3 && !CAM.encUsed && !CAM.done[k0]){ CAM.encUsed=true; CAM.done[k0]=true; CAM.wrong=0; CAM.pend={g,type:'enc'}; } return; }
   CAM.wrong=0; const k=camKey(); if(CAM.done[k]) return; CAM.hits[k]=(CAM.hits[k]||0)+1;
   const target=2+(hashS(k)%2); if(CAM.hits[k]<target) return; CAM.done[k]=true;
   st.cAlt=!st.cAlt; const wantFact=st.cAlt && nextFact(g)>=0; CAM.pend={g,type:wantFact?'fact':'praise'}; save(); }
