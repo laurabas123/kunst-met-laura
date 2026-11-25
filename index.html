@@ -1100,7 +1100,7 @@ load();
 const L = ['A','B','C','D','E'];
 const $ = h => { const a=document.getElementById('app'); a.innerHTML=h; a.firstElementChild&&a.firstElementChild.classList.add('fade'); try{ navUpdate(); }catch(e){} try{ goldDecorate(); }catch(e){} try{ setTimeout(flushDefer,50); }catch(e){} window.scrollTo({top:0,behavior:'smooth'}); save(); setTimeout(()=>{ if(typeof maybeGuide==='function') maybeGuide(); },350); setTimeout(()=>{ try{ cameoFlush(); }catch(e){} },1100); };
 const BLANK='data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
-const P = k => { if(window.IMG&&window.IMG[k]) return window.IMG[k]; if(/^n3_/.test(k)){ ensureBundle('n3'); return BLANK; } const m=EXTRA_MUSEUMS.find(m=>m.bre.test(k)); if(!m) return 'img/'+k+'.jpg?v=3';
+const P = k => { if(window.IMG&&window.IMG[k]) return window.IMG[k]; if(/^n3_/.test(k)){ ensureBundle('n3'); return BLANK; } if(/^yy[0-9]/.test(k)){ ensureBundle('yy'); return BLANK; } const m=EXTRA_MUSEUMS.find(m=>m.bre.test(k)); if(!m) return 'img/'+k+'.jpg?v=3';
   const cur=TRACKS[st.t]&&TRACKS[st.t].bundle; if(cur && cur!==m.bundle && BUNDLES[cur]!=='ok') return BLANK; ensureBundle(m.bundle); return BLANK; };
 const BUNDLES={};
 function ensureBundle(id){ if(BUNDLES[id]) return; BUNDLES[id]='loading'; const s=document.createElement('script'); s.src='img/mus_'+id+'.js?v=3'; s.async=true; s.onerror=()=>{BUNDLES[id]=null;}; document.head.appendChild(s); }
