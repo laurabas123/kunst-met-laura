@@ -3813,7 +3813,7 @@ function roundMilestones(r){ const t=st.t, k=t+'|'+r; st.bondR=st.bondR||{}; st.
   if(!st.bondR[k]){ st.bondR[k]=1; bondAdd(guideOf(t),3); xpAdd(50,'les voltooid'); try{ questEv('round'); }catch(e){} if(!(st.comp&&st.comp.asked)) notiAdd({pri:2,show:()=>setTimeout(()=>{ try{ napoleonScene(); }catch(e){} },600)}); }
   const R=TRACKS[t].rounds.filter(x=>!x.soon), n=R.length, done=TRACKS[t].rounds.filter((x,i)=>!x.soon&&roundComplete(i,t)).length, g=guideOf(t), nm=st.name?`, ${st.name}`:'';
   if(trackDone(t) && !st.mile[t+'|d']){ st.mile[t+'|d']=1; st.mile[t+'|h']=1; save(); const B=freshArt([t]); if(t==='basis') setTimeout(()=>{ try{ storyChoiceModal(); }catch(e){} },1500);
-    return setTimeout(()=>rewardModal(g,'Cursus voltooid!',`Wat een prestatie${nm}! Je hebt <b>${TRACKS[t].title}</b> helemaal afgerond. Dit verdient een plek aan de muur.${t==='basis'?'<br><br>🎓 Je hebt ook de hele module <b>Goede kunst herkennen</b> vrijgespeeld: vier lessen waarin je leert hoe je een echt meesterwerk herkent.':''}`,B),1200); }
+    return setTimeout(()=>rewardModal(g,'Cursus voltooid!',`Wat een prestatie${nm}! Je hebt <b>${TRACKS[t].title}</b> helemaal afgerond. Dit verdient een plek aan de muur.${t==='basis'?'<br><br>Maak nu de <b>eindtoets</b>: daarna wacht er nog een speciale beloning op je.':''}`,B),1200); }
   if(n>=4 && done>=Math.ceil(n/2) && !st.mile[t+'|h']){ st.mile[t+'|h']=1; save(); const B=freshArt([t]);
     setTimeout(()=>rewardModal(g,'Halverwege!',`Je bent al halverwege <b>${TRACKS[t].title}</b>${nm}! Als beloning krijg je een meesterwerk voor je eigen museum.`,B),1200); } }
 
@@ -10050,7 +10050,7 @@ function grandModal(t){ const ok=trackDone(t); const d=document.createElement('d
    </div><button class="btn primary lbclose">Sluiten</button>`;
   d.onclick=()=>d.remove(); document.body.appendChild(d); }
 const kennerStarted = () => (typeof KENNER_ROUNDS!=='undefined')&&KENNER_ROUNDS.some((K,r)=>K&&!K.soon&&Object.keys(res(r,'kenner')).length);
-const isOpen = t => t==='basis'||(t==='kenner'&&kennerStarted())||t==='hg'||(TRACKS[t]&&TRACKS[t].museum)||basisDone()||st.beta||!!(st.unl&&st.unl[t]);
+const isOpen = t => t==='basis'||(t==='kenner'&&(kennerStarted()||(st.mile&&st.mile['kenner|unl'])))||t==='hg'||(TRACKS[t]&&TRACKS[t].museum)||basisDone()||st.beta||!!(st.unl&&st.unl[t]);
 function chooseTrack(t){ if(!isOpen(t)) return; setTrack(t); home(); }
 const ROUTE_GROUPS = [
   {id:'symb', ic:'🎨', t:'Symboliek in de kunst', s:'Leer symbolen lezen: eerst de basis, daarna verdiepen of specialiseren.', tr:['basis','mix','n3','deugden','bijbel','myth','ge','kenner']},
@@ -10377,7 +10377,7 @@ function finalView(){
   } else if(F.stage===2){ return finToTl();
   } else {
     const ms=Math.max(0,F.m.length-F.miss), wp=F.w.reduce((s,w)=>s+(w.pts||0),0), wmax=F.w.length*4, TL=tlState().end, tn=tlItems().length, ts=TL&&!TL.skipped?TL.score:0, tot=ms+wp+ts, max=F.m.length+wmax+tn, pct=Math.round(tot/max*100);
-    F.score={tot,max,pct}; if(!F.best||pct>F.best) F.best=pct;
+    F.score={tot,max,pct}; if(!F.best||pct>F.best) F.best=pct; if(t==='basis'&&trackDone('basis')) setTimeout(kennerUnlockModal,900);
     h+=`<div class="card center award"><div class="eyebrow">Uitslag eindtoets</div><div class="score">${tot} / ${max}</div>
       <p>${F.w.length?`Wie ben ik?: <b>${wp}/${wmax}</b> · `:''}Koppelen: <b>${ms}/${F.m.length}</b> · Tijdlijn: <b>${ts}/${tn}</b></p>
       <div class="tier ${pct>=90?'goud':pct>=60?'zilver':'brons'}">${pct}%${F.best>pct?` · beste: ${F.best}%`:''}</div>
@@ -10475,6 +10475,11 @@ function kennerCelebrate(r){ if(st.t!=='basis'||st.view!=='big') return; st.kCel
   m.innerHTML=`<div class="confetti">${conf}</div><div class="gl-box guide-box in-done" onclick="event.stopPropagation()"><div class="eyebrow center">Kunst met Laura</div><div class="gb-fig kc-fig">${lauraSVG(0,false,true)}</div><div class="ob-bubble"><b>Gefeliciteerd${nm}!</b> Je hebt les ${r+1} van <b>Symboliek: de basis</b> afgerond. Om dit te vieren heb je een les <b>Echte kunst kennen</b> vrijgespeeld! 🎓<br><br><span class="muted" style="font-size:.9rem">Je leert er hoe je een echt meesterwerk herkent. Wil je die les nu spelen?</span></div>
     <button class="btn primary big" onclick="this.closest('.lb').remove();go(${r},{view:'kq',i:0})">Ja, speel de les →</button><button class="btn" style="margin-top:8px" onclick="this.closest('.lb').remove()">Nu niet</button><p class="muted center" style="font-size:.78rem;margin:8px 0 0">De les blijft bewaard: je vindt hem bij het 🎓-icoontje bovenin de les.</p></div>`;
   qModal(m); try{ sfx&&sfx('fanfare'); }catch(e){} }
+function kennerUnlockModal(){ st.mile=st.mile||{}; if(st.mile['kenner|unl']) return; st.mile['kenner|unl']=Date.now(); save(); const nm=st.name?`, ${st.name}`:'';
+  const m=document.createElement('div'); m.className='lb gl-modal kcel';
+  m.innerHTML=`${confHTML(34)}<div class="gl-box guide-box in-done" onclick="event.stopPropagation()"><div class="eyebrow center">Kunst met Laura</div><div class="gb-fig kc-fig">${lauraSVG(0,false,true)}</div><div class="ob-bubble"><b>Wat ben ik trots op je${nm}!</b> Je hebt de basis én de eindtoets afgerond. Daarom krijg je van mij een cadeau: de hele module <b>Goede kunst herkennen</b> is vrijgespeeld. 🎓<br><br>In vier lessen leer je wat een meesterwerk een meesterwerk maakt, en hoe je een echte Rembrandt onderscheidt van een kopie.</div>
+    <button class="btn primary big" onclick="this.closest('.lb').remove();chooseTrack('kenner')">Bekijk de module →</button><button class="btn" style="margin-top:8px" onclick="this.closest('.lb').remove()">Later</button></div>`;
+  qModal(m); try{ sfx(['fanfare','firework']); }catch(e){} }
 function quitToStart(){ try{ document.querySelectorAll('.lb').forEach(x=>x.remove()); }catch(e){} try{ auLeave&&auLeave(); }catch(e){} hub(); }
 function topBar(){
   const R=res(st.r);
