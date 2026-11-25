@@ -4744,11 +4744,12 @@ const VOXBUF={}; let VOXSRC=null;
 function voxLoad(sid){ if((window.VOX&&window.VOX[sid])||(window._voxL||{})[sid]) return; window._voxL=window._voxL||{}; window._voxL[sid]=1; const s=document.createElement('script'); s.src='vox/'+sid+'.js?v='+VOXV; s.async=true; s.onerror=()=>{window._voxL[sid]=0;}; document.head.appendChild(s); }
 window.voxLoaded=sid=>{};
 function speak(sid,html,free){ speakStop(); if(!auOn()||!auInit()) return; const t=voxNorm(html), d=window.VOX&&window.VOX[sid]; if(!d||!d[t]) return;
-  const k=sid+'|'+t; const play=buf=>{ if(!free&&(!STQ||voxNorm(cur_line())!==t)) return; if(free&&!document.querySelector('.guide-box')) return; const src=AU.ctx.createBufferSource(); src.buffer=buf; const g=AU.ctx.createGain(); g.gain.value=1.0; src.connect(g); g.connect(AU.ctx.destination); musDuck(true); src.onended=()=>{ if(VOXSRC===src){ VOXSRC=null; musDuck(false); } }; VOXSRC=src; src.start(); };
+  const k=sid+'|'+t; const play=buf=>{ if(!free&&(!STQ||!cur_lines().includes(t))) return; if(free&&!document.querySelector('.guide-box')) return; const src=AU.ctx.createBufferSource(); src.buffer=buf; const g=AU.ctx.createGain(); g.gain.value=1.0; src.connect(g); g.connect(AU.ctx.destination); musDuck(true); src.onended=()=>{ if(VOXSRC===src){ VOXSRC=null; musDuck(false); } }; VOXSRC=src; src.start(); };
   if(VOXBUF[k]) return play(VOXBUF[k]);
   const bin=atob(d[t]), arr=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) arr[i]=bin.charCodeAt(i);
   AU.ctx.decodeAudioData(arr.buffer,buf=>{ VOXBUF[k]=buf; play(buf); },()=>{}); }
 function cur_line(){ if(!STQ) return ''; const x=storyById(STQ.id).chapters[STQ.c].beats[STQ.b]; return (x.s&&x.x)||x.n||''; }
+function cur_lines(){ if(!STQ) return []; const x=storyById(STQ.id).chapters[STQ.c].beats[STQ.b]; return [cur_line(),x.ya||'',x.na||''].filter(Boolean).map(voxNorm); }
 function speakStop(){ if(VOXSRC){ try{ VOXSRC.onended=null; VOXSRC.stop(); }catch(e){} VOXSRC=null; } musDuck(false); }
 
 function auLeave(){ auStopMusic(); auAmb(new Set()); musStop(); speakStop(); }
