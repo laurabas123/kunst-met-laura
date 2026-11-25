@@ -679,6 +679,17 @@ body:has(.nxbar) .wrap,body:has(.nxbar) .dq{padding-bottom:110px}.nxbar.bad .nx-
 .lg-sub{color:#b9b2a3;font-size:.95rem;line-height:1.45;margin-top:10px;animation:lgUp .5s ease-out .7s both}.lg-tap{margin-top:28px;font-size:.8rem;color:#8d8778;animation:lgUp .5s ease-out 1.2s both}
 @keyframes lgIn{from{opacity:0}to{opacity:1}}@keyframes lgOut{to{opacity:0;transform:scale(1.06)}}@keyframes lgPop{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:none}}@keyframes lgUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}@keyframes lgPulse{50%{opacity:.5}}
 @media (prefers-reduced-motion:reduce){.ul-card,.ul-shackle,.ul-btn,.lg-ov,.lg-num,.lg-name,.lg-sub,.lg-tap{animation:none!important}}
+@media (min-width:900px) and (min-aspect-ratio:1/1){
+.wrap:has(.fade>.photo),.wrap:has(.fade>.mini>.photo),.wrap:has(.intro>.in-fig){max-width:1180px}
+.fade:has(>.photo),.fade:has(>.mini>.photo),.intro:has(>.in-fig){display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);column-gap:40px;align-items:start}
+.fade:has(>.photo)>*,.fade:has(>.mini>.photo)>*,.intro:has(>.in-fig)>*{grid-column:2;min-width:0}
+.fade:has(>.photo)>.top,.fade:has(>.mini>.photo)>.top,.intro:has(>.in-fig)>.top{grid-column:1/-1}
+.fade:has(>.photo)>.photo,.fade:has(>.mini>.photo)>.mini,.intro:has(>.in-fig)>.in-fig{grid-column:1;grid-row:2/span 40;position:sticky;top:16px;margin-top:0}
+.fade:has(>.photo)>.photo img{max-height:calc(100vh - 120px);width:100%;object-fit:contain}
+.fade:has(>.mini>.photo)>.mini .photo{height:auto!important;max-height:calc(100vh - 110px)}.fade:has(>.mini>.photo)>.mini .photo img{max-height:calc(100vh - 130px);width:100%;object-fit:contain}
+.intro:has(>.in-fig)>.in-fig .frame img{max-height:calc(100vh - 170px);object-fit:contain}
+.fade:has(>.photo) .bnav,.fade:has(>.mini>.photo) .bnav,.intro:has(>.in-fig) .bnav{position:static;margin-top:14px}
+}
 </style>
 </head>
 <body>
