@@ -3760,7 +3760,8 @@ function lauraTip(k){ st.tips=st.tips||{}; if(st.tips[k]||!TIPS[k]) return; st.t
   const m=document.createElement('div'); m.className='lb tipm'; m.innerHTML=`<div class="tip-card"><div class="tip-av">${lauraSVG(0,true)}</div><div><small>Laura legt uit</small><b>${t}</b><p>${x}</p><button class="btn primary" onclick="this.closest('.lb').remove()">Snap ik</button></div></div>`;
   setTimeout(()=>qModal(m),450); }
 const DEFER=[];
-function midLesson(){ return !window.ROUND_END && ['q','big','kq','match','who','tl'].includes(st.view); }
+function midLesson(){ if(st.view==='q'&&st.i===0&&!Object.keys(res(st.r)).length) return false; return !window.ROUND_END && ['q','big','kq','match','who','tl'].includes(st.view); }
+function bigDone(){ const r=st.r; if(roundComplete(r)){ if(!notiOn()) notiStart(); try{ roundMilestones(r); }catch(e){} try{ storyEarnCheck(); }catch(e){} } openRound(r+1); }
 function flushDefer(){ if(!DEFER.length||midLesson()) return; const L=DEFER.splice(0); L.forEach((el,i)=>setTimeout(()=>qModal(el),600+i*50)); }
 window.NOTI=null; const LATER=[];
 function notiStart(){ st.notiN=(st.notiN||0)+1; save(); NOTI={until:Date.now()+25000,budget:st.notiN%2===1?2:1,used:0,list:[],flushed:false}; setTimeout(notiFlush,3300); }
@@ -5552,7 +5553,7 @@ function onbView(){ st.view='onb'; const nm=st.name?`, ${st.name}`:'';
     + obChoice('🦁','Hollandse glorie','Kunst- en vaderlandse geschiedenis in acht niveaus, van de middeleeuwen tot nu: Bosch, Rembrandt, Van Gogh, Mondriaan','obFinish(\'hg\')')
     + obChoice('🏛️','Kunst in Nederlandse musea','Bereid je museumbezoek voor: de topstukken van het Rijksmuseum en het Mauritshuis','obGo(3)')
     + obChoice('🎭','Kunst aan de hand van bekende personen','Beleef het leven van Caravaggio, de Medici, Leonardo, Lodewijk XIV, Rembrandt, Rubens en Van Gogh, met scènes, muziek en stemmen','obStories()')
-    + obChoice('🔎','Een heel specifiek onderwerp','Deugden, Bijbel, mythologie, Gouden Eeuw of goede kunst herkennen','obGo(4)');
+    + obChoice('🔎','Een heel specifiek onderwerp','Deugden, Bijbel, mythologie of Gouden Eeuw','obGo(4)');
   else if(ob.s===5) body = obBubble(`Leuk je te ontmoeten${nm}! <b>Ben je nieuw in de kunstgeschiedenis of de symboliek?</b>`)
     + obChoice('🎓','Ja, ik ben (bijna) nieuw','We leren eerst zes begrippen, zoals allegorie en temperament, met korte vragen','startIntro(\'onb\')')
     + obChoice('🖼️','Nee, ik weet er al wat van','Kies meteen waar je mee wilt beginnen','st.introSkip=true;save();obGo(2)');
@@ -5562,7 +5563,7 @@ function onbView(){ st.view='onb'; const nm=st.name?`, ${st.name}`:'';
     + EXTRA_MUSEUMS.map(m=>obChoice('🏛️',m.obT||m.title,m.obS||m.desc,`obFinish('${m.id}')`)).join('')
     + `<button class="btn small" onclick="obGo(2)">‹ Terug</button>`;
   else if(ob.s===4) body = obBubble(`Waar ben je${nm?nm:''} nieuwsgierig naar?`)
-    + ['deugden','bijbel','myth','ge','kenner','mix'].map(t=>obChoice(`<span class="ob-mini">${grandSVG(t,false,true)}</span>`,TRACKS[t].title,TRACKS[t].desc,`obFinish('${t}')`)).join('')
+    + ['deugden','bijbel','myth','ge','mix'].map(t=>obChoice(`<span class="ob-mini">${grandSVG(t,false,true)}</span>`,TRACKS[t].title,TRACKS[t].desc,`obFinish('${t}')`)).join('')
     + `<button class="btn small" onclick="obGo(2)">‹ Terug</button>`;
   $(`<div class="onb"><div class="eyebrow center">Kunst met Laura</div><div class="ob-stage">${lauraSVG()}</div>${body}
      ${ob.s===0&&(st.onb||Object.keys(st.results||{}).length)?`<p class="center"><button class="btn small" onclick="obSkip()">Sla over, naar mijn voortgang</button></p>`:''}</div>`);
@@ -7962,7 +7963,6 @@ big:{ img:'rbB', t:'Winterlandschap met schaatsers', a:'Hendrick Avercamp', y:'c
     exp:'De profeet Jesaja voorspelde: “Een twijg zal uit de stronk van <b>Isaï</b> (Jesse) opschieten.” De middeleeuwers maakten daar een <b>stamboom</b> van: uit de slapende Jesse groeit een boom met de koningen van Israël, de voorouders van Christus, met <b>koning David</b> met zijn harp. Bovenaan bloeit <b>Maria met het kind</b>. Zo laat het schilderij zien dat Christus uit het koningshuis van David stamt.',
     also:[
       {img:'rc1a', t:'De voorouders van Christus: Jesse', a:'Michelangelo', y:'1509', n:'Ook op het plafond van de Sixtijnse Kapel staan de voorouders van Christus.', s:'Michelangelo Sistine ancestors of Christ Jesse'},
-      {img:'rc1b', t:'De boom van Jesse', a:'Marc Chagall', y:'1960', n:'Het oude beeld leeft voort, tot in de 20e eeuw.', s:'Chagall Tree of Jesse'},
       {img:'rc1c', t:'Jeremia treurt over de verwoesting van Jeruzalem', a:'Rembrandt', y:'1630', n:'Nog een profeet in het Rijksmuseum, verzonken in gedachten.', s:'Rembrandt Jeremiah Rijksmuseum'}]},
   { icon:'tablets', name:'De dans om het kalf',
     in:{img:'rc2', t:'De dans om het gouden kalf', a:'Lucas van Leyden', y:'ca. 1530', where:'Rijksmuseum, Amsterdam', s:'Lucas van Leyden Dans om het gouden kalf'},
@@ -10631,7 +10631,7 @@ function big(){
       <div class="row" style="justify-content:center;margin-top:12px">${[['b','Te moeilijk'],['m','Precies goed'],['g','Te makkelijk']].map(([k,t])=>`<button class="btn ${k==='m'?'primary':''}" onclick="diffAnswer('${k}')">${t}</button>`).join('')}</div></div>`;
   }
   const bd=st.bigStep>=0&&st.bigStep<n&&(st.bigStep in bres(st.r));
-  $(h+`<div class="bnav"><button class="btn" onclick="nav(-1)">‹ 1 vraag terug</button>${bd?`<button class="btn primary" onclick="nav(1)">${st.bigStep<n-1?'Volgend detail →':'Het hele verhaal →'}</button>`:`<button class="btn primary" onclick="hub()">Terug naar het hoofdmenu</button>`}</div>`+'</div>');
+  $(h+`<div class="bnav"><button class="btn" onclick="nav(-1)">‹ 1 vraag terug</button>${bd?(st.bigStep<n-1||!ROUNDS[st.r+1]||ROUNDS[st.r+1].soon?`<button class="btn primary" onclick="nav(1)">${st.bigStep<n-1?'Volgend detail →':'Les afronden →'}</button>`:`<button class="btn primary" onclick="bigDone()">Door naar les ${st.r+2} →</button>`):`<button class="btn primary" onclick="hub()">Terug naar het hoofdmenu</button>`}</div>`+'</div>');
 }
 function bigAnswer(k){ const wasA=(st.bigStep in bres(st.r)); bres(st.r)[st.bigStep]=k; try{ const ok=k===TR(st.r).big.details[st.bigStep].c; cameoNote(ok); if(!wasA){ firstMark(K(st.r,st.t)+'|b|'+st.bigStep,ok); ansReward(ok,'b'); } }catch(e){} big(); setTimeout(()=>{const c=document.getElementById('fb'); c&&c.scrollIntoView({behavior:'smooth',block:'start'});},80); }
 
