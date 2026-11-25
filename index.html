@@ -3822,7 +3822,7 @@ let NAPSRC=null;
 function napSpeak(k){ try{ if(NAPSRC){ NAPSRC.onended=null; NAPSRC.stop(); } }catch(e){} NAPSRC=null; if(!auOn()||!auInit()||!window.NAPVOX||!NAPVOX[k]) return;
   const bin=atob(NAPVOX[k]), arr=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) arr[i]=bin.charCodeAt(i);
   AU.ctx.decodeAudioData(arr.buffer,buf=>{ const s=AU.ctx.createBufferSource(); s.buffer=buf; s.connect(AU.ctx.destination); musDuck(true); s.onended=()=>{ if(NAPSRC===s){ NAPSRC=null; musDuck(false); } }; NAPSRC=s; s.start(); },()=>{}); }
-var VOXV='20261125q';
+var VOXV='20261125s';
 function napLoad(){ if(window.NAPVOX||window._napL) return; window._napL=1; const s=document.createElement('script'); s.src='vox/napoleon.js?v='+VOXV; s.async=true; s.onerror=()=>{window._napL=0;}; document.head.appendChild(s); }
 const NAPL={
  n1:'<b>Bonjour, lieve testers!</b> Ik ben Napoleon Bonaparte. Laura heeft mij gevraagd of ik leuk nieuws met jullie wilde delen.',
@@ -4156,8 +4156,8 @@ const confHTML=n=>`<div class="confetti">${Array.from({length:n},(_,k)=>`<i styl
 function winArt(B){ if(!B||!B.img) return null; st.fav=st.fav||{}; const o=st.fav[B.img]||{img:B.img,t:B.t,a:B.a,y:B.y||'',w:B.where||whereOf(B.img,B.t),at:Date.now()}; o.won=Date.now(); st.fav[B.img]=o; save(); return o; }
 function artPool(tracks){ const out=[]; tracks.forEach(t=>{ const T=TRACKS[t]; if(!T) return; T.rounds.forEach(R=>{ if(R&&!R.soon&&R.big&&R.big.img&&!/^n3_/.test(R.big.img)) out.push(R.big); }); }); return out; }
 function freshArt(tracks){ const P0=artPool(tracks); return P0.find(B=>!(st.fav&&st.fav[B.img]&&st.fav[B.img].won)) || null; }
-function rewardModal(g,title,msg,B){ const G=GUIDES[g]||GUIDES.laura; const o=winArt(B);
-  const m=document.createElement('div'); m.className='lb gl-modal kcel rwd';
+function rewardModal(g,title,msg,B,vox){ const G=GUIDES[g]||GUIDES.laura; const o=winArt(B);
+  const m=document.createElement('div'); m.className='lb gl-modal kcel rwd'; if(vox) m.dataset.vox=vox;
   m.innerHTML=`${confHTML(34)}<div class="gl-box guide-box in-done" onclick="event.stopPropagation()"><div class="eyebrow center">${title}</div>
     <div class="rw-stage"><div class="rw-g kc-fig">${G.svg(0,false,true)}</div>${o?`<div class="rw-frame"><img src="${P(o.img)}" alt="${o.t}"><i class="rw-shine"></i></div>`:''}</div>
     <div class="ob-bubble"><b>${G.name}:</b> ${msg}${o?`<br><br>🏆 <b>${o.t}</b> van ${o.a} hangt nu in jouw museum, in een gouden lijst.`:''}</div>
@@ -4177,11 +4177,11 @@ function bondLevelUp(k,lv){ const g=k, G=GUIDES[g], L=BOND_LV[lv].n, nm=st.name?
   const sec=GLINES[g].secrets[lv-1]; st.cards=st.cards||{}; st.cards[g+':s'+(lv-1)]=Date.now(); save();
   const B = lv===2 ? freshArt(g==='laura'?['basis','rijks','maur']:g==='rembrandt'?['hg']:g==='durer'?['mix','n3']:['deugden','bijbel','myth','ge','kenner']) : null;
   const o = B ? winArt(B) : null;
-  const m=document.createElement('div'); m.className='lb gl-modal kcel rwd';
+  const m=document.createElement('div'); m.className='lb gl-modal kcel rwd'; if(g==='zeus') m.dataset.vox='guides|bond_zeus_'+lv;
   m.innerHTML=`${confHTML(30)}<div class="gl-box guide-box in-done" onclick="event.stopPropagation()"><div class="eyebrow center">Jullie band groeit</div>
     <div class="rw-stage"><div class="rw-g kc-fig">${G.svg(0,false,true)}</div>${o?`<div class="rw-frame"><img src="${P(o.img)}" alt="${o.t}"><i class="rw-shine"></i></div>`:''}</div>
     <div class="bl-badge">${['🤝','🎨','💛'][lv]} ${L}</div>
-    <div class="ob-bubble">Je bent nu mijn <b>${L.toLowerCase()}</b>${nm}! Daarom vertel ik je iets wat niet iedereen weet.<br><br>${sec}${secFig(g+':s'+(lv-1))}${o?`<br><br>En omdat je zo trouw met me meekijkt: <b>${o.t}</b> hangt nu als cadeau in jouw museum.`:''}</div>
+    <div class="ob-bubble">Je bent nu mijn <b>${L.toLowerCase()}</b>${nm}! Daarom vertel ik je iets wat niet iedereen weet.<br><br>${sec}${secFig(g+':s'+(lv-1))}${o?`<br><br>En omdat je zo trouw met me meekijkt, krijg je een cadeau voor je museum: <b>${o.t}</b>.`:''}</div>
     <button class="btn primary big" onclick="this.closest('.lb').remove()">Dank je, ${G.name.split(' ')[0]}!</button><button class="btn" style="margin-top:8px" onclick="this.closest('.lb').remove();albumView()">Bekijk mijn gidsen</button></div>`;
   qModal(m); try{ sfx(['bell','magic']); }catch(e){} }
 
@@ -4855,7 +4855,7 @@ const storyIsOpen = id => !!(STORY_OPEN.includes(id) || (st.storyUnl&&st.storyUn
 const storyCredits = () => (basisDone()?1:0) - Object.keys(st.storyUnl||{}).filter(k=>!STORY_EARN[k]&&!STORY_OPEN.includes(k)).length;
 function storyEarnCheck(){ st.storyEarned=st.storyEarned||{}; Object.entries(STORY_EARN).forEach(([id,E])=>{ if(st.storyEarned[id]||!E.ok()) return; st.storyEarned[id]=Date.now(); save(); const S=storyById(id); if(!S) return;
   const g=id==='medici'?'catharina':id==='rem'?'rembrandt':'zeus';
-  rewardModal(g,'Nieuw verhaal ontgrendeld!',`${id==='zeus'?'Donder en bliksem, wat een prestatie!':id==='rem'?'Wat heb jij goed gekeken!':'Brava!'} Als beloning staat het levensverhaal van <b>${S.t}</b> nu voor je klaar bij Verhalen.`,null); }); }
+  rewardModal(g,'Nieuw verhaal ontgrendeld!',id==='zeus'?'Donder en bliksem, wat een prestatie! Als beloning staat <b>mijn levensverhaal</b> nu voor je klaar bij Verhalen.':`${id==='rem'?'Wat heb jij goed gekeken!':'Brava!'} Als beloning staat het levensverhaal van <b>${S.t}</b> nu voor je klaar bij Verhalen.`,null,id==='zeus'?'guides|unlock_zeus':null); }); }
 function storyLocked(id){ const S=storyById(id); if(STORY_EARN[id]){ const E=STORY_EARN[id]; const m=document.createElement('div'); m.className='lb gl-modal'; m.onclick=()=>m.remove();
   m.innerHTML=`<div class="gl-box guide-box" onclick="event.stopPropagation()"><div class="gb-fig">${scSVG(S.who,0,false)}</div><div class="ob-bubble"><b>${S.t}</b> moet je verdienen.<br><br>${E.how}</div><button class="btn primary big" onclick="this.closest('.lb').remove();${E.go}">Breng me erheen →</button><button class="btn" style="margin-top:8px" onclick="this.closest('.lb').remove()">Sluiten</button></div>`; document.body.appendChild(m); return; }
   const m=document.createElement('div'); m.className='lb gl-modal'; m.onclick=()=>m.remove(); const cr=storyCredits();
@@ -11701,6 +11701,9 @@ function onbSpeak(tries=0){ const k=onbKey(); if(!k){ onbStop(); ONBLAST=null; r
 { const W=(n,f)=>{ const o=window[n]; if(typeof o!=='function') return; window[n]=function(...a){ const r=o.apply(this,a); try{ f(); }catch(e){} return r; }; };
   W('onbView',()=>onbSpeak()); ['startIntro','obFinish','obStories','hub','paths','home','keepAsk'].forEach(n=>W(n,()=>{ if(st.view!=='onb'){ onbStop(); ONBLAST=null; } })); }
 try{ if(!st.onb) onbVoxLoad(); }catch(e){}
+/* pop-ups met data-vox="sid|sleutel" lezen hun tekst voor zodra ze echt in beeld komen (ook als ze in de wachtrij stonden) */
+try{ new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{ if(!n.dataset||!n.dataset.vox) return; const [sid,key]=n.dataset.vox.split('|'); voxLoad(sid); let k=0; const go=()=>{ if(!n.isConnected) return; if(window.VOX&&VOX[sid]&&VOX[sid][key]){ try{ auResume(); }catch(e){} speak(sid,key,true); } else if(k++<30) setTimeout(go,150); }; setTimeout(go,600); }))).observe(document.body,{childList:true}); }catch(e){}
+{ const o=window.storiesGift; if(typeof o==='function') window.storiesGift=function(...a){ const seen=st.tips&&st.tips.stories; const r=o.apply(this,a); if(!seen){ voxLoad('guides'); let n=0; const tryS=()=>{ if(!document.querySelector('.guide-box')) return; if(window.VOX&&VOX.guides&&VOX.guides.stories_gift){ try{ auResume(); }catch(e){} speak('guides','stories_gift',true); } else if(n++<30) setTimeout(tryS,150); }; setTimeout(tryS,400); } return r; }; }
 /* eindtekst van een hoofdstuk of voorkenniscursus voorlezen als er een opname van is */
 { const o=window.storyChapterDone; if(typeof o==='function') window.storyChapterDone=function(...a){ const id=STQ&&STQ.id, c=STQ&&STQ.c; const r=o.apply(this,a); try{ const S=storyById(id), last=c===S.chapters.length-1, t=last?S.outro:(S.chapters[c].end||''); if(t) setTimeout(()=>speak(id,t,'end'),1100); }catch(e){} return r; }; }
 
