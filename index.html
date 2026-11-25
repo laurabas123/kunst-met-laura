@@ -3811,7 +3811,7 @@ let NAPSRC=null;
 function napSpeak(k){ try{ if(NAPSRC){ NAPSRC.onended=null; NAPSRC.stop(); } }catch(e){} NAPSRC=null; if(!auOn()||!auInit()||!window.NAPVOX||!NAPVOX[k]) return;
   const bin=atob(NAPVOX[k]), arr=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) arr[i]=bin.charCodeAt(i);
   AU.ctx.decodeAudioData(arr.buffer,buf=>{ const s=AU.ctx.createBufferSource(); s.buffer=buf; s.connect(AU.ctx.destination); musDuck(true); s.onended=()=>{ if(NAPSRC===s){ NAPSRC=null; musDuck(false); } }; NAPSRC=s; s.start(); },()=>{}); }
-var VOXV='20261125p';
+var VOXV='20261125q';
 function napLoad(){ if(window.NAPVOX||window._napL) return; window._napL=1; const s=document.createElement('script'); s.src='vox/napoleon.js?v='+VOXV; s.async=true; s.onerror=()=>{window._napL=0;}; document.head.appendChild(s); }
 const NAPL={
  n1:'<b>Bonjour, lieve testers!</b> Ik ben Napoleon Bonaparte. Laura heeft mij gevraagd of ik leuk nieuws met jullie wilde delen.',
@@ -4747,7 +4747,7 @@ const VOXBUF={}; let VOXSRC=null;
 function voxLoad(sid){ if((window.VOX&&window.VOX[sid])||(window._voxL||{})[sid]) return; window._voxL=window._voxL||{}; window._voxL[sid]=1; const s=document.createElement('script'); s.src='vox/'+sid+'.js?v='+VOXV; s.async=true; s.onerror=()=>{window._voxL[sid]=0;}; document.head.appendChild(s); }
 window.voxLoaded=sid=>{};
 function speak(sid,html,free){ speakStop(); if(!auOn()||!auInit()) return; const t=voxNorm(html), d=window.VOX&&window.VOX[sid]; if(!d||!d[t]) return;
-  const k=sid+'|'+t; const play=buf=>{ if(!free&&(!STQ||!cur_lines().includes(t))) return; if(free&&!document.querySelector('.guide-box')) return; const src=AU.ctx.createBufferSource(); src.buffer=buf; const g=AU.ctx.createGain(); g.gain.value=1.0; src.connect(g); g.connect(AU.ctx.destination); musDuck(true); src.onended=()=>{ if(VOXSRC===src){ VOXSRC=null; musDuck(false); } }; VOXSRC=src; src.start(); };
+  const k=sid+'|'+t; const play=buf=>{ if(!free&&(!STQ||!cur_lines().includes(t))) return; if(free&&!document.querySelector(free==='end'?'.story-end':'.guide-box')) return; const src=AU.ctx.createBufferSource(); src.buffer=buf; const g=AU.ctx.createGain(); g.gain.value=1.0; src.connect(g); g.connect(AU.ctx.destination); musDuck(true); src.onended=()=>{ if(VOXSRC===src){ VOXSRC=null; musDuck(false); } }; VOXSRC=src; src.start(); };
   if(VOXBUF[k]) return play(VOXBUF[k]);
   const bin=atob(d[t]), arr=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) arr[i]=bin.charCodeAt(i);
   AU.ctx.decodeAudioData(arr.buffer,buf=>{ VOXBUF[k]=buf; play(buf); },()=>{}); }
@@ -11690,6 +11690,8 @@ function onbSpeak(tries=0){ const k=onbKey(); if(!k){ onbStop(); ONBLAST=null; r
 { const W=(n,f)=>{ const o=window[n]; if(typeof o!=='function') return; window[n]=function(...a){ const r=o.apply(this,a); try{ f(); }catch(e){} return r; }; };
   W('onbView',()=>onbSpeak()); ['startIntro','obFinish','obStories','hub','paths','home','keepAsk'].forEach(n=>W(n,()=>{ if(st.view!=='onb'){ onbStop(); ONBLAST=null; } })); }
 try{ if(!st.onb) onbVoxLoad(); }catch(e){}
+/* eindtekst van een hoofdstuk of voorkenniscursus voorlezen als er een opname van is */
+{ const o=window.storyChapterDone; if(typeof o==='function') window.storyChapterDone=function(...a){ const id=STQ&&STQ.id, c=STQ&&STQ.c; const r=o.apply(this,a); try{ const S=storyById(id), last=c===S.chapters.length-1, t=last?S.outro:(S.chapters[c].end||''); if(t) setTimeout(()=>speak(id,t,'end'),1100); }catch(e){} return r; }; }
 
 /* ================= METEN: anonieme gebruiksdata (alleen op de echte website) ================= */
 const TRK=(()=>{ let did=null, isNew=false, on=false, Q=[], seen=new Set();
