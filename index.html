@@ -953,7 +953,7 @@ const BASIS_ROUNDS = [
 let st = { view:'home', r:0, i:0, bigStep:-1, results:{}, bigRes:{}, match:{}, who:{}, tl:{} };
 let resumeFrom = null;
 /* Ontwikkelmodus: beta-knop alleen in de Claude-versie (of met ?dev=laura), niet op de publieke website */
-const DEV = (()=>{ try{ if(/[?&]dev=laura\b/.test(location.search)) return true; return !/github\.io$|netlify\.app$|vercel\.app$/.test(location.hostname); }catch(e){ return false; } })();
+const DEV = (()=>{ try{ if(/[?&]dev=laura\b/.test(location.search)) return true; return !/github\.io$|netlify\.app$|vercel\.app$|kunstmetlaura\.nl$/.test(location.hostname); }catch(e){ return false; } })();
 function load(){ try{ const s=JSON.parse(localStorage.getItem('symb-quiz2')||'null'); if(s){ Object.assign(st,s); if(!DEV) st.beta=false; if(s.view && !['home','gloss','paths'].includes(s.view)) resumeFrom={t:s.t||'basis',view:s.view,r:s.r,i:s.i,bigStep:s.bigStep}; } }catch(e){} }
 let cloudRef=null, cloudBusy=false, cloudDirty=false, cloudTimer=null, lastSaved='';
 let cloudReady=false;
@@ -1000,7 +1000,7 @@ async function idbGet(k){ const d=await idb(); if(!d) return null; return new Pr
 async function idbSet(k,v){ const d=await idb(); if(!d) return; try{ d.transaction('kv','readwrite').objectStore('kv').put(v,k); }catch(e){} }
 function rcode(){ if(!st.rcode){ const A='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; const b=new Uint8Array(12); crypto.getRandomValues(b); st.rcode=[...b].map(x=>A[x%32]).join(''); } return st.rcode; }
 const rcodeFmt = c => (c||'').replace(/(.{4})(?=.)/g,'$1-');
-const rcodeLink = () => 'https://laurabas123.github.io/kunst-met-laura/?code='+rcode();
+const rcodeLink = () => 'https://kunstmetlaura.nl/?code='+rcode();
 function keepSave(j){ clearTimeout(KEEP.t); if(KEEP.ready) KEEP.t=setTimeout(()=>idbSet('st',j),400);
   if(!st.onb) return; clearTimeout(KEEP.bt); KEEP.bt=setTimeout(keepBackup,8000); }
 async function keepBackup(){ if(typeof sbOn==='function'&&!sbOn()) return; rcode(); const j=JSON.stringify(st); const core=j.replace(/"saved":\d+,?/,''); if(core===KEEP.last) return;
@@ -3496,7 +3496,7 @@ function dqResult(r,fresh){ st.view='dqres'; const nm=st.name?`, ${st.name}`:'';
   if(fresh&&r.newB&&r.newB.length){ try{ sfx(['fanfare']); }catch(e){} } }
 const dqBadgeGrid=()=>`<div class="dqb-row">${Object.keys(DQB).map(id=>{ const has=st.dqBadges&&st.dqBadges[id]; return `<div class="dqb ${has?'':'off'}"><span>${has?DQB[id][0]:'🔒'}</span><b>${DQB[id][1]}</b><small>${DQB[id][2]}</small></div>`; }).join('')}</div>`;
 function dqIcs(){ const d=dqNextAt(), p=n=>String(n).padStart(2,'0'); const dt=`${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}T080000`;
-  const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Kunst met Laura//NL','BEGIN:VEVENT','UID:dagquiz-kunstmetlaura','DTSTART:'+dt,'DURATION:PT5M','RRULE:FREQ=DAILY','SUMMARY:Dagquiz Kunst met Laura','DESCRIPTION:Je nieuwe dagquiz staat klaar: https://laurabas123.github.io/kunst-met-laura/','URL:https://laurabas123.github.io/kunst-met-laura/','BEGIN:VALARM','TRIGGER:PT0M','ACTION:DISPLAY','DESCRIPTION:Dagquiz staat klaar','END:VALARM','END:VEVENT','END:VCALENDAR'].join('\r\n');
+  const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Kunst met Laura//NL','BEGIN:VEVENT','UID:dagquiz-kunstmetlaura','DTSTART:'+dt,'DURATION:PT5M','RRULE:FREQ=DAILY','SUMMARY:Dagquiz Kunst met Laura','DESCRIPTION:Je nieuwe dagquiz staat klaar: https://kunstmetlaura.nl/','URL:https://kunstmetlaura.nl/','BEGIN:VALARM','TRIGGER:PT0M','ACTION:DISPLAY','DESCRIPTION:Dagquiz staat klaar','END:VALARM','END:VEVENT','END:VCALENDAR'].join('\r\n');
   const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar'})); a.download='dagquiz-kunst-met-laura.ics'; document.body.appendChild(a); a.click(); setTimeout(()=>a.remove(),500); }
 function dqCard(){ const done=dqDone(), r=done?st.dq[dqDay()]:null, s=st.dqStreak||0, alive=st.dqLast===dqDay()||st.dqLast===dqPrevDay(dqDay());
   const nx=dqNextAt(), hrs=Math.max(0,Math.floor((nx-Date.now())/3600e3)), mins=Math.max(0,Math.floor((nx-Date.now())/60e3)%60);
