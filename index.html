@@ -650,6 +650,7 @@ body:has(.nxbar) .wrap,body:has(.nxbar) .dq{padding-bottom:110px}.nxbar.bad .nx-
 .fg-tabs{display:flex;gap:6px;margin:4px 0 14px;padding:4px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid rgba(215,180,106,.25)}.fg-tabs button{flex:1;border:0;background:transparent;color:inherit;padding:9px 6px;border-radius:10px;font:inherit;font-weight:600;cursor:pointer}.fg-tabs button.on{background:rgba(215,180,106,.22)}
 .fg-card{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:12px;margin:0 0 8px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid rgba(215,180,106,.3);color:inherit;font:inherit;cursor:pointer}.fg-av{font-size:1.5rem}
 .fg-lbl{display:block;font-size:.8rem;margin:10px 0 4px;text-align:left}.gl-box input#fgnm,.gl-box input#fgme{width:100%;box-sizing:border-box;padding:10px;border-radius:10px;border:1px solid #d7b46a;background:#0e1424;color:#efe4cf;font-size:1rem}.fg-fresh{border-color:#25d366}
+.in-eb{display:flex;align-items:center;justify-content:space-between;gap:8px}.in-eb .eyebrow{margin:0}.vc-btn{white-space:nowrap;font-size:.78rem}.vc-btn.off{opacity:.75}
 </style>
 </head>
 <body>
@@ -4571,6 +4572,12 @@ Object.assign(SC,{
 /* ---------- muziek & geluid (zelf gegenereerd, Web Audio) ---------- */
 const AU = { ctx:null, master:null, wet:null, mood:null, timer:null, step:0, next:0, loops:{} };
 function auOn(){ return st.sound!==0; }
+function voiceOn(){ return st.voice!==0; }
+const vcLabel=()=>voiceOn()?'🗣️ Voorlezen aan':'🤫 Voorlezen uit';
+function voiceToggle(){ st.voice=voiceOn()?0:1; save(); if(!voiceOn()){ try{ introStop(); }catch(e){} toast('Voorlezen staat uit. Je kunt het altijd weer aanzetten.'); }
+  else { toast('Laura leest weer voor'); try{ if(st.view==='intro') introSpeak(INTRO[IN.i].id); }catch(e){} }
+  document.querySelectorAll('.vc-btn').forEach(b=>{ b.textContent=vcLabel(); b.classList.toggle('off',!voiceOn()); }); }
+const vcBtn=()=>`<button class="chip vc-btn ${voiceOn()?'':'off'}" onclick="voiceToggle()" aria-label="Voorlezen aan of uit">${vcLabel()}</button>`;
 function auInit(){ if(AU.ctx) return true; const C=window.AudioContext||window.webkitAudioContext; if(!C) return false;
   try{ AU.ctx=new C(); }catch(e){ return false; }
   const c=AU.ctx; AU.master=c.createGain(); AU.master.gain.value=.24; AU.master.connect(c.destination);
@@ -5968,7 +5975,7 @@ function introView(){ st.view='intro'; const it=INTRO[IN.i]; if(!it) return path
     return `<button class="opt ${cls}" ${a!==null?'disabled':''} onclick="introAns(${x.k})"><span class="l">${L[j]}</span><span>${x.t}</span></button>`; }).join('');
   const corr=L[ord.findIndex(x=>x.k===it.c)];
   $(`<div class="intro"><div class="top"><button class="btn small" onclick="introQuit()">‹ Stoppen</button><div class="in-dots">${dots}</div></div>
-    <div class="eyebrow">Startcursus · begrip ${IN.i+1} van ${INTRO.length}</div><h1>${it.t}</h1>
+    <div class="in-eb"><div class="eyebrow">Startcursus · begrip ${IN.i+1} van ${INTRO.length}</div>${vcBtn()}</div><h1>${it.t}</h1>
     <div class="card in-uitleg"><div class="in-lh">${lauraSVG(0,true)}</div><p>${it.u}</p></div>
     ${(it.img||it.pimg)?`<figure class="in-fig"><div class="in-tag">${it.id==='genre'?'Voorbeeld van een genrestuk':it.id==='embleem'?'Voorbeeld van een embleem':'👇 De vraag gaat over dit werk'}</div><div class="frame">${it.pimg?`<img src="${P(it.pimg)}" alt="">`:introImg(it.img)?`<img src="${introImg(it.img)}" alt="">`:'<div class="in-ph">Afbeelding laden…</div>'}</div><figcaption>${it.cap}</figcaption></figure>`:''}
     <p class="qtext">${it.q}</p><div class="opts">${opts}</div>
@@ -11633,7 +11640,7 @@ try{ const o=new URLSearchParams(location.search).get('open'); if(st.onb&&o==='k
 let INSRC=null;
 function introVoxLoad(){ if(window.INTROVOX||window._inL) return; window._inL=1; const sc=document.createElement('script'); sc.src='vox/intro.js?v='+VOXV; sc.async=true; sc.onerror=()=>{ window._inL=0; }; document.head.appendChild(sc); }
 function introStop(){ try{ if(INSRC){ INSRC.onended=null; INSRC.stop(); musDuck(false); } }catch(e){} INSRC=null; }
-function introSpeak(k,tries=0){ introStop(); if(!auOn()) return; if(!window.INTROVOX){ introVoxLoad(); if(tries<12) setTimeout(()=>{ if((k==='done'?st.view==='introDone':st.view==='intro'&&INTRO[IN.i]&&INTRO[IN.i].id===k)) introSpeak(k,tries+1); },400); return; }
+function introSpeak(k,tries=0){ introStop(); if(!auOn()||!voiceOn()) return; if(!window.INTROVOX){ introVoxLoad(); if(tries<12) setTimeout(()=>{ if((k==='done'?st.view==='introDone':st.view==='intro'&&INTRO[IN.i]&&INTRO[IN.i].id===k)) introSpeak(k,tries+1); },400); return; }
   const b64=INTROVOX[k]; if(!b64||!auInit()) return; const bin=atob(b64), arr=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) arr[i]=bin.charCodeAt(i);
   AU.ctx.decodeAudioData(arr.buffer,buf=>{ if(k==='done'?st.view!=='introDone':st.view!=='intro') return; const s=AU.ctx.createBufferSource(); s.buffer=buf; s.connect(AU.ctx.destination); try{ musDuck(true); }catch(e){} s.onended=()=>{ if(INSRC===s){ INSRC=null; try{ musDuck(false); }catch(e){} } }; INSRC=s; s.start(); },()=>{}); }
 { const W=(n,f)=>{ const o=window[n]; if(typeof o!=='function') return; window[n]=function(...a){ const r=o.apply(this,a); try{ f(); }catch(e){} return r; }; };
