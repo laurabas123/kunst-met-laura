@@ -3794,7 +3794,7 @@ let NAPSRC=null;
 function napSpeak(k){ try{ if(NAPSRC){ NAPSRC.onended=null; NAPSRC.stop(); } }catch(e){} NAPSRC=null; if(!auOn()||!auInit()||!window.NAPVOX||!NAPVOX[k]) return;
   const bin=atob(NAPVOX[k]), arr=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) arr[i]=bin.charCodeAt(i);
   AU.ctx.decodeAudioData(arr.buffer,buf=>{ const s=AU.ctx.createBufferSource(); s.buffer=buf; s.connect(AU.ctx.destination); musDuck(true); s.onended=()=>{ if(NAPSRC===s){ NAPSRC=null; musDuck(false); } }; NAPSRC=s; s.start(); },()=>{}); }
-var VOXV='20261125k';
+var VOXV='20261125l';
 function napLoad(){ if(window.NAPVOX||window._napL) return; window._napL=1; const s=document.createElement('script'); s.src='vox/napoleon.js?v='+VOXV; s.async=true; s.onerror=()=>{window._napL=0;}; document.head.appendChild(s); }
 const NAPL={
  n1:'<b>Bonjour, lieve testers!</b> Ik ben Napoleon Bonaparte. Laura heeft mij gevraagd of ik leuk nieuws met jullie wilde delen.',
@@ -5910,7 +5910,7 @@ const obBubble = h => `<div class="ob-bubble">${h}</div>`;
 const obChoice = (ic,t,s,fn) => `<button class="round resume ob-choice" onclick="${fn}"><div class="num">${ic}</div><div><div class="t">${t}</div><div class="s">${s}</div></div></button>`;
 function onbView(){ st.view='onb'; const nm=st.name?`, ${st.name}`:'';
   let body='';
-  if(ob.s===0) body = obBubble(st.wowDone?`Fijn dat je er bent! Mag ik je een paar dingen vragen? Dan stem ik de app op jou af.`:`Welkom bij de app <b>Kunst met Laura</b>! Voordat we gaan beginnen, heb ik een paar vragen aan je.`)+`<button class="btn primary big" onclick="obGo(1)">Laten we beginnen →</button><p class="center" style="margin-top:14px"><button class="btn small" onclick="keepAsk()">Ik heb al eerder gespeeld</button></p>`;
+  if(ob.s===0) body = obBubble(st.wowDone?`Welkom, fijn dat je er bent! Mag ik je een paar dingen vragen? Dan stem ik de app op jou af.`:`Welkom bij de app <b>Kunst met Laura</b>! Voordat we gaan beginnen, heb ik een paar vragen aan je.`)+`<button class="btn primary big" onclick="obGo(1)">Laten we beginnen →</button><p class="center" style="margin-top:14px"><button class="btn small" onclick="keepAsk()">Ik heb al eerder gespeeld</button></p>`;
   else if(ob.s===1) body = obBubble(`Hoe mag ik je noemen?`)+`<input id="obname" class="ob-input" maxlength="30" placeholder="Je voornaam" value="${(st.name||'').replace(/"/g,'&quot;')}" onkeydown="if(event.key==='Enter')obGo(st.introDone||st.introSkip?2:5)"><div class="bnav"><button class="btn" onclick="obGo(st.introDone||st.introSkip?2:5)">Sla over</button><button class="btn primary" onclick="obGo(st.introDone||st.introSkip?2:5)">Verder ›</button></div>`;
   else if(ob.s===2) body = obBubble(st.introDone||st.introSkip?`Mooi${nm}! <b>Waar wil je mee beginnen?</b>`:`Leuk je te ontmoeten${nm}! <b>Wat wil je leren?</b>`)
     + obChoice('🎨','De basis van symboliek','Je begint meteen bij les 1: schedels, lelies, hondjes en zeepbellen','obFinish(\'basis\')')
@@ -11656,6 +11656,19 @@ function introSpeak(k,tries=0){ introStop(); if(!auOn()||!voiceOn()) return; if(
   W('introNext',()=>{ if(!st.vcHint){ st.vcHint=1; save(); } if(st.view==='intro') introSpeak(INTRO[IN.i].id); });
   W('introDone',()=>introSpeak('done'));
   ['hub','paths','home'].forEach(n=>W(n,introStop)); }
+
+/* Laura spreekt de kennismaking in (museum- en specialisatievraag bewust zonder stem) */
+let ONBSRC=null, ONBLAST=null;
+function onbVoxLoad(){ if(window.ONBVOX||window._onbL) return; window._onbL=1; const sc=document.createElement('script'); sc.src='vox/onb.js?v='+VOXV; sc.async=true; sc.onerror=()=>{ window._onbL=0; }; document.head.appendChild(sc); }
+function onbStop(){ try{ if(ONBSRC){ ONBSRC.onended=null; ONBSRC.stop(); } }catch(e){} ONBSRC=null; }
+function onbKey(){ if(st.view!=='onb') return null; const pre=st.introDone||st.introSkip; return {0:st.wowDone?'s0a':'s0b',1:'s1',2:pre?'s2b':'s2a',5:'s5'}[ob.s]||null; }
+function onbSpeak(tries=0){ const k=onbKey(); if(!k){ onbStop(); ONBLAST=null; return; } if(k===ONBLAST&&tries===0) return; ONBLAST=k; onbStop(); if(!auOn()) return;
+  if(!window.ONBVOX){ onbVoxLoad(); if(tries<12) setTimeout(()=>{ if(onbKey()===k) onbSpeak(tries+1); },400); return; }
+  const b64=ONBVOX[k]; if(!b64||!auInit()) return; try{ auResume&&auResume(); }catch(e){} const bin=atob(b64), arr=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) arr[i]=bin.charCodeAt(i);
+  AU.ctx.decodeAudioData(arr.buffer,buf=>{ if(onbKey()!==k) return; const s=AU.ctx.createBufferSource(); s.buffer=buf; s.connect(AU.ctx.destination); s.onended=()=>{ if(ONBSRC===s) ONBSRC=null; }; ONBSRC=s; s.start(); },()=>{}); }
+{ const W=(n,f)=>{ const o=window[n]; if(typeof o!=='function') return; window[n]=function(...a){ const r=o.apply(this,a); try{ f(); }catch(e){} return r; }; };
+  W('onbView',()=>onbSpeak()); ['startIntro','obFinish','obStories','hub','paths','home','keepAsk'].forEach(n=>W(n,()=>{ if(st.view!=='onb'){ onbStop(); ONBLAST=null; } })); }
+try{ if(!st.onb) onbVoxLoad(); }catch(e){}
 
 /* ================= METEN: anonieme gebruiksdata (alleen op de echte website) ================= */
 const TRK=(()=>{ let did=null, isNew=false, on=false, Q=[], seen=new Set();
