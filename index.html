@@ -644,6 +644,12 @@ body:has(.nxbar) .wrap,body:has(.nxbar) .dq{padding-bottom:110px}.nxbar.bad .nx-
 .round.pre-round{border-style:dashed}.round.pre-round .num{color:#d7b46a}
 .or-bub{background:#f3ecdc;color:#1d1a16;border-radius:18px;padding:14px 16px;line-height:1.5}.or-bub p{margin:0 0 8px}.or-fig{margin:6px 0 0}.or-fig img{width:100%;border-radius:10px}.or-fig figcaption{font-size:.8rem;color:#6b5a3e;margin-top:4px}
 .hx-more{background:rgba(255,255,255,.045);border-radius:16px;padding:12px 14px;margin-bottom:10px}.hx-more summary{cursor:pointer;font-weight:700;list-style:none}.hx-more summary::after{content:' ▾';color:#d7b46a}.hx-more[open] summary::after{content:' ▴'}
+.wa-btn{display:flex;align-items:center;justify-content:center;gap:8px;background:#1f8f4e;border-color:#25d366;color:#fff;text-decoration:none}.wa-btn:hover{background:#25a35a}.wa-btn.small{display:inline-flex;font-size:.82rem;padding:7px 12px}
+.wa-ic{width:18px;height:18px;flex:0 0 18px;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.2 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.3.4c-.1.1-.3.3-.1.6.2.3.7 1.2 1.6 2 1.1.9 2 1.2 2.3 1.4.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.6-.2 1.1z'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.2 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .2-3.3-.7-2.8-1.1-4.5-4-4.7-4.2-.1-.2-1.1-1.5-1.1-2.8s.7-2 1-2.3c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.4 0 .5l-.4.6-.3.4c-.1.1-.3.3-.1.6.2.3.7 1.2 1.6 2 1.1.9 2 1.2 2.3 1.4.3.1.4.1.6-.1l.8-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.6-.2 1.1z'/%3E%3C/svg%3E") center/contain no-repeat}
+.share-row{margin:10px 0}.share-row .wa-btn.small{width:auto}
+.fg-tabs{display:flex;gap:6px;margin:4px 0 14px;padding:4px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid rgba(215,180,106,.25)}.fg-tabs button{flex:1;border:0;background:transparent;color:inherit;padding:9px 6px;border-radius:10px;font:inherit;font-weight:600;cursor:pointer}.fg-tabs button.on{background:rgba(215,180,106,.22)}
+.fg-card{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:12px;margin:0 0 8px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid rgba(215,180,106,.3);color:inherit;font:inherit;cursor:pointer}.fg-av{font-size:1.5rem}
+.fg-lbl{display:block;font-size:.8rem;margin:10px 0 4px;text-align:left}.gl-box input#fgnm,.gl-box input#fgme{width:100%;box-sizing:border-box;padding:10px;border-radius:10px;border:1px solid #d7b46a;background:#0e1424;color:#efe4cf;font-size:1rem}.fg-fresh{border-color:#25d366}
 </style>
 </head>
 <body>
@@ -1000,7 +1006,7 @@ async function idbGet(k){ const d=await idb(); if(!d) return null; return new Pr
 async function idbSet(k,v){ const d=await idb(); if(!d) return; try{ d.transaction('kv','readwrite').objectStore('kv').put(v,k); }catch(e){} }
 function rcode(){ if(!st.rcode){ const A='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; const b=new Uint8Array(12); crypto.getRandomValues(b); st.rcode=[...b].map(x=>A[x%32]).join(''); } return st.rcode; }
 const rcodeFmt = c => (c||'').replace(/(.{4})(?=.)/g,'$1-');
-const rcodeLink = () => 'https://kunstmetlaura.nl/?code='+rcode();
+const rcodeLink = () => SITE()+'?code='+rcode();
 function keepSave(j){ clearTimeout(KEEP.t); if(KEEP.ready) KEEP.t=setTimeout(()=>idbSet('st',j),400);
   if(!st.onb) return; clearTimeout(KEEP.bt); KEEP.bt=setTimeout(keepBackup,8000); }
 async function keepBackup(){ if(typeof sbOn==='function'&&!sbOn()) return; rcode(); const j=JSON.stringify(st); const core=j.replace(/"saved":\d+,?/,''); if(core===KEEP.last) return;
@@ -3477,7 +3483,7 @@ function dqFinish(){ clearInterval(dqTimer); if(!DQ) return; const score=DQ.item
   const give=(id)=>{ st.dqBadges=st.dqBadges||{}; if(!st.dqBadges[id]){ st.dqBadges[id]=day; newB.push(id); } };
   give('first'); if(score===DQ_N) give('perfect'); if(hr<9) give('early'); if(secs<=90&&score>=4) give('fast');
   if(streak>=3) give('s3'); if(streak>=7) give('s7'); if(streak>=14) give('s14'); if(streak>=30) give('s30'); if((st.dqPerfect||0)>=5) give('p5'); if((st.dqCount||0)>=10) give('c10');
-  const res={score,secs,streak,usedFreeze,freezeWon,newB,over:DQ.over}; st.dq[day]=res; save(); DQ=null;
+  const res={score,secs,streak,usedFreeze,freezeWon,newB,over:DQ.over,grid:DQ.items.map((x,k)=>DQ.ans[k]===x.Q.c?1:0)}; st.dq[day]=res; save(); DQ=null;
   xpAdd(30+(score===DQ_N?20:0)+Math.min(30,streak*3),'dagquiz'); try{ questEv('dq'); setTimeout(()=>chestAdd(1,'dagquiz'),1200); }catch(e){} dqResult(res,true); }
 const DQB={first:['🌅','Eerste dagquiz','Je eerste dagquiz gespeeld'],perfect:['💯','Perfecte dag','Alle vijf vragen goed'],early:['☕','Vroege vogel','Dagquiz vóór 9:00 gespeeld'],fast:['⚡','Snelle blik','Binnen 90 seconden, minstens 4 goed'],
   s3:['🔥','Drie op rij','3 dagen achter elkaar'],s7:['🗓️','Een hele week','7 dagen achter elkaar'],s14:['🏛️','Vaste bezoeker','14 dagen achter elkaar'],s30:['👑','Maandkaarthouder','30 dagen achter elkaar'],p5:['🎯','Scherpschutter','5 keer een perfecte dag'],c10:['📚','Trouwe speurder','10 dagquizzen gespeeld']};
@@ -3486,6 +3492,7 @@ function dqResult(r,fresh){ st.view='dqres'; const nm=st.name?`, ${st.name}`:'';
    <div class="eyebrow">Dagquiz van vandaag</div><h1>${r.score===DQ_N?'Perfect'+nm+'!':r.score>=3?'Goed gedaan'+nm+'!':'Morgen weer een kans'+nm+'!'}</h1>
    <div class="dq-score"><div><b>${r.score}/${DQ_N}</b><small>goed</small></div><div><b>🔥 ${r.streak}</b><small>${r.streak===1?'dag':'dagen'} op rij</small></div><div><b>${Math.floor(r.secs/60)}:${String(r.secs%60).padStart(2,'0')}</b><small>tijd</small></div></div>
    ${r.over?`<p class="muted center">De tijd was op. Morgen heb je weer vijf minuten.</p>`:''}
+   <div class="share-row">${shareBtn('dq',dqShareText(r),SITE()+'?open=dq','Daag een vriend uit via WhatsApp')}</div>
    ${r.usedFreeze?`<div class="card">🧊 Je miste een dag, maar je <b>rustdag</b> heeft je reeks gered.</div>`:''}
    ${r.freezeWon?`<div class="card">🧊 Een week vol! Je verdiende een <b>rustdag</b>: mis je een dag, dan blijft je reeks staan.</div>`:''}
    ${r.newB&&r.newB.length?`<h3 class="rgroup">Nieuwe badges</h3><div class="dqb-row">${r.newB.map(id=>`<div class="dqb new"><span>${DQB[id][0]}</span><b>${DQB[id][1]}</b><small>${DQB[id][2]}</small></div>`).join('')}</div>`:''}
@@ -3496,7 +3503,7 @@ function dqResult(r,fresh){ st.view='dqres'; const nm=st.name?`, ${st.name}`:'';
   if(fresh&&r.newB&&r.newB.length){ try{ sfx(['fanfare']); }catch(e){} } }
 const dqBadgeGrid=()=>`<div class="dqb-row">${Object.keys(DQB).map(id=>{ const has=st.dqBadges&&st.dqBadges[id]; return `<div class="dqb ${has?'':'off'}"><span>${has?DQB[id][0]:'🔒'}</span><b>${DQB[id][1]}</b><small>${DQB[id][2]}</small></div>`; }).join('')}</div>`;
 function dqIcs(){ const d=dqNextAt(), p=n=>String(n).padStart(2,'0'); const dt=`${d.getFullYear()}${p(d.getMonth()+1)}${p(d.getDate())}T080000`;
-  const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Kunst met Laura//NL','BEGIN:VEVENT','UID:dagquiz-kunstmetlaura','DTSTART:'+dt,'DURATION:PT5M','RRULE:FREQ=DAILY','SUMMARY:Dagquiz Kunst met Laura','DESCRIPTION:Je nieuwe dagquiz staat klaar: https://kunstmetlaura.nl/','URL:https://kunstmetlaura.nl/','BEGIN:VALARM','TRIGGER:PT0M','ACTION:DISPLAY','DESCRIPTION:Dagquiz staat klaar','END:VALARM','END:VEVENT','END:VCALENDAR'].join('\r\n');
+  const ics=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Kunst met Laura//NL','BEGIN:VEVENT','UID:dagquiz-kunstmetlaura','DTSTART:'+dt,'DURATION:PT5M','RRULE:FREQ=DAILY','SUMMARY:Dagquiz Kunst met Laura','DESCRIPTION:Je nieuwe dagquiz staat klaar: '+SITE()+'?open=dq','URL:'+SITE()+'?open=dq','BEGIN:VALARM','TRIGGER:PT0M','ACTION:DISPLAY','DESCRIPTION:Dagquiz staat klaar','END:VALARM','END:VEVENT','END:VCALENDAR'].join('\r\n');
   const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([ics],{type:'text/calendar'})); a.download='dagquiz-kunst-met-laura.ics'; document.body.appendChild(a); a.click(); setTimeout(()=>a.remove(),500); }
 function dqCard(){ const done=dqDone(), r=done?st.dq[dqDay()]:null, s=st.dqStreak||0, alive=st.dqLast===dqDay()||st.dqLast===dqPrevDay(dqDay());
   const nx=dqNextAt(), hrs=Math.max(0,Math.floor((nx-Date.now())/3600e3)), mins=Math.max(0,Math.floor((nx-Date.now())/60e3)%60);
@@ -3702,6 +3709,81 @@ function compSync(force){ if(!st.comp||st.comp.ok!==true||!sbOn()) return; const
 function compLeave(){ if(sbOn()&&st.uid) sbFetch('rpc/delete_tester',{method:'POST',body:JSON.stringify({p_id:st.uid,p_token:st.utok})}).catch(()=>{}); st.comp={ok:false,at:Date.now(),asked:1}; save(); toast('Je doet niet meer mee aan de competitie'); boardView(); }
 function compJoin(name){ TOP3T=0; uid(); st.comp={ok:true,name:(name||st.name||'Tester').trim().slice(0,30),at:Date.now(),asked:1}; save(); compSync(true); }
 
+/* ================= DELEN VIA WHATSAPP ================= */
+const SITE=()=>{ try{ if(/kunstmetlaura\.nl$/.test(location.hostname)) return 'https://kunstmetlaura.nl/'; }catch(e){} return 'https://laurabas123.github.io/kunst-met-laura/'; };
+const waHref=(text,url)=>'https://wa.me/?text='+encodeURIComponent(text+'\n'+(url||SITE()));
+function shareBtn(kind,text,url,label,cls){ return `<a class="btn wa-btn ${cls||''}" href="${waHref(text,url)}" target="_blank" rel="noopener" onclick="shareTrack('${kind}')"><span class="wa-ic" aria-hidden="true"></span>${label||'Deel via WhatsApp'}</a>`; }
+function shareTrack(kind){ try{ tr('share',kind); }catch(e){} st.shares=(st.shares||0)+1; save(); }
+function dqShareText(r){ const t=Math.floor(r.secs/60)+':'+String(r.secs%60).padStart(2,'0'); const grid=r.grid?'\n'+r.grid.map(x=>x?'🟩':'🟥').join(''):'';
+  return `🎨 Dagquiz Kunst met Laura: ${r.score}/${DQ_N} goed in ${t}${r.streak>1?` · 🔥 ${r.streak} dagen op rij`:''}${grid}\nKun jij dit verslaan?`; }
+const streakShareText=n=>`🔥 Al ${n} ${n===1?'dag':'dagen'} op rij leer ik schilderijen lezen met Kunst met Laura. Doe je mee?`;
+function kvdShareText(T){ const ok=T.K.ans===T.Q.c; return `🖼️ Kunstwerk van de dag: ${T.im[1]} van ${T.im[2]}.\n${ok?'Ik vond het verborgen symbool. Zie jij het ook?':'Ik zag het verborgen symbool niet… Jij wel?'}`; }
+
+/* ================= VRIENDENCOMPETITIE ================= */
+/* groepen staan in Supabase (friend_groups / friend_members), alleen bereikbaar via de fg_*-functies */
+const fgRpc=(fn,body)=>sbFetch('rpc/'+fn,{method:'POST',body:JSON.stringify(body)});
+const fgCodeOk=c=>/^[A-Z0-9]{6}$/.test(c||'');
+const fgLink=code=>SITE()+'?groep='+code;
+function fgName(){ return ((st.comp&&st.comp.name)||st.fname||st.name||'Speler').trim().slice(0,30); }
+let fgT=0, fgTimer=null;
+function friendsSync(force){ if(!sbOn()||!(st.groups||[]).length) return; const now=Date.now(); if(!force&&now-fgT<20000){ clearTimeout(fgTimer); fgTimer=setTimeout(()=>friendsSync(true),20000); return; } fgT=now; uid();
+  const I=xpInfo(), alive=st.dqLast===dqDay()||st.dqLast===dqPrevDay(dqDay()), body={p_id:st.uid,p_token:st.utok,p_name:fgName(),p_xp:rankVal(compScore()),p_lvl:I.l+1,p_streak:alive?(st.dqStreak||0):0,p_modules:modulesDone()};
+  return Promise.all(st.groups.map(g=>fgRpc('fg_upsert',{p_code:g.code,...body}).catch(()=>{}))); }
+{ const _cs=compSync; compSync=function(f){ _cs(f); try{ friendsSync(f); }catch(e){} }; }
+const FG_PRIV='Als je meedoet, zien alleen de leden van deze groep je gekozen naam, je punten, je level, je dagreeks en het aantal afgeronde modules. Je kunt de groep altijd verlaten; dan worden je gegevens uit de groep verwijderd.';
+function fgHead(sub){ return `<div><div class="hdr"><button class="chip" onclick="hub()">‹ Hoofdmenu</button></div><div class="eyebrow">Competitie</div><h1>${sub}</h1>
+  <div class="fg-tabs"><button class="${st.view==='board'?'on':''}" onclick="boardView()">🏆 Testers</button><button class="${st.view==='friends'||st.view==='group'?'on':''}" onclick="friendsView()">👥 Vrienden</button></div>`; }
+async function friendsView(){ st.view='friends'; save(); const G=st.groups||[];
+  const card=g=>`<button class="fg-card" onclick="groupView('${g.code}')"><span class="fg-av">👥</span><span class="hx-tx"><b>${esc(g.name)}</b><small id="fgc-${g.code}">Stand laden…</small></span><span class="hx-r">›</span></button>`;
+  $(fgHead('Vriendencompetitie')+`<p class="muted">Daag je vrienden of familie uit in je eigen groep. Iedereen die je uitnodigt, ziet alleen de stand van jullie groep.</p>
+    ${G.length?G.map(card).join(''):`<div class="card center"><div style="font-size:2rem">🥂</div><p style="margin:6px 0 0"><b>Nog geen vriendengroep.</b><br><span class="muted">Maak er een en stuur de uitnodiging via WhatsApp.</span></p></div>`}
+    ${sbOn()?`<button class="btn primary big" style="margin-top:12px" onclick="fgNewModal()">＋ Nieuwe vriendengroep</button>`:''}</div>`);
+  if(!G.length) return; friendsSync(true);
+  for(const g of G){ try{ const r=await fgRpc('fg_board',{p_code:g.code}); const rows=await r.json(); const el=document.getElementById('fgc-'+g.code); if(!el) continue;
+    if(!Array.isArray(rows)){ el.textContent='Stand niet bereikbaar'; continue; } const me=rows.findIndex(x=>x.id===st.uid);
+    el.textContent=`${rows.length} ${rows.length===1?'lid':'leden'}${me>=0?` · jij staat ${me+1}e`:''}${rows[0]?` · nr. 1: ${rows[0].name}`:''}`; }catch(e){} } }
+function fgNewModal(){ const m=document.createElement('div'); m.className='lb gl-modal'; m.onclick=()=>m.remove();
+  m.innerHTML=`<div class="gl-box guide-box" onclick="event.stopPropagation()"><div class="gb-fig">${lauraSVG(0,false)}</div><div class="ob-bubble"><b>Nieuwe vriendengroep</b><br>Geef je groep een naam. Daarna stuur je de uitnodiging via WhatsApp.</div>
+    <label class="muted fg-lbl">Naam van de groep</label><input id="fgnm" maxlength="40" placeholder="Bijv. Familie Bas of Kunstclub">
+    <label class="muted fg-lbl">Jouw naam in de groep</label><input id="fgme" maxlength="30" value="${esc(fgName()==='Speler'?'':fgName())}" placeholder="Je naam of bijnaam">
+    <p class="nap-small">${FG_PRIV}</p>
+    <button class="btn primary big" onclick="fgCreate(this)">Maak groep</button><button class="btn" style="margin-top:8px" onclick="this.closest('.lb').remove()">Annuleren</button></div>`; document.body.appendChild(m); setTimeout(()=>{ const i=document.getElementById('fgnm'); i&&i.focus(); },100); }
+async function fgCreate(b){ const nm=(document.getElementById('fgnm').value||'').trim(), me=(document.getElementById('fgme').value||'').trim(); if(!nm){ toast('Geef je groep een naam'); return; } if(!me){ toast('Vul je eigen naam in'); return; }
+  b.disabled=true; b.textContent='Groep maken…';
+  try{ const r=await fgRpc('fg_create',{p_name:nm}); const code=await r.json(); if(!fgCodeOk(code)) throw 0; st.fname=me; st.groups=[...(st.groups||[]).filter(g=>g.code!==code),{code,name:nm.slice(0,40)}]; save(); await friendsSync(true); try{ tr('fg_create'); }catch(e){}
+    b.closest('.lb').remove(); groupView(code,true); }
+  catch(e){ b.disabled=false; b.textContent='Maak groep'; toast('Dat lukte niet. Probeer het straks nog eens.'); } }
+const fgInvite=g=>`🎨 Doe je mee met onze kunstcompetitie "${g.name}" in Kunst met Laura? Wie herkent de meeste symbolen in schilderijen? Tik op de link om mee te doen:`;
+async function groupView(code,fresh){ const g=(st.groups||[]).find(x=>x.code===code); if(!g) return friendsView(); st.view='group'; save();
+  $(fgHead(esc(g.name))+`<div class="card center muted">Stand laden…</div></div>`);
+  await friendsSync(true); let rows=null; try{ const r=await fgRpc('fg_board',{p_code:code}); rows=await r.json(); if(!Array.isArray(rows)) rows=null; }catch(e){}
+  if(st.view!=='group') return;
+  const medal=i=>['🥇','🥈','🥉'][i]||(i+1);
+  $(fgHead(esc(g.name))+`${fresh?`<div class="card fg-fresh">🎉 Je groep staat klaar! Stuur nu de uitnodiging, dan kunnen je vrienden meedoen.</div>`:''}
+    ${shareBtn('fg_invite',fgInvite(g),fgLink(code),'Nodig vrienden uit via WhatsApp','big')}
+    <button class="btn small" style="margin-top:6px" onclick="fgCopy('${code}')">🔗 Kopieer de uitnodigingslink</button>
+    ${rows===null?`<div class="card center" style="margin-top:12px">De stand is even niet bereikbaar. Probeer het straks nog eens.</div>`:`<div class="board" style="margin-top:12px">${rows.map((x,i)=>`<div class="bd-r ${x.id===st.uid?'me':''}"><span class="bd-p">${medal(i)}</span><span class="bd-n"><b>${esc(x.name)}</b><small>🔥 ${x.streak} · ${x.modules} modules af · level ${x.lvl}</small></span><span class="bd-x">${rankOk(x.xp)} pnt<small>${rankBad(x.xp)} fout${rankBad(x.xp)===1?'':'en'}</small></span></div>`).join('')}</div>${rows.length<2?`<p class="muted center" style="font-size:.85rem">Je bent nog alleen. Nodig iemand uit om de strijd te beginnen!</p>`:''}`}
+    <div class="card rank-uitleg" style="margin-top:12px">${RANK_UITLEG}</div>
+    <button class="btn small" style="margin-top:12px" onclick="fgLeave('${code}')">Groep verlaten</button></div>`); }
+function fgCopy(code){ const l=fgLink(code); try{ navigator.clipboard.writeText(l).then(()=>toast('Link gekopieerd ✓'),()=>toast(l)); }catch(e){ toast(l); } }
+function fgLeave(code){ const g=(st.groups||[]).find(x=>x.code===code); if(!g) return; const m=document.createElement('div'); m.className='lb gl-modal'; m.onclick=()=>m.remove();
+  m.innerHTML=`<div class="gl-box guide-box" onclick="event.stopPropagation()"><div class="ob-bubble"><b>${esc(g.name)} verlaten?</b><br>Je naam en punten verdwijnen uit deze groep. Met de uitnodigingslink kun je later weer meedoen.</div>
+    <button class="btn primary big" onclick="this.closest('.lb').remove()">Nee, ik blijf</button><button class="btn" style="margin-top:8px" onclick="this.closest('.lb').remove();fgLeaveGo('${code}')">Ja, verlaat de groep</button></div>`; document.body.appendChild(m); }
+function fgLeaveGo(code){ if(sbOn()&&st.uid) fgRpc('fg_leave',{p_code:code,p_id:st.uid,p_token:st.utok}).catch(()=>{}); st.groups=(st.groups||[]).filter(g=>g.code!==code); save(); toast('Je hebt de groep verlaten'); friendsView(); }
+/* uitnodiging openen: ?groep=CODE */
+async function fgInviteCheck(){ const code=st.fgPending; if(!code||!st.onb||document.querySelector('.lb')) return; if((st.groups||[]).some(g=>g.code===code)){ st.fgPending=null; save(); return groupView(code); }
+  let info=null; try{ const r=await fgRpc('fg_info',{p_code:code}); const j=await r.json(); info=Array.isArray(j)?j[0]:j; }catch(e){}
+  if(!info||!info.name){ st.fgPending=null; save(); toast('Deze uitnodiging werkt niet (meer).'); return; }
+  const m=document.createElement('div'); m.className='lb gl-modal kcel';
+  m.innerHTML=`${confHTML(20)}<div class="gl-box guide-box" onclick="event.stopPropagation()"><div class="gb-fig">${lauraSVG(0,false)}</div><div class="ob-bubble"><b>Je bent uitgenodigd!</b><br>Doe mee met de vriendencompetitie <b>${esc(info.name)}</b>${info.members?` (${info.members} ${info.members==1?'lid':'leden'})`:''}. Wie herkent de meeste symbolen?</div>
+    <label class="muted fg-lbl">Jouw naam in de groep</label><input id="fgme" maxlength="30" value="${esc(fgName()==='Speler'?'':fgName())}" placeholder="Je naam of bijnaam">
+    <p class="nap-small">${FG_PRIV}</p>
+    <button class="btn primary big" onclick="fgJoin(this,'${code}')">Ik doe mee!</button><button class="btn" style="margin-top:8px" onclick="st.fgPending=null;save();this.closest('.lb').remove()">Nee, dank je</button></div>`; document.body.appendChild(m); m.dataset.nm=info.name; }
+async function fgJoin(b,code){ const me=(document.getElementById('fgme').value||'').trim(); if(!me){ toast('Vul je naam in'); return; } const nm=b.closest('.lb').dataset.nm||'Vrienden';
+  st.fname=me; st.groups=[...(st.groups||[]).filter(g=>g.code!==code),{code,name:nm}]; st.fgPending=null; save(); b.disabled=true;
+  await friendsSync(true); try{ tr('fg_join'); sfx('cheer'); }catch(e){} b.closest('.lb').remove(); groupView(code); }
+try{ const g=(new URLSearchParams(location.search).get('groep')||'').toUpperCase(); if(fgCodeOk(g)) st.fgPending=g; }catch(e){}
+
 /* ---------- Napoleon op het toneel ---------- */
 let NAPSRC=null;
 function napSpeak(k){ try{ if(NAPSRC){ NAPSRC.onended=null; NAPSRC.stop(); } }catch(e){} NAPSRC=null; if(!auOn()||!auInit()||!window.NAPVOX||!NAPVOX[k]) return;
@@ -3749,7 +3831,7 @@ function top3HTML(){ if(Date.now()-TOP3T>60000) top3Load(); const me=st.comp&&st
 async function top3Load(){ if(!sbOn()) return; TOP3T=Date.now(); try{ const r=await sbFetch('scoreboard?select=id,name,xp&order=xp.desc&limit=3'); const j=await r.json(); TOP3=Array.isArray(j)?j:[]; }catch(e){ TOP3=TOP3||[]; } const el=document.getElementById('top3'); if(el&&st.view==='start') el.innerHTML=top3HTML(); }
 /* ---------- scorebord ---------- */
 async function boardView(){ lauraTip('board'); st.view='board'; save(); const me=st.comp&&st.comp.ok===true;
-  const head=`<div><div class="hdr"><button class="chip" onclick="hub()">‹ Hoofdmenu</button></div><div class="eyebrow">Testerscompetitie</div><h1>Het scorebord</h1>`;
+  const head=fgHead('Het scorebord');
   if(!sbOn()){ $(head+`<div class="card center"><div style="font-size:2rem">🏗️</div><p><b>Het scorebord gaat binnenkort live.</b></p><p class="muted">${me?`Je bent aangemeld als <b>${esc(st.comp.name)}</b>. Zodra het scorebord online staat, verschijn je er meteen op met al je punten.`:'Meld je aan, dan verschijn je meteen op het scorebord zodra het live gaat.'}</p></div>${me?`<button class="btn small" onclick="compLeave()">Afmelden voor de competitie</button>`:`<button class="btn primary big" onclick="napoleonScene(true)">Napoleon, ik wil meedoen!</button>`}</div>`); return; }
   $(head+`<div class="card center muted">Scorebord laden…</div></div>`);
   if(me) compSync(true);
@@ -3849,7 +3931,7 @@ function kvdView(){ lauraTip('kvd'); const T=kvdToday(); st.view='kvd'; const {S
    <button class="kvd-img" onclick="kvdZoom()"><img src="${symImg(im[0])}" alt=""><span>🔍 Tik om te vergroten</span></button>
    <div class="card"><div class="al-sub" style="margin-top:0">🔎 Kijkopdracht</div><p class="qtext" style="margin:4px 0 8px">In dit schilderij zit een symbool met een vaste betekenis verstopt. Welk?</p>
     <div class="opts">${Q.opts.map((o,j)=>`<button class="opt ${a===undefined?'':j===Q.c?'ok':j===a?'bad':'dim'}" ${a!==undefined?'disabled':''} onclick="kvdAns(${j})"><span class="l">${'ABC'[j]}</span><span>${o}</span></button>`).join('')}</div>
-    ${a!==undefined?`<div class="card fb ${a===Q.c?'good':'bad'}" style="margin-top:10px"><b>${a===Q.c?'Goed gezien! Dit werk hangt nu in je museum.':'Helaas! Het was '+S.n.toLowerCase()+'.'}</b> <b>${S.n}</b> staat traditioneel voor <b>${lcM(S.m)}</b>. ${S.e}</div>`:''}</div>
+    ${a!==undefined?`<div class="card fb ${a===Q.c?'good':'bad'}" style="margin-top:10px"><b>${a===Q.c?'Goed gezien! Dit werk hangt nu in je museum.':'Helaas! Het was '+S.n.toLowerCase()+'.'}</b> <b>${S.n}</b> staat traditioneel voor <b>${lcM(S.m)}</b>. ${S.e}</div><div class="share-row" style="margin-top:10px">${shareBtn('kvd',kvdShareText(T),SITE()+'?open=kvd','Stuur dit kunstwerk via WhatsApp')}</div>`:''}</div>
    <button class="btn primary big" onclick="hub()">Terug naar het hoofdmenu</button></div>`); }
 function kvdZoom(){ const T=kvdToday(); const d=document.createElement('div'); d.className='lb'; d.innerHTML=`<img src="${symImg(T.im[0])}" alt=""><div class="cap"><i>${T.im[1]}</i> · ${T.im[2]}${T.im[3]?', '+T.im[3]:''}</div><button class="btn primary lbclose">Sluit afbeelding</button>`; d.onclick=()=>d.remove(); document.body.appendChild(d); }
 function kvdAns(j){ const T=kvdToday(); if(T.K.ans!==undefined) return; T.K.ans=j; const ok=j===T.Q.c; if(ok){ st.kvdWon=st.kvdWon||{}; st.kvdWon[T.im[0]]={t:T.im[1],a:T.im[2],y:T.im[3],s:T.S.n,at:Date.now()}; xpAdd(15,'goed gezien'); } save(); try{ sfx(ok?'bell':'whoosh'); }catch(e){} kvdView(); }
@@ -5741,10 +5823,12 @@ function meView(){ st.view='me'; save(); const I=xpInfo(), alive=st.dqLast===dqD
     <div class="hx-top"><h1 class="hx-hello" style="margin:0">${st.name?esc(st.name):'Jij'}</h1><button class="chip" onclick="editName()">Naam wijzigen</button></div>
     ${xpBar()}
     <div class="hx-stats"><div><b>🔥 ${streak}</b><small>dagen op rij</small></div><div><b>${sc.ok}</b><small>punten</small></div><div><b>${museumPct()}%</b><small>museum vol</small></div></div>
+    ${streak>=2?`<div class="share-row" style="margin:-6px 0 14px">${shareBtn('streak',streakShareText(streak),null,'Deel je reeks van '+streak+' dagen','small')}</div>`:''}
     <div class="hx-list">
       ${row('🏛️','Mijn museum',`${museumPct()}% compleet · je zalen en favorieten`,"openFav('me')")}
       ${row('🃏','Mijn gidsen en kaarten','Band met je gidsen, weetjes en badges',"albumView('me')")}
       ${row('🏆','Testerscompetitie','Het volledige scorebord','boardView()')}
+      ${row('👥','Vriendencompetitie',(st.groups||[]).length?(st.groups.length===1?esc(st.groups[0].name):st.groups.length+' groepen'):'Daag je vrienden uit','friendsView()')}
     </div>
     ${(st.chests||0)>0?`<div style="margin-top:12px">${chestCardHub()}</div>`:''}
     <details class="hx-more" style="margin-top:12px"><summary>Weekopdrachten</summary>${questCard()}</details>
@@ -11542,6 +11626,8 @@ if(/kunst met laura/i.test(st.name||'')) st.name='';
 try{ showSplash(); }catch(e){} st.opens=(st.opens||0)+1; if(['intro','introDone','introAsk'].includes(st.view)) st.view='paths'; save(); if(/[?&]wow=1/.test(location.search)&&WOW_ON) wowStart(); else if(!st.onb){ if(WOW_ON&&!st.wowDone) wowStart(); else startOnb(); } else if(!st.introDone&&!st.introSkip&&st.opens<=3) introAsk(); else { hub(); try{ welcomeBack(); }catch(e){} }
 try{ keepRestore(); }catch(e){}
 initCloud();
+{ const _hub=hub; hub=function(...a){ const r=_hub.apply(this,a); if(st.fgPending) setTimeout(()=>{ try{ fgInviteCheck(); }catch(e){} },900); return r; }; }
+try{ const o=new URLSearchParams(location.search).get('open'); if(st.onb&&o==='kvd') setTimeout(()=>kvdView(),700); else if(st.onb&&o==='dq') setTimeout(()=>dqStart(),700); else if(st.fgPending&&st.onb) setTimeout(()=>fgInviteCheck(),1200); }catch(e){}
 
 /* ================= METEN: anonieme gebruiksdata (alleen op de echte website) ================= */
 const TRK=(()=>{ let did=null, isNew=false, on=false, Q=[], seen=new Set();
@@ -11589,7 +11675,7 @@ async function statsView(days){ days=days||30; st.view='stats'; const key=localS
   const lv={}; D.evs.filter(v=>v.e==='leave').forEach(v=>{ const L=lbl(v.k); lv[L]=(lv[L]||0)+v.n; });
   const leaves=Object.entries(lv).sort((a,b)=>b[1]-a[1]).slice(0,12).map(([k,n])=>`<tr><td>${k}</td><td>${n}</td></tr>`).join('');
   const R=D.ret||{}, rp=(a,b)=>b?Math.round(a/b*100)+'%':'–';
-  const used=[['Dagquiz gespeeld','dq_done'],['Kunstwerk van de dag','kvd'],['Kistje geopend','chest'],['Vraag het Laura','oracle'],['Verhaal begonnen','story_start'],['Voorkenniscursus','pre_start'],['Voortgang bewaren bekeken','keep']].map(([l,e])=>`<tr><td>${l}</td><td>${D.evs.filter(v=>v.e===e).reduce((s,v)=>s+v.n,0)}</td></tr>`).join('');
+  const used=[['Dagquiz gespeeld','dq_done'],['Kunstwerk van de dag','kvd'],['Kistje geopend','chest'],['Vraag het Laura','oracle'],['Verhaal begonnen','story_start'],['Voorkenniscursus','pre_start'],['Voortgang bewaren bekeken','keep'],['Gedeeld via WhatsApp','share'],['Vriendengroep gemaakt','fg_create'],['Vriendengroep ingestapt','fg_join']].map(([l,e])=>`<tr><td>${l}</td><td>${D.evs.filter(v=>v.e===e).reduce((s,v)=>s+v.n,0)}</td></tr>`).join('');
   $(`<div class="stv"><div class="hdr"><button class="chip" onclick="hub()">‹ Hoofdmenu</button><span class="row">${[7,30,90].map(d=>`<button class="chip ${d===days?'on':''}" onclick="statsView(${d})">${d} dagen</button>`).join('')}</span></div>
     <h1>Statistieken</h1><p class="muted">Laatste ${days} dagen · ${D.users} bezoekers, waarvan ${D.new} nieuw. Je eigen apparaten tellen niet mee.</p>
     <h3>Waar haken mensen af?</h3><p class="muted small">Van alle nieuwe bezoekers: hoeveel komen elke stap voorbij. Een rood percentage is een grote uitval ten opzichte van de stap ervoor.</p><div class="sfun">${bars}</div>
