@@ -3108,23 +3108,24 @@ function guideCheer(r){ const g=guideOf(), G=GUIDES[g], arr=GCHEER[g], nm=st.nam
     <div class="ob-bubble gc-b"><b>${G.name}:</b> ${arr[r%arr.length].replace('!',nm+'!')}</div></div>`; }
 function preStart(t){ const S=PRE_OF(t); if(!S) return; setTrack(t); storyEnsure(); document.querySelectorAll('.lb').forEach(x=>x.remove()); storyPlay(S.id,0); }
 function preSkip(t){ st.pre=st.pre||{}; st.pre[t]='skip'; save(); document.querySelectorAll('.lb').forEach(x=>x.remove()); openRound(0); }
-function preOffer(){ const t=st.t, S=PRE_OF(t), g=guideOf(t), G=GUIDES[g], nm=st.name?`, ${st.name}`:''; st.gseen=st.gseen||{}; const hello=!st.gseen['g:'+g]?GHELLO[g](nm)+'<br><br>':''; st.gseen['g:'+g]=1; save(); storyEnsure();
+function preOffer(){ const t=st.t, S=PRE_OF(t), g=guideOf(t), G=GUIDES[g], nm=st.name?`, ${st.name}`:''; st.gseen=st.gseen||{}; const hello=!st.gseen['g:'+g]?GHELLO[g](nm)+'<br><br>':''; if(hello) setTimeout(()=>helloSay(g),200); st.gseen['g:'+g]=1; save(); storyEnsure();
   const what=t==='myth'?'Ik neem je eerst mee in wat mythologie eigenlijk is, en we lopen samen langs mijn stamboom. Wie is familie van wie?':'Eerst stel ik je voor aan Cesare Ripa. Zijn boek <i>Iconologia</i> is het spiekboek achter bijna alle deugden en ondeugden die je gaat zien.';
   const d=document.createElement('div'); d.className='lb gl-modal';
   d.innerHTML=`<div class="gl-box guide-box" onclick="event.stopPropagation()"><div class="gb-fig">${G.svg()}</div><div class="eyebrow center">${G.name} · ${G.role}</div>
     <div class="ob-bubble">${hello}<b>Voor je begint:</b> er is een korte voorkenniscursus van 3 minuten. ${what} Ik raad hem je ten zeerste aan: dan begrijp je de lessen veel beter.</div>
-    <button class="btn primary big" onclick="preStart('${t}')">Doe de voorkenniscursus</button><button class="btn" style="margin-top:8px" onclick="preSkip('${t}')">Sla over, meteen naar les 1</button></div>`;
+    <button class="btn primary big" onclick="preStart('${t}')">Doe de voorkenniscursus</button><button class="btn" style="margin-top:8px" onclick="speakStop();preSkip('${t}')">Sla over, meteen naar les 1</button></div>`;
   document.body.appendChild(d); }
 function guideModal(g,html){ const G=GUIDES[g]; const d=document.createElement('div'); d.className='lb gl-modal';
   d.innerHTML=`<div class="gl-box guide-box" onclick="event.stopPropagation()"><div class="gb-fig">${G.svg()}</div>
     <div class="eyebrow center">${G.name} · ${G.role}</div><div class="ob-bubble">${html}</div>
-    <button class="btn primary big" onclick="this.closest('.lb').remove()">Laten we beginnen →</button></div>`;
+    <button class="btn primary big" onclick="speakStop();this.closest('.lb').remove()">Laten we beginnen →</button></div>`;
   document.body.appendChild(d); }
+function helloSay(g,n){ n=n||0; voxLoad('guides'); if(window.VOX&&VOX.guides){ if(VOX.guides['hello_'+g]) speak('guides','hello_'+g); return; } if(n<30) setTimeout(()=>helloSay(g,n+1),150); }
 function maybeGuide(){ const v=st.view; if(!(v==='q'||v==='big')||!diffOf()||!st.t||document.querySelector('.guide-box')) return;
   st.gseen=st.gseen||{}; const g=guideOf(), nm=st.name?`, ${st.name}`:''; const parts=[];
-  if(!st.gseen['g:'+g]){ parts.push(GHELLO[g](nm)); st.gseen['g:'+g]=1; }
+  let hi=false; if(!st.gseen['g:'+g]){ parts.push(GHELLO[g](nm)); st.gseen['g:'+g]=1; hi=true; }
   const rk=st.t+'|'+st.r; if(GROUND[rk]&&!st.gseen['r:'+rk]){ parts.push(GROUND[rk](parts.length?'':nm)); st.gseen['r:'+rk]=1; }
-  if(!parts.length) return; save(); guideModal(g,parts.join('<br><br>')); }
+  if(!parts.length) return; save(); guideModal(g,parts.join('<br><br>')); if(hi) helloSay(g); }
 const guideRow = () => { const g=guideOf(), G=GUIDES[g]; return `<div class="guide-row" onclick="guideModal('${g}',GHELLO['${g}'](st.name?', '+st.name:''))"><span class="gr-h">${G.svg(0,true)}</span><div><div class="muted gr-s">Je gids</div><b>${G.name}</b></div></div>`; };
 /* ================= DAGELIJKSE CONTENTBANK: eenmalige vragen en kunstwerk van de dag =================
    Bron: de symbolenbibliotheek (200 symbolen, 736 schilderijen), niet de cursusvragen.
