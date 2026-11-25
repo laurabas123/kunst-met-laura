@@ -628,6 +628,11 @@ body:has(.nxbar) .wrap,body:has(.nxbar) .dq{padding-bottom:110px}.nxbar.bad .nx-
 @keyframes nxin{from{transform:translateY(100%)}to{transform:none}}@media (prefers-reduced-motion:reduce){.nxbar{animation:none}}
 .sp-yn{display:flex;gap:10px;margin-top:10px}.sp-yn .btn{flex:1;margin:0}
 .cred-list{padding-left:18px;line-height:1.5}.cred-list li{margin:4px 0}.cred-list a{color:var(--gold2,#d7b46a)}
+.sfun{display:flex;flex-direction:column;gap:6px;margin:8px 0 18px}.sf-row{display:grid;grid-template-columns:42% 1fr 44px;gap:8px;align-items:center;font-size:.82rem}
+.sf-b{position:relative;height:22px;background:rgba(255,255,255,.05);border-radius:6px;overflow:hidden}.sf-b i{position:absolute;inset:0 auto 0 0;background:#d7b46a;opacity:.75}.sf-b span{position:relative;padding-left:6px;line-height:22px;font-weight:600}
+.sf-d{color:#e0866a;font-weight:700;font-size:.8rem}.sret{display:flex;gap:10px;margin:8px 0 18px}.sret div{flex:1;background:rgba(255,255,255,.04);border:1px solid rgba(215,180,106,.25);border-radius:12px;padding:10px;text-align:center}.sret b{display:block;font-size:1.5rem;color:#d7b46a}.sret small{color:var(--muted,#9aa3b8)}
+.stab{width:100%;border-collapse:collapse;font-size:.84rem;margin:6px 0 18px}.stab td{padding:6px 4px;border-bottom:1px solid rgba(255,255,255,.07)}.stab td:last-child{text-align:right;font-weight:600}
+.sday{display:flex;align-items:flex-end;gap:2px;height:64px}.sday div{flex:1;display:flex;align-items:flex-end}.sday i{display:block;width:100%;background:#d7b46a;border-radius:2px 2px 0 0}.stv .chip.on{background:#d7b46a;color:#1d1a16}
 .gtree{padding:12px 12px 14px;background:rgba(255,255,255,.03);border:1px solid rgba(215,180,106,.25);border-radius:16px;margin-top:10px;text-align:center}
 .gt-lbl{font-size:.72rem;color:var(--muted,#9aa3b8);margin:8px 0 4px}.gt-lbl:first-child{margin-top:0}
 .gt-row{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px}
@@ -5440,7 +5445,7 @@ function creditsView(){ st.view='credits'; save();
    <p class="muted small">Licenties: <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.nl" target="_blank" rel="noopener">CC BY-SA</a>, <a href="https://creativecommons.org/licenses/by/4.0/deed.nl" target="_blank" rel="noopener">CC BY</a>, <a href="https://creativecommons.org/publicdomain/zero/1.0/deed.nl" target="_blank" rel="noopener">CC0</a>. De foto's zijn soms bijgesneden of verkleind.</p>
    <h3>Muziek</h3><ul class="muted" style="padding-left:18px">${mus}</ul><p class="muted small">Opnames via Wikimedia Commons. Opnames met CC BY-SA worden gebruikt onder die licentie (creativecommons.org/licenses/by-sa/3.0).</p>
    <h3>Stemmen</h3><p class="muted">Computerstemmen (neurale tekst-naar-spraak).</p>
-   <h3>Je gegevens</h3><p class="muted">Je naam en voortgang worden op dit apparaat bewaard. Als back-up gaat je voortgang ook naar een beveiligde server (Supabase), gekoppeld aan een willekeurige code en niet aan je naam of e-mailadres. Vragen die je via ‘Stel Laura een vraag’ stuurt, worden daar ook opgeslagen, zodat Laura ze kan lezen. We gebruiken geen trackingcookies en verkopen niets door.</p></div>`); }
+   <h3>Je gegevens</h3><p class="muted">Je naam en voortgang worden op dit apparaat bewaard. Als back-up gaat je voortgang ook naar een beveiligde server (Supabase), gekoppeld aan een willekeurige code en niet aan je naam of e-mailadres. Vragen die je via ‘Stel Laura een vraag’ stuurt, worden daar ook opgeslagen, zodat Laura ze kan lezen. Om de app te verbeteren tellen we anoniem welke onderdelen worden gebruikt en waar mensen stoppen, gekoppeld aan een willekeurige code op dit apparaat. We weten niet wie je bent, gebruiken geen advertentiecookies en verkopen niets door.</p></div>`); }
 
 function nextStep(){ const rf = resumeFrom && Number.isInteger(resumeFrom.r) && ['q','big','kq','match','who','tl','final'].includes(resumeFrom.view) && TRACKS[resumeFrom.t||'basis'] && !roundComplete(resumeFrom.r, resumeFrom.t||'basis') ? resumeFrom : null;
   if(rf){ const t=rf.t||'basis', R=TRACKS[t].rounds[rf.r]; return {lbl:'Ga verder', t:SHORT[t]||TRACKS[t].title, s:`${'Les'} ${rf.r+1}${R&&R.t?' · '+R.t:''}`, img:R&&R.big&&R.big.img, fn:`go(${rf.r},{view:'${rf.view}',i:${rf.i},bigStep:${rf.bigStep}},'${t}')`}; }
@@ -5494,7 +5499,7 @@ function meView(){ st.view='me'; save(); const I=xpInfo(), alive=st.dqLast===dqD
       ${row('🔐','Voortgang bewaren','Je persoonlijke link en herstelcode','keepView()')}
       ${row('🎓','Startcursus','De 8 basisbegrippen',"introPrev='start';startIntro('paths')")}
       ${row('📖','Begrippenlijst','Alle termen op een rij','glossary()')}
-      ${row('ℹ️','Over deze app','Bronnen, muziek en makers','creditsView()')}
+      ${row('ℹ️','Over deze app','Bronnen, muziek en makers','creditsView()')}${(()=>{try{return localStorage.getItem('kml-statskey')}catch(e){return null}})()?row('📊','Statistieken','Waar haken gebruikers af?','statsView()'):''}
       ${DEV?row('✨','Opening opnieuw bekijken','De eerste minuut voor nieuwe gebruikers','wowStart()'):''}
     </div></details>
   </div>`); }
@@ -10647,6 +10652,62 @@ if(/kunst met laura/i.test(st.name||'')) st.name='';
 try{ showSplash(); }catch(e){} st.opens=(st.opens||0)+1; if(['intro','introDone','introAsk'].includes(st.view)) st.view='paths'; save(); if(/[?&]wow=1/.test(location.search)&&WOW_ON) wowStart(); else if(!st.onb){ if(WOW_ON&&!st.wowDone) wowStart(); else startOnb(); } else if(!st.introDone&&!st.introSkip&&st.opens<=3) introAsk(); else { hub(); try{ welcomeBack(); }catch(e){} }
 try{ keepRestore(); }catch(e){}
 initCloud();
+
+/* ================= METEN: anonieme gebruiksdata (alleen op de echte website) ================= */
+const TRK=(()=>{ let did=null, isNew=false, on=false, Q=[], seen=new Set();
+  try{ const u=new URLSearchParams(location.search); if(u.get('notrack')==='1') localStorage.setItem('kml-notrack','1'); const sk=u.get('stats'); if(sk){ localStorage.setItem('kml-statskey',sk); localStorage.setItem('kml-notrack','1'); }
+    on=!DEV && !localStorage.getItem('kml-notrack') && !!SB.url;
+    did=localStorage.getItem('kml-did'); if(!did){ did='d'+Math.random().toString(36).slice(2,12)+Date.now().toString(36); localStorage.setItem('kml-did',did); localStorage.setItem('kml-first',String(Date.now())); isNew=true; } }catch(e){ on=false; }
+  function flush(beacon){ if(!on||!Q.length) return; const items=Q.splice(0,60);
+    try{ fetch(SB.url+'/rest/v1/rpc/log_events',{method:'POST',keepalive:!!beacon,headers:{'Content-Type':'application/json',apikey:SB.key,Authorization:'Bearer '+SB.key},body:JSON.stringify({p_did:did,p_items:items})}).catch(()=>{}); }catch(e){} }
+  function tr(e,k,p,once){ if(!on) return; k=k==null?null:String(k); if(once){ const id=e+'|'+k; if(seen.has(id)) return; seen.add(id); } Q.push({e,k,p:p||null}); if(Q.length>=40) flush(); }
+  setInterval(()=>flush(),8000);
+  function where(){ try{ const v=st.view; if(v==='q'||v==='kq') return v+':'+curT()+'|'+st.r+'|'+st.i; if(v==='big') return 'big:'+st.t+'|'+st.r+'|'+st.bigStep; if(v==='wow') return 'wow:'+WOW.step; if(v==='onb') return 'onb:'+(ob&&ob.s); if(v==='intro') return 'intro:'+IN.i; if(v==='story') return 'story:'+STQ.id+'|'+STQ.c+'|'+STQ.b; return v||'?'; }catch(e){ return st.view||'?'; } }
+  document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='hidden'){ tr('leave',where()); flush(true); } });
+  return {tr, flush, isNew:()=>isNew, on:()=>on, did:()=>did};
+})();
+const tr=TRK.tr;
+(function(){ const W=(n,f)=>{ const o=window[n]; if(typeof o!=='function') return; window[n]=function(...a){ try{ f.apply(this,a); }catch(e){} return o.apply(this,a); }; };
+  W('wowView',()=>tr('wow',WOW.step,null,true)); W('wowEnd',y=>tr('wow_end',y?'meer':'rond',null,true));
+  W('startOnb',()=>tr('onb_start',null,null,true)); W('obGo',s=>tr('onb',s,null,true)); W('obFinish',t=>tr('onb_done',t,null,true));
+  W('startIntro',()=>tr('intro_start',null,null,true)); W('introAns',k=>tr('intro_q',IN.i,{ok:k===INTRO[IN.i].c},true)); W('introDone',()=>tr('intro_done',IN.score,null,true));
+  W('openRound',r=>tr('lesson_start',st.t+'|'+r,null,true));
+  W('answer',k=>{ if(!(st.i in res(st.r,curT()))) tr('q',curT()+'|'+st.r+'|'+st.i,{ok:k===TR(st.r,curT()).q[st.i].c}); });
+  W('bigAnswer',k=>{ if(!(st.bigStep in bres(st.r))) tr('big',st.t+'|'+st.r+'|'+st.bigStep,{ok:k===TR(st.r).big.details[st.bigStep].c}); });
+  W('roundMilestones',r=>tr('lesson_done',st.t+'|'+r,null,true));
+  W('preStart',t=>tr('pre_start',t,null,true)); W('storyPlay',(id,c)=>tr('story_start',id+'|'+c,null,true)); W('storyChapterDone',()=>tr('story_done',STQ.id+'|'+STQ.c,null,true));
+  W('dqFinish',()=>tr('dq_done',null,null,true)); W('kvdAns',()=>tr('kvd',null,null,true)); W('chestOpen',()=>tr('chest'));
+  W('oracleAsk',q=>{ if((q||'').trim()) tr('oracle',null,{q:String(q).trim().slice(0,60)}); });
+  W('keepView',()=>tr('keep',null,null,true)); W('openMuseums',()=>tr('musea',null,null,true)); W('openFav',()=>tr('museum',null,null,true));
+  W('hub',()=>tr('hub',null,null,true));
+})();
+try{ const first=+localStorage.getItem('kml-first')||Date.now(); tr('app_open',TRK.isNew()?'new':'ret',{days:Math.floor((Date.now()-first)/864e5),pwa:!!(window.matchMedia&&matchMedia('(display-mode: standalone)').matches)||!!navigator.standalone,onb:!!st.onb}); }catch(e){}
+
+/* ---------- statistieken voor Laura (open met ?stats=<sleutel>) ---------- */
+async function statsView(days){ days=days||30; st.view='stats'; const key=localStorage.getItem('kml-statskey'); if(!key) return hub();
+  $(`<div><div class="hdr"><button class="chip" onclick="hub()">‹ Hoofdmenu</button></div><h1>Statistieken</h1><p class="muted">Gegevens laden…</p></div>`);
+  let D=null; try{ const r=await fetch(SB.url+'/rest/v1/rpc/app_stats',{method:'POST',headers:{'Content-Type':'application/json',apikey:SB.key,Authorization:'Bearer '+SB.key},body:JSON.stringify({p_key:key,p_days:days})}); D=await r.json(); }catch(e){}
+  if(!D||!D.evs){ $(`<div><div class="hdr"><button class="chip" onclick="hub()">‹ Hoofdmenu</button></div><h1>Statistieken</h1><p class="muted">Kon de gegevens niet laden. Klopt de sleutel?</p></div>`); return; }
+  const n=(e,k)=>{ const x=D.evs.find(v=>v.e===e&&(k===undefined||v.k===String(k))); return x?x.n:0; }, sum=e=>D.evs.filter(v=>v.e===e).reduce((s,v)=>Math.max(s,v.n),0);
+  const base=n('app_open','new')||1;
+  const F=[['Nieuwe bezoekers',n('app_open','new')],['Opening: scherm 1',n('wow','0')],['Opening: schedel gevonden',n('wow','2')],['Opening: zandloper',n('wow','3')],['Opening afgerond',n('wow_end','meer')+n('wow_end','rond')],['Kennismaking afgerond',sum('onb_done')],['Startcursus begonnen',n('intro_start')],['Startcursus afgerond',sum('intro_done')],['Basis les 1 begonnen',n('lesson_start','basis|0')],['Basis les 1 af',n('lesson_done','basis|0')],['Basis les 2 af',n('lesson_done','basis|1')],['Basis les 3 af',n('lesson_done','basis|2')],['Basis les 4 af',n('lesson_done','basis|3')]];
+  const bars=F.map(([l,v],i)=>{ const pct=Math.round(v/base*100), prev=i?F[i-1][1]:v, drop=prev?Math.round((1-v/prev)*100):0; return `<div class="sf-row"><div class="sf-l">${l}</div><div class="sf-b"><i style="width:${Math.min(100,pct)}%"></i><span>${v} · ${pct}%</span></div>${i&&drop>=25?`<div class="sf-d">−${drop}%</div>`:'<div class="sf-d"></div>'}</div>`; }).join('');
+  const VW={start:'Hoofdmenu',home:'Cursuspagina',paths:'Cursussen kiezen',me:'Jij',musea:'Musea',stories:'Verhalen',fav:'Mijn museum',dq:'Dagquiz',kvd:'Kunstwerk van de dag',oracle:'Vraag het Laura',final:'Eindtoets',introDone:'Startcursus klaar',keep:'Voortgang bewaren'};
+  const lbl=k=>{ const m=/^(\w+):(.*)$/.exec(k||''); if(!m) return VW[k]||k; const [,v,d]=m, x=d.split('|');
+    if(v==='wow') return 'Opening, scherm '+(+d+1); if(v==='onb') return 'Kennismaking, stap '+(+d+1); if(v==='intro') return 'Startcursus, vraag '+(+d+1);
+    if(v==='q'||v==='kq') return (SHORT[x[0]]||x[0])+', les '+(+x[1]+1)+', vraag '+(+x[2]+1); if(v==='big') return (SHORT[x[0]]||x[0])+', les '+(+x[1]+1)+', meesterwerk'; if(v==='story') return 'Verhaal '+x[0]+', hoofdstuk '+(+x[1]+1); return k; };
+  const lv={}; D.evs.filter(v=>v.e==='leave').forEach(v=>{ const L=lbl(v.k); lv[L]=(lv[L]||0)+v.n; });
+  const leaves=Object.entries(lv).sort((a,b)=>b[1]-a[1]).slice(0,12).map(([k,n])=>`<tr><td>${k}</td><td>${n}</td></tr>`).join('');
+  const R=D.ret||{}, rp=(a,b)=>b?Math.round(a/b*100)+'%':'–';
+  const used=[['Dagquiz gespeeld','dq_done'],['Kunstwerk van de dag','kvd'],['Kistje geopend','chest'],['Vraag het Laura','oracle'],['Verhaal begonnen','story_start'],['Voorkenniscursus','pre_start'],['Voortgang bewaren bekeken','keep']].map(([l,e])=>`<tr><td>${l}</td><td>${D.evs.filter(v=>v.e===e).reduce((s,v)=>s+v.n,0)}</td></tr>`).join('');
+  $(`<div class="stv"><div class="hdr"><button class="chip" onclick="hub()">‹ Hoofdmenu</button><span class="row">${[7,30,90].map(d=>`<button class="chip ${d===days?'on':''}" onclick="statsView(${d})">${d} dagen</button>`).join('')}</span></div>
+    <h1>Statistieken</h1><p class="muted">Laatste ${days} dagen · ${D.users} bezoekers, waarvan ${D.new} nieuw. Je eigen apparaten tellen niet mee.</p>
+    <h3>Waar haken mensen af?</h3><p class="muted small">Van alle nieuwe bezoekers: hoeveel komen elke stap voorbij. Een rood percentage is een grote uitval ten opzichte van de stap ervoor.</p><div class="sfun">${bars}</div>
+    <h3>Komen ze terug?</h3><div class="sret"><div><b>${rp(R.d1,R.eligible_d1)}</b><small>de volgende dag</small></div><div><b>${rp(R.w1,R.eligible_w1)}</b><small>binnen een week</small></div><div><b>${rp(R.w2,R.eligible_w1)}</b><small>in week 2</small></div></div>
+    <h3>Waar sluiten ze de app?</h3><table class="stab">${leaves||'<tr><td>Nog geen gegevens</td></tr>'}</table>
+    <h3>Wat gebruiken ze?</h3><table class="stab">${used}</table>
+    <h3>Bezoekers per dag</h3><div class="sday">${(D.days||[]).map(d=>`<div title="${d.d}: ${d.n}"><i style="height:${Math.max(4,Math.round(d.n/Math.max(...D.days.map(x=>x.n))*60))}px"></i></div>`).join('')}</div></div>`); }
+try{ if(localStorage.getItem('kml-statskey')&&/[?&]stats=/.test(location.search)) setTimeout(()=>statsView(),600); }catch(e){}
 </script>
 </body>
 </html>
