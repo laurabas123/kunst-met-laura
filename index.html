@@ -10266,7 +10266,7 @@ function whoView(){
     <p class="muted">Raad wie (of wat) er bedoeld wordt. Hoe minder hints je nodig hebt, hoe meer punten: 4, 3, 2 of 1.</p>
     <div class="clues">${W.clues.map((c,i)=> i<(done?4:S.shown) ? `<div class="clue fade"><span class="cn">${i+1}</span>${c}</div>` : `<div class="clue hidden"><span class="cn">${i+1}</span>…</div>`).join('')}</div>
     <div class="opts">${W.opts.map((o,k)=>{ let cls=''; if(done&&k===W.a) cls='ok'; else if(S.wrong.includes(k)) cls='bad';
-      return `<button class="opt ${cls}" ${done||S.wrong.includes(k)?'disabled':''} onclick="whoGuess(${k})"><span class="l">${L[k]}</span><span>${o}</span></button>`;}).join('')}</div>`;
+      return `<button class="opt ${cls}" ${done||S.wrong.includes(k)?'disabled':''} onclick="whoGuess(${k})"><span class="l">${L[k]}</span><span>${mythOpt(o)}</span></button>`;}).join('')}</div>`;
   if(!done && S.shown<4) h+=`<div class="row"><button class="btn small" onclick="whoHint()">Nog een hint (−1 punt)</button></div>`;
   if(done) h+=`<div class="card" id="fb"><div class="verdict ${S.pts>0?'ok':'bad'}">${S.pts>0?`${S.pts} ${S.pts===1?'punt':'punten'}!`:'Helaas, 0 punten.'}</div>
     <div class="who-img">${photo({img:W.img,t:W.opts[W.a],a:'',y:''})}</div>
@@ -10370,7 +10370,7 @@ function finalView(){
     h+=`<p class="muted">Raadsel ${cur+1} van ${F.w.length}. Hoe minder hints, hoe meer punten (4, 3, 2 of 1).</p>
       <div class="clues">${W.clues.map((c,i)=> i<(done?4:S.shown) ? `<div class="clue fade"><span class="cn">${i+1}</span>${c}</div>` : `<div class="clue hidden"><span class="cn">${i+1}</span>…</div>`).join('')}</div>
       <div class="opts">${W.opts.map((o,k)=>{ let cls=''; if(done&&k===W.a) cls='ok'; else if(S.wrong.includes(k)) cls='bad';
-        return `<button class="opt ${cls}" ${done||S.wrong.includes(k)?'disabled':''} onclick="finGuess(${cur},${k})"><span class="l">${L[k]}</span><span>${o}</span></button>`;}).join('')}</div>
+        return `<button class="opt ${cls}" ${done||S.wrong.includes(k)?'disabled':''} onclick="finGuess(${cur},${k})"><span class="l">${L[k]}</span><span>${mythOpt(o)}</span></button>`;}).join('')}</div>
       ${!done&&S.shown<4?`<div class="row"><button class="btn small" onclick="st.final[st.t].w[${cur}].shown++;finalView()">Nog een hint (−1 punt)</button></div>`:''}
       ${done?`<div class="card" id="fb"><div class="verdict ${S.pts>0?'ok':'bad'}">${S.pts} ${S.pts===1?'punt':'punten'}</div><p>${linkTerms(W.e)}</p>
         <button class="btn primary" onclick="${cur<F.w.length-1?'st.final[st.t].wc='+(cur+1)+';finalView()':'st.final[st.t].stage=1;finalView()'}">${cur<F.w.length-1?'Volgend raadsel →':'Door naar koppelen →'}</button></div>`:''}`;
@@ -10487,6 +10487,11 @@ function topBar(){
     <div class="dots">${[...ROUNDS[st.r].q.keys()].map(k=>`<button class="${k in R?(R[k]===ROUNDS[st.r].q[k].c?'ok':'bad'):''} ${st.view==='q'&&k===st.i?'cur':''}" onclick="go(${st.r},{view:'q',i:${k}})" aria-label="vraag ${k+1}"></button>`).join('')}${st.t==='basis'?`<button class="star ${st.view==='kq'?'cur':''} ${Object.keys(res(st.r,'kenner')).length>=4?'done':''}" onclick="go(${st.r},{view:'kq',i:0})" aria-label="kunstkenner">🎓</button>`:''}<button class="star ${st.view==='big'?'cur':''}" onclick="go(${st.r},{view:'big',bigStep:-1})" aria-label="meesterwerk">★</button></div></div>
     <div class="eyebrow">${ROUNDS[st.r].title}</div>`;
 }
+const GODPAIR=[['Jupiter','Zeus'],['Juno','Hera'],['Neptunus','Poseidon'],['Pluto','Hades'],['Ceres','Demeter'],['Vesta','Hestia'],['Mars','Ares'],['Venus','Aphrodite'],['Vulcanus','Hephaistos'],['Minerva','Athena'],['Diana','Artemis'],['Mercurius','Hermes'],['Bacchus','Dionysos'],['Cupido','Eros'],['Amor','Eros'],['Saturnus','Kronos'],['Aurora','Eos'],['Proserpina','Persephone'],['Hercules','Herakles'],['Ulysses','Odysseus'],['Luna','Selene']];
+const GODMAP=(()=>{ const m={}; GODPAIR.forEach(([r,g])=>{ m[r]=g; if(!m[g]) m[g]=r; }); return m; })();
+const GODRE=new RegExp('\\b('+Object.keys(GODMAP).sort((a,b)=>b.length-a.length).join('|')+')\\b(?!\\s*\\()(?![a-zà-ÿ])');
+function mythNm(o){ if(typeof o!=='string'||/\((Zeus|Hera|Poseidon|Hades|Demeter|Hestia|Ares|Aphrodite|Hephaistos|Athena|Artemis|Hermes|Dionysos|Eros|Kronos|Eos|Persephone|Herakles|Odysseus|Selene|Jupiter|Juno|Neptunus|Pluto|Ceres|Vesta|Mars|Venus|Vulcanus|Minerva|Diana|Mercurius|Bacchus|Cupido|Amor|Saturnus|Aurora|Proserpina|Hercules|Ulysses|Luna)\b/.test(o)) return o; return o.replace(GODRE,(n)=>`${n} (${GODMAP[n]})`); }
+const mythOpt = o => (st.t==='myth'||(typeof curT==='function'&&curT()==='myth')) ? mythNm(o) : o;
 const nextBar=(lbl,fn,ok)=>`<div class="nxbar ${ok===true?'ok':ok===false?'bad':''}"><span class="nx-v">${ok===true?'✓ Goed!':ok===false?'Net niet':''}</span><button class="btn primary" onclick="${fn}">${lbl}</button></div>`;
 const bottomNav = () => `<div class="bnav"><button class="btn" onclick="nav(-1)">‹ Vorige</button><button class="btn primary" onclick="nav(1)">Volgende ›</button></div>`;
 
@@ -10538,7 +10543,7 @@ function optSet(item,key){ const d=diffOf()||'m', c=item.c, corr=item.opts[c], c
 const HELP={};
 function optsHtml(item,key,a,fn){ const o=optSet(item,key), hid=HELP[key]; return `<div class="opts">${o.map((x,k)=>{ if(a===null&&hid===k) return '';
     let cls=''; if(a!==null){ if(x.orig===item.c) cls='ok'; else if(a>=100?k===a-100:x.orig===a) cls='bad'; }
-    return `<button class="opt ${cls}" ${a!==null?'disabled':''} onclick="${fn}(${x.orig>=0?x.orig:100+k})"><span class="l">${L[k]}</span><span>${x.txt}</span></button>`;}).join('')}</div>
+    return `<button class="opt ${cls}" ${a!==null?'disabled':''} onclick="${fn}(${x.orig>=0?x.orig:100+k})"><span class="l">${L[k]}</span><span>${mythOpt(x.txt)}</span></button>`;}).join('')}</div>
   `; }
 function useHelp(key){ const parts=key.split('|'); const it=parts[2][0]==='q'?TRACKS[parts[0]].rounds[+parts[1]].q[+parts[2].slice(1)]:TRACKS[parts[0]].rounds[+parts[1]].big.details[+parts[2].slice(1)];
   const o=optSet(it,key); const wrong=o.map((x,k)=>x.orig!==it.c?k:-1).filter(k=>k>=0); HELP[key]=wrong[Math.floor(Math.random()*wrong.length)]; render(); }
