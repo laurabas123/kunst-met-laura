@@ -690,6 +690,17 @@ body:has(.nxbar) .wrap,body:has(.nxbar) .dq{padding-bottom:110px}.nxbar.bad .nx-
 .intro:has(>.in-fig)>.in-fig .frame img{max-height:calc(100vh - 170px);object-fit:contain}
 .fade:has(>.photo) .bnav,.fade:has(>.mini>.photo) .bnav,.intro:has(>.in-fig) .bnav{position:static;margin-top:14px}
 }
+.dip{margin:8px 0 12px;padding:10px;border-radius:6px;background:linear-gradient(145deg,#b88d3e,#ecd08a 45%,#8a6526);box-shadow:0 14px 30px rgba(0,0,0,.45)}
+.dip-in{position:relative;padding:20px 16px 64px;border-radius:3px;background:#f7f0df;color:#2a2210;text-align:center;border:1px solid #c9a75e;outline:2px solid #f7f0df;outline-offset:-7px}
+.dip-k{font-family:var(--serif);font-size:1.9rem;letter-spacing:.06em;color:#7a2e1f}.dip-s{font-size:.78rem;color:#6b5a3a;margin-top:6px}.dip-n{font-family:var(--serif);font-size:1.5rem;margin-top:4px;border-bottom:1px solid #c9a75e;display:inline-block;padding:0 12px 2px}
+.dip-t{font-family:var(--serif);font-size:1.6rem;color:#7a2e1f;margin-top:4px}.dip-m{font-size:.74rem;color:#6b5a3a;margin-top:10px}
+.dip-seal{position:absolute;right:10px;bottom:10px;width:46px;height:46px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#d9534f,#8e1f1b);display:flex;align-items:center;justify-content:center;color:#f7e3b0;font-family:var(--serif);font-weight:700;box-shadow:0 2px 6px rgba(0,0,0,.35)}
+.dip-g{position:absolute;left:10px;bottom:8px;width:44px;height:44px;border-radius:50%;overflow:hidden;background:#e9dcc0}.dip-g svg{width:100%;height:100%}
+.dip-next{font-size:.92rem;line-height:1.45;text-align:left}.dip-next p{margin:6px 0}
+.part-h{display:flex;justify-content:space-between;align-items:baseline;margin:16px 2px 6px;font-size:.85rem}.part-h b{font-family:var(--serif);font-size:1.1rem;color:#e8c77a}.part-h span{color:var(--muted,#9aa3b8)}
+.round.plocked{opacity:.5}
+.dip-list{display:flex;flex-direction:column;gap:8px;margin-bottom:12px}.dip-mini{display:flex;gap:12px;align-items:center;text-align:left;padding:10px 12px;border-radius:14px;background:linear-gradient(135deg,rgba(232,199,122,.16),rgba(232,199,122,.05));border:1px solid rgba(232,199,122,.45);color:inherit;font:inherit;cursor:pointer}.dip-mini b{display:block}.dip-mini small{color:var(--muted,#9aa3b8)}
+.dip-mini-s{width:36px;height:36px;flex:0 0 36px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#d9534f,#8e1f1b);color:#f7e3b0;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-weight:700}
 </style>
 </head>
 <body>
@@ -4148,7 +4159,12 @@ function lauraTip(k){ st.tips=st.tips||{}; if(st.tips[k]||!TIPS[k]) return; st.t
   setTimeout(()=>qModal(m),450); }
 const DEFER=[];
 function midLesson(){ if(st.view==='q'&&st.i===0&&!Object.keys(res(st.r)).length) return false; return !window.ROUND_END && ['q','big','kq','match','who','tl'].includes(st.view); }
-function bigDone(){ const r=st.r; if(roundComplete(r)){ if(!notiOn()) notiStart(); try{ roundMilestones(r); }catch(e){} try{ storyEarnCheck(); }catch(e){} hub(); unlockModal(st.t,r+1); return; } openRound(r+1); }
+function bigDone(){ const r=st.r, t=st.t; if(roundComplete(r)){ if(!notiOn()) notiStart();
+  const n=TRACKS[t].rounds.length, halfNow=splitTrack(t)&&r<HALF&&!(st.half||{})[t]&&Array.from({length:HALF},(_,i)=>i).every(i=>roundComplete(i,t));
+  const fullNow=splitTrack(t)&&!(st.diplomas||{})[t+'2']&&Array.from({length:n},(_,i)=>i).every(i=>roundComplete(i,t));
+  if(halfNow){ st.half=st.half||{}; st.half[t]={day:dqDay(),at:Date.now()}; if(t==='myth'){ st.storyEarned=st.storyEarned||{}; st.storyEarned.zeus=st.storyEarned.zeus||Date.now(); } save(); }
+  try{ roundMilestones(r); }catch(e){} try{ storyEarnCheck(); }catch(e){} hub();
+  if(halfNow) diplomaModal(t,1); else if(fullNow) diplomaModal(t,2); else if(r+1<n&&!partLocked(t,r+1)) unlockModal(t,r+1); else if(r+1<n) partLockModal(t); return; } openRound(r+1); }
 function flushDefer(){ if(!DEFER.length||midLesson()) return; const L=DEFER.splice(0); L.forEach((el,i)=>setTimeout(()=>qModal(el),600+i*50)); }
 window.NOTI=null; const LATER=[];
 function notiStart(){ st.notiN=(st.notiN||0)+1; save(); NOTI={until:Date.now()+25000,budget:st.notiN%2===1?2:1,used:0,list:[],flushed:false}; setTimeout(notiFlush,3300); }
@@ -4861,7 +4877,7 @@ function storySceneState(S,c,b){ const beats=S.chapters[c].beats; let bg='white'
 const STORY_OPEN=['cara','louis'];
 const STORY_EARN={ medici:{how:'Rond één les af in een specialisatie (Deugden, Bijbelse verhalen, Gouden Eeuw of Goede kunst herkennen). Catharina wacht daar op je.', ok:()=>['deugden','bijbel','ge','kenner','myth'].some(t=>TRACKS[t]&&TRACKS[t].rounds.some((r,i)=>{ try{ return roundComplete(i,t); }catch(e){ return false; } })), go:"setTrack('deugden');openCourse()"},
   rem:{how:'Speel de cursus <b>Hollandse glorie</b> helemaal uit. Rembrandt is daar je gids.', ok:()=>{ try{ return trackDone('hg'); }catch(e){ return false; } }, go:"setTrack('hg');openCourse()"},
-  zeus:{how:'Rond de specialisatie <b>Mythologie</b> af. Zeus loodst je er zelf doorheen.', ok:()=>{ try{ return trackDone('myth'); }catch(e){ return false; } }, go:"setTrack('myth');openCourse()"} };
+  zeus:{how:'Rond de eerste vier lessen van <b>Mythologie</b> af en verdien je oorkonde. Zeus loodst je er zelf doorheen.', ok:()=>{ try{ return !!((st.half||{}).myth)||trackDone('myth'); }catch(e){ return false; } }, go:"setTrack('myth');openCourse()"} };
 const storyIsOpen = id => !!(STORY_OPEN.includes(id) || (st.storyUnl&&st.storyUnl[id]) || (st.story&&st.story[id]) || (STORY_EARN[id]&&STORY_EARN[id].ok()) || (DEV&&st.beta));
 const storyCredits = () => (basisDone()?1:0) - Object.keys(st.storyUnl||{}).filter(k=>!STORY_EARN[k]&&!STORY_OPEN.includes(k)).length;
 function storyEarnCheck(){ st.storyEarned=st.storyEarned||{}; Object.entries(STORY_EARN).forEach(([id,E])=>{ if(st.storyEarned[id]||!E.ok()) return; st.storyEarned[id]=Date.now(); save(); const S=storyById(id); if(!S) return;
@@ -11596,6 +11612,35 @@ function lessonGo(t,r){ try{ auLeave(); }catch(e){} if(st.t!==t) setTrack(t); co
   d.innerHTML=`<div class="lg-in"><div class="lg-dots">${R.map((x,i)=>`<i class="${i<r?'done':i===r?'cur':''}"></i>`).join('')}</div><div class="lg-num">Les ${r+1}</div><div class="lg-name">${lesName(t,r)}</div><div class="lg-sub">${R[r].sub||''}</div><div class="lg-tap">Tik om te beginnen</div></div>`;
   let gone=false; const go=()=>{ if(gone) return; gone=true; d.classList.add('out'); setTimeout(()=>d.remove(),450); st.r=r; openRound(r); };
   d.onclick=go; document.body.appendChild(d); try{ sfx('whoosh'); }catch(e){} setTimeout(go,2600); }
+
+/* ================= SPECIALISATIES IN TWEE DELEN: OORKONDE + SLOT TOT DE VOLGENDE OCHTEND ================= */
+const HALF=4;
+const splitTrack=t=>!!(TRACKS[t]&&TRACKS[t].rounds.length>=8&&['myth','deugden','bijbel','ge'].includes(t));
+function partLocked(t,r){ if(!splitTrack(t)||r<HALF) return false; const h=(st.half||{})[t]; if(!h) return true; return dqDay()<=h.day; }
+const DIPLOMA={myth:['Mytholoog','Meester-mytholoog'],deugden:['Deugdenkenner','Meester der deugden'],bijbel:['Bijbelkenner','Meester-bijbelkenner'],ge:['Kenner van de Gouden Eeuw','Meester van de Gouden Eeuw']};
+const dipTitle=(t,l)=>(DIPLOMA[t]||[TRACKS[t].rank,TRACKS[t].grand])[l-1];
+function diplomaCard(t,l,d){ const T=TRACKS[t], G=GUIDES[guideOf(t)], dt=new Date(d.at).toLocaleDateString('nl-NL',{day:'numeric',month:'long',year:'numeric'});
+  return `<div class="dip"><div class="dip-in"><div class="dip-k">Oorkonde</div><div class="dip-s">Hierbij verklaart Kunst met Laura dat</div><div class="dip-n">${esc(d.name||'deze kunstkenner')}</div><div class="dip-s">de titel heeft behaald van</div><div class="dip-t">${dipTitle(t,l)}</div>
+   <div class="dip-m">${l===1?'Deel 1 van':'De volledige'} specialisatie ${T.title} · ${dt}</div><div class="dip-seal"><span>${l===1?'I':'II'}</span></div><div class="dip-g">${G.svg(0,true)}</div></div></div>`; }
+function diplomaModal(t,l){ st.diplomas=st.diplomas||{}; const k=t+l; if(!st.diplomas[k]){ st.diplomas[k]={t,l,at:Date.now(),name:st.name||''}; save(); try{ tr('diploma',k); }catch(e){} }
+  const d=st.diplomas[k], title=dipTitle(t,l), m=document.createElement('div'); m.className='lb gl-modal kcel dip-modal';
+  const story=t==='myth'&&l===1;
+  m.innerHTML=`${confHTML(40)}<div class="gl-box guide-box in-done" onclick="event.stopPropagation()"><div class="eyebrow center">${l===1?'Deel 1 voltooid':'Specialisatie voltooid'}</div>${diplomaCard(t,l,d)}
+   ${l===1?`<div class="dip-next">${story?`<p>🎁 <b>Je beloning:</b> het levensverhaal van Zeus staat nu voor je klaar bij Verhalen.</p>`:''}<p>🌙 <b>Even pauze.</b> Je hersenen onthouden het beter als je een nachtje slaapt. Deel 2 gaat <b>morgen om 8:00</b> open.</p></div>`:''}
+   ${story?`<button class="btn primary big" onclick="this.closest('.lb').remove();storyOpen('zeus')">Bekijk het verhaal van Zeus →</button>`:''}
+   ${shareBtn('diploma',`🏛️ Ik ben nu officieel ${title} in Kunst met Laura! Wie durft de uitdaging aan?`,null,'Deel je oorkonde via WhatsApp','small')}
+   <button class="btn ${story?'':'primary big'}" style="margin-top:8px" onclick="this.closest('.lb').remove()">${l===1?'Tot morgen!':'Verder'}</button></div>`;
+  qModal(m); try{ sfx(['fanfare','clap']); }catch(e){} }
+function diplomaView(k){ const d=(st.diplomas||{})[k]; if(!d) return; const m=document.createElement('div'); m.className='lb gl-modal dip-modal'; m.onclick=()=>m.remove();
+  m.innerHTML=`<div class="gl-box guide-box" onclick="event.stopPropagation()">${diplomaCard(d.t,d.l,d)}${shareBtn('diploma',`🏛️ Ik ben officieel ${dipTitle(d.t,d.l)} in Kunst met Laura! Wie durft de uitdaging aan?`,null,'Deel via WhatsApp','small')}<button class="btn" style="margin-top:8px" onclick="this.closest('.lb').remove()">Sluiten</button></div>`; document.body.appendChild(m); }
+function partLockModal(t){ const h=(st.half||{})[t], G=GUIDES[guideOf(t)], m=document.createElement('div'); m.className='lb gl-modal'; m.onclick=()=>m.remove();
+  m.innerHTML=`<div class="gl-box guide-box" onclick="event.stopPropagation()"><div class="gb-fig">${G.svg(0,false)}</div><div class="ob-bubble">${h?`<b>Deel 2 gaat morgen om 8:00 open.</b><br>Een nachtje slapen helpt je hersenen om alles van deel 1 vast te houden. Tot morgen!`:`<b>Eerst deel 1.</b><br>Rond les 1 tot en met 4 af. Dan verdien je je oorkonde, en gaat deel 2 de volgende ochtend open.`}</div>
+   <button class="btn primary big" onclick="this.closest('.lb').remove()">${h?'Tot morgen!':'Oké'}</button></div>`; document.body.appendChild(m); }
+{ const W=(n,f)=>{ const o=window[n]; if(typeof o!=='function') return; window[n]=f(o); };
+  W('openRound',o=>function(r,...a){ if(partLocked(st.t,r)) return partLockModal(st.t); return o.call(this,r,...a); });
+  W('go',o=>function(r,step,t,...a){ if(partLocked(t||st.t,r)) return partLockModal(t||st.t); return o.call(this,r,step,t,...a); });
+  W('home',o=>function(...a){ const res=o.apply(this,a); try{ if(splitTrack(st.t)){ const els=[...document.querySelectorAll('.round:not(.pre-round)')]; els.forEach((el,r)=>{ if(r===HALF) el.insertAdjacentHTML('beforebegin',`<div class="part-h"><b>Deel 2</b><span>${partLocked(st.t,HALF)?((st.half||{})[st.t]?'gaat morgen om 8:00 open':'na je oorkonde van deel 1'):'open'}</span></div>`); if(r===0) el.insertAdjacentHTML('beforebegin',`<div class="part-h"><b>Deel 1</b><span>na les 4: je oorkonde${(st.diplomas||{})[st.t+'1']?' ✓':''}</span></div>`); if(partLocked(st.t,r)){ el.classList.add('plocked'); const b=el.querySelector('.badge'); if(b) b.textContent='🔒'; } }); } }catch(e){} return res; });
+  W('meView',o=>function(...a){ const res=o.apply(this,a); try{ const D=Object.entries(st.diplomas||{}); if(D.length){ const box=document.querySelector('.hx-list'); box&&box.insertAdjacentHTML('beforebegin',`<h3 class="rgroup">🏛️ Mijn oorkondes</h3><div class="dip-list">${D.map(([k,d])=>`<button class="dip-mini" onclick="diplomaView('${k}')"><span class="dip-mini-s">${d.l===1?'I':'II'}</span><span><b>${dipTitle(d.t,d.l)}</b><small>${TRACKS[d.t].title} · ${new Date(d.at).toLocaleDateString('nl-NL',{day:'numeric',month:'short'})}</small></span></button>`).join('')}</div>`); } }catch(e){} return res; }); }
 
 /* ================= METEN: anonieme gebruiksdata (alleen op de echte website) ================= */
 const TRK=(()=>{ let did=null, isNew=false, on=false, Q=[], seen=new Set();
