@@ -626,6 +626,7 @@ body.has-nav #nav{display:flex}body.has-nav .wrap{padding-bottom:96px}
 .nxbar .btn{margin:0;min-width:58%;padding:14px 18px;font-size:1rem}
 body:has(.nxbar) .wrap,body:has(.nxbar) .dq{padding-bottom:110px}.nxbar.bad .nx-v{color:#e0a07a}
 @keyframes nxin{from{transform:translateY(100%)}to{transform:none}}@media (prefers-reduced-motion:reduce){.nxbar{animation:none}}
+.sp-yn{display:flex;gap:10px;margin-top:10px}.sp-yn .btn{flex:1;margin:0}
 .gtree{padding:12px 12px 14px;background:rgba(255,255,255,.03);border:1px solid rgba(215,180,106,.25);border-radius:16px;margin-top:10px;text-align:center}
 .gt-lbl{font-size:.72rem;color:var(--muted,#9aa3b8);margin:8px 0 4px}.gt-lbl:first-child{margin-top:0}
 .gt-row{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px}
@@ -3727,7 +3728,7 @@ function cameoNote(ok){ if(st.quiet) return; const g=camGuide();
 function cameoFlush(){ if(!CAM.pend||st.quiet) return; if(!['q','kq','big','sym'].includes(st.view)) return;
   try{ const v=st.view; if((v==='q'||v==='kq')&&(st.i in res(st.r,curT()))) return; if(v==='big'&&st.bigStep>=0&&(st.bigStep in bres(st.r))) return; if(v==='sym'&&(!SYMQ||SYMQ.a!==null)) return; }catch(e){} if(st.view==='big'&&st.bigStep>=0&&TR(st.r)&&st.bigStep>=TR(st.r).big.details.length) return;
   if(document.querySelector('.lb')) return; const p=CAM.pend; CAM.pend=null; cameoShow(p.g,p.type); }
-function cameoShow(g,type,prefix){ const G=GUIDES[g]; if(!G) return; document.querySelectorAll('.cameo').forEach(x=>x.remove());
+function cameoShow(g,type,prefix){ const G=GUIDES[g]; if(!G||notiOn()) return; document.querySelectorAll('.cameo').forEach(x=>x.remove());
   let txt='', tag='', dur=5200;
   if(type==='fact'){ const i=nextFact(g); if(i<0){ type='praise'; } else { st.cards=st.cards||{}; st.cards[g+':'+i]=Date.now(); txt=(prefix||'')+GLINES[g].facts[i]; tag='Weetje · nieuwe kaart in je album!'; dur=9000; bondAdd(g,1); } }
   if(type==='praise'){ txt=nmF(nextLine(g,'praise')); tag=''; }
@@ -3761,7 +3762,16 @@ function lauraTip(k){ st.tips=st.tips||{}; if(st.tips[k]||!TIPS[k]) return; st.t
 const DEFER=[];
 function midLesson(){ return !window.ROUND_END && ['q','big','kq','match','who','tl'].includes(st.view); }
 function flushDefer(){ if(!DEFER.length||midLesson()) return; const L=DEFER.splice(0); L.forEach((el,i)=>setTimeout(()=>qModal(el),600+i*50)); }
-function qModal(el){ if(midLesson()){ DEFER.push(el); if(DEFER.length===1) try{ toast('🎁 Er wacht een beloning op je aan het eind van de les'); }catch(e){} return; } el.classList.add('bigm'); if(document.querySelector('.bigm')) BIGQ.push(el); else document.body.appendChild(el); }
+window.NOTI=null; const LATER=[];
+function notiStart(){ st.notiN=(st.notiN||0)+1; save(); NOTI={until:Date.now()+25000,budget:st.notiN%2===1?2:1,used:0,list:[],flushed:false}; setTimeout(notiFlush,3300); }
+function notiOn(){ return NOTI&&Date.now()<NOTI.until; }
+function notiPri(el){ const t=((el.querySelector&&el.querySelector('.eyebrow'))||{}).textContent||''; if(/Cursus voltooid/.test(t)) return 9; if(/Nieuw level/.test(t)) return 8; if(/verhaal/i.test(t)) return 7; if(/Halverwege/.test(t)) return 5; if(/band groeit/i.test(t)) return 4; return 3; }
+function notiAdd(item){ if(!notiOn()) return item.show(); if(!NOTI.flushed){ NOTI.list.push(item); return; } if(NOTI.used<NOTI.budget){ NOTI.used++; item.show(); } else LATER.push(item); }
+function notiFlush(){ if(!NOTI||NOTI.flushed) return; NOTI.flushed=true; const L=NOTI.list.splice(0).map((x,i)=>({x,i})).sort((a,b)=>(b.x.pri-a.x.pri)||(a.i-b.i)).map(o=>o.x);
+  L.forEach(it=>{ if(NOTI.used<NOTI.budget){ NOTI.used++; it.show(); } else LATER.push(it); }); }
+function notiLater(){ if(!LATER.length||st.view!=='start'||document.querySelector('.lb,.nap')||notiOn()) return; LATER.sort((a,b)=>b.pri-a.pri); LATER.shift().show(); }
+function qModal(el){ if(notiOn()&&!el.classList.contains('tipm')&&!el._noti){ el._noti=1; return notiAdd({pri:notiPri(el),show:()=>qModal(el)}); }
+  if(midLesson()){ DEFER.push(el); if(DEFER.length===1) try{ toast('🎁 Er wacht een beloning op je aan het eind van de les'); }catch(e){} return; } el.classList.add('bigm'); if(document.querySelector('.bigm')) BIGQ.push(el); else document.body.appendChild(el); }
 new MutationObserver(()=>{ if(!document.querySelector('.bigm') && BIGQ.length){ const n=BIGQ.shift(); setTimeout(()=>{ if(!document.querySelector('.bigm')) document.body.appendChild(n); else BIGQ.unshift(n); },350); } }).observe(document.body,{childList:true});
 const confHTML=n=>`<div class="confetti">${Array.from({length:n},(_,k)=>`<i style="left:${(k*37)%100}%;animation-delay:${(k%7)*.18}s;background:${['#d7b46a','#c0645a','#3e63b0','#7fae7a','#efe4cf'][k%5]}"></i>`).join('')}</div>`;
 
@@ -3800,10 +3810,10 @@ function bondLevelUp(k,lv){ const g=k, G=GUIDES[g], L=BOND_LV[lv].n, nm=st.name?
 
 /* mijlpalen in een route: les af, halverwege, route voltooid */
 function roundMilestones(r){ const t=st.t, k=t+'|'+r; st.bondR=st.bondR||{}; st.mile=st.mile||{};
-  if(!st.bondR[k]){ st.bondR[k]=1; bondAdd(guideOf(t),3); xpAdd(50,'les voltooid'); try{ questEv('round'); }catch(e){} if(!(st.comp&&st.comp.asked)) setTimeout(()=>{ try{ napoleonScene(); }catch(e){} },2600); }
+  if(!st.bondR[k]){ st.bondR[k]=1; bondAdd(guideOf(t),3); xpAdd(50,'les voltooid'); try{ questEv('round'); }catch(e){} if(!(st.comp&&st.comp.asked)) notiAdd({pri:2,show:()=>setTimeout(()=>{ try{ napoleonScene(); }catch(e){} },600)}); }
   const R=TRACKS[t].rounds.filter(x=>!x.soon), n=R.length, done=TRACKS[t].rounds.filter((x,i)=>!x.soon&&roundComplete(i,t)).length, g=guideOf(t), nm=st.name?`, ${st.name}`:'';
   if(trackDone(t) && !st.mile[t+'|d']){ st.mile[t+'|d']=1; st.mile[t+'|h']=1; save(); const B=freshArt([t]); if(t==='basis') setTimeout(()=>{ try{ storyChoiceModal(); }catch(e){} },1500);
-    return setTimeout(()=>rewardModal(g,'Cursus voltooid!',`Wat een prestatie${nm}! Je hebt <b>${TRACKS[t].title}</b> helemaal afgerond. Dit verdient een plek aan de muur.`,B),1200); }
+    return setTimeout(()=>rewardModal(g,'Cursus voltooid!',`Wat een prestatie${nm}! Je hebt <b>${TRACKS[t].title}</b> helemaal afgerond. Dit verdient een plek aan de muur.${t==='basis'?'<br><br>🎓 Je hebt ook de hele module <b>Goede kunst herkennen</b> vrijgespeeld: vier lessen waarin je leert hoe je een echt meesterwerk herkent.':''}`,B),1200); }
   if(n>=4 && done>=Math.ceil(n/2) && !st.mile[t+'|h']){ st.mile[t+'|h']=1; save(); const B=freshArt([t]);
     setTimeout(()=>rewardModal(g,'Halverwege!',`Je bent al halverwege <b>${TRACKS[t].title}</b>${nm}! Als beloning krijg je een meesterwerk voor je eigen museum.`,B),1200); } }
 
@@ -4405,10 +4415,10 @@ const PRE_LIST = [
   intro:'', outro:'Nu ken je mijn familie, sterveling. Zie je een drietand, een helm met vleugeltjes of een adelaar? Dan weet je wie er bedoeld wordt.',
   chapters:[
   { t:'Wat is mythologie?', y:'de oudheid', end:'', beats:[
-    {bg:'palace', in:'zeus', at:'c', s:'zeus', x:'Voor je mijn afdeling binnenloopt, eerst een vraag. Weet je eigenlijk wat mythologie is?'},
-    {n:'Een <b>mythe</b> is een heel oud verhaal over goden, helden en monsters. De Grieken vertelden ze al bijna drieduizend jaar geleden, bij dichters als <b>Homerus</b> en <b>Hesiodus</b>.', y:'ca. 700 v.Chr.'},
+    {bg:'palace', in:'zeus', at:'c', s:'zeus', x:'Voor je mijn afdeling binnenloopt, eerst een vraag. Weet jij eigenlijk wat mythologie is?', yn:['Ja, natuurlijk','Nee, vertel!'], ya:'Kijk eens aan, een kenner! Dan frissen we het samen even op.', na:'Geen probleem, daar ben ik voor. Ik leg het je uit.'},
+    {n:'Een <b>mythe</b> is een eeuwenoud verhaal over goden, helden en monsters. De Grieken vertelden die verhalen eerst aan elkaar door. Rond 700 voor Christus schreven dichters als <b>Homerus</b> en <b>Hesiodus</b> ze op.', y:'ca. 700 v.Chr.'},
     {s:'zeus', x:'Met die verhalen verklaarden mensen de wereld. Onweer? Dat ben ik, met mijn bliksem. Een storm op zee? Mijn broer Poseidon is boos.'},
-    {s:'zeus', x:'Later namen de Romeinen ons over, met nieuwe namen. Bij hen heet ik Jupiter.'},
+    {s:'zeus', x:'Later namen de Romeinen onze verhalen over. Wij werden hún goden: dezelfde goden, alleen in een Romeins jasje en met een Latijnse naam. Bij hen heet ik Jupiter, en mijn vrouw Hera heet Juno.'},
     {q:'Waarom is dat belangrijk als je naar schilderijen kijkt?', o:['Romeinse goden zien er heel anders uit','Schilders gebruiken meestal de Romeinse namen: Venus in plaats van Aphrodite, Jupiter in plaats van Zeus','Griekse goden werden nooit geschilderd'], c:1,
       e:'Kunstenaars in de renaissance lazen vooral Latijnse schrijvers, zoals <b>Ovidius</b>. Daarom heten de schilderijen <i>Venus en Mars</i> en <i>Diana en Actaeon</i>. Je hebt dus beide namen nodig.', img:false},
     {s:'zeus', x:'Kom, ik laat je mijn familie zien. Het begint helemaal bij het begin.'},
@@ -4424,9 +4434,16 @@ const PRE_LIST = [
     {tree:6, n:'Zo krijg je de goden van de Olympus. Hier staan ze met hun Romeinse naam erbij: die kom je in musea het vaakst tegen.'},
     {art:'st_p3', t:'Het godenconcilie', a:'Rafaël en werkplaats', yr:'1517–1518', x:'De goden van de Olympus bij elkaar op een plafond in Rome. Herken je ze? Jupiter met zijn adelaar, Neptunus met zijn drietand, Mercurius met zijn gevleugelde helm, Juno met haar pauw.'},
     {s:'zeus', x:'Dat is het geheim: iedere god heeft vaste attributen. Mijn bliksem en adelaar, de drietand van Neptunus, de helm met vleugeltjes van Mercurius. Leer die, en je herkent ons overal.'},
-    {q:'Je ziet een man met een drietand, en om hem heen water. Wie is het?', o:['Mars','Neptunus (bij de Grieken Poseidon)','Vulcanus'], c:1, img:'P:y1',
-      e:'De <b>drietand</b> is het attribuut van Neptunus, de god van de zee. Op dit schilderij liet admiraal Andrea Doria zich zelfs als Neptunus portretteren. Die zie je straks terug in les 1.'},
-    {s:'zeus', x:'Genoeg gepraat. Op naar de eerste les: de Olympische goden!'}
+    {s:'zeus', x:'Laten we oefenen met drie van mijn familieleden. De eerste stel ik zelf aan je voor.'},
+    {art:'st_p5', t:'De geboorte van Venus', a:'William-Adolphe Bouguereau', yr:'1879', x:'Dit is <b>Venus</b>, godin van de liefde en de schoonheid. Bij de Grieken heet ze Aphrodite. Ze rijst op uit de zee, staand op een <b>schelp</b>, met kleine Cupido’s om zich heen. Let ook op andere attributen van Venus: duiven, rozen, en haar zoontje Cupido met pijl en boog.'},
+    {s:'zeus', x:'Nu jij. Deze heb ik niet zo hoog zitten, maar hij hoort bij de familie.'},
+    {q:'Een gespierde man met een helm op. Aan zijn voeten liggen een schild en wapens. Wie is het?', o:['Mars, de god van de oorlog','Vulcanus, de smid van de goden','Hercules, de held'], c:0, img:'st_p6',
+      e:'Helm, schild en wapens: dat is <b>Mars</b>, bij de Grieken Ares. Velázquez schilderde hem rond 1638, maar niet als stoere held: de oorlogsgod zit moe en somber op zijn bed. Misschien drijft de schilder de spot met hem.'},
+    {art:'st_p7', t:'Raad eens wie dit is', a:'Rembrandt', yr:'1635', x:'Een vrouw zit tussen dikke boeken. Achter haar hangen een helm en een groot schild aan de muur.'},
+    {s:'zeus', x:'Godin van de wijsheid, van de kunsten én van de oorlog. Weet jij wie dit is?', img:'st_p7', yn:['Ik weet het!','Geen idee'], ya:'Zeg het maar hardop: het is Minerva, bij de Grieken Athena. Mijn dochter, uit mijn eigen hoofd geboren! Helm en schild zijn haar attributen, en vaak een uil: het dier van de wijsheid.', na:'Het is Minerva, bij de Grieken Athena. Mijn dochter, uit mijn eigen hoofd geboren! Helm en schild zijn haar attributen, en vaak een uil: het dier van de wijsheid.'},
+    {s:'zeus', x:'En dan nog één schilderij, het mooiste van allemaal. Van mij, uiteraard.'},
+    {art:'st_p4', t:'Jupiter en Thetis', a:'Jean-Auguste-Dominique Ingres', yr:'1811', x:'Daar zit hij: Jupiter op zijn troon boven de wolken, met scepter en adelaar. De zeenimf Thetis klampt zich smekend aan hem vast. Ze vraagt hem haar zoon Achilles te helpen in de Trojaanse Oorlog. Zo zag een schilder de oppergod: onverstoorbaar, machtig, en een tikje ijdel.'},
+    {s:'zeus', x:'Een tikje ijdel? Ik? Genoeg gepraat. Op naar de eerste les: de Olympische goden!'}
   ]}
 ]}
 ];
@@ -4499,6 +4516,7 @@ function storyNext(){ if(!STQ) return; auResume(); const S=storyById(STQ.id), be
   if(x&&x.q&&STQ.ans[STQ.b]===undefined) return;
   if(STQ.b<beats.length-1){ STQ.b++; storyView(); } else storyChapterDone(); }
 function storyBack(){ if(STQ&&STQ.b>0){ STQ.b--; storyView(true); } }
+function storyYN(j){ const x=storyById(STQ.id).chapters[STQ.c].beats[STQ.b]; if(STQ.ans[STQ.b]!==undefined) return; STQ.ans[STQ.b]=j; speak(STQ.id,j?x.na:x.ya); storyView(true); }
 function storyAns(j){ const x=storyById(STQ.id).chapters[STQ.c].beats[STQ.b]; if(STQ.ans[STQ.b]!==undefined) return; STQ.ans[STQ.b]=j; sfx(j===x.c?'magic':'gasp'); storyView(true); }
 function storyChapterDone(){ const S=storyById(STQ.id), c=STQ.c; if(S.pre){ st.pre=st.pre||{}; st.pre[S.pre]='done'; } st.story=st.story||{}; if(storyDone(S.id)<c+1) try{ xpAdd(30,'hoofdstuk'); questEv('chapter'); }catch(e){} st.story[S.id]=Math.max(storyDone(S.id),c+1); save(); const last=c===S.chapters.length-1;
   speakStop(); if(!AU.el2) auMood(last?'triumph':'court'); sfx(last?['fanfare','clap']:'clap');
@@ -4525,19 +4543,20 @@ function storyView(still){ const S=storyById(STQ.id), C=S.chapters[STQ.c], beats
   const crowdNew=!still&&cur.crowd!==prev.crowd;
   let bubble='';
   if(x.s){ const a=cur.actors[x.s]; const side=a&&/r/.test(a.at)?'r':a&&a.at==='c'?'c':'l';
-    bubble=`<div class="sbub sb-${side} ${cur.emo[x.s]==='angry'||cur.emo[x.s]==='scared'?'shout':''}"><b>${(SC[x.s]||{}).name||'Laura'}</b>${x.x}</div>`; }
+    bubble=`<div class="sbub sb-${side} ${cur.emo[x.s]==='angry'||cur.emo[x.s]==='scared'?'shout':''}"><b>${(SC[x.s]||{}).name||'Laura'}</b>${x.yn&&STQ.ans[STQ.b]!==undefined?(STQ.ans[STQ.b]?x.na:x.ya):x.x}</div>`; }
   else if(x.n) bubble=`<div class="snar">${x.y?`<span class="sy">${x.y}</span>`:''}${x.n}</div>`;
   let over='', panel='';
   if(x.art){ over=`<div class="s-art ${x.obj?'obj':''}" onclick="event.stopPropagation();storyLb('${x.art}')"><div class="sa-frame"><img src="${storyImg(x.art)}" alt=""><span class="sa-zoom">🔍 Tik om te vergroten</span></div></div>`;
     panel=`<div class="sp-art ${x.obj?'sp-obj':''}">${x.obj?'<span class="sp-tag">🪑 Voorwerp uit die tijd</span>':''}<i>${x.t}</i> · ${x.a}${x.yr?', '+x.yr:''}<p>${x.x}</p></div>`; }
   if(x.tree&&!x.q) panel=godTree(x.tree);
+  if(x.yn) panel=(x.img?`<div class="sp-q"><button class="sq-img" onclick="storyLb('${x.img}')"><img src="${storyImg(x.img)}" alt=""><span>🔍 Tik om te vergroten</span></button></div>`:'')+(STQ.ans[STQ.b]!==undefined?'':`<div class="sp-yn">${x.yn.map((o,j)=>`<button class="btn ${j?'':'primary'}" onclick="storyYN(${j})">${o}</button>`).join('')}</div>`);
   if(x.q){ const a=STQ.ans[STQ.b];
     const qk=qImg(C,STQ.b); panel=`<div class="sp-q">${qk?`<button class="sq-img" onclick="storyLb('${qk}')"><img src="${storyImg(qk)}" alt=""><span>🔍 Tik om te vergroten</span></button>`:''}<div class="sq-t">${x.q}</div><div class="opts">${x.o.map((o,j)=>{ let c=''; if(a!==undefined){ if(j===x.c) c='ok'; else if(j===a) c='bad'; } return `<button class="opt ${c}" ${a!==undefined?'disabled':''} onclick="storyAns(${j})"><span class="l">${L[j]}</span><span>${o}</span></button>`; }).join('')}</div>
       ${a!==undefined?`<div class="verdict ${a===x.c?'ok':'bad'}">${a===x.c?'Goed geraden!':'Niet helemaal!'}</div><p class="sq-e">${x.e}</p>`:''}</div>`; }
   const fx=x.fx&&!still?`fx-${x.fx}`:'';
   const cam=!still&&x.cam?`cam-${x.cam}`:'';
   const thr=!still&&x.throw?`<div class="throw" style="--x0:${pos[x.throw.from]||'10%'};--x1:${pos[x.throw.to]||'70%'}"><div class="thy">${{plate:'🥗',stone:'🪨',coin:'🪙',flower:'🌹',letter:'✉️',hat:'🎩',brush:'🖌️',book:'📕',mirror:'🪞',cards:'🃏'}[x.throw.k]||'💥'}</div></div>`:'';
-  const canNext=!(x.q&&STQ.ans[STQ.b]===undefined);
+  const canNext=!((x.q||x.yn)&&STQ.ans[STQ.b]===undefined);
   $(`<div class="storyv"><div class="hdr"><button class="chip" onclick="STQ=null;auLeave();storyOpen('${S.id}')">‹ ${S.t}</button><span class="muted small">H${STQ.c+1} · ${STQ.b+1}/${beats.length}</span><button class="chip snd-btn" onclick="event.stopPropagation();soundToggle()">${auOn()?'🔊':'🔇'}</button></div>
     <div class="stage ${fx}" onclick="${canNext?'storyNext()':''}"><div class="cam ${cam}"><div class="s-bg ${bgChanged?'fade':''}">${BG[cur.bg]||BG.white}${wallArtHTML(cur.bg,S,STQ.c,STQ.b)}</div>
       ${crowdHTML(cur.crowd,cur.crowdN,crowdNew)}<div class="props">${propsHTML(cur.props)}</div>${actors}${leaving}${thr}</div>
@@ -4553,7 +4572,7 @@ function godTree(step){ return `<div class="gtree">${GTREE.map((row,ri)=>{ const
     if(n[2]>step) return ''; const isNew=n[2]===step||(n[4]&&step===4); return `<span class="gt-n ${isNew?'new':''}"><b>${n[0]}</b>${step>=6?`<small>${n[1]}</small>`:''}${n[3]&&step>=6?`<i>${n[3]}</i>`:''}</span>`; }).join('')}</div>`; }).join('')}</div>`; }
 function qImg(C,b){ const x=C.beats[b]; if(x.img===false) return null; if(x.img) return x.img; for(let i=b-1;i>=Math.max(0,b-4);i--){ if(C.beats[i].art) return C.beats[i].art; } return null; }
 function storyImg(k){ if(k&&k.startsWith('P:')) return P(k.slice(2)); return (window.STIMG&&window.STIMG[k])||BLANK; }
-function storyEnsure(){ if(window.STIMG||window._stLoading) return; window._stLoading=1; const s=document.createElement('script'); s.src='img/story.js?v=6'; s.async=true; s.onerror=()=>{window._stLoading=0;}; document.head.appendChild(s); }
+function storyEnsure(){ if(window.STIMG||window._stLoading) return; window._stLoading=1; const s=document.createElement('script'); s.src='img/story.js?v=8'; s.async=true; s.onerror=()=>{window._stLoading=0;}; document.head.appendChild(s); }
 window.storyLoaded=()=>{ if(st.view==='story'&&STQ&&!STQ.intro) storyView(true); };
 /* regie-laag: extra scènes en effecten bovenop de basisverhalen */
 function applyStaging(){ for(const S of STORIES){ const G=STAGE[S.id]; if(!G||S._staged) continue; S._staged=1; if(G.mood) S.mood=G.mood;
@@ -5423,7 +5442,7 @@ function nextStep(){ const rf = resumeFrom && Number.isInteger(resumeFrom.r) && 
   if(r<0) return {lbl:'Kies je volgende cursus', t:'Alles van '+(SHORT[t]||TRACKS[t].title)+' gedaan!', s:'Ontdek een nieuwe cursus', img:'pB', fn:'openCourse()'};
   const R=RS[r], started=RS.some((x,i)=>Object.keys((st.results||{})[K(i,t)]||{}).length);
   return {lbl:started?'Ga verder':'Begin hier', t:SHORT[t]||TRACKS[t].title, s:`${'Les'} ${r+1}${R.t?' · '+R.t:''}`, img:R.big&&R.big.img, fn:`setTrack('${t}');openRound(${r})`}; }
-function hub(){ st.view='start'; pathMode=null; save();
+function hub(){ st.view='start'; pathMode=null; save(); if(NOTI){ if(!NOTI.flushed) notiFlush(); NOTI.until=0; } setTimeout(notiLater,1400);
   const h=new Date().getHours(), gr=h<12?'Goedemorgen':h<18?'Goedemiddag':'Goedenavond';
   const N=nextStep(), I=xpInfo(), alive=st.dqLast===dqDay()||st.dqLast===dqPrevDay(dqDay()), streak=alive?(st.dqStreak||0):0;
   const dqd=dqDone(), T=kvdToday(); try{ symLoadChunk(T.chunk); }catch(e){} const kd=T.K.ans!==undefined; const ch=st.chests||0;
@@ -10030,7 +10049,8 @@ function grandModal(t){ const ok=trackDone(t); const d=document.createElement('d
     ${ok?`<div class="tier ${trackTier(t)}">${trackTier(t)} · ${Math.round(trackPct(t)*100)}% goed over alle lessen</div>`:`<p class="muted" style="max-width:320px">Rond alle ${TRACKS[t].rounds.length} lessen van deze cursus af om deze grote badge te verdienen (${trackProgress(t)} van ${TRACKS[t].rounds.length} klaar).</p>`}
    </div><button class="btn primary lbclose">Sluiten</button>`;
   d.onclick=()=>d.remove(); document.body.appendChild(d); }
-const isOpen = t => t==='basis'||t==='kenner'||t==='hg'||(TRACKS[t]&&TRACKS[t].museum)||basisDone()||st.beta||!!(st.unl&&st.unl[t]);
+const kennerStarted = () => (typeof KENNER_ROUNDS!=='undefined')&&KENNER_ROUNDS.some((K,r)=>K&&!K.soon&&Object.keys(res(r,'kenner')).length);
+const isOpen = t => t==='basis'||(t==='kenner'&&kennerStarted())||t==='hg'||(TRACKS[t]&&TRACKS[t].museum)||basisDone()||st.beta||!!(st.unl&&st.unl[t]);
 function chooseTrack(t){ if(!isOpen(t)) return; setTrack(t); home(); }
 const ROUTE_GROUPS = [
   {id:'symb', ic:'🎨', t:'Symboliek in de kunst', s:'Leer symbolen lezen: eerst de basis, daarna verdiepen of specialiseren.', tr:['basis','mix','n3','deugden','bijbel','myth','ge','kenner']},
@@ -10578,7 +10598,7 @@ function big(){
     const sc=roundScore(st.r);
     const done=roundComplete(st.r);
     const openQ=[...ROUNDS[st.r].q.keys()].filter(k=>!(k in res(st.r))).length, openD=n-Object.keys(bres(st.r)).length;
-    if(done&&st.t==='basis') setTimeout(()=>kennerCelebrate(st.r),700); if(done){ const rr=st.r; setTimeout(()=>{ try{ roundMilestones(rr); }catch(e){} try{ storyEarnCheck(); }catch(e){} },800); }
+    if(done){ const rr=st.r; if(!notiOn()) notiStart(); setTimeout(()=>{ try{ roundMilestones(rr); }catch(e){} try{ storyEarnCheck(); }catch(e){} },800); }
     h += done ? `${guideCheer(st.r)}<div class="card center award"><div class="eyebrow">Badge verdiend!</div>
         <div class="badge-big pop" onclick="badgeModal(${st.r})">${badgeSVG(st.r,false)}</div>
         <div class="serif" style="font-size:1.9rem;color:var(--gold2);line-height:1.1">${BADGES[st.r].name}</div>
