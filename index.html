@@ -5856,7 +5856,7 @@ let ob = {s:0};
 const WOW_ON = true;
 const WOW={step:0,miss:0,au:null};
 function wowLoad(){ if(window.WOWVOX||WOW.loading) return; WOW.loading=1; const sc=document.createElement('script'); sc.src='vox/wow.js?v='+VOXV; document.head.appendChild(sc); }
-function wowSay(k){ try{ if(WOW.au){ WOW.au.pause(); } if(!auOn()||!window.WOWVOX||!WOWVOX[k]) return; WOW.au=new Audio('data:audio/mpeg;base64,'+WOWVOX[k]); WOW.au.play().catch(()=>{}); }catch(e){} }
+function wowSay(k){ try{ if(WOW.au){ WOW.au.pause(); } if(!auOn()||!window.WOWVOX||!WOWVOX[k]) return; WOW.au=new Audio('data:audio/mpeg;base64,'+WOWVOX[k]); WOW.auP=WOW.au.play(); WOW.auP&&WOW.auP.catch(()=>{}); }catch(e){} }
 function wowStart(){ WOW.step=0; WOW.miss=0; wowLoad(); wowView(); }
 function wowShell(inner,dots){ $(`<div class="wow">${inner}<div class="wow-dots">${[0,1,2,3,4].map(i=>`<i class="${i<=dots?'on':''}"></i>`).join('')}</div></div>`); const n=document.getElementById('nav'); if(n) n.style.display='none'; }
 function wowView(){ const S=WOW.step;
@@ -5890,7 +5890,10 @@ function wowAns(b,c){ document.querySelectorAll('.wow-opts .btn').forEach(x=>x.d
   if(!c){ const g=[...document.querySelectorAll('.wow-opts .btn')].find(x=>x.textContent==='Dat zijn tijd kostbaar is'); g&&g.classList.add('ok'); }
   try{ if(c) sfx('bell'); }catch(_){} wowSay(c?'w6':'w6b'); if(c) document.querySelector('.wow').insertAdjacentHTML('beforeend',confHTML(24));
   let gone=false; const go=()=>{ if(gone||WOW.step!==3) return; gone=true; WOW.step=4; wowView(); setTimeout(()=>wowSay('w7'),400); };
-  const au=WOW.au; if(au&&!au.paused&&auOn()){ au.addEventListener('ended',()=>setTimeout(go,700),{once:true}); setTimeout(()=>{ if(au.paused&&!au.ended) go(); },2600); setTimeout(go,10000); } else setTimeout(go,2600); }
+  const au=WOW.au, pr=WOW.auP; if(au&&pr&&auOn()){ const t0=Date.now();
+    au.addEventListener('ended',()=>setTimeout(go,700),{once:true});
+    pr.then(()=>{ const left=()=>isFinite(au.duration)&&au.duration>0?(au.duration-au.currentTime)*1000:7000; setTimeout(go,Math.max(2600-(Date.now()-t0),left()+1500)); },()=>setTimeout(go,2600)); }
+  else setTimeout(go,2600); }
 function wowEnd(yes){ try{ if(WOW.au) WOW.au.pause(); }catch(e){} st.wowDone=1; if(yes){ st.wowGo=1; }
   const n=document.getElementById('nav'); if(n) n.style.display=''; save(); if(!st.onb) startOnb(); else hub(); }
 function startOnb(){ try{introLoad();}catch(e){} ob={s:0}; st.view='onb'; render(); }
