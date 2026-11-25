@@ -3455,7 +3455,8 @@ let NAPSRC=null;
 function napSpeak(k){ try{ if(NAPSRC){ NAPSRC.onended=null; NAPSRC.stop(); } }catch(e){} NAPSRC=null; if(!auOn()||!auInit()||!window.NAPVOX||!NAPVOX[k]) return;
   const bin=atob(NAPVOX[k]), arr=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) arr[i]=bin.charCodeAt(i);
   AU.ctx.decodeAudioData(arr.buffer,buf=>{ const s=AU.ctx.createBufferSource(); s.buffer=buf; s.connect(AU.ctx.destination); musDuck(true); s.onended=()=>{ if(NAPSRC===s){ NAPSRC=null; musDuck(false); } }; NAPSRC=s; s.start(); },()=>{}); }
-function napLoad(){ if(window.NAPVOX||window._napL) return; window._napL=1; const s=document.createElement('script'); s.src='vox/napoleon.js'; s.async=true; s.onerror=()=>{window._napL=0;}; document.head.appendChild(s); }
+var VOXV='20261125c';
+function napLoad(){ if(window.NAPVOX||window._napL) return; window._napL=1; const s=document.createElement('script'); s.src='vox/napoleon.js?v='+VOXV; s.async=true; s.onerror=()=>{window._napL=0;}; document.head.appendChild(s); }
 const NAPL={
  n1:'<b>Bonjour, lieve testers!</b> Ik ben Napoleon Bonaparte. Laura heeft mij gevraagd of ik leuk nieuws met jullie wilde delen.',
  n2:'Omdat jullie de eerste groep testers zijn van deze app, starten we een <b>testerscompetitie</b>! Daarom vraag ik jullie toestemming om mee te doen, zodat we een scorebord kunnen bijhouden.',
@@ -3552,7 +3553,7 @@ function askUnlockModal(id){ const A=ASK[id]; if(!A) return; const S=storyById(i
    <button class="btn primary big" onclick="this.closest('.lb').remove();askOpen('${id}')">Stel ${A.name} een vraag →</button><button class="btn" style="margin-top:8px" onclick="this.closest('.lb').remove()">Later</button></div>`; qModal(m); try{ sfx(['fanfare']); }catch(e){} }
 /* stemmen voor de antwoorden */
 let ASKSRC=null;
-function voxLoadAsk(id){ window.ASKVOX=window.ASKVOX||{}; if(ASKVOX[id]||window['_askL'+id]) return; window['_askL'+id]=1; const s=document.createElement('script'); s.src='vox/ask_'+id+'.js'; s.async=true; s.onerror=()=>{ window['_askL'+id]=0; }; document.head.appendChild(s); }
+function voxLoadAsk(id){ window.ASKVOX=window.ASKVOX||{}; if(ASKVOX[id]||window['_askL'+id]) return; window['_askL'+id]=1; const s=document.createElement('script'); s.src='vox/ask_'+id+'.js?v='+VOXV; s.async=true; s.onerror=()=>{ window['_askL'+id]=0; }; document.head.appendChild(s); }
 function askStop(){ try{ if(ASKSRC){ ASKSRC.onended=null; ASKSRC.stop(); } }catch(e){} ASKSRC=null; }
 function askSpeak(id,i){ askStop(); const b64=window.ASKVOX&&ASKVOX[id]&&ASKVOX[id][i]; if(!b64||!auOn()||!auInit()) return; const bin=atob(b64), arr=new Uint8Array(bin.length); for(let k=0;k<bin.length;k++) arr[k]=bin.charCodeAt(k);
   AU.ctx.decodeAudioData(arr.buffer,buf=>{ const s=AU.ctx.createBufferSource(); s.buffer=buf; s.connect(AU.ctx.destination); s.onended=()=>{ if(ASKSRC===s) ASKSRC=null; }; ASKSRC=s; s.start(); },()=>{}); }
@@ -4381,7 +4382,7 @@ function musDuck(on){ if(AU.mg&&AU.ctx) AU.mg.gain.linearRampToValueAtTime(on?MU
 /* ---------- stemmen: Nederlands met Frans accent (vooraf opgenomen neurale stemmen) ---------- */
 const voxNorm=t=>t.replace(/<[^>]+>/g,'').replace(/&amp;/g,'&').replace(/’/g,"'").replace(/[“”]/g,'"').replace(/…/g,'...').trim();
 const VOXBUF={}; let VOXSRC=null;
-function voxLoad(sid){ if((window.VOX&&window.VOX[sid])||(window._voxL||{})[sid]) return; window._voxL=window._voxL||{}; window._voxL[sid]=1; const s=document.createElement('script'); s.src='vox/'+sid+'.js'; s.async=true; s.onerror=()=>{window._voxL[sid]=0;}; document.head.appendChild(s); }
+function voxLoad(sid){ if((window.VOX&&window.VOX[sid])||(window._voxL||{})[sid]) return; window._voxL=window._voxL||{}; window._voxL[sid]=1; const s=document.createElement('script'); s.src='vox/'+sid+'.js?v='+VOXV; s.async=true; s.onerror=()=>{window._voxL[sid]=0;}; document.head.appendChild(s); }
 window.voxLoaded=sid=>{};
 function speak(sid,html,free){ speakStop(); if(!auOn()||!auInit()) return; const t=voxNorm(html), d=window.VOX&&window.VOX[sid]; if(!d||!d[t]) return;
   const k=sid+'|'+t; const play=buf=>{ if(!free&&(!STQ||voxNorm(cur_line())!==t)) return; if(free&&!document.querySelector('.guide-box')) return; const src=AU.ctx.createBufferSource(); src.buffer=buf; const g=AU.ctx.createGain(); g.gain.value=1.0; src.connect(g); g.connect(AU.ctx.destination); musDuck(true); src.onended=()=>{ if(VOXSRC===src){ VOXSRC=null; musDuck(false); } }; VOXSRC=src; src.start(); };
@@ -5511,7 +5512,7 @@ let ob = {s:0};
 /* ---------- Nieuwe opening: de eerste minuut (alleen in de testversie, niet op github.io) ---------- */
 const WOW_ON = true;
 const WOW={step:0,miss:0,au:null};
-function wowLoad(){ if(window.WOWVOX||WOW.loading) return; WOW.loading=1; const sc=document.createElement('script'); sc.src='vox/wow.js'; document.head.appendChild(sc); }
+function wowLoad(){ if(window.WOWVOX||WOW.loading) return; WOW.loading=1; const sc=document.createElement('script'); sc.src='vox/wow.js?v='+VOXV; document.head.appendChild(sc); }
 function wowSay(k){ try{ if(WOW.au){ WOW.au.pause(); } if(!auOn()||!window.WOWVOX||!WOWVOX[k]) return; WOW.au=new Audio('data:audio/mpeg;base64,'+WOWVOX[k]); WOW.au.play().catch(()=>{}); }catch(e){} }
 function wowStart(){ WOW.step=0; WOW.miss=0; wowLoad(); wowView(); }
 function wowShell(inner,dots){ $(`<div class="wow">${inner}<div class="wow-dots">${[0,1,2,3,4].map(i=>`<i class="${i<=dots?'on':''}"></i>`).join('')}</div></div>`); const n=document.getElementById('nav'); if(n) n.style.display='none'; }
@@ -6169,6 +6170,215 @@ EXTRA_MUSEUMS.push({id:'vgm', museum:true, bundle:'vgm', bre:/^v[abc][0-9B]/, ri
    e:'<b>Paul Gauguin</b> (1848–1903), de afwezige eigenaar van de lege stoel.'},
   {img:'vcB', a:2, opts:['Helene Kröller-Müller','Rachel Ruysch','Jo van Gogh-Bonger','Judith Leyster'], clues:['Ik trouwde in 1889 met een kunsthandelaar.','Ik werd na anderhalf jaar weduwe.','Ik erfde honderden schilderijen van mijn zwager.','Ik gaf in 1914 zijn brieven uit.'],
    e:'<b>Jo van Gogh-Bonger</b> (1862–1925), die Van Gogh beroemd maakte.'}]});
+
+const FHM_ROUNDS = [
+{ title:"Frans Hals Museum · Les 1 — Schutters en regenten", sub:"De schilder tussen de schutters, regenten in het zwart, een feestmaal, het schuine vaandel en de man zonder hoed",
+  q:[
+  { icon:null, name:'De schilder tussen de schutters',
+    in:{img:'wa1', t:'Officieren en onderofficieren van de Sint-Jorisschutterij', a:'Frans Hals', y:'1639', where:'Frans Hals Museum, Haarlem', s:'Frans Hals Sint-Jorisschutterij 1639'},
+    question:'Achttien schutters met sjerpen, vaandels en hellebaarden poseren in twee rijen. Linksboven, tussen de onderofficieren, kijkt een man met een eenvoudige kraag je aan. Wie is hij?',
+    opts:['Frans Hals zelf: hij was lid van deze schutterij en schilderde zichzelf erbij','De burgemeester','Een dienstknecht die toevallig voorbijliep'], c:0,
+    exp:'Frans Hals was zelf lid van de <b>Sint-Jorisschutterij</b>, de Haarlemse burgerwacht met de kruisboog als oud wapen. In dit laatste schuttersstuk dat hij maakte, schilderde hij zichzelf in de bovenste rij: een van de weinige <b>zelfportretten</b> die van hem bekend zijn. Hij staat bescheiden achterin, zonder rang of sjerp. <br><br><b>Symboliek:</b> de <b>sjerpen</b> en de <b>wapens</b> laten de rang zien: officieren met sjerp en partizaan, sergeanten met hellebaard. Wie vooraan stond, had vaak meer betaald.',
+    also:[
+      {img:'hc1', t:'Feestmaal van de officieren van de Sint-Jorisschutterij', a:'Frans Hals', y:'1616', n:'Zijn eerste schuttersstuk, voor dezelfde schutterij, ruim twintig jaar eerder.', s:'Hals St George 1616'},
+      {img:'gB', t:'De Nachtwacht', a:'Rembrandt', y:'1642', n:'Drie jaar later in Amsterdam: Rembrandts beroemde schutters in beweging.', s:'Night Watch'},
+      {img:'rc3', t:'Schuttersmaaltijd ter viering van de Vrede van Munster', a:'Bartholomeus van der Helst', y:'1648', n:'Amsterdamse schutters aan het feestmaal.', s:'Van der Helst'}]},
+  { icon:'scales', name:'Regenten in het zwart',
+    in:{img:'wa2', t:'Regenten van het Sint-Elisabethsgasthuis', a:'Frans Hals', y:'1641', where:'Frans Hals Museum, Haarlem', s:'Frans Hals Regenten Sint-Elisabethsgasthuis'},
+    question:'Vijf heren in zwart, met witte kragen, rond een tafel met een boek, papier en geld. Ze bestuurden een ziekenhuis voor arme zieken. Waarom lieten regenten zich zo sober en ernstig schilderen?',
+    opts:['Om te laten zien dat ze betrouwbaar, vroom en verantwoordelijk met het geld van de armen omgingen','Omdat ze rouwden','Omdat kleurige verf verboden was'], c:0,
+    exp:'<b>Regenten</b> waren rijke burgers die zonder betaling een liefdadige instelling bestuurden, zoals een gasthuis, weeshuis of oudemannenhuis. Hun groepsportret hing in de vergaderzaal en moest <b>betrouwbaarheid</b>, <b>ernst</b> en <b>vroomheid</b> uitstralen. Het <b>zwart</b> was deftig en duur om te verven, en paste bij calvinistische soberheid. Het geld en het rekenboek op tafel tonen hun taak: zorgvuldig beheer. <br><br><b>Deugd:</b> wat ze uitdragen is <b>Caritas</b>, de naastenliefde.',
+    also:[
+      {img:'ra3', t:'De Staalmeesters', a:'Rembrandt', y:'1662', n:'Ook een bestuur rond een tafel, in Amsterdam.', s:'Staalmeesters'},
+      {img:'ca1a', t:'Caritas', a:'Joachim Wtewael', y:'1627', n:'De deugd die regenten wilden uitstralen: naastenliefde.', s:'Wtewael Caritas'},
+      {img:'waB', t:'De regentessen van het Oudemannenhuis', a:'Frans Hals', y:'1664', n:'Meer dan twintig jaar later: Hals’ laatste groepsportret.', s:'Regentessen'}]},
+  { icon:'grapes', name:'Het feestmaal van de schutters',
+    in:{img:'wa3', t:'Feestmaal van de officieren van de Sint-Adriaansschutterij', a:'Frans Hals', y:'1627', where:'Frans Hals Museum, Haarlem', s:'Frans Hals Sint-Adriaansschutterij 1627'},
+    question:'Officieren aan een feestelijk gedekte tafel, met vaandels, glazen en kalkoen. Eén jonge officier houdt het grote vaandel vast. Aan welke eis moest de vaandrig, de vaandeldrager, meestal voldoen?',
+    opts:['Hij moest ongetrouwd zijn','Hij moest de oudste zijn','Hij moest het hardst kunnen zingen'], c:0,
+    exp:'De <b>vaandrig</b> droeg het vaandel, het symbool van de eer van de compagnie. Traditioneel moest hij <b>vrijgezel</b> zijn: zonder gezin kon hij zich helemaal voor de vlag opofferen. Officieren dienden een paar jaar; aan het eind van hun termijn was er een <b>afscheidsmaaltijd</b>. Die feesten liepen soms zo uit de hand dat de stad ze moest inperken. <br><br><b>In het museum:</b> kijk hoe Hals de figuren laat praten, draaien en drinken: geen stijve rij, maar een moment.',
+    also:[
+      {img:'hc1', t:'Feestmaal van de officieren van de Sint-Jorisschutterij', a:'Frans Hals', y:'1616', n:'Een eerder feestmaal, met dezelfde levendigheid.', s:'Hals 1616'},
+      {img:'wa4', t:'Banket van een korporaalschap van de Kloveniersschutterij', a:'Cornelis van Haarlem', y:'1583', n:'Veertig jaar eerder: een van de eerste Haarlemse schuttersmaaltijden.', s:'Cornelis 1583'},
+      {img:'rb4', t:'Stilleven met kalkoenpastei', a:'Pieter Claesz', y:'1627', n:'Ook op schuttersfeesten: pasteien en kalkoen, peperdure lekkernijen.', s:'Claesz pastei'}]},
+  { icon:null, name:'Het schuine vaandel',
+    in:{img:'wa4', t:'Banket van een korporaalschap van de Kloveniersschutterij', a:'Cornelis van Haarlem', y:'1583', where:'Frans Hals Museum, Haarlem', s:'Cornelis van Haarlem schuttersmaaltijd 1583'},
+    question:'Een tafel vol schutters die drinken, praten en elkaar aankijken; schuin door het beeld steekt een vaandel. Cornelis van Haarlem schilderde dit in 1583, toen Frans Hals nog een kind was. Wat was er nieuw aan?',
+    opts:['De schutters zijn levendig en los gegroepeerd in plaats van in stijve rijen, met een schuin vaandel dat beweging geeft: een idee dat Hals later overnam','Het was het eerste schilderij in kleur','Er staan alleen vrouwen op'], c:0,
+    exp:'Vroege schuttersstukken toonden de leden vaak in strakke rijen, als een klassenfoto. <b>Cornelis van Haarlem</b> bracht <b>beweging</b>: mannen die zich omdraaien, gebaren en praten, en een <b>schuin geplaatst vaandel</b> dat de compositie dynamisch maakt. <b>Frans Hals</b> bouwde later precies op dat idee voort. <br><br><b>Geschiedenis:</b> in 1583 was Haarlem net bevrijd van het zware Spaanse beleg van 1572–1573. De schutterij was een trotse burgermacht, die de stad zelf verdedigde.',
+    also:[
+      {img:'wa3', t:'Feestmaal van de officieren van de Sint-Adriaansschutterij', a:'Frans Hals', y:'1627', n:'Hals bouwde verder op Cornelis’ levendige groep.', s:'Hals 1627'},
+      {img:'wbB', t:'De bruiloft van Peleus en Thetis', a:'Cornelis van Haarlem', y:'1593', n:'Tien jaar later schilderde Cornelis heel andere taferelen: goden en naakten.', s:'Peleus Thetis'},
+      {img:'ca2', t:'Allegorie op de tirannie van de hertog van Alva', a:'Anoniem', y:'begin 17e eeuw', n:'De Opstand tegen Spanje, waar de schutterijen een rol in speelden.', s:'Alva'}]},
+  { icon:null, name:'De man zonder hoed',
+    in:{img:'wa5', t:'Regenten van het Armekinderhuis in Haarlem', a:'Jan de Bray', y:'1663', where:'Frans Hals Museum, Haarlem', s:'Jan de Bray Regenten Armekinderhuis'},
+    question:'Vijf regenten zitten met hun hoed op aan een tafel met een kostbaar oosters tapijt. Eén man staat erachter, zonder hoed. Wat vertelt die ontbrekende hoed?',
+    opts:['Hij is van lagere rang, waarschijnlijk de binnenvader of bode van het huis: de hoed was een teken van status','Hij had het warm','Hij was zijn hoed kwijt'], c:0,
+    exp:'In de 17e eeuw hielden heren van stand hun <b>hoed</b> binnen gewoon op; wie een meerdere sprak, nam hem af. De staande man zonder hoed is daarom vrijwel zeker een <b>ondergeschikte</b>, zoals de binnenvader die het huis dagelijks leidde, of de bode. De regenten zitten, hij staat: zo zie je meteen wie de baas is. Het <b>oosterse tapijt</b> op tafel was een luxeproduct, maar werd als tafelkleed gebruikt. <br><br><b>Kunst:</b> <b>Jan de Bray</b> was een Haarlemse tijdgenoot van Hals, maar schilderde gladder en strakker.',
+    also:[
+      {img:'wa2', t:'Regenten van het Sint-Elisabethsgasthuis', a:'Frans Hals', y:'1641', n:'Ook een tapijt en zwarte hoeden rond de tafel.', s:'Hals regenten'},
+      {img:'ra3', t:'De Staalmeesters', a:'Rembrandt', y:'1662', n:'Bij Rembrandt staat de knecht ook zonder hoed op de achtergrond.', s:'Staalmeesters'},
+      {img:'waB', t:'De regentessen van het Oudemannenhuis', a:'Frans Hals', y:'1664', n:'Een jaar later: de regentessen, met hun dienstmeid.', s:'Regentessen'}]}
+  ],
+  big:{ img:'waB', t:'De regentessen van het Oudemannenhuis', a:'Frans Hals', y:'1664', where:'Frans Hals Museum, Haarlem', s:'Frans Hals Regentessen Oudemannenhuis',
+    intro:'Een van de laatste schilderijen van Frans Hals, die toen al ruim tachtig was. De vier vrouwen bestuurden het Oudemannenhuis: het gebouw waarin nu het Frans Hals Museum zit.',
+    details:[
+      {d:'Vier regentessen in het zwart, met witte kragen, aan een tafel. Achter hen een schilderij met een landschap.', q:'Waar hangt dit schilderij eigenlijk?', opts:['In het gebouw waarvoor het gemaakt werd: het oude Oudemannenhuis is nu het Frans Hals Museum','In het Rijksmuseum','In een kerk in Rome'], c:0,
+        e:'Het <b>Oudemannenhuis</b> aan het Groot Heiligland, gebouwd in 1608, was een tehuis voor arme oude mannen. Sinds 1913 zit hier het <b>Frans Hals Museum</b>. Het schilderij hangt dus weer in het huis waarvoor het werd geschilderd.'},
+      {d:'De zwarte kleding is met losse, snelle streken geschilderd, in tientallen tinten zwart.', q:'Welke schilder schreef bewonderend dat Hals “wel 27 verschillende zwarten” had?', opts:['Vincent van Gogh','Rembrandt','Piet Mondriaan'], c:0,
+        e:'<b>Vincent van Gogh</b> bezocht in 1885 het museum in Haarlem en schreef aan zijn broer Theo vol bewondering over de <b>vele tinten zwart</b> van Hals. Ook de impressionisten, zoals <b>Manet</b>, bewonderden zijn losse toets.'},
+      {d:'Rechts komt een dienstmeid binnen met een briefje.', q:'Wat zegt de meid over de vrouwen aan tafel?', opts:['Ze laat zien dat de regentessen het huis bestuurden en bediend werden: zij staat, zij zitten','Dat het etenstijd is','Dat er brand is'], c:0,
+        e:'De <b>staande meid</b> met het briefje maakt het verschil in rang zichtbaar: de regentessen zitten en besturen, zij brengt berichten. Het briefje wijst op hun taak: de administratie van het huis.'},
+      {d:'Een van de vrouwen heeft haar hand half open op haar schoot liggen; ze kijken streng en vermoeid.', q:'Wat is er waar van het verhaal dat de oude, arme Hals zich hier wreekte door de vrouwen lelijk te schilderen?', opts:['Het is een romantische mythe: de stad gaf Hals een toelage en de regentessen accepteerden het portret gewoon','Het is waar: hij woonde zelf in het huis','Het is waar: ze weigerden het portret'], c:0,
+        e:'Lang werd verteld dat Hals arm en verbitterd was en zijn opdrachtgevers expres hard afbeeldde. Daar is geen bewijs voor. Hals kreeg op zijn oude dag een <b>jaarlijkse toelage</b> van de stad en het portret werd gewoon opgehangen. De vrouwen zijn eerlijk geschilderd: <b>oud, ernstig en waardig</b>.'},
+      {d:'Aan de muur hangt een schilderij met een landschap.', q:'Hoe oud werd Frans Hals ongeveer?', opts:['Ruim tachtig: hij stierf in 1666','Dertig','Honderd'], c:0,
+        e:'Frans Hals werd rond <b>1582</b> in Antwerpen geboren en stierf in <b>1666</b> in Haarlem. Hij is begraven in de <b>Grote of Sint-Bavokerk</b>, vlakbij het museum.'}
+    ],
+    story:'<p>Frans Hals woonde vrijwel zijn hele leven in Haarlem. Hij schilderde schutters, regenten, kooplieden en lachende kinderen, met een losse toets die zijn tijd ver vooruit was.</p><p>In de 19e eeuw werd hij herontdekt door schilders als Manet, Van Gogh en Liebermann, die naar Haarlem kwamen om zijn schilderijen te bestuderen.</p>'
+  }
+},
+{ title:"Frans Hals Museum · Les 2 — Haarlem rond 1600", sub:"Lucas aan de ezel, een monnik en een begijn, het gouden kalf, Hercules en de doop in de Jordaan",
+  q:[
+  { icon:null, name:'Lucas aan de ezel',
+    in:{img:'wb1', t:'Lucas schildert de Madonna', a:'Maarten van Heemskerck', y:'1532', where:'Frans Hals Museum, Haarlem', s:'Heemskerck Lucas schildert de Madonna 1532'},
+    question:'De evangelist Lucas schildert Maria met het kind. Naast hem ligt een os, en achter hem staat een figuur met een krans. Heemskerck schonk dit schilderij aan de Haarlemse schilders. Waarom juist Lucas?',
+    opts:['Lucas was de beschermheilige van de schilders: hun gilde heette het Sint-Lucasgilde','Lucas was de lievelingsheilige van de burgemeester','Omdat Lucas zelf uit Haarlem kwam'], c:0,
+    exp:'Volgens de legende schilderde de evangelist <b>Lucas</b> als eerste een portret van Maria. Daarom was hij de <b>beschermheilige van de schilders</b>, en heette hun beroepsvereniging overal het <b>Sint-Lucasgilde</b>. De <b>os</b> is zijn vaste attribuut als evangelist. Heemskerck schonk dit werk in 1532 aan het Haarlemse gilde, vlak voor hij naar <b>Rome</b> vertrok. De figuur met de krans wordt vaak gezien als de goddelijke <b>inspiratie</b>. <br><br><b>Kunst:</b> veel schilders gebruikten Lucas om iets over hun eigen vak te zeggen.',
+    also:[
+      {img:'x5', t:'De heilige Lucas tekent de Madonna', a:'Rogier van der Weyden', y:'ca. 1435–1440', n:'Een eeuw eerder, in Brussel: hetzelfde onderwerp.', s:'Van der Weyden Luke'},
+      {img:'x5b', t:'Lucas schildert de Madonna', a:'Jan Gossaert (Mabuse)', y:'ca. 1520', n:'Ook Gossaert, net terug uit Italië, schilderde Lucas.', s:'Gossaert Luke'},
+      {img:'va5', t:'Zelfportret als schilder', a:'Vincent van Gogh', y:'1887–1888', n:'Eeuwen later: de schilder die zijn vak als identiteit toont.', s:'Van Gogh painter'}]},
+  { icon:null, name:'De monnik en de begijn',
+    in:{img:'wb2', t:'Een monnik en een begijn', a:'Cornelis van Haarlem', y:'1591', where:'Frans Hals Museum, Haarlem', s:'Cornelis van Haarlem monnik en begijn'},
+    question:'Een monnik slaat zijn arm om een vrome vrouw met een rozenkrans en grijpt naar haar borst. Op tafel staan wijn en fruit. Wat wil dit schilderij zeggen?',
+    opts:['Het is een satire op schijnheiligheid: geestelijken die kuisheid preken maar zelf de verleiding niet weerstaan','Het is een bruiloftsportret','Het is een vriendschappelijke groet'], c:0,
+    exp:'Een <b>monnik</b> en een <b>begijn</b> hoorden kuis te leven. Hier doen ze het tegenovergestelde: de rozenkrans, het teken van gebed, bungelt nutteloos terwijl hij haar betast. <b>Wijn</b> en <b>fruit</b> zijn tekens van genot en verleiding. Zulke beelden van <b>schijnheilige geestelijken</b> waren populair in de tijd van de Reformatie, toen in Haarlem de katholieke eredienst net verboden was. <br><br><b>Kunst:</b> het genre van de “ongelijke liefde” en de spot op geestelijken kwam je ook bij Cranach en Jan Steen tegen.',
+    also:[
+      {img:'g4c', t:'De koppelaarster', a:'Lucas Cranach de Oude', y:'ca. 1520', n:'Ongelijke liefde en geld: een verwant onderwerp.', s:'Cranach procuress'},
+      {img:'s3', t:'De wijn is een spotter', a:'Jan Steen', y:'ca. 1663–1665', n:'Wijn als oorzaak van ondeugd, bij Jan Steen.', s:'Steen wijn'},
+      {img:'wb3', t:'De aanbidding van het gouden kalf', a:'Karel van Mander', y:'1602', n:'Nog een Haarlems beeld van zondig genot.', s:'Van Mander golden calf'}]},
+  { icon:null, name:'Het gouden kalf',
+    in:{img:'wb3', t:'De aanbidding van het gouden kalf', a:'Karel van Mander', y:'1602', where:'Frans Hals Museum, Haarlem', s:'Karel van Mander gouden kalf 1602'},
+    question:'Op de voorgrond eten, drinken en vrijen de Israëlieten in een weids landschap; ver weg danst het volk rond een gouden beeld. Welk bijbelverhaal is dit?',
+    opts:['Het volk aanbidt een gouden kalf terwijl Mozes op de berg de Tien Geboden ontvangt','De bruiloft te Kana','De ark van Noach'], c:0,
+    exp:'Toen <b>Mozes</b> veertig dagen op de berg Sinaï was, liet het volk een <b>gouden kalf</b> maken en vierde er feest omheen (Exodus 32). Bij terugkomst smeet Mozes woedend de <b>stenen tafelen</b> kapot. Van Mander maakt van het verhaal een waarschuwing tegen <b>afgoderij en genotzucht</b>: de feestvierders op de voorgrond hebben het echte drama in de verte niet eens door. <br><br><b>Kunst:</b> <b>Karel van Mander</b> schreef in 1604 het <i>Schilder-boeck</i>, de eerste grote kunstgeschiedenis van de Nederlanden, met levens van schilders. Daarom noemen ze hem de “Nederlandse Vasari”.',
+    also:[
+      {img:'rc2', t:'De dans om het gouden kalf', a:'Lucas van Leyden', y:'ca. 1530', n:'Een eerdere versie van hetzelfde verhaal, in Leiden.', s:'Lucas van Leyden calf'},
+      {img:'j2', t:'Mozes met de stenen tafelen', a:'Rembrandt', y:'1659', n:'Mozes op het moment dat hij de tafelen kapot gaat smijten.', s:'Rembrandt Moses'},
+      {img:'rc2a', t:'De aanbidding van het gouden kalf', a:'Jan Steen', y:'ca. 1673–1677', n:'Jan Steen maakte er een rumoerig Hollands feest van.', s:'Steen calf'}]},
+  { icon:null, name:'Hercules en de dief',
+    in:{img:'wb4', t:'Hercules en Cacus', a:'Hendrick Goltzius', y:'1613', where:'Frans Hals Museum, Haarlem', s:'Goltzius Hercules en Cacus'},
+    question:'Een enorme, gespierde naakte held met een knots staat triomfantelijk boven een verslagen reus. Wie is de held en hoe herken je hem?',
+    opts:['Hercules, aan zijn knots en zijn bovenmenselijke spieren','Neptunus, aan zijn drietand','Apollo, aan zijn lier'], c:0,
+    exp:'<b>Hercules</b> herken je aan zijn <b>knots</b> en vaak aan een <b>leeuwenvel</b>. Hier heeft hij net de reus <b>Cacus</b> verslagen, die zijn runderen had gestolen en ze achterstevoren zijn grot in had getrokken, zodat de sporen de verkeerde kant op wezen. Hercules staat voor <b>kracht en deugd</b> die het kwaad overwint. <br><br><b>Kunst:</b> <b>Hendrick Goltzius</b> was eerst een van de beroemdste <b>graveurs</b> van Europa, ondanks een vergroeide rechterhand door een brandwond in zijn jeugd. Pas rond zijn veertigste begon hij te schilderen.',
+    also:[
+      {img:'f1a', t:'Hercules verslaat de Hydra van Lerna', a:'Guido Reni', y:'ca. 1620', n:'Een andere van Hercules’ beroemde werken.', s:'Reni Hydra'},
+      {img:'t5a', t:'De keuze van Hercules', a:'Annibale Carracci', y:'ca. 1596', n:'Hercules op de tweesprong tussen deugd en ondeugd.', s:'Choice of Hercules'},
+      {img:'t5', t:'Hercules als heroïsche deugd verslaat de Tweedracht', a:'Peter Paul Rubens', y:'ca. 1632–1633', n:'Bij Rubens wordt Hercules een politieke held.', s:'Rubens Hercules'}]},
+  { icon:'dove', name:'De doop in de Jordaan',
+    in:{img:'wb5', t:'De doop van Christus in de Jordaan', a:'Jan van Scorel', y:'ca. 1528', where:'Frans Hals Museum, Haarlem', s:'Jan van Scorel Doop van Christus'},
+    question:'In een weids, Italiaans aandoend landschap staan mensen langs een rivier; in het midden wordt een man gedoopt. Welk teken boven zijn hoofd vertelt wie hij is?',
+    opts:['Een witte duif: de Heilige Geest, die neerdaalt bij de doop van Christus door Johannes','Een adelaar','Een regenboog'], c:0,
+    exp:'Bij de <b>doop van Christus</b> door <b>Johannes de Doper</b> in de rivier de <b>Jordaan</b> daalde volgens de evangeliën de <b>Heilige Geest</b> neer in de gedaante van een <b>duif</b>, en klonk een stem: “Dit is mijn geliefde Zoon.” Langs de oever staan mensen die zich klaarmaken om ook gedoopt te worden, sommigen naakt. <br><br><b>Kunst:</b> <b>Jan van Scorel</b> was een van de eerste Nederlanders die in Italië werkte. De gespierde naakten en het brede landschap tonen wat hij daar leerde. Hij gaf les aan Maarten van Heemskerck.',
+    also:[
+      {img:'u3', t:'De doop van Christus', a:'Andrea del Verrocchio en Leonardo da Vinci', y:'ca. 1472–1475', n:'De beroemde Italiaanse versie, waarin de jonge Leonardo een engel schilderde.', s:'Verrocchio baptism'},
+      {img:'q12', t:'De doop van Christus', a:'Piero della Francesca', y:'ca. 1450', n:'Ook hier zweeft de duif boven Christus’ hoofd.', s:'Piero baptism'},
+      {img:'wb1', t:'Lucas schildert de Madonna', a:'Maarten van Heemskerck', y:'1532', n:'Werk van Scorels leerling Heemskerck.', s:'Heemskerck'}]}
+  ],
+  big:{ img:'wbB', t:'De bruiloft van Peleus en Thetis', a:'Cornelis van Haarlem', y:'1593', where:'Frans Hals Museum, Haarlem', s:'Cornelis van Haarlem Bruiloft van Peleus en Thetis',
+    intro:'Een goddelijk bruiloftsfeest dat uitloopt op de grootste oorlog uit de mythologie. De stad Haarlem bestelde het als waarschuwing.',
+    details:[
+      {d:'Op de achtergrond zitten de goden aan een lange feesttafel. Boven hen zweeft een godin met een gouden appel.', q:'Wie is die zwevende godin en wat doet ze?', opts:['Eris, de godin van de twist: ze gooit een gouden appel “voor de mooiste” tussen de gasten','Venus, die bloemen strooit','Iris, die het weer voorspelt'], c:0,
+        e:'<b>Eris</b>, de godin van de twist, was als enige niet uitgenodigd. Uit wraak gooide ze een <b>gouden appel</b> met de woorden “voor de mooiste” op tafel. Juno, Minerva en Venus begonnen meteen ruzie te maken.'},
+      {d:'De ruzie om de appel had grote gevolgen.', q:'Waartoe leidde de twist om de gouden appel?', opts:['Tot het oordeel van Paris en uiteindelijk de Trojaanse Oorlog','Tot de bouw van Rome','Tot niets: het werd snel bijgelegd'], c:0,
+        e:'Jupiter liet de prins <b>Paris</b> kiezen. Venus beloofde hem de mooiste vrouw ter wereld, <b>Helena</b>, en kreeg de appel. Paris schaakte Helena uit Sparta, en zo begon de <b>Trojaanse Oorlog</b>. Eén klein moment van onenigheid leidde tot een ramp.'},
+      {d:'De stad Haarlem bestelde dit grote doek voor het Prinsenhof, het verblijf van prins Maurits in de stad.', q:'Welke boodschap had het schilderij voor de Haarlemmers en hun bondgenoten?', opts:['Een waarschuwing tegen tweedracht: alleen eendrachtig konden de provincies de oorlog tegen Spanje winnen','Dat feesten verboden waren','Dat de goden in Haarlem woonden'], c:0,
+        e:'In 1593 was de <b>Opstand</b> tegen Spanje in volle gang. <b>Eendracht</b> tussen de provincies was van levensbelang: denk aan het motto van de Republiek, <i>Concordia res parvae crescunt</i>, eendracht maakt macht. Dit schilderij toonde wat er gebeurt als twist het wint. <b>Karel van Mander</b> beschreef het al in zijn <i>Schilder-boeck</i>.'},
+      {d:'Op de voorgrond liggen en zitten naakte goden met opvallend gespierde lichamen, in gedraaide houdingen.', q:'Hoe heet de stijl met deze overdreven, kunstige lichamen?', opts:['Het Haarlemse maniërisme','Het impressionisme','De Haagse School'], c:0,
+        e:'Rond 1590 maakten <b>Cornelis van Haarlem</b>, <b>Karel van Mander</b> en <b>Hendrick Goltzius</b> Haarlem tot het centrum van het <b>maniërisme</b>: gespierde, gedraaide naakten, gewaagde houdingen en kunstige composities, geïnspireerd op Michelangelo.'},
+      {d:'Het bruidspaar zelf, Peleus en de zeenimf Thetis, kreeg later een beroemde zoon.', q:'Wie was de zoon van Peleus en Thetis?', opts:['Achilles, de grootste held van de Trojaanse Oorlog','Hercules','Odysseus'], c:0,
+        e:'Hun zoon was <b>Achilles</b>, de onoverwinnelijke held van de Trojaanse Oorlog, behalve op één plek: zijn hiel. Zo komt het verhaal rond: op de bruiloft van zijn ouders begon de oorlog waarin hij zou sneuvelen.'}
+    ],
+    story:'<p>Rond 1590 was Haarlem, na het zware beleg van 1572–1573, weer een bloeiende stad. Een kleine groep kunstenaars, de “Haarlemse maniëristen”, zette de stad op de kaart met gewaagde mythologische taferelen.</p><p>Een generatie later zou Frans Hals in dezelfde stad een heel andere, levensechte stijl ontwikkelen.</p>'
+  }
+},
+{ title:"Frans Hals Museum · Les 3 — Leven in Haarlem", sub:"Een kostbare tulp, een boerenkermis, een fluitspeelster, een muzikale familie en de burgemeester",
+  q:[
+  { icon:'tulip', name:'De kostbare tulp',
+    in:{img:'wc1', t:'Tulp (uit een tulpenboek)', a:'Judith Leyster', y:'1643', where:'Frans Hals Museum, Haarlem', s:'Judith Leyster tulp 1643'},
+    question:'Eén enkele tulp, rood-wit gevlamd, nauwkeurig geschilderd in een boek vol bloemen. Waarom werd zo’n tulp zo zorgvuldig vastgelegd?',
+    opts:['Gevlamde tulpen waren peperduur en werden via afbeeldingen in tulpenboeken verhandeld en bewonderd','Omdat tulpen giftig waren','Om kinderen te leren tellen'], c:0,
+    exp:'In de jaren 1630 brak de <b>tulpenmanie</b> uit: voor één bijzondere bol werd soms meer betaald dan voor een grachtenhuis. De mooiste waren <b>gevlamd</b>: een patroon dat, zoals we nu weten, door een virus ontstond. Kwekers en handelaren lieten <b>tulpenboeken</b> maken om hun soorten te tonen. In 1637 stortte de markt in. De tulp werd daarna ook een symbool van <b>dwaasheid en vergankelijkheid</b>. <br><br><b>Kunst:</b> <b>Judith Leyster</b> was in 1633 een van de eerste vrouwen die werd toegelaten tot het Haarlemse Sint-Lucasgilde.',
+    also:[
+      {img:'g2c', t:'Meisje met een luit', a:'Judith Leyster', y:'ca. 1631', n:'Leyster schilderde ook levendige genrestukken, in de geest van Hals.', s:'Leyster lute'},
+      {img:'q6a', t:'Bloemen in een vaas', a:'Judith Leyster', y:'1654', n:'Een heel boeket met bloemen uit alle seizoenen.', s:'Leyster flowers'},
+      {img:'z1b', t:'Narcissen en tulpen', a:'Henri Fantin-Latour', y:'1862', n:'Twee eeuwen later is de tulp nog steeds een geliefd onderwerp.', s:'Fantin-Latour'}]},
+  { icon:'jug', name:'De boerenkermis',
+    in:{img:'wc2', t:'Boerenkermis', a:'Jan Steen', y:'ca. 1665–1668', where:'Frans Hals Museum, Haarlem', s:'Jan Steen Boerenkermis'},
+    question:'Een dorp viert feest: mensen drinken, dansen, vrijen en liggen lam onder een prieel; een kind kijkt toe. Wat wilde Jan Steen met zo’n vrolijke chaos vertellen?',
+    opts:['Een lachende waarschuwing tegen onmatigheid: kijk wat er gebeurt als drank en plezier de overhand krijgen','Dat boeren altijd feestvierden','Dat kermissen verboden waren'], c:0,
+    exp:'De <b>kermis</b> was oorspronkelijk de feestdag van de kerkwijding (kerk-mis) en groeide uit tot een dagenlang volksfeest. Jan Steen toont het met humor, maar ook met een <b>moraal</b>: dronkenschap, ruzie en losbandigheid liggen op de loer. Zijn rommelige taferelen leverden het spreekwoord “<b>een huishouden van Jan Steen</b>” op. <br><br><b>Kunst:</b> Steen woonde in de jaren 1660 in Haarlem, waar hij de boerenscènes van Adriaen van Ostade en anderen leerde kennen.',
+    also:[
+      {img:'hb3a', t:'De boerenbruiloft', a:'Pieter Bruegel de Oude', y:'ca. 1567', n:'Het grote voorbeeld: Bruegels boerenfeesten.', s:'Bruegel wedding'},
+      {img:'s3a', t:'De gevolgen van onmatigheid', a:'Jan Steen', y:'ca. 1663–1665', n:'Steen maakte de moraal soms heel duidelijk.', s:'Steen intemperance'},
+      {img:'sB', t:'In weelde siet toe', a:'Jan Steen', y:'1663', n:'“Pas op in tijden van overvloed”: een waarschuwing in één zin.', s:'In weelde siet toe'}]},
+  { icon:null, name:'De fluitspeelster',
+    in:{img:'wc3', t:'Vrouw die fluit speelt', a:'Dirck Hals', y:'ca. 1630', where:'Frans Hals Museum, Haarlem', s:'Dirck Hals vrouw die fluit speelt'},
+    question:'Een jonge vrouw in een glanzende gele zijden jurk speelt fluit. Op tafel ligt een opengeslagen muziekboek. Waar kon muziek in zulke schilderijen voor staan?',
+    opts:['Voor liefde en harmonie, en als een van de vijf zintuigen voor het gehoor','Voor oorlog','Voor ziekte'], c:0,
+    exp:'Muziek was in de 17e eeuw een geliefd symbool. Samen musiceren stond voor <b>harmonie</b>, ook in de liefde en het huwelijk. In reeksen over de <b>vijf zintuigen</b> verbeeldde muziek het <b>gehoor</b>. Soms had een fluit ook een ondeugende, erotische bijbetekenis. Het is aan de kijker om te kiezen. <br><br><b>Kunst:</b> <b>Dirck Hals</b> was de jongere broer van Frans. Hij was gespecialiseerd in kleine, elegante gezelschapjes en de glans van dure stoffen.',
+    also:[
+      {img:'tb3', t:'De vijf zintuigen', a:'Dirck Hals', y:'ca. 1630', n:'Ook van Dirck: de zintuigen in een vrolijk gezelschap.', s:'Dirck Hals senses'},
+      {img:'g2', t:'De muziekles', a:'Gerard ter Borch', y:'ca. 1670', n:'Muziek en liefde, in een deftig interieur.', s:'Ter Borch'},
+      {img:'cb3', t:'De fluitspeler', a:'Abraham Bloemaert', y:'1621', n:'Een fluitspeler in Utrecht, uit dezelfde tijd.', s:'Bloemaert flute'}]},
+  { icon:null, name:'De muzikale familie',
+    in:{img:'wc4', t:'Zelfportret met familie (Familieportret)', a:'Jan Miense Molenaer', y:'ca. 1635', where:'Frans Hals Museum, Haarlem', s:'Molenaer zelfportret met familie'},
+    question:'Een grote familie maakt samen muziek in een kamer met een geblokte vloer. Aan de muur hangen portretten. Wat betekent het samen musiceren in zo’n familieportret?',
+    opts:['Harmonie in het gezin: zoals instrumenten samen klinken, zo leeft de familie eendrachtig samen','Dat ze een orkest wilden beginnen','Dat ze herrie maakten voor de buren'], c:0,
+    exp:'In familieportretten staat <b>samen musiceren</b> voor <b>eendracht en harmonie</b>: iedereen speelt zijn eigen partij, maar samen klinkt het mooi. Het was ook een teken van <b>beschaving</b> en welvaart. De <b>portretten aan de muur</b> kunnen overleden familieleden zijn: zo horen ook zij er nog bij. <br><br><b>Kunst:</b> <b>Jan Miense Molenaer</b> uit Haarlem was getrouwd met de schilderes <b>Judith Leyster</b>. Hij schilderde zichzelf hier met luit tussen zijn familie.',
+    also:[
+      {img:'b3', t:'Het vrolijke huisgezin', a:'Jan Steen', y:'1668', n:'Een familie die óók muziek maakt, maar met een heel andere boodschap.', s:'Steen merry family'},
+      {img:'g2c', t:'Meisje met een luit', a:'Judith Leyster', y:'ca. 1631', n:'Werk van Molenaers vrouw, Judith Leyster.', s:'Leyster'},
+      {img:'n4', t:'Huwelijksportret van Isaac Massa en Beatrix van der Laen', a:'Frans Hals', y:'ca. 1622', n:'Een Haarlems huwelijksportret vol symbolen van trouw.', s:'Hals Massa'}]},
+  { icon:null, name:'De burgemeester',
+    in:{img:'wc5', t:'Portret van Nicolaes Woutersz van der Meer', a:'Frans Hals', y:'1631', where:'Frans Hals Museum, Haarlem', s:'Frans Hals Nicolaes van der Meer'},
+    question:'Een man met een enorme witte molensteenkraag en zwarte kleding leunt met zijn hand op een stoelleuning. Rechtsboven hangt een wapenschild. Wat laat dit portret zien?',
+    opts:['Een welgestelde, gezaghebbende burger: brouwer en burgemeester van Haarlem, met zijn familiewapen als teken van stand','Een arme boer','Een acteur in een toneelstuk'], c:0,
+    exp:'<b>Nicolaes van der Meer</b> was <b>brouwer</b> en meermaals <b>burgemeester</b> van Haarlem. Zijn <b>molensteenkraag</b> was ouderwets maar deftig, en het <b>wapenschild</b> toont dat hij uit een aanzienlijke familie kwam. Hals schilderde ook een tegenhanger van zijn vrouw, Cornelia Vooght. Zulke <b>pendantportretten</b> hingen naast elkaar: de man links, de vrouw rechts, naar elkaar toegekeerd. <br><br><b>In het museum:</b> kijk naar de handschoen en de hand op de stoel: met een paar snelle streken lijkt alles echt.',
+    also:[
+      {img:'hc4c', t:'Portret van Willem van Heythuysen', a:'Frans Hals', y:'ca. 1625', n:'Een andere rijke Haarlemmer, poserend als een edelman.', s:'Heythuysen'},
+      {img:'hc4', t:'Meisje in het blauw', a:'Johannes Cornelisz Verspronck', y:'1641', n:'Verspronck, Haarlemse portretschilder naast Hals.', s:'Verspronck'},
+      {img:'q1b', t:'Jongeman met schedel', a:'Frans Hals', y:'ca. 1626–1628', n:'Hals kon ook vrijer en ruiger schilderen dan in zijn portretten.', s:'Hals skull'}]}
+  ],
+  big:{ img:'wcB', t:'Stilleven met pastei, zilveren schenkkan en krab', a:'Willem Claesz Heda', y:'1658', where:'Frans Hals Museum, Haarlem', s:'Willem Claesz Heda stilleven met pastei',
+    intro:'Een tafel na de maaltijd: half opgegeten, omgevallen en verfrommeld. Haarlem was dé stad van het “banketje”, en Heda was er de meester van.',
+    details:[
+      {d:'Een grote pastei met een gouden korst, een zilveren schenkkan, een omgevallen beker en een krab op een tinnen bord.', q:'Waarom lijkt de tafel zo rommelig, alsof iemand net is weggelopen?', opts:['Een omgevallen beker en half opgegeten eten wijzen op vergankelijkheid: het feest is al voorbij','Omdat de schilder slordig was','Omdat het een keuken is'], c:0,
+        e:'Heda schilderde bewust een <b>verstoorde tafel</b>: een omgevallen beker, een opengesneden pastei, een verfrommeld tafelkleed. Het moment is voorbij. Zo wordt het stilleven een stille herinnering aan <b>vergankelijkheid</b>: genot duurt maar even.'},
+      {d:'Een citroen is half geschild; de schil krult in een sliert over de rand van de tafel.', q:'Wat kan de citroen betekenen?', opts:['Mooi aan de buitenkant, zuur van binnen: een waarschuwing dat schijn bedriegt','Dat het zomer is','Dat iemand verkouden was'], c:0,
+        e:'De <b>citroen</b> was een duur, geïmporteerd product. De schil is prachtig, maar het vruchtvlees is zuur: een beeld van <b>verleiding</b> die bitter uitpakt. Bovendien liet de spiraalschil zien hoe knap de schilder was.'},
+      {d:'Het hele schilderij is opgebouwd uit grijs, zilver, wit en goudbruin.', q:'Hoe noemen we deze ingetogen Haarlemse stijl van stillevens?', opts:['Monochrome banketjes: stillevens in weinig, gedempte kleuren','Pop-art','Kubisme'], c:0,
+        e:'Heda en <b>Pieter Claesz</b> ontwikkelden in Haarlem de <b>monochrome banketjes</b>: stillevens in een beperkt palet van grijs, bruin en zilver. Alle aandacht gaat zo naar <b>licht en glans</b> op metaal, glas en stof.'},
+      {d:'In de zilveren kan en het glas weerspiegelen het raam en de omgeving.', q:'Wat liet een schilder zien met zulke weerspiegelingen?', opts:['Zijn vakmanschap: glas en zilver overtuigend schilderen was het moeilijkste wat er was','Dat het donker was','Niets bijzonders'], c:0,
+        e:'Het nauwkeurig weergeven van <b>reflecties</b> in glas en metaal was een virtuoos kunstje. Verzamelaars betaalden graag voor dit soort <b>illusie</b>: het lijkt alsof je de koude kan zo kunt oppakken.'},
+      {d:'Krab, pastei, zilver en wijn waren kostbaar.', q:'Wat zegt zo’n luxe maaltijd over de koper van het schilderij?', opts:['Hij was welvarend, maar het stilleven herinnerde hem er ook aan dat rijkdom niet blijvend is','Hij was kok','Hij was arm'], c:0,
+        e:'Een rijke Haarlemmer kon zo’n schilderij aan de muur hangen als teken van <b>smaak en welvaart</b>. Tegelijk fluisterde het de oude boodschap van de <b>vanitas</b>: alles wat je bezit, gaat voorbij.'}
+    ],
+    story:'<p>Haarlem was in de 17e eeuw het centrum van het stilleven met eten en drinken. Willem Claesz Heda en Pieter Claesz maakten er een eigen genre van.</p><p>In de zaal met stillevens in het Frans Hals Museum hangen ze naast elkaar.</p>'
+  }
+}
+];
+const FHM_BADGES = [
+  {name:'Schuttersmaat', icon:'scales', txt:'Schutters, regenten en het schuine vaandel: je kent Hals’ groepsportretten.'},
+  {name:'Maniërist', icon:'apple', txt:'Lucas, het gouden kalf en de appel van Eris: Haarlem rond 1600.'},
+  {name:'Banketkenner', icon:'tulip', txt:'Tulpen, kermis en pastei: het dagelijks leven in Haarlem.'}];
+EXTRA_MUSEUMS.push({id:'fhm', museum:true, bundle:'fhm', bre:/^w[abc][0-9B]/, ribbon:'Museumkenner', name:"Museum: Frans Hals Museum", eyebrow:"Museum · Noord-Holland · Frans Hals Museum, Haarlem", title:"Het Frans Hals Museum", rank:"Kenner van het Frans Hals Museum", grand:"Haarlemgids", icon:'tulip', desc:"In het oude Oudemannenhuis in Haarlem: de grootste Frans Hals-collectie ter wereld, de Haarlemse maniëristen en de stillevens en genrestukken van de Gouden Eeuw.", obT:"Frans Hals Museum, Haarlem", obS:"De regentessen, de schutters van Hals, Peleus en Thetis, Heda…", rounds:FHM_ROUNDS, badges:FHM_BADGES, theme:{"shape": "shield", "rib": ["#1a1a1a", "#c8102e"], "leaf": "#6f8a4a"}, who:[
+  {img:'wa1', a:0, opts:['Frans Hals','Rembrandt','Jan Steen','Johannes Verspronck'], clues:['Ik werd rond 1582 in Antwerpen geboren.','Mijn ouders vluchtten naar Haarlem.','Ik was zelf lid van de Sint-Jorisschutterij.','Van Gogh telde in mijn schilderijen 27 tinten zwart.'],
+   e:'<b>Frans Hals</b> (ca. 1582–1666).'},
+  {img:'wb3', a:2, opts:['Hendrick Goltzius','Cornelis van Haarlem','Karel van Mander','Maarten van Heemskerck'], clues:['Ik werd in 1548 in Vlaanderen geboren.','Ik vluchtte naar Haarlem.','Ik schreef levens van schilders.','Mijn boek uit 1604 heet het Schilder-boeck.'],
+   e:'<b>Karel van Mander</b> (1548–1606), de “Nederlandse Vasari”.'},
+  {img:'wc1', a:1, opts:['Rachel Ruysch','Judith Leyster','Maria Sibylla Merian','Clara Peeters'], clues:['Ik werd in 1609 in Haarlem geboren.','Mijn vader was brouwer.','In 1633 trad ik toe tot het Sint-Lucasgilde.','Ik trouwde met de schilder Jan Miense Molenaer.'],
+   e:'<b>Judith Leyster</b> (1609–1660).'}]});
 
 const CM_ROUNDS = [
 { title:"Centraal Museum · Les 1 — Van Scorel tot Bloemaert", sub:"Wilde rozen, een tiran, de herders, een schilder met kraag en Orpheus",
