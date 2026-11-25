@@ -5961,6 +5961,215 @@ EXTRA_MUSEUMS.push({id:'km', museum:true, bundle:'km', bre:/^k[abc][0-9B]/, ribb
   {img:'kcB', a:0, opts:['Georges Seurat','Odilon Redon','Juan Gris','Piet Mondriaan'], clues:['Ik stierf al op mijn 31e.','Ik geloofde dat lijnen en kleuren gevoelens oproepen.','Ik schilderde met duizenden kleine stipjes.','Mijn dansers schoppen hun benen in de lucht.'],
    e:'<b>Georges Seurat</b> (1859–1891).'}]});
 
+const VGM_ROUNDS = [
+{ title:"Van Gogh Museum · Les 1 — Van Nuenen naar Parijs", sub:"De bijbel van zijn vader, een rokend skelet, oude schoenen, een Japanse courtisane en de schilder zelf",
+  q:[
+  { icon:null, name:'De bijbel van zijn vader',
+    in:{img:'va1', t:'Stilleven met bijbel', a:'Vincent van Gogh', y:'1885', where:'Van Gogh Museum, Amsterdam', s:'Van Gogh Stilleven met bijbel Van Gogh Museum'},
+    question:'Een grote, opengeslagen bijbel naast een gedoofde kaars, en vooraan een klein geel boekje: La joie de vivre van Émile Zola. Van Gogh schilderde dit vlak na de dood van zijn vader, een dominee. Wat vertelt dit stilleven?',
+    opts:['Het oude geloof van zijn vader tegenover het moderne leven dat Vincent zelf koos','Dat hij graag las in bed','Dat zijn vader schrijver was'], c:0,
+    exp:'De zware <b>bijbel</b> was van zijn vader, dominee Theodorus van Gogh, die in maart 1885 plotseling stierf. De <b>gedoofde kaars</b> is een klassiek <b>vanitas</b>-teken: het leven is uitgeblazen. Het kleine, felgele boekje is een moderne roman van <b>Zola</b>, die Vincent bewonderde en zijn vader afkeurde. Zo zet hij twee werelden naast elkaar: het strenge geloof van thuis en het moderne leven dat hij zelf zocht. <br><br><b>In het museum:</b> de bijbel staat open bij <b>Jesaja 53</b>, over de “man van smarten”. Kijk hoe donker het schilderij is: dit is nog de Hollandse Van Gogh, vóór Parijs.',
+    also:[
+      {img:'hgB', t:'De aardappeleters', a:'Vincent van Gogh', y:'1885', n:'Uit hetzelfde jaar, in dezelfde donkere aardetinten.', s:'Van Gogh aardappeleters'},
+      {img:'db3', t:'Vrouwen aan het werk in het veen', a:'Vincent van Gogh', y:'1883', n:'In Drenthe en Nuenen schilderde hij het harde boerenleven.', s:'Van Gogh Drenthe'},
+      {img:'q1b', t:'Jongeman met schedel', a:'Frans Hals', y:'ca. 1626–1628', n:'Ook bij Hals: een vanitas die je aan de dood herinnert.', s:'Hals young man skull'}]},
+  { icon:'skull', name:'Het rokende skelet',
+    in:{img:'va2', t:'Schedel van een skelet met brandende sigaret', a:'Vincent van Gogh', y:'1886', where:'Van Gogh Museum, Amsterdam', s:'Van Gogh Schedel met brandende sigaret'},
+    question:'Een grijnzende schedel met een brandende sigaret tussen de tanden. Van Gogh maakte dit als student aan de kunstacademie in Antwerpen. Wat is het?',
+    opts:['Een studentengrap: een spottende variant op de oude vanitas met schedel','Een anatomische tekening voor dokters','Een reclame voor sigaretten'], c:0,
+    exp:'Op de academie in <b>Antwerpen</b> moesten studenten urenlang een <b>skelet</b> natekenen. Van Gogh gaf het een brandende sigaret: een grap, en tegelijk een knipoog naar de eeuwenoude <b>vanitas</b>, waarin een schedel herinnert aan de dood. De sigaret maakt het luchtig: zelfs de dood heeft hier een pauze. Sommigen zien er ook een vroege, wrange grap over roken in, want Van Gogh rookte zelf fanatiek pijp. <br><br><b>In het museum:</b> het is een klein schilderij. Kijk hoe de rook als een lichte krul tegen de zwarte achtergrond hangt.',
+    also:[
+      {img:'q1b', t:'Jongeman met schedel', a:'Frans Hals', y:'ca. 1626–1628', n:'De klassieke vanitas: een schedel in de hand.', s:'Hals skull'},
+      {img:'va1', t:'Stilleven met bijbel', a:'Vincent van Gogh', y:'1885', n:'Een jaar eerder: de gedoofde kaars als vanitas.', s:'Van Gogh bijbel'},
+      {img:'kb4', t:'Zelfportret', a:'Vincent van Gogh', y:'1887', n:'Van Gogh met zijn eeuwige pijp.', s:'Van Gogh self portrait'}]},
+  { icon:null, name:'Een paar oude schoenen',
+    in:{img:'va3', t:'Schoenen', a:'Vincent van Gogh', y:'1886', where:'Van Gogh Museum, Amsterdam', s:'Van Gogh Schoenen 1886 Van Gogh Museum'},
+    question:'Een paar versleten, gedeukte werkschoenen met losse veters. Van Gogh kocht ze op een vlooienmarkt in Parijs en liep ze eerst flink in de modder kapot. Waarom zijn zulke schoenen zo beroemd geworden?',
+    opts:['Ze worden gezien als een portret van een hard, rondtrekkend leven: van wie ze droeg, en van Vincent zelf','Omdat het dure designerschoenen waren','Omdat ze van koning Willem III waren'], c:0,
+    exp:'Een vriend vertelde dat Van Gogh de schoenen op een <b>vlooienmarkt</b> kocht en er in de regen mee wandelde tot ze er echt doorleefd uitzagen. Pas toen schilderde hij ze. Filosofen en kunsthistorici zien er sindsdien een <b>portret zonder mens</b> in: van arbeid, armoede en een leven onderweg. Van Gogh was zelf een eeuwige zwerver, van Zundert tot Londen, de Borinage, Parijs en Arles. <br><br><b>Kunst:</b> het is een bekend voorbeeld van hoe een heel gewoon voorwerp, groot en eerlijk geschilderd, iets over een mens kan vertellen.',
+    also:[
+      {img:'hgB', t:'De aardappeleters', a:'Vincent van Gogh', y:'1885', n:'Het leven van wie met de handen werkt.', s:'aardappeleters'},
+      {img:'db5', t:'De heide met een kruiwagen', a:'Vincent van Gogh', y:'1883', n:'Gereedschap als stil spoor van arbeid.', s:'Van Gogh heide kruiwagen'},
+      {img:'ka2b', t:'De zaaier', a:'Jean-François Millet', y:'1850', n:'Millet maakte de boer tot held. Van Gogh vereerde hem.', s:'Millet Sower'}]},
+  { icon:null, name:'De Japanse courtisane',
+    in:{img:'va4', t:'Courtisane (naar Eisen)', a:'Vincent van Gogh', y:'1887', where:'Van Gogh Museum, Amsterdam', s:'Van Gogh Courtisane naar Eisen'},
+    question:'Een Japanse vrouw in een prachtige kimono, omringd door bamboe, waterlelies, kikkers en kraanvogels. Van Gogh nam haar over van een Japanse prent op de cover van een Frans tijdschrift. Wat betekenen die kikkers en kraanvogels?',
+    opts:['Een woordgrap: in het Frans waren “kraanvogel” en “kikker” ook spotnamen voor prostituees en hun klanten','Dat de vrouw in een moeras woonde','Niets, het is gewoon versiering'], c:0,
+    exp:'De vrouw is een <b>courtisane</b>, een luxe-prostituee, naar een prent van <b>Keisai Eisen</b>. Van Gogh voegde zelf een lijst met kikkers, kraanvogels en bamboe toe. In de Parijse straattaal waren <i>grue</i> (kraanvogel) en <i>grenouille</i> (kikker) <b>spotnamen voor prostituees</b>. Zo maakte Van Gogh een geestige, dubbelzinnige knipoog. <br><br><b>Kunst:</b> in Parijs verzamelde Vincent met Theo honderden <b>Japanse prenten</b>. Hun heldere kleuren en vlakke vormen veranderden zijn manier van schilderen voorgoed.',
+    also:[
+      {img:'ka3', t:'De brug van Langlois', a:'Vincent van Gogh', y:'1888', n:'In Arles schilderde hij alsof hij in Japan was.', s:'Langlois'},
+      {img:'hg2', t:'Meisje in witte kimono', a:'G.H. Breitner', y:'1894', n:'Ook in Amsterdam raakte men in de ban van Japan.', s:'Breitner kimono'},
+      {img:'ka4b', t:'Bloeiende amandelboom', a:'Vincent van Gogh', y:'1888', n:'Bloesem zoals op Japanse prenten.', s:'Van Gogh almond'}]},
+  { icon:null, name:'De schilder aan de ezel',
+    in:{img:'va5', t:'Zelfportret als schilder', a:'Vincent van Gogh', y:'1887–1888', where:'Van Gogh Museum, Amsterdam', s:'Van Gogh Zelfportret als schilder'},
+    question:'Van Gogh staat achter zijn ezel, met palet en penselen in de hand, in een blauwe kiel. Het is zijn laatste zelfportret in Parijs. Wat wilde hij hiermee zeggen?',
+    opts:['Dit ben ik: een schilder. Zijn vak is zijn identiteit, net als bij Rembrandt aan de ezel','Dat hij een nieuwe ezel had gekocht','Dat hij eigenlijk schoenmaker was'], c:0,
+    exp:'Met <b>palet, penselen en ezel</b> toont Van Gogh zich zoals schilders dat al eeuwen deden: zijn <b>vak is wie hij is</b>. Op het palet zie je precies de felle kleuren die hij in Parijs had leren gebruiken, en zijn gezicht is opgebouwd uit losse toetsen in complementaire kleuren: oranje baard tegen blauwe kiel. Hij schreef dat het een grauw, hard en wat triest gezicht was, “als de dood”, uitgeput door de stad. Kort daarna vertrok hij naar het zuiden. <br><br><b>In het museum:</b> zoek de kleuren van het palet terug in zijn gezicht.',
+    also:[
+      {img:'kb4', t:'Zelfportret', a:'Vincent van Gogh', y:'1887', n:'Ook in Parijs: een van de ruim dertig zelfportretten.', s:'Van Gogh self portrait'},
+      {img:'rc4', t:'Zelfportret als de apostel Paulus', a:'Rembrandt', y:'1661', n:'Rembrandt, de schilder die Van Gogh het meest bewonderde.', s:'Rembrandt self portrait'},
+      {img:'x5a', t:'Lucas schildert de Madonna', a:'Maarten van Heemskerck', y:'1532', n:'De heilige Lucas, beschermheilige van de schilders, aan het werk.', s:'Heemskerck Lucas'}]}
+  ],
+  big:{ img:'vaB', t:'De aardappeleters', a:'Vincent van Gogh', y:'1885', where:'Van Gogh Museum, Amsterdam', s:'Van Gogh De aardappeleters Van Gogh Museum',
+    intro:'Zijn eerste grote meesterwerk, in Nuenen. Vincent wilde laten zien dat deze boeren hun eten eerlijk hadden verdiend, “met de handen waarmee ze het land bewerkten”.',
+    details:[
+      {d:'Vijf boeren eten aardappels bij het licht van één olielamp. Hun handen zijn grof en knokig.', q:'Waarom schilderde Van Gogh de handen zo grof en groot?', opts:['Hij wilde laten zien dat ze hun eten eerlijk hadden verdiend met handenarbeid','Hij kon nog geen handen schilderen','De boeren hadden een ziekte'], c:0,
+        e:'Van Gogh schreef aan Theo dat hij wilde laten voelen dat deze mensen hun aardappels aten met <b>dezelfde handen</b> waarmee ze de aarde hadden omgespit. Ze hebben hun maaltijd dus <b>eerlijk verdiend</b>. Hij koos bewust voor ruw en lelijk in plaats van mooi en lief.'},
+      {d:'De kleuren zijn donker: groen, bruin en grijs. Vincent noemde het de kleur van een “stoffige aardappel, ongeschild natuurlijk”.', q:'Wat vonden zijn vrienden en Theo destijds van dit schilderij?', opts:['Veel kritiek: te donker en de figuren te onhandig getekend','Iedereen vond het meteen een meesterwerk','Het werd voor veel geld verkocht'], c:0,
+        e:'Zijn vriend <b>Anthon van Rappard</b> schreef dat het slecht getekend was, en ook Theo kon het in Parijs niet verkopen. Van Gogh was gekwetst, maar bleef trots op het werk. Pas veel later werd het zijn eerste erkende <b>meesterwerk</b>.'},
+      {d:'Boven de tafel hangt één <b>olielamp</b>, het enige licht in de donkere kamer.', q:'Welke oude meester inspireerde dit dramatische licht in het donker?', opts:['Rembrandt, met zijn licht-donker','Monet, met zijn zonlicht','Mondriaan'], c:0,
+        e:'Van Gogh vereerde <b>Rembrandt</b> en de Hollandse meesters. Het warme licht van de lamp tegen het donker, zoals bij het <b>clair-obscur</b>, geeft het eenvoudige maal bijna iets plechtigs, als een avondmaal.'},
+      {d:'De vrouw rechts schenkt koffie; aan de muur hangt een klein kruisbeeld of prentje en een klok.', q:'Wat suggereert dat kleine religieuze prentje aan de muur?', opts:['Het geloof van deze katholieke Brabantse boeren: hun armoedige maaltijd heeft iets gewijds','Dat ze in een kerk eten','Dat ze het prentje zelf hadden geschilderd'], c:0,
+        e:'De boeren in <b>Nuenen</b> waren katholiek. Het prentje aan de muur en de manier waarop ze samen rond de tafel zitten, geven de maaltijd iets van een <b>gebed of avondmaal</b>. Van Gogh, de domineeszoon, zocht het heilige in het gewone leven.'},
+      {d:'Van Gogh maakte tientallen studies van koppen en handen van boeren in Nuenen.', q:'Hoe bereidde hij dit grote werk voor?', opts:['Met tientallen geschilderde en getekende studies van koppen en handen','Hij schilderde het in één middag','Hij gebruikte foto’s'], c:0,
+        e:'In de winter van 1884–1885 schilderde Van Gogh wel <b>veertig koppen</b> van boeren en boerinnen en tekende hij talloze handen. Het grote schilderij maakte hij grotendeels in zijn atelier, uit zijn hoofd en met de studies erbij. Ook die studies hangen nu in musea.'}
+    ],
+    story:'<p>In 1885 woonde Van Gogh bij zijn ouders in de pastorie van Nuenen. Hij wilde een “echte boerenschilder” worden, net als Millet. <i>De aardappeleters</i> was zijn proeve van bekwaamheid.</p><p>Na Nuenen ging hij naar Antwerpen en Parijs, waar hij zijn donkere palet inruilde voor felle kleuren.</p>'
+  }
+},
+{ title:"Van Gogh Museum · Les 2 — Het zuiden: Arles", sub:"Het Gele Huis, de zonnebloemen, de lege stoel van Gauguin, de oogst en de roze boomgaard",
+  q:[
+  { icon:null, name:'Het Gele Huis',
+    in:{img:'vb1', t:'Het Gele Huis (De straat)', a:'Vincent van Gogh', y:'1888', where:'Van Gogh Museum, Amsterdam', s:'Van Gogh Het Gele Huis'},
+    question:'Een geel huis met groene luiken op de hoek van een plein in Arles, onder een diepblauwe lucht. Van Gogh huurde er vier kamers. Wat was zijn grote droom voor dit huis?',
+    opts:['Een “atelier van het zuiden”: een huis waar kunstenaars samen konden wonen en werken','Een café voor toeristen','Een winkel in schildersbenodigdheden'], c:0,
+    exp:'Van Gogh droomde van een <b>kunstenaarskolonie</b>, een “atelier van het zuiden”, waar schilders samen zouden leven en elkaar zouden inspireren. Het <b>geel</b> was voor hem de kleur van de zon, van licht en van hoop. Hij versierde het huis met zonnebloemen om zijn gast Paul Gauguin te verwelkomen. De droom eindigde al na negen weken. <br><br><b>Weetje:</b> het huis bestaat niet meer: het werd in 1944 bij een bombardement zwaar beschadigd en later afgebroken.',
+    also:[
+      {img:'kaB', t:'Caféterras bij nacht (Place du Forum)', a:'Vincent van Gogh', y:'1888', n:'Een paar weken later, in hetzelfde Arles: geel licht tegen blauw.', s:'Café terrace'},
+      {img:'vbB', t:'De slaapkamer', a:'Vincent van Gogh', y:'1888', n:'Zijn eigen kamer in het Gele Huis.', s:'Bedroom'},
+      {img:'kb1', t:'Portret van Joseph Roulin', a:'Vincent van Gogh', y:'1889', n:'De postbode en buurman, een van zijn beste vrienden in Arles.', s:'Roulin'}]},
+  { icon:null, name:'De zonnebloemen',
+    in:{img:'vb2', t:'Zonnebloemen', a:'Vincent van Gogh', y:'1889', where:'Van Gogh Museum, Amsterdam', s:'Van Gogh Zonnebloemen Van Gogh Museum'},
+    question:'Vijftien zonnebloemen in een vaas, van frisse knoppen tot verdorde bloemen met zaad. Vrijwel alles is geel op geel. Wat zie je behalve een boeket in de bloemen staan?',
+    opts:['De hele levenscyclus: bloei, verwelking en zaad, en voor Vincent ook dankbaarheid en vriendschap','Alleen een mooi boeket voor de kamer','Een reclame voor zonnebloemolie'], c:0,
+    exp:'De bloemen staan in alle stadia: <b>knop, volle bloei, verwelkt en vol zaad</b>. Zo wordt het een beeld van de kringloop van leven en dood. Van Gogh schreef dat de zonnebloem voor hem stond voor <b>dankbaarheid</b>. Hij maakte de eerste versies om de kamer van zijn vriend <b>Gauguin</b> te versieren, en deze versie in januari 1889, na zijn instorting, als herhaling. <br><br><b>Kunst:</b> geel op geel was gewaagd. De nieuwe, felle chroomgele verf maakte het mogelijk, al verkleurt een deel daarvan langzaam.',
+    also:[
+      {img:'hg1', t:'Zonnebloemen', a:'Vincent van Gogh', y:'1888', n:'Er zijn meerdere versies, verspreid over de wereld.', s:'Sunflowers'},
+      {img:'kb3', t:'Vier uitgebloeide zonnebloemen', a:'Vincent van Gogh', y:'1887', n:'In Parijs schilderde hij losse, verdorde zonnebloemen.', s:'four sunflowers'},
+      {img:'q6', t:'Tulp (uit een tulpenboek)', a:'Judith Leyster', y:'1643', n:'Ook een bloem kan een hele boodschap dragen.', s:'Leyster tulp'}]},
+  { icon:null, name:'De lege stoel',
+    in:{img:'vb3', t:'De stoel van Gauguin', a:'Vincent van Gogh', y:'1888', where:'Van Gogh Museum, Amsterdam', s:'Van Gogh De stoel van Gauguin'},
+    question:'Een sierlijke leunstoel, ’s avonds bij gaslicht. Op de zitting liggen twee romans en een brandende kaars. Er zit niemand op. Waarom schilderde Van Gogh een lege stoel?',
+    opts:['Als portret van zijn vriend Paul Gauguin zonder Gauguin zelf: de stoel, de boeken en de kaars staan voor de afwezige','Omdat de stoel te koop stond','Omdat hij geen mensen kon schilderen'], c:0,
+    exp:'Van Gogh schilderde twee stoelen als tegenhangers: zijn eigen eenvoudige houten stoel met pijp en tabak (nu in Londen), en de deftige leunstoel van <b>Gauguin</b>, met <b>moderne romans</b> en een <b>kaars</b>, voor de ontwikkelde, verbeeldingsrijke stadsmens. Een <b>lege stoel</b> is ook een oud beeld van <b>afwezigheid en verlies</b>: Van Gogh had het gezien in een prent van een lege stoel na de dood van schrijver Charles Dickens. Kort daarna vertrok Gauguin, na de beruchte ruzie. <br><br><b>In het museum:</b> kijk naar de gaslamp aan de muur en de kaarsvlam: twee lichten in de nacht.',
+    also:[
+      {img:'vbB', t:'De slaapkamer', a:'Vincent van Gogh', y:'1888', n:'Ook hier: stoelen als stille bewoners van het huis.', s:'Bedroom'},
+      {img:'va1', t:'Stilleven met bijbel', a:'Vincent van Gogh', y:'1885', n:'Boeken en een kaars als symbolen: dat deed hij al in Nuenen.', s:'bijbel'},
+      {img:'kbB', t:'L’Arlésienne (portret van Marie Ginoux)', a:'Vincent van Gogh', y:'1890', n:'Naar een tekening die Gauguin in Arles maakte.', s:'Arlésienne'}]},
+  { icon:null, name:'De oogst',
+    in:{img:'vb4', t:'De oogst', a:'Vincent van Gogh', y:'1888', where:'Van Gogh Museum, Amsterdam', s:'Van Gogh De oogst Van Gogh Museum'},
+    question:'Een weids zomerlandschap bij Arles: goudgele velden, een blauwe kar, hooibergen en piepkleine boeren aan het werk. Van Gogh vond dit een van zijn beste doeken. Wat roept het oogstlandschap op?',
+    opts:['De vrede en overvloed van het boerenleven, en de kringloop van zaaien en oogsten','Een veldslag','Een stad vol fabrieken'], c:0,
+    exp:'Van Gogh schreef dat dit schilderij “alles andere doodslaat”. Het toont de <b>oogst</b>: het moment van <b>overvloed</b>, het loon voor een jaar werk. Voor de domineeszoon was de oogst ook een bijbels beeld: “wat de mens zaait, zal hij oogsten”. Opvallend: het landschap is opgebouwd als een Hollands polderlandschap, met een hoge horizon, net als bij de oude meesters die hij bewonderde. <br><br><b>Kunst:</b> hij schilderde de vlakte van La Crau vaak, en vergeleek die met de Hollandse landschappen van <b>Ruisdael</b> en <b>Koninck</b>.',
+    also:[
+      {img:'ka2', t:'De zaaier', a:'Vincent van Gogh', y:'1888', n:'Het begin van de kringloop: zaaien.', s:'Sower'},
+      {img:'l3', t:'Gezicht op Haarlem met bleekvelden (“Haarlempje”)', a:'Jacob van Ruisdael', y:'ca. 1670–1675', n:'Het Hollandse voorbeeld van een wijd landschap met lage horizon.', s:'Ruisdael Haarlem'},
+      {img:'vc4', t:'Korenveld met maaier', a:'Vincent van Gogh', y:'1889', n:'Een jaar later: de oogst, maar dan als beeld van de dood.', s:'reaper'}]},
+  { icon:null, name:'De bloeiende boomgaard',
+    in:{img:'vb5', t:'De roze boomgaard', a:'Vincent van Gogh', y:'1888', where:'Van Gogh Museum, Amsterdam', s:'Van Gogh De roze boomgaard'},
+    question:'Jonge vruchtbomen in bloei, met roze en witte bloesem, kort na Van Goghs aankomst in Arles in februari 1888. Wat betekende de bloesem voor hem?',
+    opts:['Een nieuw begin: de lente, hoop en Japan, het land van de bloesem','Dat de bomen ziek waren','Dat het herfst werd'], c:0,
+    exp:'Van Gogh kwam in februari 1888 aan in een besneeuwd Arles. Toen de <b>boomgaarden</b> een paar weken later gingen bloeien, schilderde hij er in een paar weken een hele reeks van. <b>Bloesem</b> staat voor de <b>lente, nieuw leven en hoop</b>. Voor Vincent leek het zuiden op <b>Japan</b>, waar het bekijken van bloesem een feest is. Hij wilde de doeken als drieluik ophangen, als een groot decoratief geheel. <br><br><b>In het museum:</b> kijk naar de korte, gekleurde toetsen in het gras, een techniek die hij in Parijs van de impressionisten had geleerd.',
+    also:[
+      {img:'ka4', t:'Roze perzikboom (Souvenir de Mauve)', a:'Vincent van Gogh', y:'1888', n:'Uit dezelfde reeks: een eerbetoon aan zijn leermeester.', s:'Souvenir de Mauve'},
+      {img:'ka4a', t:'Boomgaard met bloeiende perzikbomen', a:'Vincent van Gogh', y:'1888', n:'Nog een boomgaard uit die lente.', s:'orchard'},
+      {img:'vcB', t:'Amandelbloesem', a:'Vincent van Gogh', y:'1890', n:'Twee jaar later: bloesem als geschenk voor een pasgeboren baby.', s:'almond blossom'}]}
+  ],
+  big:{ img:'vbB', t:'De slaapkamer', a:'Vincent van Gogh', y:'1888', where:'Van Gogh Museum, Amsterdam', s:'Van Gogh De slaapkamer Van Gogh Museum',
+    intro:'Vincents eigen slaapkamer in het Gele Huis. Hij wilde dat je bij het kijken uitrust, dat het schilderij “absolute rust” uitstraalt.',
+    details:[
+      {d:'Een houten bed, twee stoelen, een tafeltje met waskom, en heldere kleuren: blauwe muren, gele meubels, een rode deken.', q:'Wat wilde Van Gogh met deze heldere kleuren bereiken?', opts:['Rust: de kleuren moesten, net als slaap, het hoofd laten uitrusten','Onrust en angst','Hij had alleen deze verf nog'], c:0,
+        e:'Van Gogh schreef aan Theo dat de kleur hier alles moest doen: het moest <b>rust</b> en <b>slaap</b> suggereren. De vlakke, heldere kleuren, zonder schaduwen, haalde hij uit de <b>Japanse prenten</b>.'},
+      {d:'De muren zijn nu blauw, maar onderzoekers ontdekten dat ze vroeger anders waren.', q:'Welke kleur hadden de muren oorspronkelijk?', opts:['Violet: het rode pigment is in de loop van de tijd verbleekt','Groen','Wit'], c:0,
+        e:'Van Gogh beschreef de muren als <b>bleek violet</b>. Het rode pigment dat hij met blauw mengde, is <b>verbleekt</b> door het licht, waardoor de muren nu blauw lijken. Veel van zijn kleuren zijn zo veranderd.'},
+      {d:'Alles staat in paren: twee stoelen, twee kussens, twee deuren, twee portretjes aan de muur.', q:'Hoe wordt die verdubbeling vaak uitgelegd?', opts:['Als verlangen naar gezelschap: Van Gogh hoopte op een vriend, Gauguin, en droomde van een thuis voor twee','Hij had een tweelingbroer','Toeval'], c:0,
+        e:'Kunsthistorici zien in de <b>paren</b> een stil verlangen naar <b>gezelschap</b>. Van Gogh wachtte op de komst van <b>Gauguin</b> en droomde van een samen gedeeld huis. Toch was hij in werkelijkheid vaak alleen.'},
+      {d:'De vloer helt, de muren lopen scheef en het bed lijkt naar voren te kantelen.', q:'Waarom is het perspectief zo vreemd?', opts:['De kamer was echt onregelmatig van vorm, en Van Gogh vereenvoudigde bewust zoals op Japanse prenten','Hij was dronken','Het is een fout van een restaurator'], c:0,
+        e:'De slaapkamer zat op een hoek van het huis en had <b>scheve muren</b>. Bovendien koos Van Gogh voor een vereenvoudigd, <b>Japans geïnspireerd</b> perspectief. Daardoor voelt de kamer intiem en een beetje wankel tegelijk.'},
+      {d:'Er bestaan drie versies van dit schilderij.', q:'Waarom maakte Van Gogh later nog twee versies?', opts:['Het eerste doek raakte beschadigd door een overstroming; later maakte hij nog een kleinere versie voor zijn moeder en zus','Omdat hij het schilderij drie keer verkocht','Omdat hij drie slaapkamers had'], c:0,
+        e:'Terwijl Van Gogh in het ziekenhuis lag, raakte dit eerste doek beschadigd door <b>water</b>. In 1889 in Saint-Rémy schilderde hij een nieuwe versie (nu in Chicago) en een kleinere voor zijn <b>moeder en zus</b> (nu in Parijs). De eerste versie hangt hier in Amsterdam.'}
+    ],
+    story:'<p>In oktober 1888 schilderde Van Gogh zijn slaapkamer, vlak voor Gauguin aankwam. Twee maanden later volgde de ruzie en de instorting.</p><p>De slaapkamer werd een van zijn bekendste werken: een kamer waarin je bijna zelf kunt rondlopen.</p>'
+  }
+},
+{ title:"Van Gogh Museum · Les 3 — Saint-Rémy en Auvers", sub:"Irissen, een Pietà, Lazarus, de maaier en de kraaien boven het koren",
+  q:[
+  { icon:null, name:'De irissen',
+    in:{img:'vc1', t:'Irissen', a:'Vincent van Gogh', y:'1890', where:'Van Gogh Museum, Amsterdam', s:'Van Gogh Irissen 1890 Van Gogh Museum'},
+    question:'Een vaas vol paarse irissen tegen een felgele achtergrond, geschilderd in mei 1890, vlak voor Van Gogh de inrichting in Saint-Rémy verliet. Wat maakt dit boeket zo bijzonder?',
+    opts:['De complementaire kleuren paars en geel laten elkaar oplichten; voor Vincent was het een uitbarsting van kracht na een moeilijke tijd','Het is een boeket van plastic bloemen','Het is somber en donker'], c:0,
+    exp:'<b>Paars en geel</b> zijn <b>complementaire kleuren</b>: naast elkaar maken ze elkaar feller. Van Gogh schreef dat hij een “enorm contrast” wilde. Hij schilderde de irissen toen hij net hersteld was van een zware periode, met nieuwe energie. In de oude symboliek staat de <b>iris</b> met haar zwaardvormige bladeren voor de smarten van Maria, maar Van Gogh dacht hier vooral aan kleur en leven. <br><br><b>In het museum:</b> de achtergrond was oorspronkelijk nog roziger en de bloemen paarser: ook hier zijn de kleuren verbleekt.',
+    also:[
+      {img:'vb2', t:'Zonnebloemen', a:'Vincent van Gogh', y:'1889', n:'Een ander boeket in één overheersende kleur.', s:'Sunflowers'},
+      {img:'ka1b', t:'Cipressen', a:'Vincent van Gogh', y:'1889', n:'Ook in Saint-Rémy: de natuur als bron van troost.', s:'Cypresses'},
+      {img:'q6a', t:'Bloemen in een vaas', a:'Judith Leyster', y:'1654', n:'Een bloemstuk uit de Gouden Eeuw: elke bloem had betekenis.', s:'Leyster flowers'}]},
+  { icon:null, name:'De Pietà',
+    in:{img:'vc2', t:'Pietà (naar Delacroix)', a:'Vincent van Gogh', y:'1889', where:'Van Gogh Museum, Amsterdam', s:'Van Gogh Pieta naar Delacroix'},
+    question:'Maria houdt het dode lichaam van Christus vast, in fel blauw en geel. Van Gogh schilderde dit in de inrichting naar een prent van Delacroix die beschadigd was geraakt. Wat is een Pietà?',
+    opts:['Een beeld van Maria die rouwt om haar dode zoon, met zijn lichaam op haar schoot','Een feestelijke bruiloft','De geboorte van Christus'], c:0,
+    exp:'Een <b>Pietà</b> (Italiaans voor “medelijden”) toont <b>Maria</b> met haar dode zoon <b>Christus</b> na de kruisafneming. Van Gogh durfde in Saint-Rémy nauwelijks zelf religieuze onderwerpen te verzinnen. Daarom “vertaalde” hij prenten van meesters als <b>Delacroix</b> en <b>Rembrandt</b> naar zijn eigen kleuren, zoals een musicus een stuk van een ander speelt. Sommigen zien in het rode haar en de baard van Christus een verborgen <b>zelfportret</b>. <br><br><b>Kunst:</b> de prent was gevallen en had verfvlekken gekregen. Van Gogh schreef dat het hem zo raakte dat hij hem wilde schilderen.',
+    also:[
+      {img:'vc3', t:'De opwekking van Lazarus (naar Rembrandt)', a:'Vincent van Gogh', y:'1890', n:'Een tweede “vertaling” van een oude meester.', s:'Lazarus'},
+      {img:'ka5', t:'Treurende oude man (Aan de poort van de eeuwigheid)', a:'Vincent van Gogh', y:'1890', n:'Rouw en troost, in dezelfde maanden.', s:'At eternity\'s gate'},
+      {img:'x1b', t:'De Visitatie', a:'Rembrandt', y:'1640', n:'Maria in het werk van Rembrandt, die Van Gogh vereerde.', s:'Rembrandt Visitation'}]},
+  { icon:null, name:'Lazarus staat op',
+    in:{img:'vc3', t:'De opwekking van Lazarus (naar Rembrandt)', a:'Vincent van Gogh', y:'1890', where:'Van Gogh Museum, Amsterdam', s:'Van Gogh Lazarus naar Rembrandt'},
+    question:'Een man komt half overeind uit zijn graf, terwijl twee vrouwen verbaasd toekijken. Boven hen staat een felle zon. Van Gogh liet Christus, die bij Rembrandt het wonder verricht, weg. Wat staat er nu op zijn plek?',
+    opts:['De zon: het licht zelf wekt Lazarus tot leven, een beeld van genezing en hoop','Een engel','Een boom'], c:0,
+    exp:'In de Bijbel wekt Christus zijn vriend <b>Lazarus</b> op uit de dood. Van Gogh nam het middenstuk over uit een ets van <b>Rembrandt</b>, maar liet Christus weg en zette er een stralende <b>zon</b> voor in de plaats. Ook hier zien sommigen in de rode baard van Lazarus een <b>zelfportret</b>: Vincent, die na een zware tijd weer opstaat. De vrouwen zouden lijken op mensen die hem in Saint-Rémy en Arles verzorgden. <br><br><b>Kunst:</b> de zon was voor Van Gogh een beeld van kracht en van het goddelijke.',
+    also:[
+      {img:'u5b', t:'De opwekking van Lazarus (ets)', a:'Rembrandt', y:'ca. 1632', n:'Het voorbeeld van Rembrandt, met Christus nog in beeld.', s:'Rembrandt Lazarus etching'},
+      {img:'u5', t:'De opwekking van Lazarus', a:'Rembrandt', y:'ca. 1630–1632', n:'Rembrandts geschilderde versie van hetzelfde wonder.', s:'Rembrandt Lazarus'},
+      {img:'ka2', t:'De zaaier', a:'Vincent van Gogh', y:'1888', n:'Ook hier een reusachtige zon, als stralenkrans.', s:'Sower'}]},
+  { icon:null, name:'De maaier',
+    in:{img:'vc4', t:'Korenveld met maaier', a:'Vincent van Gogh', y:'1889', where:'Van Gogh Museum, Amsterdam', s:'Van Gogh Korenveld met maaier'},
+    question:'Een eenzame maaier zwaait zijn zeis door een gloeiend geel korenveld, onder een grote zon. Van Gogh keek ernaar vanuit zijn raam in Saint-Rémy. Wat zag hij in de maaier, schreef hij aan Theo?',
+    opts:['Een beeld van de dood, maar zonder droefheid: de dood als een natuurlijke oogst, in vol zonlicht','Een boer die te laat was met maaien','Een oorlog'], c:0,
+    exp:'Van Gogh schreef dat hij in de maaier “het <b>beeld van de dood</b>” zag, en de mensheid als het koren dat wordt gemaaid. Maar, voegde hij toe, “er is niets droevigs aan”: het gebeurt in vol daglicht, met een zon die alles in goud zet. Het is de omkering van de <b>zaaier</b>: zaaien en maaien, leven en dood. De maaier met zeis is ook een eeuwenoud beeld van <b>Magere Hein</b>. <br><br><b>In het museum:</b> zoek de dikke, golvende toetsen in het koren: het lijkt alsof het hele veld beweegt.',
+    also:[
+      {img:'ka2', t:'De zaaier', a:'Vincent van Gogh', y:'1888', n:'De tegenhanger: zaaien, het begin van het leven.', s:'Sower'},
+      {img:'vb4', t:'De oogst', a:'Vincent van Gogh', y:'1888', n:'Een jaar eerder: de oogst als overvloed.', s:'harvest'},
+      {img:'q1b', t:'Jongeman met schedel', a:'Frans Hals', y:'ca. 1626–1628', n:'De dood als oud thema in de kunst.', s:'Hals skull'}]},
+  { icon:null, name:'De kraaien boven het koren',
+    in:{img:'vc5', t:'Korenveld met kraaien', a:'Vincent van Gogh', y:'1890', where:'Van Gogh Museum, Amsterdam', s:'Van Gogh Korenveld met kraaien'},
+    question:'Een woelig korenveld onder een donkere, onweersachtige lucht, met zwarte kraaien en drie paden die nergens heen lijken te gaan. Het wordt vaak zijn “laatste schilderij” genoemd. Klopt dat?',
+    opts:['Nee: het is een van zijn laatste werken, maar hij maakte daarna nog andere schilderijen','Ja, hij maakte het op zijn sterfdag','Nee, hij schilderde het als kind'], c:0,
+    exp:'Het is een hardnekkige mythe dat dit zijn allerlaatste schilderij was. Van Gogh maakte het begin juli 1890 in <b>Auvers-sur-Oise</b>, enkele weken voor zijn dood, en schilderde daarna nog andere doeken, zoals de <b>Boomwortels</b>. Hij schreef over deze velden onder een onstuimige lucht dat hij er “droefheid en uiterste eenzaamheid” in wilde uitdrukken, maar ook “het gezonde en versterkende” van het platteland. De <b>kraaien</b> worden vaak als onheilsboden gezien, maar dat is achteraf erbij gedacht. <br><br>Dit is een gevoelig onderwerp: Van Gogh worstelde met zijn psychische gezondheid.',
+    also:[
+      {img:'ka1', t:'Weg met cipres en ster', a:'Vincent van Gogh', y:'1890', n:'Twee maanden eerder: weer een weg en een nachtlucht.', s:'cypress and star'},
+      {img:'vc4', t:'Korenveld met maaier', a:'Vincent van Gogh', y:'1889', n:'Ook het koren als beeld van leven en dood.', s:'reaper'},
+      {img:'l4a', t:'Stormachtige zee met zeilschepen', a:'Jacob van Ruisdael', y:'ca. 1668', n:'Een dramatische lucht vol emotie, bij een Hollandse meester.', s:'Ruisdael storm'}]}
+  ],
+  big:{ img:'vcB', t:'Amandelbloesem', a:'Vincent van Gogh', y:'1890', where:'Van Gogh Museum, Amsterdam', s:'Van Gogh Amandelbloesem Van Gogh Museum',
+    intro:'Een cadeau voor een pasgeboren baby: zijn neefje, de zoon van Theo en Jo, die naar hem werd vernoemd. Vincent Willem van Gogh.',
+    details:[
+      {d:'Takken van een bloeiende amandelboom tegen een helderblauwe lucht.', q:'Waarom koos Van Gogh juist voor amandelbloesem?', opts:['De amandelboom bloeit als een van de eerste bomen, soms al in februari: een beeld van nieuw leven, perfect voor een geboorte','Omdat amandelen zijn lievelingssnack waren','Omdat het herfst was'], c:0,
+        e:'De amandelboom bloeit al heel vroeg in het jaar en staat daarom voor <b>ontwaken, nieuw leven en hoop</b>. Van Gogh schilderde het in februari 1890 toen hij hoorde dat Theo en Jo een zoon hadden gekregen, <b>Vincent Willem</b>.'},
+      {d:'De takken zijn groot en dichtbij, scherp omlijnd tegen een egale lucht.', q:'Waar haalde Van Gogh die stijl vandaan?', opts:['Uit Japanse prenten: grote takken tegen een vlakke achtergrond','Uit middeleeuwse kerkramen','Uit foto’s'], c:0,
+        e:'De dichtbij geziene takken, de heldere contouren en de vlakke blauwe lucht komen uit de <b>Japanse prentkunst</b>, die Van Gogh in Parijs verzamelde.'},
+      {d:'Het schilderij was bedoeld om boven het bed van de baby te hangen.', q:'Wie werd die baby later?', opts:['De oprichter van het Van Gogh Museum: Vincent Willem van Gogh, “de ingenieur”','Een beroemde schilder','Een voetballer'], c:0,
+        e:'Het neefje <b>Vincent Willem van Gogh</b> werd ingenieur en zorgde er later voor dat de collectie van de familie bij elkaar bleef. Mede dankzij hem opende in <b>1973</b> het <b>Van Gogh Museum</b>. Dit schilderij heeft altijd in de familie gehangen.'},
+      {d:'Een paar weken na het schilderen kreeg Vincent een zware terugval.', q:'Wat schreef Van Gogh later over dit werk?', opts:['Dat het misschien zijn beste, geduldigste werk was, met de rust en vaste hand die hij zocht','Dat hij het lelijk vond','Dat hij het had gestolen'], c:0,
+        e:'Van Gogh schreef aan Theo dat het werk “misschien het best, het meest geduldig” was dat hij had gemaakt, geschilderd “met kalmte en een vaste hand”. Direct daarna werd hij weer ziek, en kon hij een tijd niet werken.'},
+      {d:'Van Gogh stierf in juli 1890, Theo een half jaar later. Jo van Gogh-Bonger bleef achter met de baby en honderden schilderijen.', q:'Wie zorgde ervoor dat de wereld Van Gogh leerde kennen?', opts:['Jo van Gogh-Bonger, Theo’s weduwe: ze organiseerde tentoonstellingen en gaf de brieven uit','Paul Gauguin','De koning'], c:0,
+        e:'<b>Jo van Gogh-Bonger</b> zette zich decennialang in voor het werk van haar zwager: ze leende schilderijen uit voor tentoonstellingen, verkocht zorgvuldig en publiceerde in 1914 de <b>brieven</b> aan Theo. Zonder haar was Van Gogh misschien nooit zo beroemd geworden.'}
+    ],
+    story:'<p>Theo schreef in januari 1890 dat zijn zoon naar Vincent was vernoemd. Vincent antwoordde dat hij liever had gezien dat de baby naar vader Theo was genoemd, en begon meteen aan dit schilderij.</p><p>Het hangt nu in het museum dat er dankzij diezelfde baby, de latere ingenieur Vincent Willem van Gogh, kwam.</p>'
+  }
+}
+];
+const VGM_BADGES = [
+  {name:'Boerenschilder', icon:'skull', txt:'Bijbel, schedel en schoenen: je kent de vroege Van Gogh.'},
+  {name:'Zonnekind', icon:'rose', txt:'Gele huis, zonnebloemen en de lege stoel: Arles heeft geen geheimen meer.'},
+  {name:'Bloesemkenner', icon:'moon', txt:'Irissen, Lazarus en de maaier: je kent Van Goghs laatste jaren.'}];
+EXTRA_MUSEUMS.push({id:'vgm', museum:true, bundle:'vgm', bre:/^v[abc][0-9B]/, ribbon:'Museumkenner', name:"Museum: Van Gogh Museum", eyebrow:"Museum · Noord-Holland · Van Gogh Museum, Amsterdam", title:"Het Van Gogh Museum", rank:"Kenner van het Van Gogh Museum", grand:"Vincentkenner", icon:'rose', desc:"De grootste Van Gogh-collectie ter wereld: van de donkere aardappeleters uit Nuenen via de zonnebloemen en de slaapkamer in Arles tot de amandelbloesem. Leer de symbolen en verhalen achter zijn bekendste werken.", obT:"Van Gogh Museum, Amsterdam", obS:"Zonnebloemen, De slaapkamer, Amandelbloesem, De aardappeleters…", rounds:VGM_ROUNDS, badges:VGM_BADGES, theme:{"shape": "rope", "rib": ["#f2c14e", "#1f4e8c"], "leaf": "#6f8a4a"}, who:[
+  {img:'va5', a:0, opts:['Vincent van Gogh','Paul Gauguin','Émile Bernard','Henri de Toulouse-Lautrec'], clues:['Ik werd in 1853 in Zundert geboren.','Ik was eerst kunsthandelaar en predikant.','Ik schreef honderden brieven aan mijn broer.','Ik schilderde mezelf ruim dertig keer.'],
+   e:'<b>Vincent van Gogh</b> (1853–1890).'},
+  {img:'vb3', a:1, opts:['Theo van Gogh','Paul Gauguin','Joseph Roulin','Anton Mauve'], clues:['Ik was eerst effectenmakelaar in Parijs.','Ik logeerde negen weken in het Gele Huis.','Na een ruzie vertrok ik halsoverkop.','Later schilderde ik op Tahiti.'],
+   e:'<b>Paul Gauguin</b> (1848–1903), de afwezige eigenaar van de lege stoel.'},
+  {img:'vcB', a:2, opts:['Helene Kröller-Müller','Rachel Ruysch','Jo van Gogh-Bonger','Judith Leyster'], clues:['Ik trouwde in 1889 met een kunsthandelaar.','Ik werd na anderhalf jaar weduwe.','Ik erfde honderden schilderijen van mijn zwager.','Ik gaf in 1914 zijn brieven uit.'],
+   e:'<b>Jo van Gogh-Bonger</b> (1862–1925), die Van Gogh beroemd maakte.'}]});
+
 const CM_ROUNDS = [
 { title:"Centraal Museum · Les 1 — Van Scorel tot Bloemaert", sub:"Wilde rozen, een tiran, de herders, een schilder met kraag en Orpheus",
   q:[
