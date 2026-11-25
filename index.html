@@ -3254,6 +3254,9 @@ ${gala?`<g><path d="M98 58 L104 46 L112 54 L120 40 L128 54 L136 46 L142 58 Q120 
 
 /* ---------- Gidsen per route ---------- */
 const LAURA_GALA = {...LAURA, dress:'#7a1f3d', dressSh:'#4f1226', gold:'#e3c77e', lace:'#f6eedc'};
+/* attributen van Zeus: bliksemschicht in de hand, adelaar aan zijn voeten */
+const ZEUS_BOLT=`<g class="zbolt"><path d="M92 196 L74 236 L86 236 L70 282 L102 228 L89 228 L101 196Z" fill="#f2c84a" stroke="#a87a1e" stroke-width="2" stroke-linejoin="round"/><path d="M92 196 L74 236 L86 236 L70 282" stroke="#fff6c8" stroke-width="1.4" fill="none" opacity=".8"/></g><circle cx="80" cy="258" r="8" fill="#efc6a3"/>`;
+const ZEUS_EAGLE=`<g class="zeagle"><path d="M170 312 C160 296 162 280 176 278 C174 292 180 304 188 312Z" fill="#4a2f17"/><path d="M206 312 C216 296 214 280 200 278 C202 292 196 304 188 312Z" fill="#4a2f17"/><ellipse cx="188" cy="318" rx="13" ry="20" fill="#5e3c1e"/><path d="M178 330 l-4 10 M184 334 l-1 8 M192 334 l1 8 M198 330 l4 10" stroke="#e0a526" stroke-width="2.6" stroke-linecap="round"/><path d="M182 336 h12 l-2 6 h-8z" fill="#3a2410"/><circle cx="188" cy="296" r="9" fill="#f4efe4"/><path d="M195 294 l8 3 l-7 4z" fill="#e0a526"/><circle cx="191" cy="294" r="1.6" fill="#1b1714"/></g>`;
 function charSVG(K,size,head,clap,pose){
   const sk=K.sk||'#efc6a3', skSh=K.skSh||'#d9a684';
   const male=K.male, coat=K.coat, coatSh=K.coatSh, cuff=K.cuff, hair=K.hair, hairDk=K.hairDk||hair;
@@ -3337,12 +3340,12 @@ function charSVG(K,size,head,clap,pose){
      : `<path d="M108 109 Q120 120 132 109 Q120 113 108 109Z" fill="#b8574d"/>`}`;
   return `<svg class="${head?'lhead':'laura'}${K.skin?'':''}" viewBox="${head?'72 34 96 96':'0 0 240 360'}" ${size?`style="width:${size}px"`:''} xmlns="http://www.w3.org/2000/svg" aria-label="${K.name}">
     <ellipse cx="120" cy="350" rx="74" ry="7" fill="#000" opacity=".35"/>
-    ${back}${body}${clap?'':leftArm}${neck}${collar}${pearls}${chain}${clap?claps:(pose==='stand'?standArm:wave)}${face}${K.emo?emoSVG(K.emo,sk):''}${hat}</svg>`;
+    ${back}${K.attr==='zeus'?ZEUS_EAGLE:''}${body}${clap?'':leftArm}${K.attr==='zeus'&&!clap?ZEUS_BOLT:''}${neck}${collar}${pearls}${chain}${clap?claps:(pose==='stand'?standArm:wave)}${face}${K.emo?emoSVG(K.emo,sk):''}${hat}</svg>`;
 }
 const CHARS = {
   rembrandt:{name:'Rembrandt van Rijn', male:1, hairStyle:'curls', hair:'#7a4a28', hairDk:'#4e2e18', beard:'rembrandt', hat:'beret', hatC:'#231d19', coat:'#2e2520', coatSh:'#1e1814', cuff:'#efe6d4', hose:'#1f1a16', collar:'fur', fur:'#7a5634', furHi:'#a57d4f', chain:1},
   durer:{name:'Albrecht Dürer', male:1, hairStyle:'longcurls', hair:'#b88545', hairDk:'#7c5528', beard:'full', coat:'#5a3a22', coatSh:'#3e2716', cuff:'#efe6d4', hose:'#2a211b', collar:'fur', fur:'#3a2a1e', furHi:'#6a5038'},
-  zeus:{name:'Zeus', male:1, hairStyle:'curly', hair:'#e8e4dc', hairDk:'#b9b2a6', beard:'full', hat:'crown', hatC:'#d7b46a', coat:'#efe8d8', coatSh:'#cfc4ab', cuff:'#d7b46a', hose:'#cfc4ab', collar:'white', chain:1},
+  zeus:{name:'Zeus', attr:'zeus', male:1, hairStyle:'curly', hair:'#e8e4dc', hairDk:'#b9b2a6', beard:'full', hat:'crown', hatC:'#d7b46a', coat:'#efe8d8', coatSh:'#cfc4ab', cuff:'#d7b46a', hose:'#cfc4ab', collar:'white', chain:1},
   catharina:{name:'Catharina de’ Medici', hood:'#16120f', hair:'#4a2e1c', hairDk:'#2e1c10', coat:'#1c1714', coatSh:'#2a221d', trim:'#d7b46a', cuff:'#f4efe4', collar:'ruff', pearls:1}
 };
 const GUIDES = {
@@ -4345,7 +4348,7 @@ const SC = { // cast
 };
 SC.catharina = CHARS.catharina;
 SC.diane = {name:'Diane de Poitiers', hood:'#111111', hair:'#c9a46a', hairDk:'#8a6a3a', coat:'#f1ece2', coatSh:'#1a1a1a', trim:'#1a1a1a', cuff:'#f4efe4', collar:'ruff', pearls:1};
-SC.zeus = {name:'Zeus', male:1, hairStyle:'curly', hair:'#e8e4dc', hairDk:'#b9b2a6', beard:'full', hat:'crown', hatC:'#d7b46a', coat:'#efe8d8', coatSh:'#cfc4ab', cuff:'#d7b46a', hose:'#cfc4ab', collar:'white', chain:1};
+SC.zeus = {name:'Zeus', attr:'zeus', male:1, hairStyle:'curly', hair:'#e8e4dc', hairDk:'#b9b2a6', beard:'full', hat:'crown', hatC:'#d7b46a', coat:'#efe8d8', coatSh:'#cfc4ab', cuff:'#d7b46a', hose:'#cfc4ab', collar:'white', chain:1};
 SC.hera = {name:'Hera', hairStyle:'bun', hair:'#3a2618', hat:'crown', hatC:'#d7b46a', coat:'#3b5aa0', coatSh:'#2a4278', cuff:'#f4efe4', hose:'#2a4278', pearls:1};
 SC.napoleon = {name:'Napoleon Bonaparte', male:1, hairStyle:'short', hair:'#3a2618', hat:'bicorne', hatC:'#141414', coat:'#1f2f6e', coatSh:'#142050', cuff:'#f4efe4', hose:'#f1ece2', collar:'jabot', chain:1};
 SC.ripa = {name:'Cesare Ripa', male:1, hairStyle:'short', hair:'#3a2a1e', hairDk:'#22160e', beard:'full', hat:'cap', hatC:'#141414', coat:'#24202a', coatSh:'#141218', cuff:'#f4efe4', hose:'#141218', collar:'white'};
