@@ -390,6 +390,8 @@ h3.rgroup{margin-top:1.4em}
 :root{--bg:#111827;--bg2:#162036;--panel:#1a2440;--panel2:#212d4f;--ink:#f1ebdd;--muted:#a3abc0;--gold:#d2ae62;--gold2:#ecd296;--ok:#6fae96;--bad:#d06a4c;--line:#2b3756;--lapis:#2f4a8f;--serif:"Corm",Georgia,serif}
 html,body{font-family:"Hanken",system-ui,-apple-system,sans-serif;background:var(--bg);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 b,strong{font-weight:800}
+.laura,.lhead{filter:drop-shadow(0 4px 8px rgba(0,0,0,.45))}
+@media (min-width:900px) and (min-aspect-ratio:1/1){.intro.answered .in-uitleg{display:none}.intro.answered .opt{padding-top:9px;padding-bottom:9px}.intro.answered .opt:not(.ok):not(.bad){opacity:.6}}
 .snd-box{max-width:380px;text-align:left}.snd-row{display:flex;align-items:center;gap:12px;width:100%;padding:12px;margin:6px 0;border-radius:14px;border:1px solid var(--line);background:var(--panel);color:var(--ink);font:inherit;text-align:left;cursor:pointer}
 .snd-ic{font-size:1.4rem;width:30px;text-align:center}.snd-tx{flex:1;display:flex;flex-direction:column}.snd-tx small{color:var(--muted);font-size:.8rem}.snd-tx b{font-weight:700}
 .snd-sw{width:44px;height:26px;border-radius:13px;background:#3a4566;position:relative;transition:background .2s;flex:0 0 auto}.snd-sw i{position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:transform .2s}
@@ -425,7 +427,7 @@ h1{font-size:2.15rem;line-height:1.08}h2{font-size:1.6rem}h3{color:var(--gold2)}
 .sp-pic img{width:100%;height:100%;object-fit:cover;object-position:60% 30%;animation:spkb 4s 1.2s ease-out forwards;transform:scale(1.18)}
 @keyframes spfade{to{opacity:1}}@keyframes spkb{to{transform:scale(1)}}
 .sp-word{margin-top:34px;font-family:var(--serif);font-size:2.4rem;color:var(--ink);letter-spacing:.02em;opacity:0;transform:translateY(8px);animation:spup .9s 1.6s forwards}
-.sp-sub{margin-top:10px;font-family:var(--serif);font-style:italic;color:var(--gold2);font-size:1.75rem;line-height:1.15;opacity:0;animation:spup .9s 1.95s forwards}
+.sp-sub{margin-top:10px;font-family:var(--serif);font-style:italic;color:#f6dc97;text-shadow:0 0 18px rgba(236,200,120,.45),0 2px 6px rgba(0,0,0,.6);font-size:1.9rem;line-height:1.15;opacity:0;animation:spup .9s 1.95s forwards}
 @keyframes spup{to{opacity:1;transform:none}}
 .sp-skip{position:absolute;bottom:28px;color:var(--muted);font-size:.8rem;opacity:0;animation:spfade .6s 2.2s forwards}
 @media (prefers-reduced-motion:reduce){#splash *{animation-duration:.01s!important;animation-delay:0s!important}}
@@ -629,6 +631,7 @@ body.has-nav #nav{display:flex}body.has-nav .wrap{padding-bottom:96px}
 .nxbar{position:fixed;left:0;right:0;bottom:0;z-index:60;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px calc(12px + env(safe-area-inset-bottom));background:rgba(13,19,34,.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid rgba(210,174,98,.25);animation:nxin .25s ease-out}
 .nxbar.ok{border-top-color:rgba(127,174,122,.6)}.nxbar .nx-v{font-weight:700;font-size:.95rem;color:var(--muted,#9aa3b8)}.nxbar.ok .nx-v{color:#8fc48a}
 .nxbar .btn{margin:0;min-width:58%;padding:14px 18px;font-size:1rem}
+.nxbar .nx-v:empty{display:none}.nxbar .btn{flex:1;max-width:520px;margin:0 auto}
 body:has(.nxbar) .wrap,body:has(.nxbar) .dq{padding-bottom:110px}.nxbar.bad .nx-v{color:#e0a07a}
 @keyframes nxin{from{transform:translateY(100%)}to{transform:none}}@media (prefers-reduced-motion:reduce){.nxbar{animation:none}}
 .sp-yn{display:flex;gap:10px;margin-top:10px}.sp-yn .btn{flex:1;margin:0}
@@ -3224,11 +3227,13 @@ function toggleKenner(){ st.kenner=!st.kenner; render(); }
 const kennerToggle = () => `<label class="ktoggle"><input type="checkbox" ${st.kenner?'checked':''} onchange="toggleKenner()"><span class="kt-sw"></span><span><b>🎓 Ook goede kunst leren herkennen</b><br><span class="muted" style="font-size:.82rem">Dan krijg je in elke basisronde, vóór het meesterwerk, de kunstkennersles van dezelfde les. Telt ook mee voor de losse module.</span></span></label>`;
 
 /* ================= KUNST MET LAURA: avatar, welkom, thema-badges ================= */
-const LAURA = {hair:'#5e3a22', hairHi:'#9a6a3e', hairDk:'#40261a', skin:'#efc6a3', skinSh:'#d9a684', dress:'#1f3a78', dressSh:'#152a59', gold:'#d7b46a', lace:'#efe4cf', glasses:'#3e63b0', lips:'#c0645a'};
+const LAURA = {hair:'#5e3a22', hairHi:'#9a6a3e', hairDk:'#40261a', skin:'#efc6a3', skinSh:'#d9a684', dress:'#a3222d', dressSh:'#5c0f18', gold:'#d7b46a', lace:'#efe4cf', glasses:'#3e63b0', lips:'#c0645a'};
 function lauraSVG(size,head,clap,gala){ const C=gala?LAURA_GALA:LAURA;
   const curls=(x,y,n,dir)=>Array.from({length:n},(_,k)=>`<path d="M${x+dir*(k%2?4:-2)} ${y+k*18} q${dir*14} 8 ${dir*2} 18" stroke="${C.hairHi}" stroke-width="2.2" fill="none" stroke-linecap="round" opacity=".75"/>`).join('');
   return `<svg class="${head?'lhead':'laura'}" viewBox="${head?'72 34 96 96':'0 0 240 360'}" ${size?`style="width:${size}px"`:''} xmlns="http://www.w3.org/2000/svg" aria-label="Laura">
-  <defs><linearGradient id="lDress${gala?'G':''}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${C.dress}"/><stop offset="1" stop-color="${C.dressSh}"/></linearGradient></defs>
+  <defs><linearGradient id="lDress${gala?'G':''}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${C.dress}"/><stop offset="1" stop-color="${C.dressSh}"/></linearGradient>
+  <linearGradient id="lSide${gala?'G':''}" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000" stop-opacity=".38"/><stop offset=".3" stop-color="#fff" stop-opacity=".1"/><stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".45"/></linearGradient>
+  <radialGradient id="lFace${gala?'G':''}" cx=".4" cy=".35" r=".75"><stop offset=".55" stop-color="${C.skin}"/><stop offset="1" stop-color="${C.skinSh}"/></radialGradient></defs>
   <ellipse cx="120" cy="350" rx="74" ry="7" fill="#000" opacity=".35"/>
   <!-- lang golvend haar, achter -->
   <path d="M76 90 C66 46 100 30 122 32 C152 32 176 52 168 94 C176 120 182 150 176 186 C172 204 160 210 150 200 C154 186 150 170 148 160 L94 160 C90 172 88 188 92 200 C80 210 66 202 64 184 C58 150 66 120 76 90Z" fill="${C.hair}"/>
@@ -3237,6 +3242,9 @@ function lauraSVG(size,head,clap,gala){ const C=gala?LAURA_GALA:LAURA;
   <!-- rok -->
   <path d="M96 216 C78 250 60 290 50 330 C96 344 144 344 190 330 C180 290 162 250 144 216Z" fill="url(#lDress${gala?'G':''})"/>
   <path d="M70 300 c10 -8 20 -2 18 8 M104 318 c8 -12 22 -6 18 6 M146 304 c10 -10 22 0 14 10 M120 270 c6 -10 18 -4 14 6 M84 262 c8 -6 16 0 12 8 M156 262 c6 -8 16 -2 12 8" stroke="${C.gold}" stroke-width="2" fill="none" opacity=".85"/>
+  <path d="M96 216 C78 250 60 290 50 330 C96 344 144 344 190 330 C180 290 162 250 144 216Z" fill="url(#lSide${gala?'G':''})"/>
+  <path d="M100 226 C90 260 82 296 78 334 M140 226 C150 260 158 296 162 334 M120 228 C118 266 116 300 116 338" stroke="#000" stroke-width="5" fill="none" opacity=".16" stroke-linecap="round"/>
+  <path d="M106 226 C98 258 92 292 90 330" stroke="#fff" stroke-width="3" fill="none" opacity=".12" stroke-linecap="round"/>
   <path d="M120 222 V336" stroke="${C.gold}" stroke-width="1.5" opacity=".5"/>
   ${clap?'':`  <!-- linkerarm omlaag met kanten manchet -->
   <path d="M86 168 C74 196 72 222 78 246" stroke="${C.dress}" stroke-width="15" stroke-linecap="round" fill="none"/>
@@ -3246,10 +3254,11 @@ function lauraSVG(size,head,clap,gala){ const C=gala?LAURA_GALA:LAURA;
 `}
   <!-- lijfje -->
   <path d="M90 150 C104 156 136 156 150 150 L160 172 C152 190 148 204 146 222 L94 222 C92 204 88 190 80 172Z" fill="url(#lDress${gala?'G':''})"/>
+  <path d="M90 150 C104 156 136 156 150 150 L160 172 C152 190 148 204 146 222 L94 222 C92 204 88 190 80 172Z" fill="url(#lSide${gala?'G':''})"/>
   <path d="M120 162 V220 M106 170 q14 10 28 0 M104 190 q16 10 32 0 M108 208 q12 6 24 0" stroke="${C.gold}" stroke-width="1.8" fill="none"/>
   <path d="M94 222 Q120 230 146 222" stroke="${C.gold}" stroke-width="3" fill="none"/>
   <!-- hals en vierkante halslijn met kant -->
-  <path d="M109 122 h22 v28 c-6 6 -16 6 -22 0z" fill="${C.skin}"/><ellipse cx="120" cy="127" rx="12" ry="4" fill="${C.skinSh}" opacity=".7"/>
+  <path d="M109 122 h22 v28 c-6 6 -16 6 -22 0z" fill="${C.skin}"/><path d="M109 128 h22 v6 c-8 4 -14 4 -22 0z" fill="${C.skinSh}" opacity=".55"/><ellipse cx="120" cy="127" rx="12" ry="4" fill="${C.skinSh}" opacity=".7"/>
   <path d="M98 150 L142 150 L138 164 L102 164Z" fill="${C.skin}"/>
   <path d="M96 150 q4 4 8 0 q4 4 8 0 q4 4 8 0 q4 4 8 0 q4 4 8 0 q4 4 8 0" stroke="${C.lace}" stroke-width="3" fill="none"/>
   <path d="M100 164 L140 164" stroke="${C.gold}" stroke-width="2"/>
@@ -3265,7 +3274,8 @@ function lauraSVG(size,head,clap,gala){ const C=gala?LAURA_GALA:LAURA;
     <g transform="translate(188 114)"><ellipse rx="9.5" ry="11.5" fill="${C.skin}"/><path d="M-8 -6 l-2 -12 M-3 -9 l0 -13 M3 -9 l2 -12 M8 -5 l5 -9" stroke="${C.skin}" stroke-width="5" stroke-linecap="round"/></g></g>
 `}
   <!-- hoofd -->
-  <ellipse cx="120" cy="90" rx="30" ry="37" fill="${C.skin}"/>
+  <ellipse cx="120" cy="90" rx="30" ry="37" fill="url(#lFace${gala?'G':''})"/>
+  <ellipse cx="108" cy="100" rx="6" ry="3.5" fill="${C.lips}" opacity=".18"/><ellipse cx="133" cy="100" rx="6" ry="3.5" fill="${C.lips}" opacity=".18"/>
   <ellipse cx="90" cy="94" rx="4.5" ry="8" fill="${C.skinSh}"/><ellipse cx="150" cy="94" rx="4.5" ry="8" fill="${C.skinSh}"/>
   <circle cx="90" cy="105" r="2.6" fill="${C.gold}"/><circle cx="150" cy="105" r="2.6" fill="${C.gold}"/>
   <!-- haar voor: middenscheiding, volle golven langs het gezicht -->
@@ -3299,7 +3309,7 @@ ${gala?`<g><path d="M98 58 L104 46 L112 54 L120 40 L128 54 L136 46 L142 58 Q120 
 
 
 /* ---------- Gidsen per route ---------- */
-const LAURA_GALA = {...LAURA, dress:'#7a1f3d', dressSh:'#4f1226', gold:'#e3c77e', lace:'#f6eedc'};
+const LAURA_GALA = {...LAURA, dress:'#1f3a78', dressSh:'#152a59', gold:'#e3c77e', lace:'#f6eedc'};
 /* attributen van Zeus: bliksemschicht in de hand, adelaar aan zijn voeten */
 const ZEUS_BOLT=`<g class="zbolt"><path d="M92 196 L74 236 L86 236 L70 282 L102 228 L89 228 L101 196Z" fill="#f2c84a" stroke="#a87a1e" stroke-width="2" stroke-linejoin="round"/><path d="M92 196 L74 236 L86 236 L70 282" stroke="#fff6c8" stroke-width="1.4" fill="none" opacity=".8"/></g><circle cx="80" cy="258" r="8" fill="#efc6a3"/>`;
 const ZEUS_EAGLE=`<g class="zeagle"><path d="M170 312 C160 296 162 280 176 278 C174 292 180 304 188 312Z" fill="#4a2f17"/><path d="M206 312 C216 296 214 280 200 278 C202 292 196 304 188 312Z" fill="#4a2f17"/><ellipse cx="188" cy="318" rx="13" ry="20" fill="#5e3c1e"/><path d="M178 330 l-4 10 M184 334 l-1 8 M192 334 l1 8 M198 330 l4 10" stroke="#e0a526" stroke-width="2.6" stroke-linecap="round"/><path d="M182 336 h12 l-2 6 h-8z" fill="#3a2410"/><circle cx="188" cy="296" r="9" fill="#f4efe4"/><path d="M195 294 l8 3 l-7 4z" fill="#e0a526"/><circle cx="191" cy="294" r="1.6" fill="#1b1714"/></g>`;
@@ -6020,13 +6030,13 @@ function onbView(){ st.view='onb'; const nm=st.name?`, ${st.name}`:'';
 const INTRO = [
  {id:'attribuut', img:'s321', cap:'Caravaggio, De heilige Catharina van Alexandrië', t:'Attribuut', g:'attribuut',
   u:'Een <b>attribuut</b> is een vast voorwerp waaraan je een persoon herkent, vooral heiligen en goden. Petrus draagt altijd sleutels, Mercurius een staf met slangen.',
-  q:'Op dit schilderij leunt een vrouw op een groot houten rad met spijkers. Wat is dat rad?',
-  o:['Een allegorie van het draaiende lot','Haar attribuut: zo herken je wie ze is','Een symbool van het levenswiel'], c:1,
+  q:'Op dit schilderij leunt een vrouw op een groot houten rad met spijkers. Wat vertelt dat rad je?',
+  o:['Dat ze Fortuna is, de godin van het lot','Wie ze is: de heilige Catharina','Dat ze een eenvoudige molenaarsvrouw is'], c:1,
   e:'Het spijkerrad is het <b>attribuut</b> van de heilige Catharina van Alexandrië, die op zo’n rad gemarteld zou worden. Let op: de godin Fortuna heeft soms ook een rad, maar dan zonder spijkers.'},
  {id:'allegorie', img:'s508', cap:'Theodoor van Thulden, De Tijd onthult de Waarheid', t:'Allegorie', g:'allegorie',
   u:'Een <b>allegorie</b> vertelt een abstract idee, zoals Vrede, Tijd of Waarheid, met figuren en voorwerpen. Zo’n idee in mensengedaante heet een <b>personificatie</b>, zoals Justitia met weegschaal en zwaard. Het is een soort beeldraadsel: wie de tekens kent, kan het lezen.',
-  q:'Op dit schilderij trekt een oude man met vleugels een naakte vrouw uit het donker, terwijl duistere figuren haar tegenhouden. Wat voor schilderij is dit?',
-  o:["Een mythe over de ontvoering van een godin","Een historiestuk over een beroemde redding","Een allegorie: de Tijd onthult de Waarheid"], c:2,
+  q:'Op dit schilderij trekt een oude man met vleugels een naakte vrouw uit het donker, terwijl duistere figuren haar tegenhouden. Welk idee wordt hier uitgebeeld?',
+  o:["De Dood ontvoert de Schoonheid","De Nacht verdrijft de Dageraad","De Tijd onthult de Waarheid"], c:2,
   e:'De oude man met vleugels is <b>Vader Tijd</b>, de naakte vrouw is de <b>Waarheid</b>. Waarom naakt? Een leugen verstopt zich achter mooie kleren en maskers, maar de waarheid heeft niets te verbergen: ze is <i>onverhuld</i>. Al de Romeinse dichter Horatius sprak van de “naakte Waarheid”, en daar komt ook onze uitdrukking <i>de naakte waarheid</i> vandaan. De boodschap: vroeg of laat brengt de tijd de waarheid aan het licht. Het zijn geen echte personen maar ideeën. Dat maakt het een allegorie.'},
  {id:'vanitas', img:'s246', cap:'Gerrit Dou, Stilleven met jongen die zeepbellen blaast', t:'Vanitas & memento mori', g:'vanitas',
   u:'Een <b>vanitas</b> (Latijn voor “ijdelheid”) is een stilleven dat je eraan herinnert dat alles vergaat: een schedel, een gedoofde kaars, verwelkende bloemen. De schedel zegt <i>memento mori</i>: gedenk dat je sterven zult.',
@@ -6057,17 +6067,17 @@ window.introLoaded=()=>{ introImgState='ok'; if(st.view==='intro'){ const y=scro
 const introImg=k=>(window.INTROIMG&&window.INTROIMG[k])||'';
 function introOrder(it){ const r=rng(hashS('intro'+it.id)); return it.o.map((t,k)=>({t,k})).sort(()=>r()-.5); }
 function startIntro(from){ introLoad(); IN={i:0,a:null,score:0,from:from||'paths'}; st.view='intro'; render(); scrollTo(0,0); }
-function introAns(k){ if(IN.a!==null) return; IN.a=k; if(k===INTRO[IN.i].c){ IN.score++; try{ sfx('correct'); }catch(e){} } introView(); try{ introSpeak(INTRO[IN.i].id+'_e'); }catch(e){} setTimeout(()=>{const f=document.getElementById('infb'); if(f) f.scrollIntoView({behavior:'smooth',block:'center'});},60); }
+function introAns(k){ if(IN.a!==null) return; IN.a=k; if(k===INTRO[IN.i].c){ IN.score++; try{ sfx('correct'); }catch(e){} } introView(); try{ introSpeak(INTRO[IN.i].id+'_e'); }catch(e){} setTimeout(()=>{const f=document.getElementById('infb'); if(f) f.scrollIntoView({behavior:'smooth',block:matchMedia('(min-width:900px) and (min-aspect-ratio:1/1)').matches?'nearest':'center'});},60); }
 function introNext(){ if(IN.i<INTRO.length-1){ IN.i++; IN.a=null; introView(); scrollTo(0,0); } else { st.introDone=true; save(); introDone(); } }
 function introView(){ st.view='intro'; const it=INTRO[IN.i]; if(!it) return paths(); const ord=introOrder(it), a=IN.a;
   const dots=INTRO.map((x,k)=>`<span class="in-dot ${k<IN.i?'done':k===IN.i?'cur':''}"></span>`).join('');
   const opts=ord.map((x,j)=>{ let cls=''; if(a!==null){ if(x.k===it.c) cls='ok'; else if(x.k===a) cls='bad'; }
     return `<button class="opt ${cls}" ${a!==null?'disabled':''} onclick="introAns(${x.k})"><span class="l">${L[j]}</span><span>${x.t}</span></button>`; }).join('');
   const corr=L[ord.findIndex(x=>x.k===it.c)];
-  $(`<div class="intro"><div class="top"><button class="btn small" onclick="introQuit()">‹ Stoppen</button><div class="in-dots">${dots}</div></div>
+  $(`<div class="intro ${a!==null?'answered':''}"><div class="top"><button class="btn small" onclick="introQuit()">‹ Stoppen</button><div class="in-dots">${dots}</div></div>
     <div class="in-eb"><div class="eyebrow">Startcursus · begrip ${IN.i+1} van ${INTRO.length}</div>${vcBtn()}</div>${IN.i===0&&!voiceOn()&&(!st.vcHint||Date.now()-VCH_T<5000)?`<div class="vc-hint" aria-hidden="true"><span>Tik hier als Laura het wil voorlezen</span><b>⬆</b></div>`:''}<h1>${it.t}</h1>
     <div class="card in-uitleg"><div class="in-lh">${lauraSVG(0,true)}</div><p>${it.u}</p></div>
-    ${(it.img||it.pimg)?`<figure class="in-fig"><div class="in-tag">${it.id==='genre'?'Voorbeeld van een genrestuk':it.id==='embleem'?'Voorbeeld van een embleem':'👇 De vraag gaat over dit werk'}</div><div class="frame">${it.pimg?`<img src="${P(it.pimg)}" alt="">`:introImg(it.img)?`<img src="${introImg(it.img)}" alt="">`:'<div class="in-ph">Afbeelding laden…</div>'}</div><figcaption>${it.cap}</figcaption></figure>`:''}
+    ${(it.img||it.pimg)?`<figure class="in-fig"><div class="in-tag">${it.id==='genre'?'Voorbeeld van een genrestuk':it.id==='embleem'?'Voorbeeld van een embleem':'👇 De vraag gaat over dit werk'}</div><div class="frame">${it.pimg?`<img src="${P(it.pimg)}" alt="">`:introImg(it.img)?`<img src="${introImg(it.img)}" alt="">`:'<div class="in-ph">Afbeelding laden…</div>'}</div><figcaption>${a!==null||it.pimg?it.cap:it.cap.split(',')[0]+' · titel volgt na je antwoord'}</figcaption></figure>`:''}
     <p class="qtext">${it.q}</p><div class="opts">${opts}</div>
     ${a!==null?`<div class="card" id="infb"><div class="verdict ${a===it.c?'ok':'bad'}">${a===it.c?'Goed gezien!':'Net niet. Het juiste antwoord is '+corr+'.'}</div><p>${it.e}</p>
       ${nextBar(IN.i<INTRO.length-1?'Volgend begrip →':'Afronden →','introNext()',a===it.c)}<p class="center" style="margin:10px 0 0"><button class="btn small" onclick="askLaura()">💬 Snap je het niet? Stel Laura een vraag</button></p></div>`:''}</div>`); }
@@ -11437,7 +11447,7 @@ const GODMAP=(()=>{ const m={}; GODPAIR.forEach(([r,g])=>{ m[r]=g; if(!m[g]) m[g
 const GODRE=new RegExp('\\b('+Object.keys(GODMAP).sort((a,b)=>b.length-a.length).join('|')+')\\b(?!\\s*\\()(?![a-zà-ÿ])');
 function mythNm(o){ if(typeof o!=='string'||/\((Zeus|Hera|Poseidon|Hades|Demeter|Hestia|Ares|Aphrodite|Hephaistos|Athena|Artemis|Hermes|Dionysos|Eros|Kronos|Eos|Persephone|Herakles|Odysseus|Selene|Jupiter|Juno|Neptunus|Pluto|Ceres|Vesta|Mars|Venus|Vulcanus|Minerva|Diana|Mercurius|Bacchus|Cupido|Amor|Saturnus|Aurora|Proserpina|Hercules|Ulysses|Luna)\b/.test(o)) return o; return o.replace(GODRE,(n)=>`${n} (${GODMAP[n]})`); }
 const mythOpt = o => (st.t==='myth'||(typeof curT==='function'&&curT()==='myth')) ? mythNm(o) : o;
-const nextBar=(lbl,fn,ok)=>`<div class="nxbar ${ok===true?'ok':ok===false?'bad':''}"><span class="nx-v">${ok===true?'✓ Goed!':ok===false?'Net niet':''}</span><button class="btn primary" onclick="${fn}">${lbl}</button></div>`;
+const nextBar=(lbl,fn,ok)=>`<div class="nxbar ${ok===true?'ok':ok===false?'bad':''}"><span class="nx-v"></span><button class="btn primary" onclick="${fn}">${lbl}</button></div>`;
 const bottomNav = () => `<div class="bnav"><button class="btn" onclick="nav(-1)">‹ Vorige</button><button class="btn primary" onclick="nav(1)">Volgende ›</button></div>`;
 
 const DIFFS={b:{n:'Makkelijk',ic:'🌱',s:'3 antwoorden, waarvan er één duidelijk niet past. Toch moet je goed kijken.'},m:{n:'Gemiddeld',ic:'🎨',s:'3 antwoorden die allemaal kunnen kloppen. Alleen wie het symbool kent, weet het zeker.'},g:{n:'Moeilijk',ic:'🎓',s:'3 antwoorden die allemaal kunnen kloppen, en geen hulp van maker, jaartal of museum. Voor echte kenners.'}};
