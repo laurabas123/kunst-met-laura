@@ -397,6 +397,13 @@ b,strong{font-weight:800}
 .hk-frame{display:block;width:100%;border:0;padding:0;background:none;cursor:pointer}.hk-frame img{display:block;width:100%;height:220px;object-fit:cover;object-position:center 35%}@media(min-width:700px){.hk-frame img{height:clamp(260px,32vw,360px)}.hk-tile img,.hk-ico{aspect-ratio:1/1!important}}
 .hk-plaque{margin:-8px auto 0;position:relative;max-width:270px;padding:9px 18px;background:linear-gradient(180deg,#e2c27a,#a9803a);color:#1d1408;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,.45)}.hk-plaque b{display:block;font-family:var(--serif);font-weight:600;font-size:1.2rem;line-height:1.15}.hk-plaque small{display:block;font-size:.78rem;margin-top:2px}
 .hk-cta{display:block;margin:14px auto 4px;min-height:48px;padding:0 32px;border-radius:24px;border:1px solid var(--gold);background:transparent;color:var(--ink);font:inherit;font-weight:700;font-size:1rem;cursor:pointer}.hk-cta:hover{background:rgba(215,180,106,.12)}
+.rv-card{display:flex;align-items:center;gap:12px;width:100%;text-align:left;color:inherit;font:inherit;cursor:pointer;margin:0 0 14px;padding:12px 14px;border-radius:14px;border:1px solid rgba(215,180,106,.55);background:linear-gradient(135deg,rgba(215,180,106,.16),rgba(31,58,120,.25));position:relative;overflow:hidden}.rv-card.done{border-color:rgba(215,180,106,.3);background:rgba(255,255,255,.04)}
+.rv-ic{flex:0 0 40px;height:40px;border-radius:50%;display:grid;place-items:center;font-size:1.2rem;color:#1a1408;background:var(--gold2,#d7b46a)}.rv-card.done .rv-ic{background:rgba(215,180,106,.25);color:var(--gold2,#d7b46a)}
+.rv-tx{flex:1;display:flex;flex-direction:column;gap:2px}.rv-tx small{color:var(--muted);font-size:.8rem}.rv-bar{position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(255,255,255,.06)}.rv-bar i{display:block;height:100%;background:var(--gold2,#d7b46a)}
+.rv-also{display:flex;gap:10px;align-items:center;margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.1);font-size:.85rem}.rv-also img{width:56px;height:68px;object-fit:cover;border:3px solid #c9a24e;border-radius:3px;flex:0 0 auto}
+.km{border:1px solid rgba(215,180,106,.35);border-radius:16px;padding:14px;margin:0 0 16px;background:rgba(255,255,255,.03)}.km-h{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;gap:10px}.km-big{font-family:'Corm',serif;font-size:1.6rem;color:var(--gold2,#d7b46a)}.km-big small{font-family:inherit;font-size:.9rem;color:var(--muted)}
+.km-row{margin:10px 0}.km-t{display:flex;justify-content:space-between;gap:8px;font-size:.86rem;margin-bottom:4px}.km-t span{color:var(--muted);font-size:.76rem;text-align:right}.km-bar{position:relative;height:8px;border-radius:6px;background:rgba(255,255,255,.07);overflow:hidden}.km-bar i{position:absolute;left:0;top:0;bottom:0;border-radius:6px}.km-bar i.s{background:rgba(215,180,106,.3)}.km-bar i.m{background:var(--gold2,#d7b46a)}
+.km-dot{display:inline-block;width:9px;height:9px;border-radius:50%;vertical-align:middle;margin-right:3px}.km-dot.m{background:var(--gold2,#d7b46a)}.km-dot.s{background:rgba(215,180,106,.3)}
 .hk-h{text-align:center}.hk-tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:6px}
 .hk-tile{display:flex;flex-direction:column;align-items:center;gap:6px;border:0;background:none;color:var(--ink);font:inherit;cursor:pointer;text-align:center;padding:0}.hk-tile .hk-gilt{width:100%;box-sizing:border-box}.hk-tile img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover}
 .hk-tile b{font-size:.92rem;margin-top:4px}.hk-tile small{font-size:.76rem;color:var(--muted);margin-top:-4px}.hk-tile.done img{filter:grayscale(.5) brightness(.75)}
@@ -1083,7 +1090,7 @@ async function initCloud(){
       const merge2=(A,B)=>{ const o={...(A||{})}; for(const k in (B||{})){ o[k] = (o[k]&&typeof o[k]==='object'&&!Array.isArray(o[k])&&typeof B[k]==='object') ? {...o[k],...B[k]} : B[k]; } return o; };
       const newer = rUpd>=lUpd ? remote : st, older = rUpd>=lUpd ? st : remote;
       for(const key of ['results','bigRes','match','who','tl','final']) st[key]=merge2(older[key],newer[key]);
-      st.beta = DEV && !!(newer.beta ?? older.beta); st.onb = !!(newer.onb || older.onb); st.name = newer.name || older.name || ''; if(/kunst met laura/i.test(st.name)) st.name=''; st.unl = {...(older.unl||{}),...(newer.unl||{})}; st.diff = {...(older.diff||{}),...(newer.diff||{})}; st.fav = newer.fav || older.fav || {}; st.gseen={...(older.gseen||{}),...(newer.gseen||{})}; st.symBest=Math.max(newer.symBest||0,older.symBest||0); st.story=Object.assign({},older.story||{},newer.story||{}); for(const k in (older.story||{})) st.story[k]=Math.max(st.story[k]||0,older.story[k]); st.introDone=!!(newer.introDone||older.introDone); st.introSkip=!!(newer.introSkip||older.introSkip); st.introQuitAsked=!!(newer.introQuitAsked||older.introQuitAsked); st.kCel={...(older.kCel||{}),...(newer.kCel||{})}; st.cards={...(older.cards||{}),...(newer.cards||{})}; st.mile={...(older.mile||{}),...(newer.mile||{})}; st.bondR={...(older.bondR||{}),...(newer.bondR||{})}; st.bond={...(older.bond||{})}; for(const k in (newer.bond||{})) st.bond[k]=Math.max(st.bond[k]||0,newer.bond[k]); st.quiet=!!newer.quiet; st.xp=Math.max(newer.xp||0,older.xp||0); st.storyUnl={...(older.storyUnl||{}),...(newer.storyUnl||{})}; st.kcards={...(older.kcards||{}),...(newer.kcards||{})}; st.setDone={...(older.setDone||{}),...(newer.setDone||{})}; st.weak={...(older.weak||{}),...(newer.weak||{})}; st.first={...(newer.first||{}),...(older.first||{})}; st.kvd2={...(older.kvd2||{}),...(newer.kvd2||{})}; st.kvdWon={...(older.kvdWon||{}),...(newer.kvdWon||{})}; st.askSeen={...(older.askSeen||{}),...(newer.askSeen||{})}; st.askUnl={...(older.askUnl||{}),...(newer.askUnl||{})}; if(newer.waTap||older.waTap) st.waTap=Math.max(newer.waTap||0,older.waTap||0); for(const k of ['chests','pity','goldBoost','wk','goal','comp','uid','utok','xpDay','chOpened','funSeen','nearT']) if(newer[k]!==undefined) st[k]=newer[k]; else if(older[k]!==undefined) st[k]=older[k]; st.dq={...(older.dq||{}),...(newer.dq||{})}; st.dqBadges={...(older.dqBadges||{}),...(newer.dqBadges||{})}; for(const k of ['dqStreak','dqLast','dqBest','dqCount','dqPerfect','dqFreeze']) st[k]=(newer.dqLast||'')>=(older.dqLast||'')?newer[k]:older[k]; st.lastVisit=Math.max(newer.lastVisit||0,older.lastVisit||0); st.opens=Math.max(newer.opens||0,older.opens||0);
+      st.beta = DEV && !!(newer.beta ?? older.beta); st.onb = !!(newer.onb || older.onb); st.name = newer.name || older.name || ''; if(/kunst met laura/i.test(st.name)) st.name=''; st.unl = {...(older.unl||{}),...(newer.unl||{})}; st.diff = {...(older.diff||{}),...(newer.diff||{})}; st.fav = newer.fav || older.fav || {}; st.gseen={...(older.gseen||{}),...(newer.gseen||{})}; st.symBest=Math.max(newer.symBest||0,older.symBest||0); st.story=Object.assign({},older.story||{},newer.story||{}); for(const k in (older.story||{})) st.story[k]=Math.max(st.story[k]||0,older.story[k]); st.introDone=!!(newer.introDone||older.introDone); st.introSkip=!!(newer.introSkip||older.introSkip); st.introQuitAsked=!!(newer.introQuitAsked||older.introQuitAsked); st.kCel={...(older.kCel||{}),...(newer.kCel||{})}; st.cards={...(older.cards||{}),...(newer.cards||{})}; st.mile={...(older.mile||{}),...(newer.mile||{})}; st.bondR={...(older.bondR||{}),...(newer.bondR||{})}; st.bond={...(older.bond||{})}; for(const k in (newer.bond||{})) st.bond[k]=Math.max(st.bond[k]||0,newer.bond[k]); st.quiet=!!newer.quiet; st.xp=Math.max(newer.xp||0,older.xp||0); st.storyUnl={...(older.storyUnl||{}),...(newer.storyUnl||{})}; st.kcards={...(older.kcards||{}),...(newer.kcards||{})}; st.setDone={...(older.setDone||{}),...(newer.setDone||{})}; st.weak={...(older.weak||{}),...(newer.weak||{})}; st.first={...(newer.first||{}),...(older.first||{})}; st.kvd2={...(older.kvd2||{}),...(newer.kvd2||{})}; st.kvdWon={...(older.kvdWon||{}),...(newer.kvdWon||{})}; st.askSeen={...(older.askSeen||{}),...(newer.askSeen||{})}; st.askUnl={...(older.askUnl||{}),...(newer.askUnl||{})}; if(newer.waTap||older.waTap) st.waTap=Math.max(newer.waTap||0,older.waTap||0); for(const k of ['chests','pity','goldBoost','wk','goal','comp','uid','utok','xpDay','chOpened','funSeen','nearT']) if(newer[k]!==undefined) st[k]=newer[k]; else if(older[k]!==undefined) st[k]=older[k]; st.dq={...(older.dq||{}),...(newer.dq||{})}; st.rv={...(older.rv||{}),...(newer.rv||{})}; st.rvDay=Math.max(newer.rvDay||0,older.rvDay||0); st.rvCount=Math.max(newer.rvCount||0,older.rvCount||0); st.dqBadges={...(older.dqBadges||{}),...(newer.dqBadges||{})}; for(const k of ['dqStreak','dqLast','dqBest','dqCount','dqPerfect','dqFreeze']) st[k]=(newer.dqLast||'')>=(older.dqLast||'')?newer[k]:older[k]; st.lastVisit=Math.max(newer.lastVisit||0,older.lastVisit||0); st.opens=Math.max(newer.opens||0,older.opens||0);
       if(newer===remote && st.view!=='onb'){ const {view,r,i,bigStep,t,tlMode}=remote; Object.assign(st,{r,i,bigStep,tlMode}); setTrack(t||'basis');
         if(view && !['home','gloss','paths','intro','introDone','introAsk','onb'].includes(view)){ resumeFrom={t:t||'basis',view,r,i,bigStep}; st.view='home'; go(r,{view,i,bigStep},t||'basis'); } else render(); }
       else render();
@@ -3582,7 +3589,8 @@ function dqFinish(){ clearInterval(dqTimer); if(!DQ) return; const score=DQ.item
   const day=DQ.day; st.dq=st.dq||{}; if(st.dq[day]){ DQ=null; return dqResult(st.dq[day]); }
   /* dagreeks */
   const prev=dqPrevDay(day), prev2=dqPrevDay(prev); let streak=1, usedFreeze=false;
-  if(st.dqLast===prev) streak=(st.dqStreak||0)+1;
+  if(st.dqLast===day) streak=st.dqStreak||1;
+  else if(st.dqLast===prev) streak=(st.dqStreak||0)+1;
   else if(st.dqLast===prev2 && (st.dqFreeze||0)>0){ streak=(st.dqStreak||0)+1; st.dqFreeze--; usedFreeze=true; }
   st.dqStreak=streak; st.dqLast=day; st.dqBest=Math.max(st.dqBest||0,streak); st.dqCount=(st.dqCount||0)+1; if(score===DQ_N) st.dqPerfect=(st.dqPerfect||0)+1;
   let freezeWon=false; if(streak%7===0 && (st.dqFreeze||0)<2){ st.dqFreeze=(st.dqFreeze||0)+1; freezeWon=true; }
@@ -6072,6 +6080,68 @@ function nextStep(){ const rf = resumeFrom && Number.isInteger(resumeFrom.r) && 
   if(r<0) return {lbl:'Kies je volgende cursus', t:'Alles van '+(SHORT[t]||TRACKS[t].title)+' gedaan!', s:'Ontdek een nieuwe cursus', img:'pB', fn:'openCourse()'};
   const R=RS[r], started=RS.some((x,i)=>Object.keys((st.results||{})[K(i,t)]||{}).length);
   return {lbl:started?'Ga verder':'Begin hier', t:SHORT[t]||TRACKS[t].title, s:`${'Les'} ${r+1}${R.t?' · '+R.t:''}`, img:R.big&&R.big.img, fn:`setTrack('${t}');openRound(${r})`}; }
+/* ---------- herhaalronde: gespreide herhaling over alle modules + kennis-meter ---------- */
+const RV_DAYS=[0,1,3,7,16,35,80], RV_N=10, RV_NEW=5;
+const RV_CAT={basis:'Symbolen en begrippen',mix:'Symbolen en begrippen',n3:'Meesterlijk kijken',myth:'Goden en mythen',bijbel:'Bijbelse verhalen',deugden:'Deugden en allegorieën',ge:'Gouden Eeuw',kenner:'Kennersblik',hg:'Hollandse glorie'};
+let RV=null;
+function rvNow(){ const d=new Date(); return Math.floor((d-d.getTimezoneOffset()*6e4)/864e5); }
+function rvS(){ return st.rv||(st.rv={}); }
+function rvCat(t){ return RV_CAT[t]||(TRACKS[t]&&TRACKS[t].museum?'Musea':TRACKS[t]?TRACKS[t].title:'Overig'); }
+function rvAll(){ const out=[]; for(const t of Object.keys(TRACKS)){ const RS=TRACKS[t].rounds; if(!RS||!RS.length) continue;
+  RS.forEach((R,r)=>{ if(!R||R.soon||!R.q) return; const done=(st.results||{})[K(r,t)]||{};
+    R.q.forEach((q,i)=>{ if(q&&q.question&&q.opts&&q.in&&q.in.img) out.push({k:t+'|'+r+'|'+i,t,r,i,q,seen:(i in done)}); }); }); } return out; }
+function rvQueue(){ const S=rvS(), now=rvNow(), all=rvAll(); const due=[], fresh=[];
+  for(const c of all){ if(!c.seen) continue; const s=S[c.k]; if(!s) fresh.push(c); else if(s.due<=now) due.push(c); }
+  due.sort((a,b)=>S[a.k].due-S[b.k].due); return {due,fresh,all}; }
+function rvPick(){ const {due,fresh}=rvQueue(); const pick=due.slice(0,RV_N); let n=0; for(const c of fresh){ if(pick.length>=RV_N||n>=RV_NEW) break; pick.push(c); n++; }
+  for(let i=pick.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [pick[i],pick[j]]=[pick[j],pick[i]]; } return pick; }
+function rvReady(){ const {due,fresh}=rvQueue(); return Math.min(RV_N,due.length+Math.min(RV_NEW,fresh.length)); }
+function rvDone(){ return st.rvDay===rvNow(); }
+function rvCard(){ const n=rvReady(), done=rvDone(), M=rvMeter();
+  const sub=done?`Klaar voor vandaag · ${M.mast} van ${M.seen} beheerst`:n?`${n} kaarten klaar · 3 minuten`:'Speel een les, dan komen de vragen hier terug';
+  return `<button class="rv-card ${done?'done':''}" onclick="${n||done?'rvStart()':'meterView()'}"><span class="rv-ic">${done?'✓':'↻'}</span><span class="rv-tx"><b>Herhaalronde</b><small>${sub}</small></span><span class="rv-bar"><i style="width:${M.seen?Math.round(M.mast/M.seen*100):0}%"></i></span></button>`; }
+function rvStart(){ const items=rvPick(); if(!items.length){ return meterView(); } RV={items,i:0,ans:[]}; st.view='rv'; save(); rvView(); scrollTo(0,0); }
+function rvView(){ if(!RV) return hub(); st.view='rv'; const x=RV.items[RV.i], q=x.q, a=RV.ans[RV.i], box=(rvS()[x.k]||{}).box||0;
+  $(`<div class="dq rv"><div class="top"><button class="btn small" onclick="rvQuit()">✕ Stoppen</button><span class="dq-clock">${RV.i+1}/${RV.items.length}</span></div>
+   <div class="eyebrow">Herhaalronde · ${rvCat(x.t)}${box?` · niveau ${box}`:' · nieuw'}</div>
+   <div class="dq-dots">${RV.items.map((it,k)=>`<i class="${k<RV.i||(k===RV.i&&a!==undefined)?(RV.ans[k]===it.q.c?'ok':'bad'):k===RV.i?'cur':''}"></i>`).join('')}</div>
+   <div class="frame dq-img"><img src="${P(q.in.img)}" alt=""></div>
+   <p class="qtext">${q.question}</p>
+   <div class="opts">${q.opts.map((o,k)=>`<button class="opt ${a===undefined?'':k===q.c?'ok':k===a?'bad':'dim'}" ${a!==undefined?'disabled':''} onclick="rvAns(${k})"><span class="l">${'ABCD'[k]}</span><span>${o}</span></button>`).join('')}</div>
+   ${a!==undefined?`<div class="card fb ${a===q.c?'good':'bad'}"><b>${a===q.c?'Goed onthouden!':'Even opfrissen.'}</b> ${q.exp}
+     ${q.also&&q.also.length?`<div class="rv-also"><img src="${P(q.also[RV.i%q.also.length].img)}" alt=""><span><b>Ook hier:</b> ${q.also[RV.i%q.also.length].t}, ${q.also[RV.i%q.also.length].a}. ${q.also[RV.i%q.also.length].n||''}</span></div>`:''}
+     <div class="muted" style="font-size:.8rem;margin-top:6px">${q.in.t}, ${q.in.a}, ${q.in.y||''}</div></div>
+   ${nextBar(RV.i<RV.items.length-1?'Volgende kaart →':'Bekijk je resultaat →','rvNext()',a===q.c)}`:''}</div>`); }
+function rvAns(k){ if(!RV||RV.ans[RV.i]!==undefined) return; const x=RV.items[RV.i], ok=k===x.q.c; RV.ans[RV.i]=k;
+  const S=rvS(), s=S[x.k]||{box:0}; const box=ok?Math.min(RV_DAYS.length-1,(s.box||0)+1):1; S[x.k]={box,due:rvNow()+RV_DAYS[box]};
+  try{ if(ok) sfx('correct'); }catch(e){} if(ok) xpAdd(5); save(); rvView();
+  setTimeout(()=>{ const f=document.querySelector('.rv .fb'); if(f) f.scrollIntoView({behavior:'smooth',block:'center'}); },60); }
+function rvNext(){ if(RV.i<RV.items.length-1){ RV.i++; rvView(); scrollTo(0,0); } else rvFinish(); }
+function rvQuit(){ if(RV&&RV.ans.length) return rvFinish(); RV=null; hub(); }
+function rvFinish(){ if(!RV) return hub(); const n=RV.ans.filter(a=>a!==undefined).length, ok=RV.items.reduce((s,x,k)=>s+(RV.ans[k]===x.q.c?1:0),0);
+  const day=dqDay(), first=st.rvDay!==rvNow(); st.rvDay=rvNow(); st.rvCount=(st.rvCount||0)+(first?1:0);
+  let streakMsg=''; if(first&&st.dqLast!==day){ const prev=dqPrevDay(day), prev2=dqPrevDay(prev); let s=1; if(st.dqLast===prev) s=(st.dqStreak||0)+1; else if(st.dqLast===prev2&&(st.dqFreeze||0)>0){ s=(st.dqStreak||0)+1; st.dqFreeze--; }
+    st.dqStreak=s; st.dqLast=day; st.dqBest=Math.max(st.dqBest||0,s); streakMsg=`🔥 Je reeks staat op <b>${s} ${s===1?'dag':'dagen'}</b>.`; }
+  save(); const M=rvMeter(); RV=null; st.view='rvres';
+  $(`<div class="dq rv"><div class="top"><button class="btn small" onclick="hub()">‹ Terug</button></div>
+    <div class="center" style="margin:10px 0 18px"><div class="gb-fig" style="width:110px;margin:0 auto">${lauraSVG(0,false,true)}</div>
+    <h2 class="serif" style="margin:6px 0 4px">${ok}/${n} goed onthouden</h2><p class="muted">${ok===n?'Alles zit erin. Deze kaarten zie je pas over een tijdje terug.':'De kaarten die je fout had, komen morgen terug. Zo blijven ze hangen.'}</p>${streakMsg?`<p>${streakMsg}</p>`:''}</div>
+    ${meterHTML(M)}
+    <button class="btn primary big" onclick="hub()">Terug naar vandaag</button></div>`); }
+function rvMeter(){ const S=rvS(), all=rvAll(), cats={}; let seen=0, mast=0;
+  for(const c of all){ const n=rvCat(c.t); const C=cats[n]||(cats[n]={tot:0,seen:0,mast:0}); C.tot++; if(c.seen){ C.seen++; seen++; } if((S[c.k]||{}).box>=3){ C.mast++; mast++; } }
+  const symTot=(typeof SYMB!=='undefined'?SYMB.length:0), symKnown=Math.min(symTot,(st.symLv||0)*LV_SIZE);
+  return {cats,seen,mast,tot:all.length,symTot,symKnown}; }
+function meterHTML(M){ const order=Object.entries(M.cats).sort((a,b)=>b[1].seen-a[1].seen||b[1].tot-a[1].tot);
+  const bar=(n,s,m,t)=>`<div class="km-row"><div class="km-t"><b>${n}</b><span>${m} beheerst · ${s} gezien · ${t} totaal</span></div><div class="km-bar"><i class="s" style="width:${t?s/t*100:0}%"></i><i class="m" style="width:${t?m/t*100:0}%"></i></div></div>`;
+  return `<div class="km"><div class="km-h"><span class="eyebrow">Mijn kennis</span><span class="km-big">${M.mast} <small>van ${M.tot} vragen beheerst</small></span></div>
+    ${M.symTot?bar('Symbolen oefenen',M.symKnown,M.symKnown,M.symTot):''}${order.map(([n,C])=>bar(n,C.seen,C.mast,C.tot)).join('')}
+    <p class="muted" style="font-size:.78rem;margin:8px 0 0"><i class="km-dot m"></i> beheerst: drie keer achter elkaar goed in de herhaalronde &nbsp; <i class="km-dot s"></i> gezien in een les</p></div>`; }
+function meterView(){ st.view='meter'; save(); const M=rvMeter(), n=rvReady();
+  $(`<div class="dq rv"><div class="top"><button class="btn small" onclick="hub()">‹ Terug</button></div><h1 class="serif" style="margin:6px 0 4px">Mijn kennis</h1>
+    <p class="muted">Alles wat je in de lessen leert, komt terug in de herhaalronde. Steeds net voordat je het zou vergeten: na 1 dag, 3 dagen, een week, twee weken en een maand.</p>
+    ${n&&!rvDone()?`<button class="btn primary big" style="margin:8px 0 14px" onclick="rvStart()">Start herhaalronde (${n})</button>`:''}${meterHTML(M)}</div>`); }
+
 function hub(){ st.view='start'; pathMode=null; save(); if(NOTI){ if(!NOTI.flushed) notiFlush(); NOTI.until=0; } setTimeout(notiLater,1400);
   const h=new Date().getHours(), gr=h<12?'Goedemorgen':h<18?'Goedemiddag':'Goedenavond';
   const N=nextStep(), I=xpInfo(), alive=st.dqLast===dqDay()||st.dqLast===dqPrevDay(dqDay()), streak=alive?(st.dqStreak||0):0;
@@ -6086,6 +6156,7 @@ function hub(){ st.view='start'; pathMode=null; save(); if(NOTI){ if(!NOTI.flush
       <div class="hk-plaque"><b>${N.t}${m?', les '+m[1]:''}</b>${m&&/ · /.test(N.s)?`<small>${sub}</small>`:(!m?`<small>${N.s}</small>`:'')}</div>
       <button class="hk-cta" onclick="${N.fn}">${cta}</button>`; })()}
     <h2 class="hx-h hk-h">Vandaag</h2>
+    ${rvCard()}
     <div class="hk-tiles">
       <button class="hk-tile ${dqd?'done':''}" onclick="dqStart()"><span class="hk-gilt sm"><span class="hk-mat"><img src="${P('q1')}" alt=""></span></span><b>Dagquiz</b><small>${dqd?`${st.dq[dqDay()].score}/5 goed`:'5 vragen'}</small></button>
       <button class="hk-tile ${kd?'done':''}" onclick="kvdView()"><span class="hk-gilt sm"><span class="hk-mat hk-kvd"><img src="${symImg(T.im[0])}" alt=""></span></span><b>Kunstwerk</b><small>${kd?'Bekeken':'van de dag'}</small></button>
@@ -6109,6 +6180,7 @@ function meView(){ st.view='me'; save(); const I=xpInfo(), alive=st.dqLast===dqD
     <div class="hx-top"><h1 class="hx-hello" style="margin:0">${st.name?esc(st.name):'Jij'}</h1><button class="chip" onclick="editName()">Naam wijzigen</button></div>
     ${xpBar()}
     <div class="hx-stats"><div><b>🔥 ${streak}</b><small>dagen op rij</small></div><div><b>${sc.ok}</b><small>punten</small></div><div><b>${museumPct()}%</b><small>museum vol</small></div></div>
+    ${rvCard()}${meterHTML(rvMeter())}
     ${streak>=2?`<div class="share-row" style="margin:-6px 0 14px">${shareBtn('streak',streakShareText(streak),null,'Deel je reeks van '+streak+' dagen','small')}</div>`:''}
     <div class="hx-list">
       ${row('🏛️','Mijn museum',`${museumPct()}% compleet · je zalen en favorieten`,"openFav('me')")}
@@ -11572,7 +11644,7 @@ function nav(d){ const s=steps(st.r); let p=pos()+d;
   if(p<0){ if(st.r>0){ const ps=steps(st.r-1); return go(st.r-1, ps[ps.length-1]); } return; }
   if(p>=s.length) return goNext();
   go(st.r, s[p]); }
-function render(){ const v=st.view; if((v==='q'||v==='big')&&!diffOf()) return diffView(); (v==='q'||v==='kq')?question():v==='big'?big():v==='match'?matchView():v==='who'?whoView():v==='tl'?timeline(st.tlMode):v==='final'?finalView():v==='gloss'?glossary():v==='paths'?paths():v==='onb'?onbView():v==='intro'?introView():v==='introDone'?introDone():v==='introAsk'?introAsk():v==='fav'?favView():v==='sym'?(symOpen()?symRefresh():freePlay()):v==='start'?hub():v==='credits'?creditsView():v==='me'?meView():v==='keep'?keepView():v==='oracle'?oracleView():v==='askl'?askLaura():v==='album'?albumView():v==='board'?boardView():v==='ask'?hub():v==='kvd'?kvdView():v==='dqres'?(st.dq&&st.dq[dqDay()]?dqResult(st.dq[dqDay()]):hub()):v==='daily'?hub():v==='stories'?storiesView():v==='storyc'?storyOpen(st.storyId||'cara'):v==='story'?storiesView():v==='free'?freePlay():home(); }
+function render(){ const v=st.view; if((v==='q'||v==='big')&&!diffOf()) return diffView(); (v==='q'||v==='kq')?question():v==='big'?big():v==='match'?matchView():v==='who'?whoView():v==='tl'?timeline(st.tlMode):v==='final'?finalView():v==='gloss'?glossary():v==='paths'?paths():v==='onb'?onbView():v==='intro'?introView():v==='introDone'?introDone():v==='introAsk'?introAsk():v==='fav'?favView():v==='sym'?(symOpen()?symRefresh():freePlay()):v==='start'?hub():v==='credits'?creditsView():v==='me'?meView():v==='rv'?(RV?rvView():hub()):v==='rvres'?hub():v==='meter'?meterView():v==='keep'?keepView():v==='oracle'?oracleView():v==='askl'?askLaura():v==='album'?albumView():v==='board'?boardView():v==='ask'?hub():v==='kvd'?kvdView():v==='dqres'?(st.dq&&st.dq[dqDay()]?dqResult(st.dq[dqDay()]):hub()):v==='daily'?hub():v==='stories'?storiesView():v==='storyc'?storyOpen(st.storyId||'cara'):v==='story'?storiesView():v==='free'?freePlay():home(); }
 function label(x){ const R=TRACKS[x.t||'basis'].rounds[x.r]; if(!R) return ''; if(x.view==='final') return 'eindtoets'; if(x.view==='match') return 'koppelspel'; if(x.view==='kq') return 'kunstkennersles'; if(x.view==='who') return 'Wie ben ik?'; if(x.view==='tl') return 'tijdlijn'; return x.view==='q' ? `vraag ${x.i+1}: ${R.q[x.i].name.toLowerCase()}` : `meesterwerk: ${R.big.t}`; }
 
 function ctaBtn(){ const rf=resumeFrom&&Number.isInteger(resumeFrom.r)&&(resumeFrom.t||'basis')===st.t&&!roundComplete(resumeFrom.r,st.t)?resumeFrom:null; const W=st.t==='hg'?'niveau':'les';
