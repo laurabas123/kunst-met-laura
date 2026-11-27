@@ -417,7 +417,7 @@ b,strong{font-weight:800}
 .rt-h{display:flex;justify-content:space-between;gap:8px;align-items:baseline}.rt-h small{color:var(--muted);font-size:.75rem}.rt-bar{height:5px;border-radius:4px;background:rgba(255,255,255,.08);margin:6px 0}.rt-bar i{display:block;height:100%;border-radius:4px;background:var(--gold2,#d7b46a)}
 .rt-can{font-size:.84rem;margin:4px 0 8px;color:var(--muted)}.rt-trs{display:flex;flex-wrap:wrap;gap:6px}.rt-tr{display:inline-flex;gap:8px;align-items:center;padding:6px 10px;border-radius:16px;border:1px solid rgba(215,180,106,.4);background:transparent;color:inherit;font:inherit;font-size:.8rem;cursor:pointer}.rt-tr small{color:var(--muted)}.rt-tr.done{background:rgba(215,180,106,.18)}
 .rt-extra{margin-top:10px;display:flex;flex-direction:column;gap:8px}.rt-m{font-size:.82rem;line-height:1.4}.rt-m span{color:var(--gold2,#d7b46a);font-weight:700}.rt-m.ok b::after{content:' ✓'}.rt a,.rt-m a{color:var(--gold2,#d7b46a)}
-.wow-pic{width:min(240px,62vw);margin:0 auto 14px;transform:rotate(-2deg)}.wow-pic img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover}.hk-h{text-align:center}.hk-tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:6px}
+.wow-pic{width:min(240px,62vw);margin:0 auto 14px;transform:rotate(-2deg)}.wow-pic img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover}.meta.mus::before{content:'📍 ';}.hk-h{text-align:center}.hk-tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:6px}
 .hk-tile{display:flex;flex-direction:column;align-items:center;gap:6px;border:0;background:none;color:var(--ink);font:inherit;cursor:pointer;text-align:center;padding:0}.hk-tile .hk-gilt{width:100%;box-sizing:border-box}.hk-tile img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover}
 .hk-tile b{font-size:.92rem;margin-top:4px}.hk-tile small{font-size:.76rem;color:var(--muted);margin-top:-4px}.hk-tile.done img{filter:grayscale(.5) brightness(.75)}
 .hk-ico{aspect-ratio:4/5;display:grid!important;place-items:center;color:var(--gold2);position:relative;overflow:hidden}.hk-ico>img{position:absolute;inset:0;width:100%;height:100%!important;aspect-ratio:auto!important;object-fit:cover;filter:brightness(.55)}.hk-ico svg{fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round;position:relative;width:46px;height:46px;padding:12px;border-radius:50%;background:rgba(11,17,32,.72);border:1px solid rgba(215,180,106,.6)}
@@ -1357,11 +1357,15 @@ window.bundleLoaded = id => { BUNDLES[id]='ok'; if(st.view==='start'){ const y=w
 ['mix','deugd','bijbel','myth','musea','hg'].forEach(g=>{const s=document.createElement('script');s.src='img/also_'+g+'.js?v=3';s.async=true;document.head.appendChild(s);});
 const esc = t => String(t).replace(/"/g,'&quot;');
 function lb(k,cap){ const d=document.createElement('div'); d.className='lb'; d.innerHTML=`<img src="${P(k)}" alt=""><div class="cap">${cap}</div><button class="btn primary lbclose">Sluit afbeelding</button><div class="hint">of tik ergens op het scherm</div>`; d.onclick=()=>d.remove(); document.body.appendChild(d); }
-const photo = (o,icon) => `<div class="photo" onclick="lb('${o.img}','<b>${esc(o.t).replace(/'/g,'&#39;')}</b><br><span>${esc(o.a).replace(/'/g,'&#39;')} · ${o.y}</span>')"><img src="${P(o.img)}" alt="${esc(o.t)}"><span class="zoom">⤢ vergroten</span>${icon?`<span class="badge-ic">${ICONS[icon]}</span>`:''}${o.where&&!/Titel volgt/.test(o.t)?favBtn(o):''}</div>`;
+const photo = (o,icon) => `<div class="photo" onclick="lb('${o.img}','${artLbCap(o)}')"><img src="${P(o.img)}" alt="${esc(o.t)}"><span class="zoom">⤢ vergroten</span>${icon?`<span class="badge-ic">${ICONS[icon]}</span>`:''}${o.where&&!/Titel volgt/.test(o.t)?favBtn(o):''}</div>`;
 const FAVREG={};
 let WHEREIDX=null;
+const ALSO_WHERE={"q1b": "National Gallery, Londen", "q1c": "National Gallery, Londen", "q2a": "Metropolitan Museum of Art, New York", "q2b": "The Cloisters (Met), New York", "q2c": "Uffizi, Florence", "q3b": "Städel Museum, Frankfurt", "q3c": "Gemäldegalerie Alte Meister, Dresden", "q4a": "National Gallery of Art, Washington", "q4b": "Rijksmuseum, Amsterdam", "q4c": "Mauritshuis, Den Haag", "q5c": "Hermitage, Sint-Petersburg", "q7a": "National Gallery of Art, Washington", "rb4a": "National Gallery of Art, Washington", "q7c": "KMSKA, Antwerpen", "q9a": "Museo Thyssen-Bornemisza, Madrid", "q10b": "Prado, Madrid", "q12c": "Santa Maria Novella, Florence", "q14a": "Prado, Madrid", "q14c": "Prado, Madrid", "q15a": "National Gallery, Londen", "q15b": "Musée des Beaux-Arts, Straatsburg", "d4a": "Musée des Beaux-Arts, Straatsburg", "n3_2b": "Musée des Beaux-Arts, Straatsburg", "q15c": "Kunsthistorisches Museum, Wenen", "n3_1c": "Kunsthistorisches Museum, Wenen", "q17a": "Hermitage, Sint-Petersburg", "q17b": "National Gallery of Art, Washington", "ma2b": "National Gallery of Art, Washington", "q18b": "Liechtenstein Collection, Wenen", "q18c": "Museu Calouste Gulbenkian, Lissabon", "q19a": "Prado, Madrid", "ha1a": "Prado, Madrid", "ha3a": "Prado, Madrid", "q19b": "Museum Boijmans Van Beuningen, Rotterdam", "q19c": "KMSKA, Antwerpen", "q20b": "Frick Collection, New York", "q20c": "National Gallery of Ireland, Dublin", "ra4a": "National Gallery of Ireland, Dublin", "j3a": "Prado, Madrid", "m2a": "Dominicanenkerk, Colmar", "m3b": "Hermitage, Sint-Petersburg", "m5a": "National Gallery, Londen", "m5c": "Alte Pinakothek, München", "n1a": "Germanisches Nationalmuseum, Neurenberg", "n1b": "Wallraf-Richartz-Museum, Keulen", "n1c": "Rijksmuseum, Amsterdam", "n2a": "Metropolitan Museum of Art, New York", "n2c": "Kenwood House, Londen", "n3b": "National Gallery, Londen", "n3c": "Prado, Madrid", "n4a": "Alte Pinakothek, München", "o1a": "Galleria Doria Pamphilj, Rome", "n3_6c": "Galleria Doria Pamphilj, Rome", "o1c": "Museo dell’Opera del Duomo, Florence", "o3c": "Gallerie dell’Accademia, Venetië", "o4a": "Prado, Madrid", "p1b": "Getty Museum, Los Angeles", "p2a": "Galleria Borghese, Rome", "t4c": "Galleria Borghese, Rome", "p2c": "National Gallery, Londen", "p3c": "Staatliches Museum Schwerin", "p4a": "Kunsthistorisches Museum, Wenen", "p4b": "Louvre, Parijs", "p4c": "Kunsthistorisches Museum, Wenen", "p5c": "Gallerie dell’Accademia, Venetië", "d1c": "Collegio del Cambio, Perugia", "d3a": "Collegio del Cambio, Perugia", "d4b": "Rijksmuseum, Amsterdam", "d4c": "Prado, Madrid", "d5c": "Prado, Madrid", "d5a": "Szépművészeti Múzeum, Boedapest", "r2b": "National Gallery of Art, Washington", "r3a": "Kunsthistorisches Museum, Wenen", "r3b": "Gemäldegalerie, Berlijn", "r4a": "Prado, Madrid", "s3a": "National Gallery, Londen", "s5c": "Louvre, Parijs", "t1b": "Louvre, Parijs", "t5c": "Louvre, Parijs", "t2a": "Louvre, Parijs", "t3a": "Groeningemuseum, Brugge", "t3b": "Groeningemuseum, Brugge", "t4b": "Groeningemuseum, Brugge", "t5a": "Museo di Capodimonte, Napels", "j2a": "San Pietro in Vincoli, Rome", "j2b": "Hospital de la Caridad, Sevilla", "j3c": "Sixtijnse Kapel, Vaticaan", "rc1a": "Sixtijnse Kapel, Vaticaan", "rc5a": "Sixtijnse Kapel, Vaticaan", "w5a": "KMSKA, Antwerpen", "x2a": "Santa Maria del Popolo, Rome", "k10b": "Royal Academy of Arts, Londen", "y1a": "Palazzo Ducale, Venetië", "y3a": "Musée Cognacq-Jay, Parijs", "y3b": "Palazzo Farnese, Rome", "y4a": "Casino dell’Aurora (Villa Ludovisi), Rome", "y4b": "Gemäldegalerie Alte Meister, Kassel", "e5a": "Gemäldegalerie Alte Meister, Kassel", "y4c": "Palazzo Farnese, Rome", "y5b": "Szépművészeti Múzeum, Boedapest", "z2a": "National Gallery, Londen", "z2b": "Rocca Sanvitale, Fontanellato", "z3b": "Birmingham Museum & Art Gallery", "z4b": "Palazzo Ducale, Venetië", "z4c": "Prado, Madrid", "f1a": "Louvre, Parijs", "f1b": "Prado, Madrid", "f1c": "Gemäldegalerie Alte Meister, Dresden", "f3b": "Philadelphia Museum of Art", "f3c": "National Gallery of Art, Washington", "f4b": "Alte Pinakothek, München", "f5a": "Palazzo Farnese, Rome", "f5b": "Gallery Oldham", "f5c": "Palazzo Pitti, Florence", "g1a": "Gemäldegalerie, Berlijn", "g2a": "Gemäldegalerie, Berlijn", "g4b": "Mauritshuis, Den Haag", "g5b": "Museo Thyssen-Bornemisza, Madrid", "g5c": "Hermitage, Sint-Petersburg", "h2a": "Nationalmuseum, Stockholm", "h5a": "Prado, Madrid", "l3a": "Mauritshuis, Den Haag", "ma4b": "Mauritshuis, Den Haag", "l4b": "National Gallery of Art, Washington", "v1a": "National Gallery, Londen", "v1b": "National Gallery, Londen", "v1c": "Sir John Soane’s Museum, Londen", "v3b": "Louvre, Parijs", "v4b": "Derby Museum and Art Gallery", "v5a": "National Gallery of Canada, Ottawa", "v5b": "Museu de Arte de São Paulo", "ka1a": "MoMA, New York", "ka1b": "Metropolitan Museum of Art, New York", "ka4b": "Van Gogh Museum, Amsterdam", "kb1b": "Museum of Fine Arts, Boston", "hb3a": "Kunsthistorisches Museum, Wenen", "bc2a": "Kunsthistorisches Museum, Wenen", "hc4c": "Alte Pinakothek, München", "ma3c": "Louvre, Parijs", "ca4a": "Centraal Museum, Utrecht", "cc2a": "Centraal Museum, Utrecht", "cb4a": "Centraal Museum, Utrecht", "ra1a": "Metropolitan Museum of Art, New York", "ra1c": "Wallace Collection, Londen", "ra2a": "Gemäldegalerie Alte Meister, Dresden", "ra3b": "Frans Hals Museum, Haarlem", "hc1b": "Frans Hals Museum, Haarlem", "ra4b": "Wallace Collection, Londen", "ra5a": "National Gallery, Londen", "ra5b": "National Gallery, Londen", "ra5c": "Museum Prinsenhof, Delft", "ma4a": "Museum Prinsenhof, Delft", "rb2a": "Rijksmuseum, Amsterdam", "ma1a": "Metropolitan Museum of Art, New York", "ma1b": "Gemäldegalerie, Berlijn", "n3_1b": "Gemäldegalerie, Berlijn", "ma2a": "Uffizi, Florence", "ma5a": "Mauritshuis, Den Haag", "ma5b": "National Gallery, Londen", "n3_3c": "National Gallery, Londen", "q1a": "National Gallery, Londen", "ma5c": "Gemäldegalerie, Berlijn", "mb5c": "Getty Museum, Los Angeles", "mc2c": "Mauritshuis, Den Haag", "hc4a": "Gemäldegalerie, Berlijn", "hd2b": "National Gallery of Art, Washington", "k11a": "Rijksmuseum, Amsterdam (origineel) en National Gallery, Londen (kopie)", "k11b": "National Gallery, Londen", "hg5a": "Kunstmuseum Den Haag", "hh1c": "MoMA, New York", "n3_1a": "National Gallery, Londen", "n3_2a": "Liechtenstein Collection, Wenen", "n3_3a": "KMSKA, Antwerpen", "n3_4a": "Kunsthistorisches Museum, Wenen", "n3_4c": "Palazzo Farnese, Rome", "n3_5a": "Städel Museum, Frankfurt", "n3_5b": "Louvre, Parijs", "n3_7a": "Pinacoteca di Brera, Milaan", "n3_7b": "National Gallery of Ireland, Dublin", "n3_8a": "Kimbell Art Museum, Fort Worth", "n3_9c": "Nasjonalmuseet, Oslo", "n3_10a": "Louvre, Parijs", "n3_11b": "Hermitage, Sint-Petersburg", "n3_11c": "Louvre, Parijs", "n3_12a": "Gemäldegalerie Alte Meister, Dresden", "n3_12b": "Prado, Madrid", "n3_12c": "Louvre, Parijs", "n3_13a": "Alte Pinakothek, München", "n3_13c": "Prado, Madrid", "n3_14a": "Kunsthistorisches Museum, Wenen", "n3_14b": "Gemäldegalerie Alte Meister, Dresden", "n3_14c": "Kunsthistorisches Museum, Wenen", "n3_15b": "National Gallery, Londen", "n3_16b": "Prado, Madrid", "n3_17a": "Fondazione Magnani-Rocca, Parma", "n3_17b": "Prado, Madrid", "n3_17c": "Prado, Madrid", "n3_18a": "Musée des Beaux-Arts, Bordeaux", "n3_18b": "Prado, Madrid", "n3_18c": "Prado, Madrid", "n3_19b": "Prado, Madrid", "n3_20a": "Groeningemuseum, Brugge", "n3_20b": "Sint-Janshospitaal, Brugge", "n3_20c": "Sint-Janshospitaal, Brugge"};
+function artWhere(o){ return (o&&(o.where||o.w))||whereOf(o.img,o.t)||''; }
+function artCapHTML(o){ const w=artWhere(o); return `<b>${o.a||''}</b><div class="meta"><i>${o.t||''}</i>${o.y?' ('+o.y+')':''}</div>${w?`<div class="meta mus">${w}</div>`:''}`; }
+function artLbCap(o){ const q=x=>esc(x||'').replace(/'/g,'&#39;'); const w=artWhere(o); return `<b>${q(o.a)}</b><br><i>${q(o.t)}</i>${o.y?' ('+q(o.y)+')':''}${w?'<br><span>'+q(w)+'</span>':''}`; }
 function whereOf(img,t){ if(!WHEREIDX){ WHEREIDX={img:{},t:{}}; for(const tr of TRACK_ORDER) for(const R of TRACKS[tr].rounds){ if(!R||R.soon) continue; for(const q of R.q||[]) if(q.in&&q.in.where){ WHEREIDX.img[q.in.img]=q.in.where; WHEREIDX.t[q.in.t]=q.in.where; } if(R.big&&R.big.where){ WHEREIDX.img[R.big.img]=R.big.where; WHEREIDX.t[R.big.t]=R.big.where; } } }
-  return WHEREIDX.img[img]||WHEREIDX.t[t]||''; }
+  return WHEREIDX.img[img]||WHEREIDX.t[t]||ALSO_WHERE[img]||''; }
 const isFav=img=>!!(st.fav&&st.fav[img]);
 function favBtn(o,small){ FAVREG[o.img]=o; return `<button class="fav ${small?'sm':''} ${isFav(o.img)?'on':''}" data-img="${o.img}" onclick="event.stopPropagation();toggleFav('${o.img}')" aria-label="bewaar in mijn museum">${isFav(o.img)?'♥':'♡'}</button>`; }
 function toggleFav(img){ st.fav=st.fav||{}; if(st.fav[img]) delete st.fav[img]; else { const o=FAVREG[img]||{img,t:'',a:'',y:''}; st.fav[img]={img,t:o.t,a:o.a,y:o.y,w:o.where||whereOf(img,o.t),at:Date.now()}; }
@@ -1608,7 +1612,7 @@ function term(id){ const d=document.createElement('div'); d.className='lb gl-mod
   d.innerHTML=`<div class="gl-box" onclick="event.stopPropagation()"><div class="eyebrow">Begrip</div><h2>${GLOSS[id].t}</h2>${termHTML(id)}
    <button class="btn primary lbclose" onclick="this.closest('.lb').remove()">Sluiten</button></div>`;
   d.onclick=()=>d.remove(); document.body.appendChild(d); }
-const termBox = ids => ids.length ? `<div class="gl-list"><h3>📖 Begrippen uit deze uitleg</h3>${ids.map(id=>`<details><summary>${GLOSS[id].t}${GLOSS[id].mis?' <span class="gl-tag">misvatting!</span>':''}</summary>${termHTML(id)}</details>`).join('')}</div>` : '';
+const termBox = ids => false&&ids.length ? `<div class="gl-list"><h3>📖 Begrippen uit deze uitleg</h3>${ids.map(id=>`<details><summary>${GLOSS[id].t}${GLOSS[id].mis?' <span class="gl-tag">misvatting!</span>':''}</summary>${termHTML(id)}</details>`).join('')}</div>` : '';
 let glossBack=null;
 function glossary(){ if(st.view!=='gloss') glossBack=st.view; st.view='gloss';
   const ids=Object.keys(GLOSS).sort((a,b)=>GLOSS[a].t.localeCompare(GLOSS[b].t,'nl'));
@@ -3633,7 +3637,7 @@ function kennerRender(Q,a,T){
   let h=`<div>${topBar()}${inBasis?`<div class="kbadge">🎓 Kunstkenner · les ${st.r+1}</div>`:''}
     <h2>${st.i+1}. ${Q.name}</h2>`;
   if(Q.type==='compare') h+=`<div class="cmp">${cmpBox(Q.A,'A',a!==null)}${cmpBox(Q.B,'B',a!==null)}</div><p class="muted" style="font-size:.82rem">Tik op een schilderij om het schermvullend te bekijken en in te zoomen.</p>`;
-  else h+=`${photo(Q.in,'loupe')}<div class="context"><div><b>${Q.in.t}</b><div class="meta">${Q.in.a} · ${Q.in.y} · ${Q.in.where}</div></div></div>`;
+  else h+=`${photo(Q.in,'loupe')}<div class="context"><div>${artCapHTML(Q.in)}</div></div>`;
   h+=`<p style="margin-top:14px;font-size:1.05rem">${Q.question}</p>
     <div class="opts">${Q.opts.map((o,k)=>{ let cls=''; if(a!==null){ if(k===Q.c) cls='ok'; else if(k===a) cls='bad'; }
       return `<button class="opt ${cls}" ${a!==null?'disabled':''} onclick="answer(${k})"><span class="l">${L[k]}</span><span>${o}</span></button>`;}).join('')}</div>`;
@@ -5180,6 +5184,8 @@ function note(inst,m,t,dur,vol=.18){ const c=AU.ctx, f=mtof(m), g=c.createGain()
   else if(inst==='bell'){ osc('sine',f); osc('sine',f*2.76); osc('sine',f*5.4); lp.frequency.value=6000; g.gain.setValueAtTime(vol*.5,t); g.gain.exponentialRampToValueAtTime(.0008,t+2.2); }
   else if(inst==='brass'){ osc('sawtooth',f); osc('sawtooth',f,5); lp.frequency.setValueAtTime(400,t); lp.frequency.linearRampToValueAtTime(2400,t+.08); g.gain.linearRampToValueAtTime(vol*.6,t+.05); g.gain.setValueAtTime(vol*.5,t+dur*.8); g.gain.linearRampToValueAtTime(0,t+dur+.15); }
   else if(inst==='bass'){ osc('triangle',f); osc('sine',f/2); lp.frequency.value=700; g.gain.setValueAtTime(vol,t); g.gain.exponentialRampToValueAtTime(.0008,t+Math.max(.6,dur)); }
+  else if(inst==='lyre'){ osc('triangle',f); osc('sine',f*2,3); osc('sine',f*3,-4); lp.frequency.setValueAtTime(4200,t); lp.frequency.exponentialRampToValueAtTime(900,t+.9); g.gain.setValueAtTime(vol*.85,t); g.gain.exponentialRampToValueAtTime(.0008,t+Math.max(1.1,dur*1.4)); }
+  else if(inst==='aulos'){ const o1=osc('sawtooth',f,-7), o2=osc('square',f,7); const lfo=c.createOscillator(), lg=c.createGain(); lfo.frequency.value=5.2; lg.gain.value=f*.012; lfo.connect(lg); lg.connect(o1.frequency); lg.connect(o2.frequency); lfo.start(t); lfo.stop(t+dur+1); lp.type='bandpass'; lp.frequency.value=1300; lp.Q.value=1.4; g.gain.linearRampToValueAtTime(vol*.5,t+.12); g.gain.setValueAtTime(vol*.45,t+dur*.85); g.gain.linearRampToValueAtTime(0,t+dur+.25); }
   else if(inst==='accordion'){ osc('square',f,-5); osc('sawtooth',f,6); lp.frequency.value=1800; g.gain.linearRampToValueAtTime(vol*.35,t+.06); g.gain.setValueAtTime(vol*.35,t+dur*.9); g.gain.linearRampToValueAtTime(0,t+dur+.1); }
 }
 function perc(kind,t,vol=.2){ const c=AU.ctx, g=c.createGain(); auOut(g,.3);
@@ -5199,6 +5205,7 @@ const MOODS = {
   provence:{root:65,bpm:96,beats:3,inst:'accordion',prog:[[0,4,7],[9,12,16],[2,5,9],[7,11,14]],pat:[0,1,2],div:1,bass:1,mel:1,pluck:[16,14,12,11,12,14]},
   night:{root:60,bpm:56,beats:4,inst:'pad',prog:[[0,4,7,11],[5,9,12,16],[-3,0,4,7],[2,5,9,12]],pat:[],div:1,bell:[12,16,19,23,21,19,16,14]},
   church:{root:57,bpm:48,beats:4,inst:'organ',prog:[[0,4,7],[5,9,12],[-3,0,4],[7,11,14]],pat:[],div:1,bass:1},
+  greek:{root:62,bpm:72,beats:4,inst:'lyre',prog:[[0,3,7],[1,5,8],[0,3,7],[-2,2,5],[0,3,7],[1,5,8],[-4,0,3],[-2,2,5]],pat:[0,1,2,3,2,1,2,1],div:2,bass:1,drum:[0,3],aulos:[7,8,7,5,3,5,3,1,0,1,3,5,7,5,3,0]},
   mystery:{root:60,bpm:64,beats:4,inst:'pad',prog:[[0,4,8],[2,6,10],[0,4,8],[-2,2,6]],pat:[],div:1,bell:[12,14,16,18,20,18,16,14]}
 };
 function auMood(m){ if(!musOn()){ AU.mood=m; return; } if(!auInit()) return; if(AU.mood===m && AU.timer) return; AU.mood=m; AU.step=0;
@@ -5212,6 +5219,7 @@ function auTick(){ const M=MOODS[AU.mood]; if(!M||!AU.ctx) return; const c=AU.ct
       if(M.drone) note('bass',r-24,t,spb*per,.16); if(M.inst==='brass') ch.forEach(iv=>note('pad',r+iv,t,spb*per,.08)); }
     if(M.pat.length){ const idx=M.pat[pos%M.pat.length]; const iv=ch[idx%ch.length]+(idx>=ch.length?12:0); note(M.inst,r+iv+(M.inst==='harpsi'?12:0),t,spb*1.6,.14); }
     if(M.mel && pos%M.div===0 && Math.random()<.45){ const iv=ch[Math.floor(Math.random()*ch.length)]+24; note(M.inst==='accordion'?'accordion':M.inst==='lute'?'lute':'harpsi',r+iv,t,spb*M.div*.9,.08); }
+    if(M.aulos && pos%(M.div*2)===0){ const k=bar*2+pos/(M.div*2); if(bar%4!==3||pos===0) note('aulos',r+12+M.aulos[k%M.aulos.length],t,spb*M.div*1.9,.1); }
     if(M.bell && pos===0){ note('bell',r+12+M.bell[bar%M.bell.length],t,1.5,.12); }
     if(M.fanfare && pos%1===0){ const f=M.fanfare[(bar*M.beats+pos)%M.fanfare.length]; if(pos!==M.beats-1) note('brass',r+12+f+ch[0],t,spb*.85,.12); }
     if(M.pluck && pos%M.div===0 && (pos/M.div)%2===1){ note('lute',r+M.pluck[(bar*2+pos)%M.pluck.length],t,.6,.1); }
@@ -5324,7 +5332,7 @@ document.addEventListener('visibilitychange',()=>{ if(document.hidden){ auStopMu
 /* ---------- state & helpers (v2: menigtes, emoties, muziek) ---------- */
 let STQ=null; // {id, c, b, ans:{}, intro}
 const PRE_LIST = [
-{ id:'pre_deugden', pre:'deugden', t:'Voorkennis Deugden', sub:'Het spiekboek van de schilders', yrs:'1593', who:'ripa', col:'#5a2a3a',
+{ id:'pre_deugden', mood:'court', pre:'deugden', t:'Voorkennis Deugden', sub:'Het spiekboek van de schilders', yrs:'1593', who:'ripa', col:'#5a2a3a',
   intro:'', outro:'Nu weet je waar al die vrouwen met ankers, bazuinen en weegschalen vandaan komen. Kijk in de lessen goed naar wat ze vasthouden: daar zit het verhaal.',
   chapters:[
   { t:'Het spiekboek van de schilders', y:'Rome, 1593', end:'', beats:[
@@ -5347,7 +5355,7 @@ const PRE_LIST = [
     {s:'catharina', x:'Klaar? We beginnen met de zeven hoofdzonden, zoals Bruegel ze tekende. Let op de details!'}
   ]}
 ]},
-{ id:'pre_myth', pre:'myth', t:'Voorkennis Mythologie', sub:'Wat is mythologie, en wie is familie van wie?', yrs:'de oudheid', who:'zeus', col:'#2c4a7a',
+{ id:'pre_myth', pre:'myth', t:'Voorkennis Mythologie', sub:'Wat is mythologie, en wie is familie van wie?', yrs:'de oudheid', who:'zeus', col:'#2c4a7a', mood:'greek',
   intro:'', outro:'Nu ken je mijn familie, sterveling. Zie je een drietand, een helm met vleugeltjes of een adelaar? Dan weet je wie er bedoeld wordt.',
   chapters:[
   { t:'Wat is mythologie?', y:'de oudheid', end:'', beats:[
@@ -5384,7 +5392,7 @@ const PRE_LIST = [
     {s:'zeus', x:'Een tikje ijdel? Ik? Genoeg gepraat. Op naar de eerste les: de Olympische goden!'}
   ]}
 ]},
-{ id:'pre_bijbel', pre:'bijbel', t:'Voorkennis Bijbelse verhalen', sub:'Hoe lees je een Bijbels schilderij?', yrs:'1400–1700', who:'catharina', col:'#5a3a1e',
+{ id:'pre_bijbel', mood:'church', pre:'bijbel', t:'Voorkennis Bijbelse verhalen', sub:'Hoe lees je een Bijbels schilderij?', yrs:'1400–1700', who:'catharina', col:'#5a3a1e',
   intro:'', outro:'Nu weet je waar je op moet letten: het moment, de attributen en de kleuren. Zie je een mes en een ram, of een blauwe mantel? Dan weet je welk verhaal je voor je hebt.',
   chapters:[
   { t:'Een boek vol beelden', y:'Europa, 1400–1700', end:'', beats:[
@@ -5407,7 +5415,7 @@ const PRE_LIST = [
     {s:'catharina', x:'Moment, attributen, kleuren en stralenkrans. Met die vier sleutels open je bijna elk Bijbels schilderij. We beginnen bij de helden en heldinnen van het Oude Testament.'}
   ]}
 ]},
-{ id:'pre_ge', pre:'ge', t:'Voorkennis Gouden Eeuw', sub:'Kunst voor de huiskamer, met een dubbele bodem', yrs:'1600–1800', who:'rembrandt', col:'#3a4a2a',
+{ id:'pre_ge', mood:'dutch', pre:'ge', t:'Voorkennis Gouden Eeuw', sub:'Kunst voor de huiskamer, met een dubbele bodem', yrs:'1600–1800', who:'rembrandt', col:'#3a4a2a',
   intro:'', outro:'Nu weet je waarom Hollandse schilderijen zo gewoon lijken, en waarom ze dat bijna nooit zijn. Kijk in de lessen goed naar de details: daar zit de boodschap.',
   chapters:[
   { t:'Kunst voor thuis', y:'De Republiek, 1600–1700', end:'', beats:[
@@ -5430,7 +5438,7 @@ const PRE_LIST = [
     {s:'rembrandt', x:'Kom, we gaan naar binnen. Eerste les: het Hollandse interieur. Kijk goed wat de mensen in hun handen hebben.'}
   ]}
 ]},
-{ id:'pre_kenner', pre:'kenner', t:'Voorkennis Kunstkenner', sub:'Meester, werkplaats, kopie of vervalsing?', yrs:'1400–1900', who:'leo', col:'#4a3a5a',
+{ id:'pre_kenner', mood:'mystery', pre:'kenner', t:'Voorkennis Kunstkenner', sub:'Meester, werkplaats, kopie of vervalsing?', yrs:'1400–1900', who:'leo', col:'#4a3a5a',
   intro:'', outro:'Nu weet je dat achter veel “meesterwerken” een hele werkplaats zat. In de lessen leer je zelf het verschil zien: kijk naar handen, stof, licht en compositie.',
   chapters:[
   { t:'Wie schilderde dit?', y:'Florence, ca. 1500', end:'', beats:[
@@ -5453,7 +5461,7 @@ const PRE_LIST = [
     {s:'catharina', x:'Echt, werkplaats, kopie of vervalsing? Na deze cursus kijk je als een kenner. We beginnen bij het moeilijkste: handen en gezichten.'}
   ]}
 ]},
-{ id:'pre_hg', pre:'hg', t:'Voorkennis Hollandse glorie', sub:'Zeven eeuwen Nederland in vijf minuten', yrs:'1400–nu', who:'rembrandt', col:'#2a4a6a',
+{ id:'pre_hg', mood:'dutch', pre:'hg', t:'Voorkennis Hollandse glorie', sub:'Zeven eeuwen Nederland in vijf minuten', yrs:'1400–nu', who:'rembrandt', col:'#2a4a6a',
   intro:'', outro:'Nu heb je de tijdlijn in je hoofd. In elke les zoomen we in op één periode. Let steeds op wat er in het land gebeurde: dat zie je terug op het doek.',
   chapters:[
   { t:'Water en verf', y:'1400 tot nu', end:'', beats:[
@@ -5534,7 +5542,7 @@ function storyOpen(id){ { const P0=PRE_LIST.find(x=>x.id===id); if(P0){ auLeave(
 function storyPlay(id,c){ voxLoad(id); auResume(); STQ={id,c,b:0,ans:{},intro:true}; st.view='story'; storyIntro(); }
 /* hoofdstuk-opening: gordijn open, titel, jaartal */
 function storyIntro(){ const S=storyById(STQ.id), C=S.chapters[STQ.c]; const first=storySceneState(S,STQ.c,0);
-  { const tr=musTrackFor(STQ.id,first.mood); if(tr){ auStopMusic(); musPlay(tr); } else auMood(first.mood); } sfx('sting');
+  { const tr=musTrackFor(STQ.id,first.mood); if(tr){ auStopMusic(); musPlay(tr); } else { try{ musStop(); }catch(e){} auMood(first.mood); } } sfx('sting');
   $(`<div class="storyv"><div class="hdr"><button class="chip" onclick="STQ=null;storyOpen('${S.id}')">‹ ${S.t}</button><button class="chip snd-btn" onclick="soundPanel()">${auOn()?'🔊':'🔇'}</button></div>
     <div class="stage intro-stage" onclick="storyStart()"><div class="s-bg">${BG[first.bg]||BG.white}</div>
       <div class="curtain cl"></div><div class="curtain cr"></div>
@@ -5560,7 +5568,7 @@ function storyChapterDone(){ const S=storyById(STQ.id), c=STQ.c; if(S.pre){ st.p
     ${last&&ASK[S.id]?`<button class="btn primary big" onclick="auLeave();askOpen('${S.id}')">💬 Stel ${ASK[S.id].name} een vraag</button>`:''}<button class="btn" style="margin-top:8px" onclick="auLeave();storyOpen('${S.id}')">${S.pre?'Naar de cursus':'Naar het overzicht'}</button></div>`); STQ=null; if(last&&ASK[S.id]&&!(st.askUnl&&st.askUnl[S.id])){ st.askUnl=st.askUnl||{}; st.askUnl[S.id]=1; save(); setTimeout(()=>askUnlockModal(S.id),1600); } }
 function storyView(still){ const S=storyById(STQ.id), C=S.chapters[STQ.c], beats=C.beats, x=beats[STQ.b]; st.view='story';
   const prev=STQ.b>0?storySceneState(S,STQ.c,STQ.b-1):{actors:{},bg:null,crowd:null,weather:'',props:{},emo:{}}; const cur=storySceneState(S,STQ.c,STQ.b);
-  { const tr=musTrackFor(STQ.id,cur.mood); if(tr){ auStopMusic(); musPlay(tr); } else auMood(cur.mood); }
+  { const tr=musTrackFor(STQ.id,cur.mood); if(tr){ auStopMusic(); musPlay(tr); } else { try{ musStop(); }catch(e){} auMood(cur.mood); } }
   if(!still){ if(x.s&&x.x) speak(STQ.id,x.x); else if(x.n) speak(STQ.id,x.n); else if(x.art&&x.x) speak(STQ.id,x.x); else speakStop(); }
   const amb=new Set(); if(/rain|storm/.test(cur.weather)) amb.add('rain'); if(/fire/.test(cur.weather)) amb.add('fire'); if(['sea','storm','naples'].includes(cur.bg)) amb.add('waves'); if(cur.crowd&&!['soldiers','knights','mourn','monks'].includes(cur.crowd)) amb.add('crowd'); if(['vaux','garden'].includes(cur.bg)) amb.add('fountain'); auAmb(amb);
   if(!still){ if(x.sfx) sfx(x.sfx); if(x.crowd&&x.crowd!==prev.crowd&&!x.sfx){ const cs={angry:'angry',cheer:'cheer',audience:'clap',auction:'murmur',court:'murmur',admire:'murmur',soldiers:'drum',militia:'drum',workers:'hammer',church:'murmur'}[x.crowd&&x.crowd.k||x.crowd]; if(cs) sfx(cs); }
@@ -6584,7 +6592,7 @@ function mmWork(img){ const x=mmAll().find(o=>o.img===img); if(!x) return mmView
   const seen=(st.mmSeen||{})[img];
   $(`<div class="dq mm"><div class="top"><button class="btn small" onclick="${st.mmMus?`mmMus('${esc(st.mmMus).replace(/'/g,"\\'")}')`:'mmView()'}">‹ Terug</button></div>
     <div class="frame dq-img"><img src="${P(x.img)}" alt="" onclick="lb('${x.img}','${esc(x.t)}')"></div>
-    <h2 class="serif" style="margin:10px 0 2px">${x.t}</h2><p class="muted" style="margin:0 0 12px">${x.a} · ${x.y||''} · ${x.where}</p>
+    <h2 class="serif" style="margin:10px 0 2px">${x.t}</h2><p class="muted" style="margin:0 0 12px">${x.a} · ${x.where}</p>
     <div class="mm-laura"><div class="mm-fig">${lauraSVG(0,true)}</div><div class="ob-bubble">${x.big?strip(x.intro)+'<br><br>':''}${x.big?strip(x.story):strip(x.exp)}</div></div>
     ${look?`<h3 class="serif" style="margin:14px 0 6px">Waar kijk je naar?</h3><ul class="mm-look">${look}</ul>`:''}
     ${x.q&&!x.big?`<div class="card" style="margin-top:10px"><b>Kijkvraag:</b> ${strip(x.q)}</div>`:''}
@@ -13304,7 +13312,7 @@ function question(){ window.ROUND_END=false;
   let h = `<div>${topBar()}
     <h2>${a===null?`Vraag ${st.i+1}`:`${st.i+1}. ${Q.name}`}</h2>
     ${photo(a===null?{...Q.in,t:'Titel volgt na je antwoord'}:Q.in,Q.icon)}
-    <div class="context"><div><b>${a===null?'<span class="muted">🔒 Titel volgt na je antwoord</span>':Q.in.t}</b><div class="meta">${a===null&&diffOf()==='g'?'Maker, jaartal en museum zie je na je antwoord':`${Q.in.a} · ${Q.in.y} · ${Q.in.where}`}</div></div></div>
+    <div class="context"><div>${a===null&&diffOf()==='g'?'<b class="muted">🔒 Maker, titel en museum zie je na je antwoord</b>':a===null?`<b>${Q.in.a}</b><div class="meta muted">🔒 Titel volgt na je antwoord</div><div class="meta mus">${Q.in.where}</div>`:artCapHTML(Q.in)}</div></div>
     <p style="margin-top:14px;font-size:1.05rem">${Q.question}</p>
     ${optsHtml(Q,qKey(),a,'answer')}`;
   if(a!==null){
@@ -13314,7 +13322,7 @@ function question(){ window.ROUND_END=false;
       <div class="verdict ${good?'ok':'bad'}">${good?'Goed gezien!':'Net niet. Het juiste antwoord is '+corrL(Q,qKey())+'.'}</div>
       <p>${linkTerms(Q.exp,used)}</p>
       <h3>Ook te zien in…</h3>
-      <div class="works">${Q.also.map(w=>`<div class="work"><div class="th" onclick="lb('${w.img}','<b>${esc(w.t).replace(/'/g,'&#39;')}</b><br><span>${esc(w.a).replace(/'/g,'&#39;')} · ${w.y}</span>')"><img src="${P(w.img)}" alt="${esc(w.t)}" loading="lazy"></div><div class="txt"><b>${w.t}</b><div class="meta">${w.a} · ${w.y}</div><div class="note">${linkTerms(w.n,used)}</div></div>${favBtn({...w,where:whereOf(w.img,w.t)},true)}</div>`).join('')}</div>
+      <div class="works">${Q.also.map(w=>`<div class="work"><div class="th" onclick="lb('${w.img}','${artLbCap(w)}')"><img src="${P(w.img)}" alt="${esc(w.t)}" loading="lazy"></div><div class="txt">${artCapHTML(w)}<div class="note">${linkTerms(w.n,used)}</div></div>${favBtn({...w,where:whereOf(w.img,w.t)},true)}</div>`).join('')}</div>
       ${termBox(ids)}
       <div class="row"><button class="btn small" onclick="delete res(st.r)[st.i];question()">↺ opnieuw</button></div>
     </div>${nextBar(st.i<ROUNDS[st.r].q.length-1?'Volgende vraag →':'Door naar de eindtoets ★','nav(1)',good)}`;
@@ -13330,7 +13338,7 @@ function big(){
   let h = `<div>${topBar()}<h2>Meesterwerk: ${B.t}</h2>`;
   if(st.bigStep===-1){
     h += `${photo(B)}
-      <div class="context"><div><b>${B.t}</b><div class="meta">${B.a} · ${B.y} · ${B.where}</div></div></div>
+      <div class="context"><div>${artCapHTML(B)}</div></div>
       <p style="margin-top:14px;font-size:1.05rem">${B.intro}</p><p class="muted" style="font-size:.88rem">Bij elk detail staat het schilderij erboven; tik erop om het schermvullend te bekijken.</p>
       <div class="row"><a class="btn" href="${wiki(B.s)}" target="_blank" rel="noopener">Wikipedia ↗</a>
       <button class="btn primary" onclick="nav(1)">Start de speurtocht →</button></div>`;
@@ -13342,7 +13350,7 @@ function big(){
       <p style="font-size:1.05rem"><b>${D.q}</b></p>
       ${optsHtml(D,bKey(),a,'bigAnswer')}`;
     if(a!==null) h += `<div class="card" id="fb"><div class="verdict ${a===D.c?'ok':'bad'}">${a===D.c?'Klopt!':'Bijna. Het juiste antwoord is '+corrL(D,bKey())+'.'}</div><p>${linkTerms(D.e)}</p>${termBox(termsIn(D.d+' '+D.e))}
-      </div>${nextBar('Terug naar het hoofdmenu','hub()',a===D.c)}`;
+      </div>${nextBar(st.bigStep<n-1?'Volgend detail →':(!ROUNDS[st.r+1]||ROUNDS[st.r+1].soon?'Les afronden →':`Door naar les ${st.r+2} →`),st.bigStep<n-1||!ROUNDS[st.r+1]||ROUNDS[st.r+1].soon?'nav(1)':'bigDone()',a===D.c)}`;
   } else { window.ROUND_END=true;
     const sc=roundScore(st.r);
     const done=roundComplete(st.r);
@@ -13376,7 +13384,7 @@ function big(){
       <div class="row" style="justify-content:center;margin-top:12px">${[['b','Te moeilijk'],['m','Precies goed'],['g','Te makkelijk']].map(([k,t])=>`<button class="btn ${k==='m'?'primary':''}" onclick="diffAnswer('${k}')">${t}</button>`).join('')}</div></div>`;
   }
   const bd=st.bigStep>=0&&st.bigStep<n&&(st.bigStep in bres(st.r));
-  $(h+`<div class="bnav"><button class="btn" onclick="nav(-1)">‹ 1 vraag terug</button>${bd?(st.bigStep<n-1||!ROUNDS[st.r+1]||ROUNDS[st.r+1].soon?`<button class="btn primary" onclick="nav(1)">${st.bigStep<n-1?'Volgend detail →':'Les afronden →'}</button>`:`<button class="btn primary" onclick="bigDone()">Door naar les ${st.r+2} →</button>`):`<button class="btn primary" onclick="hub()">Terug naar het hoofdmenu</button>`}</div>`+'</div>');
+  $(h+`<div class="bnav"><button class="btn" onclick="nav(-1)">‹ 1 vraag terug</button>${bd?`<button class="btn" onclick="hub()">Terug naar het hoofdmenu</button>`:`<button class="btn primary" onclick="hub()">Terug naar het hoofdmenu</button>`}</div>`+'</div>');
 }
 function bigAnswer(k){ const wasA=(st.bigStep in bres(st.r)); bres(st.r)[st.bigStep]=k; try{ const ok=k===TR(st.r).big.details[st.bigStep].c; cameoNote(ok); if(!wasA){ if(ok) try{ sfx('correct'); }catch(e){} firstMark(K(st.r,st.t)+'|b|'+st.bigStep,ok); ansReward(ok,'b'); } }catch(e){} big(); setTimeout(()=>{const c=document.getElementById('fb'); c&&c.scrollIntoView({behavior:'smooth',block:'start'});},80); }
 
