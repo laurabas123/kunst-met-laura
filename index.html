@@ -645,7 +645,7 @@ body.has-nav #nav{display:flex}body.has-nav .wrap{padding-bottom:96px}
 .nxbar .nx-v:empty{display:none}.nxbar .btn{flex:1;max-width:520px;margin:0 auto}
 body:has(.nxbar) .wrap,body:has(.nxbar) .dq{padding-bottom:110px}.nxbar.bad .nx-v{color:#e0a07a}
 @keyframes nxin{from{transform:translateY(100%)}to{transform:none}}@media (prefers-reduced-motion:reduce){.nxbar{animation:none}}
-.sp-yn{display:flex;gap:10px;margin-top:10px}.sp-yn .btn{flex:1;margin:0}
+.sp-yn{display:flex;gap:10px;margin-top:10px}.sp-yn .btn{flex:1;margin:0;justify-content:center;text-align:center}
 .cred-list{padding-left:18px;line-height:1.5}.cred-list li{margin:4px 0}.cred-list a{color:var(--gold2,#d7b46a)}
 .sfun{display:flex;flex-direction:column;gap:6px;margin:8px 0 18px}.sf-row{display:grid;grid-template-columns:42% 1fr 44px;gap:8px;align-items:center;font-size:.82rem}
 .sf-b{position:relative;height:22px;background:rgba(255,255,255,.05);border-radius:6px;overflow:hidden}.sf-b i{position:absolute;inset:0 auto 0 0;background:#d7b46a;opacity:.75}.sf-b span{position:relative;padding-left:6px;line-height:22px;font-weight:600}
@@ -3879,7 +3879,7 @@ let NAPSRC=null;
 function napSpeak(k){ try{ if(NAPSRC){ NAPSRC.onended=null; NAPSRC.stop(); } }catch(e){} NAPSRC=null; if(!vxOn()||!auInit()||!window.NAPVOX||!NAPVOX[k]) return;
   const bin=atob(NAPVOX[k]), arr=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) arr[i]=bin.charCodeAt(i);
   AU.ctx.decodeAudioData(arr.buffer,buf=>{ const s=AU.ctx.createBufferSource(); s.buffer=buf; s.connect(AU.ctx.destination); musDuck(true); s.onended=()=>{ if(NAPSRC===s){ NAPSRC=null; musDuck(false); } }; NAPSRC=s; s.start(); },()=>{}); }
-var VOXV='20261127e';
+var VOXV='20261127f';
 function napLoad(){ if(window.NAPVOX||window._napL) return; window._napL=1; const s=document.createElement('script'); s.src='vox/napoleon.js?v='+VOXV; s.async=true; s.onerror=()=>{window._napL=0;}; document.head.appendChild(s); }
 const NAPL={
  n1:'<b>Bonjour, lieve testers!</b> Ik ben Napoleon Bonaparte. Laura heeft mij gevraagd of ik leuk nieuws met jullie wilde delen.',
@@ -5386,7 +5386,7 @@ const STORIES=[
     {q:'Waarom zouden Hollanders liever niet naar het plafond kijken?', o:['Er staan zoveel naakte goden op dat de protestantse Hollanders zich er flink voor schaamden','Le Brun schilderde er Lodewijks overwinningen, onder meer in de oorlog tegen de Republiek in 1672','Het plafond is helemaal in het oranje geverfd, als bespotting van het Huis van Oranje en Willem III'], c:1,
       e:'Het plafond van Charles Le Brun toont de daden van de koning, met de <b>Hollandse Oorlog</b> als hoofdthema. 1672 is bij ons het <b>Rampjaar</b>: Frankrijk viel de Republiek binnen. In Versailles is het een triomf.'},
     {art:'st_l2', t:'De koning regeert zelf (plafond van de Spiegelzaal)', a:'Charles Le Brun', yr:'1678–1684', x:'Het middenstuk van het plafond. De jonge Lodewijk zit als een Romeinse held op een wolk, omringd door goden. Het moment: 1661, het jaar dat hij besloot voortaan zonder eerste minister te regeren.'},
-    {n:'Niet alleen de muren en plafonds: álles in Versailles moest het mooiste van Europa zijn, en in Frankrijk gemaakt. Minister <b>Colbert</b> brengt de beste ambachtslieden samen in de koninklijke werkplaatsen van de <b>Gobelins</b> in Parijs.'},
+    {n:'Niet alleen de muren en plafonds: álles in Versailles moest het mooiste van Europa zijn, en in Frankrijk gemaakt. Minister <b>Colbert</b> brengt de beste ambachtslieden samen in de koninklijke werkplaatsen van de <b>Gobelins</b>.'},
     {art:'st_l4', t:'De koning bezoekt de Gobelins', a:'Naar ontwerp van Charles Le Brun', yr:'1667 (wandtapijt ca. 1673–1680)', x:'Een wandtapijt over… het maken van kunst. Lodewijk bekijkt wat zijn werkplaatsen voor hem maken: tapijten, schilderijen, en meubels van massief <b>zilver</b>. Kijk naar de mannen die zware zilveren vazen en tafels naar binnen dragen.'},
     {q:'Wat gebeurde er in 1689 met de zilveren meubels van Versailles?', o:['Ze werden als geschenk aan de koning van Siam gegeven','Ze werden omgesmolten om de oorlogen te betalen','Ze werden verborgen in de kelders tegen dieven'], c:1,
       e:'Lodewijk liet ze <b>omsmelten</b> tot munten om zijn oorlogen te betalen. Daarom bestaan ze niet meer, en kennen we ze alleen nog van wandtapijten en tekeningen zoals deze.'},
@@ -5755,7 +5755,7 @@ medici:{ mood:'renaissance',
   '6.5':{crowd:'admire',mood:'renaissance'}
  },
  ins:{
-  '0.1':[{crowd:{k:'angry',n:8},emo:{cosimo:'scared'},act:{cosimo:'shake'},mood:'tension',n:'1433. Jaloerse families hitsen de stad op tegen de rijke bankier. “Weg met de Medici!”'}],
+  '0.1':[{crowd:{k:'angry',n:8},emo:{cosimo:'scared'},act:{cosimo:'shake'},mood:'tension',y:'1433', n:'Jaloerse families hitsen de stad op tegen de rijke bankier. “Weg met de Medici!”'}],
   '0.2':[{crowd:{k:'cheer',n:9},emo:{cosimo:'happy'},act:{cosimo:'jump'},mood:'triumph',weather:'petals',n:'1434: Cosimo keert in triomf terug. Florence juicht. De Medici gaan nergens meer heen.'}],
   '1.6':[{out:'giuliano',emo:{lorenzo:'scared'},act:{lorenzo:'run'},sfx:'door',crowd:{k:'angry',n:6},n:'Lorenzo vlucht gewond de sacristie in. De zware bronzen deuren slaan achter hem dicht. BOEM.',cam:'in-l'}],
   '2.3':[{sfx:'chisel',act:{michelangelo:'jump'},cam:'in-r',emo:{michelangelo:'proud'},n:'Tik… tik… Michelangelo pakt zijn beitel en hakt meteen een tand weg.'},
