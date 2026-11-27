@@ -1053,7 +1053,135 @@ const BASIS_ROUNDS = [
     ],
     story:'<p>Bruegel schilderde dit in <b>Antwerpen</b>, toen spreekwoordenverzamelingen razend populair waren (ook Erasmus verzamelde ze). Het is een grote zoekplaat, maar ook een spiegel: <b>zo dwaas is de mens</b>.</p><p>Bruegel oordeelt niet hard. Hij kijkt met humor naar het menselijk gedoe. Kijk er nog eens naar en tel hoeveel spreekwoorden je zelf herkent; er staan er meer dan honderd. Daarmee sluit je deze reeks af als echte symboliekspeurder!</p>'
   }
+},
+{ title:"Les 5 — Waar komen de verhalen vandaan?", sub:"De Bijbel, Ovidius, de Gulden Legende, Ripa en de embleemboeken",
+  q:[
+  { icon:null, name:'Het boek der boeken',
+    in:{img:'j1', t:'Het offer van Isaak', a:'Caravaggio', y:'ca. 1603', where:'Uffizi, Florence', s:'Caravaggio Sacrifice of Isaac Uffizi'},
+    question:'Een oude man drukt een jongen op een steen en heft een mes. Een engel grijpt in en wijst op een ram. Uit welke bron komt dit verhaal?',
+    opts:['Uit Ovidius’ Metamorfosen, over goden en mensen','Uit de Bijbel: het Oude Testament','Uit de Gulden Legende, over heiligen'], c:1,
+    exp:'Dit is <b>Abraham</b>, die van God zijn zoon Isaak moet offeren (Genesis 22). De <b>Bijbel</b> is veruit de grootste bron van oude kunst. Het <b>Oude Testament</b> gaat over de tijd vóór Christus, het <b>Nieuwe Testament</b> over Jezus, Maria en de apostelen.',
+    also:[
+      {img:'j1a', t:'Het offer van Abraham', a:'Rembrandt', y:'1635', n:'Hetzelfde verhaal: de engel grijpt Abrahams pols, het mes valt.', s:'Rembrandt Sacrifice of Abraham Hermitage'},
+      {img:'j3', t:'David met het hoofd van Goliath', a:'Caravaggio', y:'ca. 1610', n:'Ook uit het Oude Testament: de herdersjongen David verslaat de reus Goliath.', s:'Caravaggio David with the Head of Goliath Borghese'},
+      {img:'w1', t:'Het Laatste Avondmaal', a:'Leonardo da Vinci', y:'1495–1498', n:'Uit het Nieuwe Testament: de laatste maaltijd van Jezus met zijn apostelen.', s:'Leonardo Last Supper'}]},
+  { icon:null, name:'Een dichter uit Rome',
+    in:{img:'z2', t:'Diana en Actaeon', a:'Titiaan', y:'1556–1559', where:'National Gallery of Scotland, Edinburgh', s:'Titian Diana and Actaeon'},
+    question:'Een jager stuit op een badende godin en haar nimfen. Even later verandert hij in een hert. Uit welk boek kenden schilders dit verhaal?',
+    opts:['Uit de Metamorfosen van Ovidius','Uit Ripa’s Iconologia','Uit het Nieuwe Testament'], c:0,
+    exp:'De Romeinse dichter <b>Ovidius</b> schreef rond het jaar 8 de <b>Metamorfosen</b>: zo’n 250 verhalen over gedaanteverwisselingen. Voor schilders was het hét handboek van de mythologie. Actaeon zag Diana naakt en werd voor straf in een hert veranderd.',
+    also:[
+      {img:'z1', t:'Narcissus', a:'Caravaggio (toegeschreven)', y:'ca. 1597–1599', n:'Ook uit Ovidius: de jongen die verliefd werd op zijn eigen spiegelbeeld.', s:'Caravaggio Narcissus'},
+      {img:'z5', t:'De val van Icarus', a:'Peter Paul Rubens', y:'1636', n:'Icarus vloog te dicht bij de zon, verteld in boek 8 van de Metamorfosen.', s:'Rubens Fall of Icarus'},
+      {img:'zB', t:'Apollo en Daphne', a:'Gian Lorenzo Bernini', y:'1622–1625', n:'Daphne verandert in een laurierboom: het beroemdste beeld naar Ovidius.', s:'Bernini Apollo and Daphne'}]},
+  { icon:null, name:'Het hert met het kruis',
+    in:{img:'n3', t:'Het visioen van de heilige Eustachius', a:'Pisanello', y:'ca. 1438–1442', where:'National Gallery, Londen', s:'Pisanello Vision of Saint Eustace'},
+    question:'Een ridder op jacht ziet een hert met een kruisbeeld tussen het gewei. Dit staat niet in de Bijbel. Waar komt het verhaal vandaan?',
+    opts:['Uit een Romeinse sage over de jacht','Uit de Metamorfosen van Ovidius','Uit de Gulden Legende, het grote heiligenboek'], c:2,
+    exp:'De <b>Gulden Legende</b> (<i>Legenda Aurea</i>) werd rond 1260 geschreven door de Italiaanse bisschop <b>Jacobus de Voragine</b>. Het boek vertelt de levens van de heiligen, vol wonderen en martelaarschap. Na de Bijbel is het de belangrijkste bron van middeleeuwse kunst. Eustachius werd na dit visioen christen.',
+    also:[
+      {img:'q1c', t:'Sint-Franciscus in meditatie', a:'Francisco de Zurbarán', y:'ca. 1635–1640', n:'Ook de levens van Franciscus en andere heiligen kenden schilders uit de heiligenlegenden.', s:'Zurbaran Saint Francis'},
+      {img:'o1', t:'Boetvaardige Maria Magdalena', a:'Titiaan', y:'ca. 1531–1533', n:'Haar leven als kluizenares komt niet uit de Bijbel, maar uit de Gulden Legende.', s:'Titian Penitent Magdalene Pitti'}]},
+  { icon:null, name:'Het spiekboek',
+    in:{img:'r3', t:'Personificatie van de Roem', a:'Bernardo Strozzi', y:'ca. 1635–1636', where:'National Gallery, Londen', s:'Strozzi Personification of Fame'},
+    question:'Een jonge vrouw met vleugels houdt een trompet en een hobo vast. Waar zocht de schilder op hoe hij “de Roem” moest afbeelden?',
+    opts:['In Ripa’s Iconologia, het beeldwoordenboek uit 1593','In de Gulden Legende van Jacobus de Voragine','In het boek Openbaring uit de Bijbel'], c:0,
+    exp:'<b>Cesare Ripa</b> beschreef in zijn <b>Iconologia</b> (1593) hoe je abstracte begrippen als mens afbeeldt: kleding, kleur en attributen. Bij hem blaast de Roem op een trompet, want roem wordt rondgebazuind. Twee instrumenten? Volgens sommige uitleggers voor goede én slechte roem.',
+    also:[
+      {img:'r1', t:'De Hoop (Spes)', a:'naar Pieter Bruegel de Oude', y:'1559–1560', n:'De Hoop met haar anker: een personificatie, net als bij Ripa.', s:'Bruegel Spes Hope engraving'},
+      {img:'r5', t:'Allegorie van de Overvloed', a:'Sandro Botticelli', y:'ca. 1480–1485', n:'De Overvloed met een hoorn vol vruchten.', s:'Botticelli Allegory of Abundance'},
+      {img:'rB', t:'Allegorie op het geloof', a:'Johannes Vermeer', y:'ca. 1670–1672', n:'Vermeer volgde Ripa bijna woord voor woord.', s:'Vermeer Allegory of Faith'}]},
+  { icon:null, name:'Plaatje met een les',
+    in:{img:'s1', t:'Embleem uit Maechden-plicht', a:'Adriaen van de Venne voor Jacob Cats', y:'1618', where:'Hollandse embleembundel', s:'Jacob Cats Maechden-plicht emblem'},
+    question:'Een prentje met een spreuk erboven en een gedichtje eronder. In de Gouden Eeuw lag zo’n boek in veel Hollandse huizen. Wat voor boek is dit?',
+    opts:['Een kookboek voor de huishouding','Een embleemboek: elk plaatje heeft een morele les','Een kinderboek om te leren lezen'], c:1,
+    exp:'Een <b>embleem</b> bestaat uit drie delen: een <b>motto</b>, een <b>prent</b> en een <b>gedicht</b> dat de les uitlegt. De bundels van <b>Jacob Cats</b> waren bestsellers. Schilders als Jan Steen haalden er hun dubbele bodems uit: een vogelkooi, een kaars of een lege schelp kreeg zo een betekenis.',
+    also:[
+      {img:'g3', t:'Het minnekozie', a:'Jan Steen', y:'ca. 1660', n:'Jan Steen speelt met dezelfde beeldtaal als de embleemboeken.', s:'Jan Steen Lovesick Maiden'},
+      {img:'b4', t:'De Nederlandse spreekwoorden', a:'Pieter Bruegel de Oude', y:'1559', n:'Nog een bron: spreekwoorden en zegswijzen, honderd in één doek.', s:'Bruegel Netherlandish Proverbs'}]}
+  ],
+  big:{ img:'dB', t:'De zeven hoofdzonden en de vier uitersten', a:'Jheronimus Bosch (werkplaats)', y:'ca. 1500–1525', where:'Museo del Prado, Madrid', s:'Bosch Seven Deadly Sins and the Four Last Things',
+    intro:'Een tafelblad dat voor de Spaanse koning Filips II in zijn slaapkamer stond. Hier komen bijna alle bronnen samen. Tik op het schilderij om het groter te zien.',
+    details:[
+      {d:'In het midden staat een groot <b>oog</b>. In de pupil verrijst Christus uit zijn graf. Eromheen staat in het Latijn: <i>Cave cave Deus videt</i>.', q:'Wat betekent die tekst?', opts:['“Pas op, pas op, God ziet het”','“Geluk is voor wie geduld heeft”','“De mens is een wolf voor de mens”'], c:0,
+        e:'<b>Pas op, pas op, God ziet het.</b> Het oog van God ziet alles wat je doet. Christus in de pupil laat zien wie er kijkt.'},
+      {d:'Bovenin en onderin hangen <b>banderollen</b> met Bijbelteksten over een volk dat zijn ondergang niet ziet aankomen.', q:'Uit welke bron komen die teksten?', opts:['Uit de Gulden Legende','Uit de Bijbel: het boek Deuteronomium','Uit de Metamorfosen van Ovidius'], c:1,
+        e:'De teksten komen uit <b>Deuteronomium 32</b>: “Het is een volk zonder verstand. Waren zij maar wijs, dan zouden zij hun einde overwegen.” De Bijbel geeft het kader.'},
+      {d:'In de zeven taartpunten zie je gewone mensen: een vreetzak, een jaloerse buurman, een rechter die smeergeld aanneemt.', q:'Wat stellen die zeven scènes voor?', opts:['De zeven dagen van de schepping','De zeven hoofdzonden, uit het dagelijks leven gegrepen','De zeven werken van barmhartigheid'], c:1,
+        e:'De <b>zeven hoofdzonden</b>: hoogmoed, hebzucht, onkuisheid, woede, gulzigheid, afgunst en traagheid. Ze komen niet letterlijk uit de Bijbel, maar uit de kerkelijke leer. Ripa gaf ze later elk een eigen gedaante.'},
+      {d:'In de vier hoeken staan ronde taferelen: een sterfbed, het Laatste Oordeel, de hemel en de hel.', q:'Hoe noemen we die vier?', opts:['De vier seizoenen','De vier temperamenten','De vier uitersten: dood, oordeel, hemel en hel'], c:2,
+        e:'De <b>vier uitersten</b> zijn de laatste dingen die elke mens te wachten staan. Wie zondigt, eindigt rechtsonder in de hel.'},
+      {d:'Een man in de taartpunt van de gulzigheid eet zich vol, terwijl een kind aan zijn mouw trekt.', q:'Welke bron gebruikt Bosch hier vooral?', opts:['Het dagelijks leven, als spiegel voor de kijker','Een heiligenleven uit de Gulden Legende','Een mythe over de god Bacchus'], c:0,
+        e:'Bosch laat de zonden zien in <b>herkenbare huiskamers</b> van zijn eigen tijd. Zo houdt hij de kijker een <b>spiegel</b> voor. Dat zie je later terug bij Jan Steen en in de embleemboeken.'}
+    ],
+    story:'<p>Bosch combineerde hier alles: een Bijbelse waarschuwing, de kerkelijke leer van de hoofdzonden, de vier uitersten en het dagelijks leven van zijn tijd. Dat is precies wat je als kijker moet doen: <b>de bron herkennen</b>. Is het een Bijbelverhaal, een mythe uit Ovidius, een heiligenleven, een personificatie uit Ripa of een les uit een embleemboek?</p><p>Koning <b>Filips II</b> van Spanje kocht het werk en liet het in zijn slaapkamer in het Escorial zetten. Elke ochtend keek God hem dus aan.</p>'
+  }
+},
+{ title:"Les 6 — Kijken in drie stappen", sub:"Beschrijven, herkennen en begrijpen: de methode van de iconoloog",
+  q:[
+  { icon:null, name:'Stap 1: wat zie je?',
+    in:{img:'j3', t:'David met het hoofd van Goliath', a:'Caravaggio', y:'ca. 1610', where:'Galleria Borghese, Rome', s:'Caravaggio David with the Head of Goliath Borghese'},
+    question:'De eerste stap is <b>beschrijven</b>: zeggen wat je ziet, zonder te duiden. Welke zin is een goede stap 1 bij dit schilderij?',
+    opts:['David toont de reus Goliath, die hij net heeft verslagen','Een jongen houdt in het donker een afgehakt mannenhoofd vast','Caravaggio vraagt hier vergeving voor zijn misdaad'], c:1,
+    exp:'Stap 1 heet de <b>pre-iconografische beschrijving</b>: je benoemt alleen wat er staat. Een jongen, een zwaard, een afgehakt hoofd, donker licht. Pas daarna vraag je je af wie het zijn. Klinkt simpel, maar het voorkomt dat je te snel conclusies trekt.',
+    also:[
+      {img:'j3a', t:'David en Goliath', a:'Caravaggio', y:'ca. 1599', n:'Eerst kijken: een jongen knielt op een liggende reus.', s:'Caravaggio David and Goliath Prado'},
+      {img:'j3b', t:'David', a:'Michelangelo', y:'1501–1504', n:'Beschrijf eerst: een naakte jongeman met een slinger over zijn schouder.', s:'Michelangelo David'},
+      {img:'m4', t:'Judith onthoofdt Holofernes', a:'Caravaggio', y:'ca. 1598–1599', n:'Kijk goed: een jonge vrouw, een zwaard, een oude dienares.', s:'Caravaggio Judith Beheading Holofernes'}]},
+  { icon:null, name:'Stap 2: wie is het?',
+    in:{img:'w5', t:'De ongelovige Thomas', a:'Caravaggio', y:'ca. 1601–1602', where:'Bildergalerie, Potsdam', s:'Caravaggio Incredulity of Saint Thomas'},
+    question:'Een man steekt zijn vinger in een wond in de zij van een ander. Twee mannen kijken mee. Wat is hier stap 2: het <b>herkennen</b> van het verhaal?',
+    opts:['Een arts onderzoekt een gewonde soldaat na de slag','Twijfel als begin van alle wetenschap','De apostel Thomas, die de wond van de opgestane Christus voelt'], c:2,
+    exp:'Stap 2 is de <b>iconografie</b>: je herkent het verhaal en de personen, met je kennis van de bronnen. Thomas geloofde niet dat Jezus was opgestaan, tot hij de wond kon aanraken (Johannes 20). Hiervoor heb je de attributen en verhalen uit de vorige lessen nodig.',
+    also:[
+      {img:'w4', t:'Noli me tangere', a:'Fra Angelico', y:'ca. 1440–1442', n:'Stap 2: een man met een schoffel en een knielende vrouw in een tuin. Het is de opgestane Christus met Maria Magdalena.', s:'Fra Angelico Noli me tangere'},
+      {img:'u3', t:'De doop van Christus', a:'Verrocchio en Leonardo da Vinci', y:'ca. 1470–1475', n:'Stap 2: een rivier, water over het hoofd, een duif: de doop in de Jordaan.', s:'Verrocchio Leonardo Baptism of Christ'}]},
+  { icon:null, name:'Stap 3: waarom zo?',
+    in:{img:'j3', t:'David met het hoofd van Goliath', a:'Caravaggio', y:'ca. 1610', where:'Galleria Borghese, Rome', s:'Caravaggio David with the Head of Goliath Borghese'},
+    question:'Het hoofd van Goliath is een zelfportret van Caravaggio. Hij schilderde het toen hij na een doodslag op de vlucht was. Wat is hier stap 3: de diepere <b>betekenis</b>?',
+    opts:['Caravaggio vroeg zo om genade: hij biedt zijn eigen hoofd aan','Hij had geen ander model en gebruikte daarom zijn spiegel','Het is een grap voor zijn vrienden in Rome'], c:0,
+    exp:'Stap 3 heet <b>iconologie</b>: waarom is het zo gemaakt, in deze tijd, door deze maker? Caravaggio was ter dood veroordeeld. Hij stuurde dit werk naar kardinaal Scipione Borghese, die bij de paus om <b>gratie</b> kon vragen. Hij biedt symbolisch zijn eigen hoofd aan.',
+    also:[
+      {img:'k9a', t:'De roeping van Mattheüs', a:'Caravaggio', y:'1599–1600', n:'Stap 3: waarom valt het licht precies zo? Licht is hier genade.', s:'Caravaggio Calling of Saint Matthew'},
+      {img:'h4c', t:'De Ambassadeurs', a:'Hans Holbein de Jonge', y:'1533', n:'De verborgen schedel krijgt pas betekenis als je de context kent.', s:'Holbein The Ambassadors'},
+      {img:'j5', t:'Susanna en de ouderlingen', a:'Artemisia Gentileschi', y:'1610', n:'Wie weet dat een vrouw dit schilderde, ziet het verhaal anders.', s:'Artemisia Gentileschi Susanna and the Elders 1610'}]},
+  { icon:null, name:'De bedenker',
+    in:{img:'b1', t:'Het Arnolfini-portret', a:'Jan van Eyck', y:'1434', where:'National Gallery, Londen', s:'Arnolfini Portrait Jan van Eyck'},
+    question:'Over dit schilderij schreef een Duitse kunsthistoricus in 1934 een beroemd artikel. Hij bedacht ook de methode van de drie stappen. Wie was dat?',
+    opts:['Giorgio Vasari, de eerste kunsthistoricus','Erwin Panofsky','Cesare Ripa, de schrijver van de Iconologia'], c:1,
+    exp:'<b>Erwin Panofsky</b> (1892–1968) vluchtte in 1933 uit nazi-Duitsland naar Amerika. Hij beschreef de drie stappen: <b>beschrijven</b>, <b>herkennen</b> en <b>begrijpen</b>. Over het Arnolfini-portret schreef hij dat alle gewone voorwerpen een verborgen betekenis hebben. Vasari schreef in 1550 de eerste kunstenaarsbiografieën.',
+    also:[
+      {img:'k8', t:'Het Arnolfini-portret', a:'Jan van Eyck', y:'1434', n:'Panofsky las de spiegel, de kaars en het hondje als verborgen symbolen.', s:'Arnolfini Portrait'},
+      {img:'q2b', t:'Mérode-altaarstuk (middenpaneel)', a:'Robert Campin (werkplaats)', y:'ca. 1427–1432', n:'Ook hier zag Panofsky “verborgen symboliek” in gewone huisraad.', s:'Merode Altarpiece Campin'},
+      {img:'h4c', t:'De Ambassadeurs', a:'Hans Holbein de Jonge', y:'1533', n:'Een schoolvoorbeeld voor de drie stappen.', s:'Holbein The Ambassadors'}]},
+  { icon:null, name:'Waarom stap 3 nodig is',
+    in:{img:'g3', t:'Het minnekozie (Het doktersbezoek)', a:'Jan Steen', y:'ca. 1660', where:'Hollandse Gouden Eeuw', s:'Jan Steen Lovesick Maiden'},
+    question:'Een bleke jonge vrouw, een dokter die haar pols voelt, een meid die grinnikt. Waarom heb je hier stap 3 nodig?',
+    opts:['Omdat je anders niet ziet dat het een dokter is','Omdat dezelfde dingen in een andere tijd iets anders betekenen','Omdat het schilderij niet gesigneerd is'], c:1,
+    exp:'Voor ons is het een doktersbezoek. Maar een 17e-eeuwse kijker wist: haar ziekte is <b>liefdesverdriet</b> of zwangerschap, en de dokter is een kwakzalver. Dat weet je alleen als je de <b>context</b> kent. Een hond kan trouw betekenen, maar ook lust. Stap 3 beslist.',
+    also:[
+      {img:'g3a', t:'Het doktersbezoek', a:'Jan Steen', y:'ca. 1662', n:'Weer een bleke vrouw en een dokter: een vast grapje van Steen.', s:'Jan Steen Doctor Visit'},
+      {img:'q3', t:'Venus van Urbino', a:'Titiaan', y:'1538', n:'Een hondje als trouw, of toch iets anders? Context beslist.', s:'Titian Venus of Urbino'},
+      {img:'g1', t:'Vrouw met een weegschaal', a:'Johannes Vermeer', y:'ca. 1662–1663', n:'In de grote eindtoets van deze les pas je alle drie de stappen toe.', s:'Vermeer Woman Holding a Balance'}]}
+  ],
+  big:{ img:'g1', t:'Vrouw met een weegschaal', a:'Johannes Vermeer', y:'ca. 1662–1663', where:'National Gallery of Art, Washington', s:'Vermeer Woman Holding a Balance',
+    intro:'Nu doe jij het zelf, in drie stappen. Eerst kijken, dan herkennen, dan begrijpen. Tik op het schilderij om het groter te zien.',
+    details:[
+      {d:'<b>Stap 1, beschrijven.</b> Een zwangere of ruim geklede vrouw staat aan een tafel bij het raam. Ze houdt een klein weegschaaltje omhoog. Op tafel liggen parels en goud.', q:'Wat is een zuivere stap 1?', opts:['Een vrouw weegt goud, want ze is hebzuchtig','Een vrouw houdt bij het raam een weegschaal omhoog; op tafel liggen parels en munten','De Hollandse handel bracht rijkdom'], c:1,
+        e:'Alleen beschrijven, nog niets duiden. Al bij stap 1 zie je iets belangrijks: het lijkt of ze goud weegt.'},
+      {d:'Kijk nog eens naar de <b>weegschaal</b>. De schaaltjes zijn leeg en hangen precies in evenwicht.', q:'Wat valt op?', opts:['Ze weegt het goud zorgvuldig af','De weegschaal is leeg: ze weegt niets materieels','De weegschaal is kapot'], c:1,
+        e:'De schalen zijn <b>leeg</b>. Ze weegt dus niet haar rijkdom. Dit is waar stap 1 en stap 2 elkaar raken.'},
+      {d:'<b>Stap 2, herkennen.</b> Aan de achterwand hangt een schilderij: Christus troont op de wolken, met hemel en hel.', q:'Welk Bijbels tafereel hangt aan de muur?', opts:['De bruiloft te Kana','Het Laatste Oordeel','De doop van Christus'], c:1,
+        e:'Het <b>Laatste Oordeel</b>: Christus weegt aan het einde der tijden de zielen. Bij dat oordeel weegt de aartsengel Michaël de zielen vaak met een weegschaal.'},
+      {d:'Aan de muur links hangt een <b>spiegel</b>, tegenover de vrouw.', q:'Waar staat die spiegel vaak voor?', opts:['IJdelheid, of zelfkennis','Rijkdom en handel','Zuiverheid van Maria'], c:0,
+        e:'Een spiegel kan <b>ijdelheid</b> betekenen, maar ook <b>zelfkennis</b>: kijk eerlijk naar jezelf. Bij Vermeer lijkt het tweede: ze kijkt in zichzelf.'},
+      {d:'<b>Stap 3, begrijpen.</b> Leg alles samen: parels en goud, een lege weegschaal in evenwicht, het Laatste Oordeel erboven.', q:'Wat is de diepere boodschap?', opts:['Wie rijk is, wordt beloond in de hemel','Weeg je daden zorgvuldig, want God weegt straks jouw ziel','Vrouwen horen het huishoudgeld te beheren'], c:1,
+        e:'De vrouw weegt geen goud, maar haar eigen leven, rustig en in balans. Zoals zij weegt, zo zal God straks oordelen. Dat is <b>iconologie</b>: alle details samen geven de betekenis.'}
+    ],
+    story:'<p>Lang heette dit werk <i>De goudweegster</i>. Pas toen men goed keek, bleek de weegschaal <b>leeg</b> te zijn. Een mooi voorbeeld van waarom stap 1 zo belangrijk is: eerst echt kijken.</p><p>Vermeer was katholiek in het protestantse Delft. Het Laatste Oordeel aan de wand en de stille vrouw passen bij de katholieke gedachte van <b>gewetensonderzoek</b>: je eigen daden wegen voordat God dat doet.</p><p>Met deze drie stappen kun je elk schilderij in elk museum aan. Gefeliciteerd: je hebt de hele basis af.</p>'
+  }
 }
+
 ];
 
 /* ---------- State (wordt bewaard, ook na afsluiten) ---------- */
@@ -1481,7 +1609,9 @@ const BASIS_BADGES = [
   {name:'Symboolspeurder', icon:'skull', txt:'Je herkent de klassiekers: vanitas, trouw en de zondeval. Je ziet een schedel nooit meer als zomaar een schedel.'},
   {name:'Beeldlezer', icon:'hourglass', txt:'Je leest schilderijen als een tekst: van tulp tot zandloper, en zelfs een verborgen schedel op de vloer.'},
   {name:'Iconograaf', icon:'keys', txt:'Iconografie is het herkennen van wie en wat er is afgebeeld. Petrus, Catharina, Sebastiaan: jij ziet het meteen aan hun attributen.'},
-  {name:'Iconoloog', icon:'owl', txt:'Het hoogste niveau. Iconologie gaat over de diepere betekenis: wanneer een uil wijsheid is en wanneer dwaasheid. Jij kijkt naar de context.'}
+  {name:'Contextkijker', icon:'owl', txt:'Iconologie gaat over de diepere betekenis: wanneer een uil wijsheid is en wanneer dwaasheid. Jij kijkt naar de context.'},
+  {name:'Bronnenkenner', icon:'keys', txt:'Bijbel, Ovidius, de Gulden Legende, Ripa en de embleemboeken: jij weet uit welk boek een schilderij zijn verhaal haalt.'},
+  {name:'Iconoloog', icon:'hourglass', txt:'Het hoogste niveau van de basis. Beschrijven, herkennen, begrijpen: met de drie stappen van Panofsky lees je elk schilderij.'}
 ];
 const TIERS = {goud:['#e3c98f','#b8913f','#5c4416'], zilver:['#e4e4e0','#a9a9a3','#4d4d48'], brons:['#e0a679','#a8683a','#4e2c12']};
 /* ================= NIEUWE PADEN ================= */
@@ -11246,7 +11376,7 @@ const trackDone = t => TRACKS[t].rounds.every((_,r)=>roundComplete(r,t));
 const trackPct = t => { const rs=TRACKS[t].rounds.filter(R=>!R.soon); return rs.reduce((s,_,r)=>s+roundPct(r,t),0)/rs.length; };
 const trackTier = t => { const p=trackPct(t); return p>=0.9?'goud':p>=0.6?'zilver':'brons'; };
 const trackProgress = t => { const rs=TRACKS[t].rounds; return rs.filter((_,r)=>roundComplete(r,t)).length; };
-const basisDone = () => trackDone('basis');
+const basisDone = () => [0,1,2,3].every(r=>roundComplete(r,'basis'));
 function grandModal(t){ const ok=trackDone(t); const d=document.createElement('div'); d.className='lb';
   d.innerHTML=`<div class="grand-big">${grandSVG(t,!ok)}</div><div class="cap">
     <div class="eyebrow">${TRACKS[t].eyebrow}</div>
