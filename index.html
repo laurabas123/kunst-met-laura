@@ -410,6 +410,13 @@ b,strong{font-weight:800}
 .mm-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}@media(min-width:700px){.mm-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.mm-mus{grid-template-columns:1fr 1fr}}.mm-w{position:relative;display:flex;flex-direction:column;text-align:left;padding:0;border-radius:10px;overflow:hidden;border:1px solid rgba(215,180,106,.3);background:rgba(255,255,255,.03);color:inherit;font:inherit;cursor:pointer}.mm-w img{width:100%;aspect-ratio:1/1;object-fit:cover}.mm-w span{padding:6px 8px;display:flex;flex-direction:column;gap:2px}.mm-w b{font-size:.82rem;line-height:1.25}.mm-w small{font-size:.72rem;color:var(--muted)}.mm-w i{position:absolute;top:6px;right:6px;background:var(--gold2,#d7b46a);color:#1a1408;border-radius:50%;width:22px;height:22px;display:grid;place-items:center;font-style:normal;font-weight:700}.mm-w.seen{border-color:var(--gold2,#d7b46a)}
 .mm-laura{display:flex;gap:10px;align-items:flex-start}.mm-fig{flex:0 0 54px;width:54px;height:54px;border-radius:50%;overflow:hidden;border:1.5px solid #d9b56a;background:#1e2c4c}.mm-laura .ob-bubble{flex:1;margin:0}.mm-look{margin:0;padding-left:18px;line-height:1.5}.mm-look li{margin:4px 0}
 .dip{margin:8px 0;padding:10px;background:linear-gradient(135deg,#a97f36,#f0d28c 28%,#9c6f2a 55%,#e8c677 78%,#a37a33);border-radius:4px}.dip-in{background:#f6efe2;color:#1d1a16;padding:22px 18px;text-align:center;border:1px solid #c9a24e}.dip-in .eyebrow{color:#8a6a2a}.dip-t{font-family:'Corm',serif;font-size:2.4rem;line-height:1;margin:6px 0 0}.dip-s{font-family:'Corm',serif;font-style:italic;font-size:1.6rem;color:#8a6a2a;margin-bottom:12px}.dip-n{font-family:'Corm',serif;font-size:1.9rem;margin:4px 0 8px;border-bottom:1px solid #c9a24e;display:inline-block;padding:0 12px}.dip-in p{font-size:.88rem;line-height:1.5;margin:6px 0}.dip-f{display:flex;justify-content:space-between;align-items:flex-end;margin-top:16px;font-size:.8rem}.dip-sig{font-family:'Corm',serif;font-style:italic;font-size:1.3rem;border-top:1px solid #1d1a16;padding-top:2px}
+.rt-card{border-color:rgba(215,180,106,.7);background:linear-gradient(135deg,rgba(215,180,106,.22),rgba(31,58,120,.3))}
+.rt-list{display:flex;flex-direction:column;gap:0}.rt-ph{display:flex;gap:12px;position:relative;padding-bottom:16px}.rt-ph:not(:last-child)::before{content:'';position:absolute;left:17px;top:36px;bottom:0;width:2px;background:rgba(215,180,106,.3)}
+.rt-dot{flex:0 0 36px;height:36px;border-radius:50%;display:grid;place-items:center;font-weight:700;border:2px solid rgba(215,180,106,.5);color:var(--gold2,#d7b46a);background:#141c30;z-index:1}.rt-ph.done .rt-dot{background:var(--gold2,#d7b46a);color:#1a1408;border-color:var(--gold2,#d7b46a)}.rt-ph.cur .rt-dot{box-shadow:0 0 0 4px rgba(215,180,106,.25)}
+.rt-body{flex:1;min-width:0;border:1px solid rgba(215,180,106,.25);border-radius:14px;padding:10px 12px;background:rgba(255,255,255,.03)}.rt-ph.cur .rt-body{border-color:rgba(215,180,106,.7)}.rt-ph.lock .rt-body{opacity:.55}
+.rt-h{display:flex;justify-content:space-between;gap:8px;align-items:baseline}.rt-h small{color:var(--muted);font-size:.75rem}.rt-bar{height:5px;border-radius:4px;background:rgba(255,255,255,.08);margin:6px 0}.rt-bar i{display:block;height:100%;border-radius:4px;background:var(--gold2,#d7b46a)}
+.rt-can{font-size:.84rem;margin:4px 0 8px;color:var(--muted)}.rt-trs{display:flex;flex-wrap:wrap;gap:6px}.rt-tr{display:inline-flex;gap:8px;align-items:center;padding:6px 10px;border-radius:16px;border:1px solid rgba(215,180,106,.4);background:transparent;color:inherit;font:inherit;font-size:.8rem;cursor:pointer}.rt-tr small{color:var(--muted)}.rt-tr.done{background:rgba(215,180,106,.18)}
+.rt-extra{margin-top:10px;display:flex;flex-direction:column;gap:8px}.rt-m{font-size:.82rem;line-height:1.4}.rt-m span{color:var(--gold2,#d7b46a);font-weight:700}.rt-m.ok b::after{content:' ✓'}.rt a,.rt-m a{color:var(--gold2,#d7b46a)}
 .hk-h{text-align:center}.hk-tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:6px}
 .hk-tile{display:flex;flex-direction:column;align-items:center;gap:6px;border:0;background:none;color:var(--ink);font:inherit;cursor:pointer;text-align:center;padding:0}.hk-tile .hk-gilt{width:100%;box-sizing:border-box}.hk-tile img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover}
 .hk-tile b{font-size:.92rem;margin-top:4px}.hk-tile small{font-size:.76rem;color:var(--muted);margin-top:-4px}.hk-tile.done img{filter:grayscale(.5) brightness(.75)}
@@ -6459,6 +6466,7 @@ function creditsView(){ st.view='credits'; save();
 
 function nextStep(){ const rf = resumeFrom && Number.isInteger(resumeFrom.r) && ['q','big','kq','match','who','tl','final'].includes(resumeFrom.view) && TRACKS[resumeFrom.t||'basis'] && !roundComplete(resumeFrom.r, resumeFrom.t||'basis') ? resumeFrom : null;
   if(rf){ const t=rf.t||'basis', R=TRACKS[t].rounds[rf.r]; return {lbl:'Ga verder', t:SHORT[t]||TRACKS[t].title, s:`${'Les'} ${rf.r+1}${R&&R.t?' · '+R.t:''}`, img:R&&R.big&&R.big.img, fn:`go(${rf.r},{view:'${rf.view}',i:${rf.i},bigStep:${rf.bigStep}},'${t}')`}; }
+  if(!st.offRoute){ try{ const RN=rtNextStep(); if(RN) return RN; }catch(e){} }
   const t=(st.t&&TRACKS[st.t]&&!TRACKS[st.t].bundle)?st.t:'basis', RS=TRACKS[t].rounds, r=RS.findIndex((x,i)=>!x.soon&&!roundComplete(i,t));
   if(r<0) return {lbl:'Kies je volgende cursus', t:'Alles van '+(SHORT[t]||TRACKS[t].title)+' gedaan!', s:'Ontdek een nieuwe cursus', img:'pB', fn:'openCourse()'};
   const R=RS[r], started=RS.some((x,i)=>Object.keys((st.results||{})[K(i,t)]||{}).length);
@@ -6610,6 +6618,66 @@ function icoDiploma(ok){ st.view='diploma'; const D=st.diploma||{d:Date.now(),sc
    <button class="btn primary big" style="margin-top:14px" onclick="try{navigator.share({title:'Diploma Iconoloog',text:'Ik heb het diploma Iconoloog gehaald bij Kunst met Laura! Zie wat anderen missen.',url:'https://kunstmetlaura.nl'})}catch(e){}">Deel je diploma</button></div>`); }
 function dxCard(){ if(!dxOpen()) return ''; return `<button class="rv-card" onclick="${st.diploma?'icoDiploma()':'dxStart()'}"><span class="rv-ic">🎓</span><span class="rv-tx"><b>${st.diploma?'Diploma Iconoloog':'Eindexamen'}</b><small>${st.diploma?'Behaald! Bekijk en deel je diploma':'10 vragen uit alles wat je leerde · 8 goed = diploma'}</small></span></button>`; }
 
+/* ---------- Jouw route: zes fasen ---------- */
+const ROUTE = [
+  {n:0, t:'Kennismaking', when:'dag 1', tr:[], can:'Vijf begrippen: attribuut, allegorie, vanitas, personificatie en temperament.', share:'Ik ben begonnen met Kunst met Laura: na vijf minuten weet ik al wat een schedel op een schilderij betekent.'},
+  {n:1, t:'Leren kijken', when:'week 1–2', tr:['basis','tech'], can:'Symbolen lezen, een zaalbordje lezen en kijken in drie stappen.', share:'Ik kan nu symbolen lezen in schilderijen en elk zaalbordje begrijpen. Dankzij Kunst met Laura!'},
+  {n:2, t:'De drie verhalenboeken', when:'week 3–7', tr:['bijbel','myth','heilig'], opt:['mix'], can:'De meeste verhalen in een oud museum herkennen: Bijbel, mythologie en heiligen.', share:'Ik herken nu Bijbelse verhalen, Griekse mythen en heiligen in elk museum. Durf jij de test?'},
+  {n:3, t:'Tijd en stijl', when:'week 8–10', tr:['n4','hg'], can:'Elk schilderij op een halve eeuw nauwkeurig plaatsen.', share:'Ik zie nu aan een schilderij uit welke eeuw het komt. Speel jij Raad de eeuw tegen mij?'},
+  {n:4, t:'Verdieping naar keuze', when:'week 11–14', tr:['deugden','ge','n3','kenner'], pick:3, can:'Dubbele bodems, licht en compositie, en het verschil tussen meester en kopiist.', share:'Ik kijk nu als een echte kenner naar schilderijen: dubbele bodems, licht en compositie.'},
+  {n:5, t:'Meesterschap', when:'week 15–16', tr:['n5'], can:'Elk onbekend werk ontleden in vijf vragen, en het diploma Iconoloog.', share:'Ik heb het diploma Iconoloog gehaald bij Kunst met Laura!'}];
+function rtLessons(t){ const T=TRACKS[t]; if(!T) return {d:0,n:0}; const R=T.rounds||[]; return {d:R.filter((x,i)=>!x.soon&&roundComplete(i,t)).length, n:R.filter(x=>!x.soon).length}; }
+function rtPhase(P){ if(P.n===0){ const ok=!!st.introDone||rtLessons('basis').d>0; return {d:ok?1:0,n:1,done:ok,pct:ok?100:0}; }
+  let trs=P.tr.map(t=>({t,...rtLessons(t)})); if(P.pick) trs=trs.sort((a,b)=>b.d/b.n-a.d/a.n).slice(0,P.pick);
+  const d=trs.reduce((s,x)=>s+x.d,0), n=trs.reduce((s,x)=>s+x.n,0); const done=n>0&&d>=n&&(P.n<5||!!st.diploma); return {d,n,done,pct:n?Math.round(d/n*100):0}; }
+function rtCurrent(){ for(const P of ROUTE){ if(!rtPhase(P).done) return P; } return null; }
+function rtNextIn(P){ if(P.n===0) return st.introDone?{t:'basis',r:0}:{intro:1};
+  let cand=P.tr.filter(t=>TRACKS[t]&&rtLessons(t).d<rtLessons(t).n);
+  if(P.pick){ const started=P.tr.filter(t=>rtLessons(t).d>0); if(started.length>=P.pick) cand=cand.filter(t=>started.includes(t)); }
+  if(P.n===2){ cand.sort((a,b)=>Math.floor(rtLessons(a).d/4)-Math.floor(rtLessons(b).d/4)||P.tr.indexOf(a)-P.tr.indexOf(b)); }
+  const t=cand[0]; if(!t) return P.n===5&&!st.diploma?{exam:1}:null; const RS=TRACKS[t].rounds; const r=RS.findIndex((x,i)=>!x.soon&&!roundComplete(i,t)); return {t,r}; }
+function rtNextStep(){ const P=rtCurrent(); if(!P) return null; const x=rtNextIn(P); if(!x) return null;
+  if(x.intro) return {lbl:'Begin hier', t:'Fase 0 · Kennismaking', s:'De startcursus: vijf minuten', img:'b1', fn:"startIntro('home')"};
+  if(x.exam) return {lbl:'Doe het eindexamen', t:'Fase 5 · Meesterschap', s:'10 vragen · 8 goed = diploma', img:'pB', fn:'dxStart()'};
+  const T=TRACKS[x.t], R=T.rounds[x.r], started=Object.keys((st.results||{})).some(k=>k.startsWith(x.t==='basis'?'':x.t+':')); return {lbl:rtLessons(x.t).d||started?'Ga verder':'Begin', t:`Fase ${P.n} · ${SHORT[x.t]||T.title}`, s:`Les ${x.r+1}${R&&R.t?' · '+R.t:''}`, img:R&&R.big&&R.big.img, fn:`setTrack('${x.t}');openRound(${x.r})`}; }
+function rtGo(){ const N=rtNextStep(); if(!N) return routeView(); try{ (new Function(N.fn))(); }catch(e){ routeView(); } }
+function rtMission(P){ const seen=Object.keys(st.mmSeen||{}).length, need=3*P.n; return {need,seen:Math.min(seen,need),done:seen>=need}; }
+function rtShare(n){ const P=ROUTE[n]; const url='https://kunstmetlaura.nl/#vq='+n+'&n='+encodeURIComponent(st.name||''); const text=P.share+' Test jezelf met mijn vriendenquiz:';
+  try{ if(navigator.share){ navigator.share({title:'Kunst met Laura',text,url}); } else { navigator.clipboard.writeText(text+' '+url); toast('Link gekopieerd: plak hem in een berichtje'); } }catch(e){ try{ navigator.clipboard.writeText(text+' '+url); toast('Link gekopieerd'); }catch(_){} } }
+function routeCard2(){ const P=rtCurrent(), N=rtNextStep(); const tot=ROUTE.filter(p=>rtPhase(p).done).length;
+  return `<button class="rv-card rt-card" onclick="routeView()"><span class="rv-ic">🧭</span><span class="rv-tx"><b>Jouw route</b><small>${P?`Fase ${P.n} van 5 · ${P.t} · ${rtPhase(P).pct}%`:'Alle fasen voltooid'}</small></span><span class="rv-bar"><i style="width:${Math.round(tot/ROUTE.length*100)}%"></i></span></button>`; }
+function routeView(){ st.view='route'; save(); const cur=rtCurrent(), N=rtNextStep();
+  const row=P=>{ const ph=rtPhase(P), isCur=cur&&cur.n===P.n, lock=cur&&P.n>cur.n, M=rtMission(P);
+    const trs=P.tr.map(t=>{ const L=rtLessons(t); return `<button class="rt-tr ${L.d>=L.n&&L.n?'done':''}" ${lock?'disabled':''} onclick="chooseTrack('${t}')"><span>${SHORT[t]||TRACKS[t].title}</span><small>${L.d}/${L.n}</small></button>`; }).join('');
+    return `<div class="rt-ph ${ph.done?'done':''} ${isCur?'cur':''} ${lock?'lock':''}"><div class="rt-dot">${ph.done?'✓':P.n}</div><div class="rt-body">
+      <div class="rt-h"><b>Fase ${P.n} · ${P.t}</b><small>${P.when}</small></div>
+      <div class="rt-bar"><i style="width:${ph.pct}%"></i></div>
+      <p class="rt-can">${ph.done?'Je kunt nu: ':'Hierna kun je: '}${P.can}</p>
+      ${P.n===0?(ph.done?'':`<button class="rt-tr" onclick="startIntro('home')"><span>Startcursus</span><small>5 min</small></button>`):`<div class="rt-trs">${trs}${P.pick?`<small class="muted" style="display:block;margin-top:4px">Kies er ${P.pick} van de ${P.tr.length}</small>`:''}${P.opt?`<small class="muted" style="display:block;margin-top:4px">Extra opwarmer: ${P.opt.map(t=>`<a href="#" onclick="event.preventDefault();chooseTrack('${t}')">${SHORT[t]||TRACKS[t].title}</a>`).join(', ')}</small>`:''}</div>`}
+      ${ph.done&&P.n>0?`<div class="rt-extra"><div class="rt-m ${M.done?'ok':''}"><b>🏛 Museumopdracht</b> Zie ${M.need} werken in het echt met de museummodus <span>${M.seen}/${M.need}</span>${M.done?'':` <a href="#" onclick="event.preventDefault();mmView()">Open museummodus</a>`}</div>
+        <button class="btn small" onclick="rtShare(${P.n})">📣 Deel met vrienden en daag ze uit</button></div>`:''}
+    </div></div>`; };
+  $(`<div class="dq rt"><div class="top"><button class="btn small" onclick="hub()">‹ Terug</button></div>
+    <h1 class="serif" style="margin:4px 0 2px">Jouw route</h1><p class="muted" style="margin:0 0 12px">Zes fasen, van je eerste symbool tot het diploma Iconoloog. Ongeveer een kwartier per dag, zestien weken.</p>
+    ${N?`<button class="btn primary big" style="margin-bottom:16px" onclick="${N.fn}">${N.lbl}: ${N.t.replace(/^Fase \d · /,'')} · ${N.s}</button>`:''}
+    <div class="rt-list">${ROUTE.map(row).join('')}</div>
+    <p class="muted" style="font-size:.8rem;margin-top:12px">Musea staan los van de route: speel de module van een museum vlak voor je bezoek. Herhaalronde, dagquiz en kunstwerk van de dag lopen elke dag door.</p></div>`); scrollTo(0,0); }
+/* vriendenquiz via gedeelde link */
+let VQ=null;
+function vqStart(n,from){ const P=ROUTE[n]||ROUTE[1]; const trs=P.tr.length?P.tr:['basis']; let all=rvAll().filter(c=>trs.includes(c.t)); if(all.length<5) all=rvAll().filter(c=>c.t==='basis');
+  let seed=n*7919+13; const rnd=()=>{ seed=(seed*16807)%2147483647; return seed/2147483647; }; all=all.sort((a,b)=>a.k<b.k?-1:1); const pick=[]; while(pick.length<5&&all.length){ pick.push(all.splice(Math.floor(rnd()*all.length),1)[0]); }
+  VQ={items:pick,i:0,ans:[],from:from||'',n}; st.view='vq'; vqView(); }
+function vqView(){ const x=VQ.items[VQ.i], q=x.q, a=VQ.ans[VQ.i];
+  $(`<div class="dq rv"><div class="eyebrow">${VQ.from?esc(VQ.from)+' daagt je uit':'Vriendenquiz'} · ${VQ.i+1}/5</div><h2 class="serif" style="margin:4px 0 8px">Wat weet jij van kunst?</h2>
+   <div class="frame dq-img"><img src="${P(q.in.img)}" alt=""></div><p class="qtext">${q.question}</p>
+   <div class="opts">${q.opts.map((o,k)=>`<button class="opt ${a===undefined?'':k===q.c?'ok':k===a?'bad':'dim'}" ${a!==undefined?'disabled':''} onclick="VQ.ans[VQ.i]=${k};vqView()"><span class="l">${'ABCD'[k]}</span><span>${o}</span></button>`).join('')}</div>
+   ${a!==undefined?`<div class="card fb ${a===q.c?'good':'bad'}">${q.exp}</div>${nextBar(VQ.i<4?'Volgende →':'Uitslag →','vqNext()',a===q.c)}`:''}</div>`); }
+function vqNext(){ if(VQ.i<4){ VQ.i++; vqView(); scrollTo(0,0); return; } const ok=VQ.items.reduce((s,x,k)=>s+(VQ.ans[k]===x.q.c?1:0),0); const fr=VQ.from; VQ=null; try{ history.replaceState(null,'',location.pathname); }catch(e){}
+  $(`<div class="dq rv"><div class="center" style="margin:20px 0"><div class="gb-fig" style="width:120px;margin:0 auto">${lauraSVG(0,false,true)}</div><h2 class="serif">${ok} van 5 goed!</h2>
+   <p class="muted">${ok>=4?'Knap! Je hebt een goed oog.':'Kunst lezen is te leren.'} ${fr?esc(fr)+' leert het met Kunst met Laura.':''} Met een kwartier per dag lees jij straks elk schilderij in elk museum.</p></div>
+   <button class="btn primary big" onclick="st.view='start';save();location.reload()">Begin zelf gratis</button></div>`); }
+function vqBoot(){ const m=location.hash.match(/vq=(\d)(?:&n=([^&]*))?/); if(!m) return false; setTimeout(()=>{ try{ vqStart(+m[1],decodeURIComponent(m[2]||'')); }catch(e){} },1500); return true; }
+
 function hub(){ st.view='start'; pathMode=null; save(); if(NOTI){ if(!NOTI.flushed) notiFlush(); NOTI.until=0; } setTimeout(notiLater,1400);
   const h=new Date().getHours(), gr=h<12?'Goedemorgen':h<18?'Goedemiddag':'Goedenavond';
   const N=nextStep(), I=xpInfo(), alive=st.dqLast===dqDay()||st.dqLast===dqPrevDay(dqDay()), streak=alive?(st.dqStreak||0):0;
@@ -6624,7 +6692,7 @@ function hub(){ st.view='start'; pathMode=null; save(); if(NOTI){ if(!NOTI.flush
       <div class="hk-plaque"><b>${N.t}${m?', les '+m[1]:''}</b>${m&&/ · /.test(N.s)?`<small>${sub}</small>`:(!m?`<small>${N.s}</small>`:'')}</div>
       <button class="hk-cta" onclick="${N.fn}">${cta}</button>`; })()}
     <h2 class="hx-h hk-h">Vandaag</h2>
-    ${dxCard()}${rvCard()}${ewCard()}${mmCard()}
+    ${routeCard2()}${dxCard()}${rvCard()}${ewCard()}${mmCard()}
     <div class="hk-tiles">
       <button class="hk-tile ${dqd?'done':''}" onclick="dqStart()"><span class="hk-gilt sm"><span class="hk-mat"><img src="${P('q1')}" alt=""></span></span><b>Dagquiz</b><small>${dqd?`${st.dq[dqDay()].score}/5 goed`:'5 vragen'}</small></button>
       <button class="hk-tile ${kd?'done':''}" onclick="kvdView()"><span class="hk-gilt sm"><span class="hk-mat hk-kvd"><img src="${symImg(T.im[0])}" alt=""></span></span><b>Kunstwerk</b><small>${kd?'Bekeken':'van de dag'}</small></button>
@@ -12700,7 +12768,7 @@ const kennerStarted = () => (typeof KENNER_ROUNDS!=='undefined')&&KENNER_ROUNDS.
 const isOpen = t => t==='basis'||t==='tech'||(t==='kenner'&&(kennerStarted()||(st.mile&&st.mile['kenner|unl'])))||t==='hg'||(TRACKS[t]&&TRACKS[t].museum)||basisDone()||st.beta||!!(st.unl&&st.unl[t]);
 function chooseTrack(t){ if(!isOpen(t)) return; setTrack(t); home(); }
 const ROUTE_GROUPS = [
-  {id:'symb', ic:'🎨', t:'Symboliek in de kunst', s:'Leer symbolen lezen: eerst de basis, daarna verdiepen of specialiseren.', tr:['basis','mix','n3','n4','n5','deugden','bijbel','heilig','myth','ge','kenner','tech']},
+  {id:'symb', ic:'🎨', t:'Symboliek in de kunst', s:'In de volgorde van Jouw route: eerst leren kijken, dan de drie verhalenboeken, dan tijd en stijl, verdieping en meesterschap.', tr:['basis','tech','bijbel','myth','heilig','mix','n4','deugden','ge','n3','kenner','n5']},
   {id:'hg', ic:'🦁', t:'Hollandse glorie', s:'Kunst- en vaderlandse geschiedenis in acht lessen, van de middeleeuwen tot nu. Rembrandt is je gids.', tr:['hg']},
   {id:'mus', ic:'🏛️', t:'Musea', s:'Bereid je museumbezoek voor: de topstukken en hun symboliek. Musea door het hele land.', tr:['rijks','maur',...EXTRA_MUSEUMS.map(m=>m.id)]}];
 function trackBar(t){ const R=TRACKS[t].rounds, n=R.length, d=trackProgress(t), started=R.some((_,r)=>roundDone(r,t)>0); return {n,d,started,pct:Math.round(d/n*100)}; }
@@ -13086,7 +13154,7 @@ function nav(d){ const s=steps(st.r); let p=pos()+d;
   if(p<0){ if(st.r>0){ const ps=steps(st.r-1); return go(st.r-1, ps[ps.length-1]); } return; }
   if(p>=s.length) return goNext();
   go(st.r, s[p]); }
-function render(){ const v=st.view; if((v==='q'||v==='big')&&!diffOf()) return diffView(); (v==='q'||v==='kq')?question():v==='big'?big():v==='match'?matchView():v==='who'?whoView():v==='tl'?timeline(st.tlMode):v==='final'?finalView():v==='gloss'?glossary():v==='paths'?paths():v==='onb'?onbView():v==='intro'?introView():v==='introDone'?introDone():v==='introAsk'?introAsk():v==='fav'?favView():v==='sym'?(symOpen()?symRefresh():freePlay()):v==='start'?hub():v==='credits'?creditsView():v==='me'?meView():v==='rv'?(RV?rvView():hub()):v==='eeuw'?(EW?ewView():hub()):v==='dx'?(DX?dxView():hub()):v==='diploma'?icoDiploma():v==='mm'?mmView():v==='mmm'?mmMus(st.mmMus):v==='mmw'?mmWork(st.mmImg):v==='ewres'?hub():v==='rvres'?hub():v==='meter'?meterView():v==='keep'?keepView():v==='oracle'?oracleView():v==='askl'?askLaura():v==='album'?albumView():v==='board'?boardView():v==='ask'?hub():v==='kvd'?kvdView():v==='dqres'?(st.dq&&st.dq[dqDay()]?dqResult(st.dq[dqDay()]):hub()):v==='daily'?hub():v==='stories'?storiesView():v==='storyc'?storyOpen(st.storyId||'cara'):v==='story'?storiesView():v==='free'?freePlay():home(); }
+function render(){ const v=st.view; if((v==='q'||v==='big')&&!diffOf()) return diffView(); (v==='q'||v==='kq')?question():v==='big'?big():v==='match'?matchView():v==='who'?whoView():v==='tl'?timeline(st.tlMode):v==='final'?finalView():v==='gloss'?glossary():v==='paths'?paths():v==='onb'?onbView():v==='intro'?introView():v==='introDone'?introDone():v==='introAsk'?introAsk():v==='fav'?favView():v==='sym'?(symOpen()?symRefresh():freePlay()):v==='start'?hub():v==='credits'?creditsView():v==='me'?meView():v==='rv'?(RV?rvView():hub()):v==='eeuw'?(EW?ewView():hub()):v==='dx'?(DX?dxView():hub()):v==='route'?routeView():v==='vq'?(VQ?vqView():hub()):v==='diploma'?icoDiploma():v==='mm'?mmView():v==='mmm'?mmMus(st.mmMus):v==='mmw'?mmWork(st.mmImg):v==='ewres'?hub():v==='rvres'?hub():v==='meter'?meterView():v==='keep'?keepView():v==='oracle'?oracleView():v==='askl'?askLaura():v==='album'?albumView():v==='board'?boardView():v==='ask'?hub():v==='kvd'?kvdView():v==='dqres'?(st.dq&&st.dq[dqDay()]?dqResult(st.dq[dqDay()]):hub()):v==='daily'?hub():v==='stories'?storiesView():v==='storyc'?storyOpen(st.storyId||'cara'):v==='story'?storiesView():v==='free'?freePlay():home(); }
 function label(x){ const R=TRACKS[x.t||'basis'].rounds[x.r]; if(!R) return ''; if(x.view==='final') return 'eindtoets'; if(x.view==='match') return 'koppelspel'; if(x.view==='kq') return 'kunstkennersles'; if(x.view==='who') return 'Wie ben ik?'; if(x.view==='tl') return 'tijdlijn'; return x.view==='q' ? `vraag ${x.i+1}: ${R.q[x.i].name.toLowerCase()}` : `meesterwerk: ${R.big.t}`; }
 
 function ctaBtn(){ const rf=resumeFrom&&Number.isInteger(resumeFrom.r)&&(resumeFrom.t||'basis')===st.t&&!roundComplete(resumeFrom.r,st.t)?resumeFrom:null; const W=st.t==='hg'?'niveau':'les';
@@ -13458,6 +13526,8 @@ async function statsView(days){ days=days||30; st.view='stats'; const key=localS
     <h3>Wat gebruiken ze?</h3><table class="stab">${used}</table>
     <h3>Bezoekers per dag</h3><div class="sday">${(D.days||[]).map(d=>`<div title="${d.d}: ${d.n}"><i style="height:${Math.max(4,Math.round(d.n/Math.max(...D.days.map(x=>x.n))*60))}px"></i></div>`).join('')}</div></div>`); }
 try{ if(localStorage.getItem('kml-statskey')&&/[?&]stats=/.test(location.search)) setTimeout(()=>statsView(),600); }catch(e){}
+
+try{ vqBoot(); }catch(e){}
 </script>
 </body>
 </html>
