@@ -390,6 +390,17 @@ h3.rgroup{margin-top:1.4em}
 :root{--bg:#111827;--bg2:#162036;--panel:#1a2440;--panel2:#212d4f;--ink:#f1ebdd;--muted:#a3abc0;--gold:#d2ae62;--gold2:#ecd296;--ok:#6fae96;--bad:#d06a4c;--line:#2b3756;--lapis:#2f4a8f;--serif:"Corm",Georgia,serif}
 html,body{font-family:"Hanken",system-ui,-apple-system,sans-serif;background:var(--bg);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 b,strong{font-weight:800}
+.sym-card .sc-fr{width:58px;flex:0 0 58px}.sym-card .sc-fr img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover}.sym-card.locked .sc-fr img{filter:grayscale(1) brightness(.6)}.sc-t{font-family:var(--serif);font-weight:600;font-size:1.35rem}
+.hk-hello{text-align:center}.hk-stats{display:flex;justify-content:center;align-items:center;gap:8px;margin:-6px 0 18px;color:var(--gold2);font-size:.88rem;flex-wrap:wrap}.hk-stats button{background:none;border:0;color:inherit;font:inherit;padding:6px 2px;cursor:pointer}.hk-stats span{opacity:.45}
+.hk-gilt{display:block;padding:11px;background:linear-gradient(135deg,#a97f36,#f0d28c 28%,#9c6f2a 55%,#e8c677 78%,#a37a33);box-shadow:0 18px 38px rgba(0,0,0,.55),inset 0 0 0 1px rgba(255,240,200,.35)}
+.hk-gilt.sm{padding:5px;box-shadow:0 8px 18px rgba(0,0,0,.45)}.hk-mat{display:block;padding:6px;background:#0b1120}.hk-gilt.sm .hk-mat{padding:0}
+.hk-frame{display:block;width:100%;border:0;padding:0;background:none;cursor:pointer}.hk-frame img{display:block;width:100%;height:220px;object-fit:cover}
+.hk-plaque{margin:-8px auto 0;position:relative;max-width:270px;padding:9px 18px;background:linear-gradient(180deg,#e2c27a,#a9803a);color:#1d1408;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,.45)}.hk-plaque b{display:block;font-family:var(--serif);font-weight:600;font-size:1.2rem;line-height:1.15}.hk-plaque small{display:block;font-size:.78rem;margin-top:2px}
+.hk-cta{display:block;margin:14px auto 4px;min-height:48px;padding:0 32px;border-radius:24px;border:1px solid var(--gold);background:transparent;color:var(--ink);font:inherit;font-weight:700;font-size:1rem;cursor:pointer}.hk-cta:hover{background:rgba(215,180,106,.12)}
+.hk-h{text-align:center}.hk-tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:6px}
+.hk-tile{display:flex;flex-direction:column;align-items:center;gap:6px;border:0;background:none;color:var(--ink);font:inherit;cursor:pointer;text-align:center;padding:0}.hk-tile .hk-gilt{width:100%;box-sizing:border-box}.hk-tile img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover}
+.hk-tile b{font-size:.92rem;margin-top:4px}.hk-tile small{font-size:.76rem;color:var(--muted);margin-top:-4px}.hk-tile.done img{filter:grayscale(.5) brightness(.75)}
+.hk-ico{aspect-ratio:4/5;display:grid!important;place-items:center;color:var(--gold2)}.hk-ico svg{width:46px;height:46px}
 .lv-list{display:flex;flex-direction:column;gap:8px}.lv-row{display:flex;align-items:center;gap:12px;padding:12px;border-radius:14px;border:1px solid var(--line);background:var(--panel)}
 .lv-row.now{border-color:var(--gold);box-shadow:0 0 0 1px rgba(215,180,106,.35)}.lv-row.locked{opacity:.55}
 .lv-n{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:rgba(215,180,106,.15);color:var(--gold2);font-weight:800;flex:0 0 auto}.lv-row.done .lv-n{background:var(--gold);color:#1a1a1a}
@@ -4343,8 +4354,7 @@ function symUnlockedModal(){ const m=document.createElement('div'); m.className=
 /* VRIJ OEFENEN IN LEVELS
    Symbolen staan op volgorde van hoe vaak ze in schilderijen voorkomen (aantal werken in de bibliotheek).
    Een level = 10 symbolen. Fout? Dan komt het symbool later in het level terug, tot je alles goed hebt.
-   Meer dan 10 fouten = 4 uur pauze. Level gehaald = 4 uur pauze, tenzij je een joker inzet:
-   met jokers speel je maximaal 3 levels achter elkaar. */
+   Meer dan 10 fouten = 4 uur pauze. Je speelt maximaal 3 levels achter elkaar, daarna 4 uur pauze. */
 const LV_SIZE=10, LV_BAD=10, LV_LOCK=4*3600e3, LV_CHAIN=3;
 let SYM_ORDER=null;
 /* volgorde op hoe vaak je het symbool in schilderijen tegenkomt (van heel vaak naar zeldzaam) */
@@ -4359,7 +4369,7 @@ const jokersLeft=()=>Math.max(0,LV_CHAIN-(st.symChain||0));
 function symLockModal(){ const m=document.createElement('div'); m.className='lb gl-modal'; m.onclick=()=>m.remove();
   m.innerHTML=`<div class="gl-box guide-box" onclick="event.stopPropagation()"><div class="gb-fig">${lauraSVG(0)}</div><div class="ob-bubble">Even pauze! Je hersenen onthouden het beter als je het laat bezinken. Om <b>${symTime(symLockLeft())}</b> kun je <b>level ${lvCur()+1}</b> spelen.</div><button class="btn primary big" onclick="this.closest('.lb').remove();symLevelsView()">Bekijk de levels</button><button class="btn" style="margin-top:8px" onclick="this.closest('.lb').remove()">Oké</button></div>`; document.body.appendChild(m); }
 function symIntroModal(){ const m=document.createElement('div'); m.className='lb gl-modal'; st.symIntro=1; save();
-  m.innerHTML=`<div class="gl-box guide-box" onclick="event.stopPropagation()"><div class="gb-fig">${lauraSVG(0,false,true)}</div><div class="ob-bubble"><b>Zo werkt vrij oefenen</b><br><br>Je oefent in <b>levels van ${LV_SIZE} symbolen</b>. Level 1 heeft de symbolen die je het vaakst in schilderijen tegenkomt, zoals de schedel, de lelie en de duif. Hoe hoger het level, hoe zeldzamer de symbolen.<br><br>Heb je er een fout, dan komt dat symbool later in het level terug, tot je ze allemaal goed hebt. Bij meer dan ${LV_BAD} fouten is het 4 uur pauze.<br><br>Level gehaald? Dan wacht het volgende level 4 uur op je. Met een <b>joker 🃏</b> speel je meteen door, tot ${LV_CHAIN} levels achter elkaar.</div><button class="btn primary big" onclick="this.closest('.lb').remove();symLevelsView()">Naar de levels →</button></div>`; document.body.appendChild(m); }
+  m.innerHTML=`<div class="gl-box guide-box" onclick="event.stopPropagation()"><div class="gb-fig">${lauraSVG(0,false,true)}</div><div class="ob-bubble"><b>Zo werkt vrij oefenen</b><br><br>Je oefent in <b>levels van ${LV_SIZE} symbolen</b>. Level 1 heeft de symbolen die je het vaakst in schilderijen tegenkomt, zoals de schedel, de lelie en de duif. Hoe hoger het level, hoe zeldzamer de symbolen.<br><br>Heb je er een fout, dan komt dat symbool later in het level terug, tot je ze allemaal goed hebt. Bij meer dan ${LV_BAD} fouten is het 4 uur pauze.<br><br>Je speelt maximaal <b>${LV_CHAIN} levels achter elkaar</b>. Daarna is het 4 uur pauze, zodat je hersenen het kunnen laten bezinken.</div><button class="btn primary big" onclick="this.closest('.lb').remove();symLevelsView()">Naar de levels →</button></div>`; document.body.appendChild(m); }
 function startSym(){ if(!symOpen()) return symLockedModal(); symLoad(); if(!st.symIntro) return symIntroModal();
   const r=st.symRun; if(r&&r.end){ st.view='sym'; return symEndView(); } if(r&&r.q&&r.q.length){ if(!SYMQ||SYMQ.a!==null||SYMQ.i!==r.q[0]) symNext(); st.view='sym'; return symView(); }
   symLevelsView(); }
@@ -4369,15 +4379,15 @@ function symLevelsView(){ st.view='sym'; const cur=lvCur(), lock=symLockLeft(), 
   const from=Math.max(0,cur-2), to=Math.min(n,cur+5);
   $(`<div class="symq"><div class="hdr"><button class="chip" onclick="hub()">‹ Hoofdmenu</button><div class="sym-streak ${st.symStreak>=10?'hot':''}">🔥 <b>${st.symStreak||0}</b> <span>op een rij</span></div></div>
     <h2 class="serif" style="margin:6px 0 2px">Vrij oefenen</h2>
-    <p class="muted" style="margin:0 0 10px">${n} levels van ${LV_SIZE} symbolen, van vaak naar zelden gezien. ${lock?`Volgende level om <b>${symTime(lock)}</b>.`:''}${(st.symChain||0)>0&&!lock?` 🃏 Jokers over: <b>${jokersLeft()}</b>`:''}</p>
+    <p class="muted" style="margin:0 0 10px">${n} levels van ${LV_SIZE} symbolen, van vaak naar zelden gezien. ${lock?`Volgende level om <b>${symTime(lock)}</b>.`:''}${(st.symChain||0)>0&&!lock?` Nog <b>${jokersLeft()}</b> ${jokersLeft()===1?'level':'levels'} voor de pauze.`:''}</p>
     <div class="lv-list">${Array.from({length:to-from},(_,k)=>row(from+k)).join('')}</div>
     <p class="center muted small" style="margin-top:12px">${st.symLv||0} van ${n} levels gehaald · <a href="#" style="color:var(--gold2)" onclick="event.preventDefault();symIntroModal()">Hoe werkt het?</a></p></div>`); }
-function symLevelStart(lv,joker){ if(symLockLeft()>0&&!joker) return symLockModal(); if(!joker) st.symChain=0;
+function symLevelStart(lv){ if(symLockLeft()>0) return symLockModal(); if(Date.now()-(st.symChainAt||0)>LV_LOCK) st.symChain=0;
   const L=lvSyms(lv).sort(()=>Math.random()-.5); const prev=new Set(symOrder().slice(0,lv*LV_SIZE));
   const rev=(st.symWrong||[]).filter(i=>prev.has(i)).slice(0,2); const q=[...L]; rev.forEach((i,k)=>q.splice(2+k*4,0,i));
   st.symRun={lv,q,tot:q.length,ok:0,bad:0,rev,wrong:[]}; SYMQ=null; save(); symNext(); st.view='sym'; symView(); scrollTo(0,0); }
 function symRefresh(){ const r=st.symRun; if(r&&r.end) return symEndView(); if(r&&r.q&&r.q.length) return symView(); symLevelsView(); }
-function symJoker(){ if(jokersLeft()<=0) return; st.symLockUntil=0; save(); symLevelStart(lvCur(),true); }
+function symNextLevel(){ st.symRun=null; save(); symLevelStart(lvCur()); }
 const SYM_STOP=new Set('de het een en van in of op met voor door ook die dat is te aan naar sint st heilige ware als wat zijn'.split(' '));
 const SYM_WEAK=new Set(['christus','jezus','maria','god','gods','kerk','hemel','leven']);
 const symNorm=t=>(t||'').normalize('NFD').replace(/[̀-ͯ]/g,'').toLowerCase().replace(/[^a-z]+/g,' ').trim();
@@ -4399,7 +4409,7 @@ function symAns(txt,giveUp){ if(!SYMQ||SYMQ.a!==null) return; txt=(txt||'').trim
     if(run&&run.q&&run.q[0]===i){ run.q.shift();
       if(r==='bad'){ run.bad++; if(!run.wrong.includes(i)) run.wrong.push(i); run.q.splice(Math.min(3,run.q.length),0,i); } else run.ok++;
       if(run.bad>LV_BAD){ run.end='fail'; st.symLockUntil=Date.now()+LV_LOCK; st.symChain=0; }
-      else if(!run.q.length){ run.end='pass'; st.symLv=Math.max(st.symLv||0,run.lv+1); st.symChain=(st.symChain||0)+1; st.symLockUntil=Date.now()+LV_LOCK; if(st.symChain>=LV_CHAIN) st.symChain=LV_CHAIN; } } }
+      else if(!run.q.length){ run.end='pass'; st.symLv=Math.max(st.symLv||0,run.lv+1); st.symChain=(st.symChain||0)+1; st.symChainAt=Date.now(); if(st.symChain>=LV_CHAIN){ st.symLockUntil=Date.now()+LV_LOCK; st.symChain=0; run.chainEnd=1; } } } }
   save(); symView(); try{ if(r==='ok') sfx('correct'); cameoNote(r==='ok'); strikeReward(st.symStreak); if(r==='ok'){ xpAdd(5); questEv('symok'); if(st.symStreak===10) questEv('streak10'); } else if(r==='half') xpAdd(2); }catch(e){}
   if(r==='ok' && st.symStreak%10===0) setTimeout(()=>symStrike(st.symStreak),400);
   setTimeout(()=>{const f=document.getElementById('symfb'); if(f) f.scrollIntoView({behavior:'smooth',block:'start'});},80); }
@@ -4439,15 +4449,15 @@ function symView(){ st.view='sym'; if(!SYMQ) symNext(); if(!symReady()) symLoad(
       ${run.end?`<button class="btn primary big" onclick="symEndView()">Bekijk je resultaat ›</button>`:`<button class="btn primary big" onclick="symNext();symView();scrollTo(0,0)">Volgend symbool ›</button>`}</div>`}
     <p class="center muted small" style="margin-top:14px">${st.symOk||0} van ${st.symN||0} goed · ${SYMB.length} symbolen</p></div>`); }
 function symEndView(){ st.view='sym'; const run=st.symRun||{lv:0,ok:0,bad:0,end:'pass',wrong:[]}, nm=st.name?`, ${st.name}`:'', pass=run.end==='pass', last=run.lv+1>=lvCount();
-  const jk=pass&&!last&&jokersLeft()>0;
-  const msg= pass?(last?`Alle levels uitgespeeld${nm}! Jij kent nu elk symbool in de bibliotheek.`:`Level ${run.lv+1} gehaald${nm}!${run.bad?` Je had ${run.bad} ${run.bad===1?'fout':'fouten'}, maar je bleef doorgaan tot alles goed was.`:' Zonder één fout!'} Level ${run.lv+2} is om <b>${symTime(symLockLeft())}</b> beschikbaar.${jk?` Of zet een joker in en speel meteen door.`:` Je hebt ${LV_CHAIN} levels achter elkaar gespeeld: nu eerst even pauze.`}`)
+  const jk=pass&&!last&&!run.chainEnd&&symLockLeft()===0;
+  const msg= pass?(last?`Alle levels uitgespeeld${nm}! Jij kent nu elk symbool in de bibliotheek.`:`Level ${run.lv+1} gehaald${nm}!${run.bad?` Je had ${run.bad} ${run.bad===1?'fout':'fouten'}, maar je bleef doorgaan tot alles goed was.`:' Zonder één fout!'} ${jk?` Je kunt meteen door met level ${run.lv+2}${jokersLeft()===1?'; daarna is het even pauze':''}.`:` Je hebt ${LV_CHAIN} levels achter elkaar gespeeld. Om <b>${symTime(symLockLeft())}</b> kun je verder met level ${run.lv+2}.`}`)
     : `Dat waren meer dan ${LV_BAD} fouten${nm}. Geen zorgen: laat het even bezinken. Om <b>${symTime(symLockLeft())}</b> probeer je level ${run.lv+1} opnieuw.`;
   const wr=(run.wrong||[]).slice(0,6).map(i=>`<li><b>${SYMB[i].n}</b>: ${SYMB[i].m}</li>`).join('');
   $(`<div class="symq"><div class="hdr"><button class="chip" onclick="hub()">‹ Hoofdmenu</button><div class="sym-streak ${st.symStreak>=10?'hot':''}">🔥 <b>${st.symStreak||0}</b> <span>op een rij</span></div></div>
     <div class="card center award"><div class="eyebrow">${pass?'Level gehaald':'Level nog niet gehaald'}</div>${pass?confHTML(26):''}<div class="gb-fig">${lauraSVG(0,false,pass)}</div><div class="score">Level ${run.lv+1}</div>
     <div class="ob-bubble" style="text-align:left">${msg}</div>
     ${wr?`<div style="text-align:left;margin-top:10px"><div class="eyebrow">Om te onthouden</div><ul class="lv-wr">${wr}</ul></div>`:''}
-    ${jk?`<button class="btn primary big" onclick="symJoker()">🃏 Joker inzetten: speel level ${run.lv+2} <small>(nog ${jokersLeft()})</small></button>`:''}
+    ${jk?`<button class="btn primary big" onclick="symNextLevel()">Speel level ${run.lv+2} →</button>`:''}
     <button class="btn ${jk?'':'primary'} big" style="margin-top:8px" onclick="st.symRun=null;save();symLevelsView()">Naar de levels</button>
     <button class="btn big" style="margin-top:8px" onclick="st.symRun=null;save();hub()">Naar het hoofdmenu</button></div></div>`); }
 function symZoom(k){ const d=document.createElement('div'); d.className='lb'; d.onclick=()=>d.remove(); d.innerHTML=`<img src="${symImg(k)}" style="max-width:94vw;max-height:80vh;image-rendering:auto">`; document.body.appendChild(d); }
@@ -5976,14 +5986,18 @@ function hub(){ st.view='start'; pathMode=null; save(); if(NOTI){ if(!NOTI.flush
   const row=(icon,t,sub,right,fn,done)=>`<button class="hx-row ${done?'done':''}" onclick="${fn}"><span class="hx-ic">${icon}</span><span class="hx-tx"><b>${t}</b><small>${sub}</small></span><span class="hx-r">${right}</span></button>`;
   $(`<div class="hx">
     <div class="hx-top"><div class="hb-mark">Kunst met <i>Laura</i></div><button class="hx-me" onclick="meView()" aria-label="Jouw profiel">${lauraSVG(0,true)}</button></div>
-    <h1 class="hx-hello">${gr}${st.name?', '+esc(st.name):''}</h1>
-    <div class="hx-stats"><button onclick="meView()"><b>🔥 ${streak}</b><small>dagen op rij</small></button><button onclick="meView()"><b>${I.l+1}</b><small>${I.name}</small></button><button onclick="${ch?'chestOpen()':'meView()'}"><b>🎁 ${ch}</b><small>${ch===1?'kistje':'kistjes'}</small></button></div>
-    <button class="hx-hero" onclick="${N.fn}">${N.img?`<img src="${P(N.img)}" alt="">`:''}<span class="hx-hero-tx"><small>${N.t}</small><b>${N.s}</b><span class="hx-cta">${N.lbl} →</span></span></button>
-    <h2 class="hx-h">Vandaag</h2>
-    <div class="hx-list">
-      ${row('☀️','Dagquiz',dqd?`Gedaan · ${st.dq[dqDay()].score}/5 goed`:'5 nieuwe vragen · 5 minuten',dqd?'✓':'›','dqStart()',dqd)}
-      ${row(`<img src="${symImg(T.im[0])}" alt="">`,'Kunstwerk van de dag',kd?(T.K.ans===T.Q.c?'Gewonnen voor je museum':'Bekeken'):'Zoek het verborgen symbool',kd?'✓':'›','kvdView()',kd)}
-      ${ch?row('🎁',`${ch} ${ch===1?'kistje':'kistjes'} te openen`,'Wat zit erin?','›','chestOpen()',false):''}
+    <h1 class="hx-hello hk-hello">${gr}${st.name?', '+esc(st.name):''}</h1>
+    <div class="hk-stats"><button onclick="meView()"><b>${streak}</b> ${streak===1?'dag':'dagen'} op rij</button><span aria-hidden="true">·</span><button onclick="meView()">${I.name}</button><span aria-hidden="true">·</span><button onclick="${ch?'chestOpen()':'meView()'}"><b>${ch}</b> ${ch===1?'kistje':'kistjes'}</button></div>
+    ${(()=>{ const m=/^Les (\d+)/.exec(N.s||''), cta=m?(N.lbl==='Ga verder'?'Verder met les '+m[1]:'Start les '+m[1]):N.lbl, sub=(N.s||'').replace(/^Les \d+ · /,'');
+      return `<button class="hk-frame" onclick="${N.fn}" aria-label="${esc(cta)}"><span class="hk-gilt"><span class="hk-mat">${N.img?`<img src="${P(N.img)}" alt="">`:''}</span></span></button>
+      <div class="hk-plaque"><b>${N.t}${m?', les '+m[1]:''}</b>${m&&/ · /.test(N.s)?`<small>${sub}</small>`:(!m?`<small>${N.s}</small>`:'')}</div>
+      <button class="hk-cta" onclick="${N.fn}">${cta}</button>`; })()}
+    <h2 class="hx-h hk-h">Vandaag</h2>
+    <div class="hk-tiles">
+      <button class="hk-tile ${dqd?'done':''}" onclick="dqStart()"><span class="hk-gilt sm"><span class="hk-mat"><img src="${P('q1')}" alt=""></span></span><b>Dagquiz</b><small>${dqd?`${st.dq[dqDay()].score}/5 goed`:'5 vragen'}</small></button>
+      <button class="hk-tile ${kd?'done':''}" onclick="kvdView()"><span class="hk-gilt sm"><span class="hk-mat"><img src="${symImg(T.im[0])}" alt=""></span></span><b>Kunstwerk</b><small>${kd?'Bekeken':'van de dag'}</small></button>
+      ${ch?`<button class="hk-tile" onclick="chestOpen()"><span class="hk-gilt sm"><span class="hk-mat hk-ico"><svg width="46" height="46" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M8 17h24v14H8z"/><path d="M8 17c0-5 5-8 12-8s12 3 12 8"/><path d="M17 21h6v4h-6z"/><path d="M8 24h9M23 24h9"/></svg></span></span><b>${ch} ${ch===1?'kistje':'kistjes'}</b><small>Open ze</small></button>`
+        :`<button class="hk-tile" onclick="freePlay()"><span class="hk-gilt sm"><span class="hk-mat hk-ico">${ic('practice')}</span></span><b>Oefenen</b><small>Symbolen raden</small></button>`}
     </div>
     <div id="top3" style="margin-top:14px">${top3HTML()}</div>
     <button class="hx-ask" onclick="oracleView()"><span class="hx-av">${lauraSVG(0,true)}</span><span class="hx-tx"><b>Vraag het Laura</b><small>Waar stond dat symbool ook alweer voor?</small></span><span class="hx-go">${ORSEND}</span></button>
@@ -11110,7 +11124,7 @@ function freePlay(){ lauraTip('free'); st.view='free'; if(symOpen()&&!st.symSeen
   const sp=SPECS.filter(t=>TRACKS[t]);
   $(`<div><div class="hdr"><button class="chip" onclick="hub()">‹ Hoofdmenu</button></div>
     <h1 style="margin:6px 0 4px">Oefenen</h1><p class="muted" style="margin:0 0 12px">Geen vaste volgorde: kies waar je zin in hebt.</p>
-    <button class="sym-card ${symOpen()?'':'locked'}" onclick="startSym()"><span class="sc-ic">${symOpen()?'🎲':'🔒'}</span><span><b>Willekeurig symboliek oefenen</b><br><span class="muted">${symOpen()?(symLockLeft()>0?`Level ${lvCur()+1} om ${symTime(symLockLeft())} · record ${st.symBest||0}`:`Level ${lvCur()+1} van ${lvCount()} · record ${st.symBest||0}`):`Gaat open na Deel 1 · De basis (${TRACKS.basis.rounds.filter((_,i)=>roundComplete(i,'basis')).length}/${TRACKS.basis.rounds.length} lessen)`}</span></span><span class="sc-go">›</span></button>
+    <button class="sym-card ${symOpen()?'':'locked'}" onclick="startSym()"><span class="hk-gilt sm sc-fr"><span class="hk-mat"><img src="${P('q1')}" alt=""></span></span><span><b class="sc-t">Symbolen oefenen</b><br><span class="muted">${symOpen()?(symLockLeft()>0?`Level ${lvCur()+1} van ${lvCount()} · weer open om ${symTime(symLockLeft())}`:`Level ${lvCur()+1} van ${lvCount()} · van vaak naar zelden gezien`):`Gaat open na Deel 1 · De basis (${TRACKS.basis.rounds.filter((_,i)=>roundComplete(i,'basis')).length}/${TRACKS.basis.rounds.length} lessen)`}</span></span><span class="sc-go">›</span></button>
     <h2 class="free-h">Specialisaties</h2>
     <div class="tiles">${sp.map(t=>{ const b=trackBar(t),lock=!isOpen(t),cur=st.t===t,dn=trackDone(t);
       return `<button class="tile ${cur?'cur':''} ${lock?'locked':''}" ${lock?'':`onclick="pathMode='course';pickRoute('${t}')"`}>${cur?'<span class="now">nu bezig</span>':''}${grandSVG(t,lock,!dn)}
@@ -11503,7 +11517,7 @@ function home(){
     </div>
     ${badgeShelf()}
     ${finalCard()}
-    <div class="row" style="justify-content:center;margin-top:12px"><button class="chip gold" onclick="openFav('home')">♥ Mijn museum${favCount()?' ('+favCount()+')':''}</button><button class="chip" onclick="glossary()">📖 Begrippenlijst</button><button class="chip" onclick="startIntro('paths')">🎓 Startcursus</button></div><button class="sym-card" onclick="startSym()"><span class="sc-ic">🎲</span><span><b>Willekeurig symboliek oefenen</b><br><span class="muted">200 symbolen · strike-record ${st.symBest||0}</span></span><span class="sc-go">›</span></button>
+    <div class="row" style="justify-content:center;margin-top:12px"><button class="chip gold" onclick="openFav('home')">♥ Mijn museum${favCount()?' ('+favCount()+')':''}</button><button class="chip" onclick="glossary()">📖 Begrippenlijst</button><button class="chip" onclick="startIntro('paths')">🎓 Startcursus</button></div><button class="sym-card" onclick="startSym()"><span class="hk-gilt sm sc-fr"><span class="hk-mat"><img src="${P('q1')}" alt=""></span></span><span><b class="sc-t">Symbolen oefenen</b><br><span class="muted">${lvCount()} levels · record ${st.symBest||0}</span></span><span class="sc-go">›</span></button>
     ${betaToggle()}
     <p class="muted center" id="cloud" style="font-size:.82rem;margin-top:14px">${cloudLabel()}</p>
     <p class="muted center" style="margin-top:6px;font-size:.88rem">Tik op een nummer om direct naar die vraag te springen, of op ★ voor het meesterwerk.</p>
