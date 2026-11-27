@@ -390,6 +390,14 @@ h3.rgroup{margin-top:1.4em}
 :root{--bg:#111827;--bg2:#162036;--panel:#1a2440;--panel2:#212d4f;--ink:#f1ebdd;--muted:#a3abc0;--gold:#d2ae62;--gold2:#ecd296;--ok:#6fae96;--bad:#d06a4c;--line:#2b3756;--lapis:#2f4a8f;--serif:"Corm",Georgia,serif}
 html,body{font-family:"Hanken",system-ui,-apple-system,sans-serif;background:var(--bg);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 b,strong{font-weight:800}
+@media (min-width:900px) and (min-aspect-ratio:1/1){
+ .storyv{display:grid;grid-template-columns:auto minmax(340px,460px);column-gap:28px;align-items:start;justify-content:center}
+ #app:has(>.storyv){max-width:1180px}
+ .storyv>.hdr{grid-column:1/-1}
+ .storyv>.stage{grid-column:1;grid-row:2/span 6;height:calc(100vh - 110px);height:calc(100dvh - 110px);width:auto;max-width:calc((100vh - 110px)*9/11);aspect-ratio:9/11}
+ .storyv>:not(.hdr):not(.stage){grid-column:2}
+ .storyv>.sp-q{margin-top:0}
+}
 .sym-prog{display:flex;gap:3px;margin:4px 0 10px}.sym-prog i{flex:1;height:5px;border-radius:3px;background:rgba(255,255,255,.12)}.sym-prog i.d{background:var(--gold)}.sym-prog i.c{background:var(--gold2);opacity:.6}
 .sym-rep{display:inline-block;font-size:.8rem;color:var(--gold2);background:rgba(215,180,106,.12);border:1px solid rgba(215,180,106,.3);border-radius:12px;padding:3px 10px;margin-bottom:8px}
 .fg-badge{display:flex;flex-direction:column;align-items:center;gap:4px;margin:10px 0 12px;color:var(--muted);font-size:.9rem}.fg-badge svg{width:84px;height:84px;opacity:.75}
@@ -4899,6 +4907,8 @@ const PRE_LIST = [
       e:'Kunstenaars in de renaissance lazen vooral Latijnse schrijvers, zoals <b>Ovidius</b>. Daarom heten de schilderijen <i>Venus en Mars</i> en <i>Diana en Actaeon</i>. Je hebt dus beide namen nodig.', img:false},
     {s:'zeus', x:'Kom, ik laat je mijn familie zien. Laten we bij het begin beginnen.'},
     {tree:1, n:'Eerst waren er <b>Gaia</b>, de Aarde, en <b>Uranus</b>, de Hemel. Hun kinderen waren de reusachtige <b>titanen</b>.'},
+    {n:'Wat is een titaan eigenlijk? Titanen zijn de reuzen uit de oertijd: de goden van vóór Zeus. Ze zijn enorm groot en oersterk, en ze staan voor de krachten van de natuur, zoals de zee, de zon en de tijd.'},
+    {art:'P:f4', t:'De geketende Prometheus', a:'Peter Paul Rubens (met Frans Snyders)', yr:'1611–1618', x:'Dit is ook een titaan: <b>Prometheus</b>. Kijk hoe reusachtig Rubens hem maakt: zijn lijf vult bijna het hele doek. Prometheus stal het vuur van de goden en gaf het aan de mensen. Als straf liet Zeus hem aan een rots ketenen, en elke dag at een adelaar van zijn lever.'},
     {tree:2, s:'zeus', x:'Twee van die titanen waren mijn ouders: Kronos en Rhea. Ja, ze waren broer en zus.'},
     {q:'Broer en zus die samen kinderen krijgen. Hoe moet je dat zien?', o:['Dat was bij de Grieken heel gewoon','In de oertijd waren er nog geen anderen: het zijn verhalen over het ontstaan van de wereld, geen voorbeeld voor mensen','Het is een vertaalfout'], c:1,
       e:'Bij gewone Grieken was trouwen met je broer of zus <b>taboe</b>. Maar de eerste goden hadden niemand anders. De mythen gaan over hoe de wereld ontstond, niet over hoe mensen moesten leven.', img:false},
@@ -5007,7 +5017,7 @@ function storyChapterDone(){ const S=storyById(STQ.id), c=STQ.c; if(S.pre){ st.p
 function storyView(still){ const S=storyById(STQ.id), C=S.chapters[STQ.c], beats=C.beats, x=beats[STQ.b]; st.view='story';
   const prev=STQ.b>0?storySceneState(S,STQ.c,STQ.b-1):{actors:{},bg:null,crowd:null,weather:'',props:{},emo:{}}; const cur=storySceneState(S,STQ.c,STQ.b);
   { const tr=musTrackFor(STQ.id,cur.mood); if(tr){ auStopMusic(); musPlay(tr); } else auMood(cur.mood); }
-  if(!still){ if(x.s&&x.x) speak(STQ.id,x.x); else if(x.n) speak(STQ.id,x.n); else speakStop(); }
+  if(!still){ if(x.s&&x.x) speak(STQ.id,x.x); else if(x.n) speak(STQ.id,x.n); else if(x.art&&x.x) speak(STQ.id,x.x); else speakStop(); }
   const amb=new Set(); if(/rain|storm/.test(cur.weather)) amb.add('rain'); if(/fire/.test(cur.weather)) amb.add('fire'); if(['sea','storm','naples'].includes(cur.bg)) amb.add('waves'); if(cur.crowd&&!['soldiers','knights','mourn','monks'].includes(cur.crowd)) amb.add('crowd'); if(['vaux','garden'].includes(cur.bg)) amb.add('fountain'); auAmb(amb);
   if(!still){ if(x.sfx) sfx(x.sfx); if(x.crowd&&x.crowd!==prev.crowd&&!x.sfx){ const cs={angry:'angry',cheer:'cheer',audience:'clap',auction:'murmur',court:'murmur',admire:'murmur',soldiers:'drum',militia:'drum',workers:'hammer',church:'murmur'}[x.crowd&&x.crowd.k||x.crowd]; if(cs) sfx(cs); }
     if(/storm/.test(cur.weather)&&!/storm/.test(prev.weather)) sfx('thunder'); if(/fireworks/.test(cur.weather)&&!/fireworks/.test(prev.weather)) sfx('firework'); if(x.in&&!x.sfx) sfx('steps'); }
