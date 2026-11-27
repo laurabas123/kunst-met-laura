@@ -3415,7 +3415,7 @@ const GUIDES = {
   durer:{name:'Albrecht Dürer', role:'schilder en graveur, 1471–1528', svg:(s,h,c)=>charSVG(CHARS.durer,s,h,c)},
   zeus:{name:'Zeus', role:'oppergod van de Olympus', svg:(s,h,c)=>charSVG(CHARS.zeus,s,h,c)}
 };
-function guideOf(t=st.t){ if(t==='basis') return 'laura'; if(t==='hg') return 'rembrandt'; if(t==='mix'||t==='n3') return 'durer';
+function guideOf(t=st.t){ if(t==='basis') return 'laura'; if(t==='hg') return 'rembrandt'; if(t==='mix'||t==='n3') return 'laura';
   if(t==='myth') return 'zeus'; if(['deugden','bijbel','ge','kenner'].includes(t)) return 'catharina'; return 'gala'; }
 const GHELLO = {
   laura: nm=>`Hoi${nm}! Ik ben <b>Laura</b> en ik neem je mee door de basis van de symboliek. Na deze cursus kijk je nooit meer hetzelfde naar een schedel, een lelie of een hondje.`,
@@ -3550,7 +3550,7 @@ function dqAns(k){ if(!DQ||DQ.ans[DQ.i]!==undefined) return; DQ.ans[DQ.i]=k; con
   setTimeout(()=>{ const f=document.querySelector('.dq .fb'); if(f) f.scrollIntoView({behavior:'smooth',block:'center'}); },60); }
 function dqNext(){ if(DQ.i<DQ_N-1){ DQ.i++; dqView(); scrollTo(0,0); } else dqFinish(); }
 function dqQuit(){ if(!DQ||!DQ.ans.length){ clearInterval(dqTimer); DQ=null; return hub(); }
-  const m=document.createElement('div'); m.className='lb gl-modal'; m.onclick=()=>m.remove();
+  const m=document.createElement('div'); m.className='lb gl-modal'; m.dataset.vox='guides|dq_stop'; m.onclick=()=>m.remove();
   m.innerHTML=`<div class="gl-box guide-box" onclick="event.stopPropagation()"><div class="gb-fig">${lauraSVG(0,false)}</div><div class="ob-bubble"><b>Stoppen met de dagquiz?</b><br><br>Je quiz wordt dan afgerond met de vragen die je al beantwoord hebt. Opnieuw beginnen kan vandaag niet meer.</div><button class="btn primary big" onclick="this.closest('.lb').remove()">Nee, ik ga verder</button><button class="btn" style="margin-top:8px" onclick="this.closest('.lb').remove();dqFinish()">Ja, rond af</button></div>`; document.body.appendChild(m); }
 function dqFinish(){ clearInterval(dqTimer); if(!DQ) return; const score=DQ.items.reduce((s,x,k)=>s+(DQ.ans[k]===x.Q.c?1:0),0), secs=Math.min(DQ_SECS,Math.round((Date.now()-DQ.t0)/1000));
   const day=DQ.day; st.dq=st.dq||{}; if(st.dq[day]){ DQ=null; return dqResult(st.dq[day]); }
@@ -4125,8 +4125,8 @@ const GLINES = {
       'Vanuit Venetië schreef ik mijn vriend <b>Pirckheimer</b>: “Hier ben ik een heer, thuis een klaploper.” Mijn vrouw Agnes verkocht ondertussen mijn prenten op de jaarmarkten.']
   }
 };
-const GCARD_ORDER=['laura','gala','rembrandt','catharina','durer'];
-const BOND_GUIDES=['laura','rembrandt','catharina','durer'];
+const GCARD_ORDER=['laura','gala','rembrandt','catharina'];
+const BOND_GUIDES=['laura','rembrandt','catharina'];
 const nmF = s => s.replace(/\{nm\}/g, st.name?', '+st.name:'');
 
 function bondPts(k){ return ((st.bond||{})[k])||0; }
@@ -4228,7 +4228,7 @@ function secSrc(id){ const A=SECART[id]; if(!A) return ''; if(A.p) return P(A.p)
 const secFig = id => SECART[id]?`<figure class="sec-fig" onclick="event.stopPropagation();const d=document.createElement('div');d.className='lb';d.innerHTML='<img src=&quot;'+this.querySelector('img').src+'&quot;><div class=cap>'+this.querySelector('figcaption').innerHTML+'</div>';d.onclick=()=>d.remove();document.body.appendChild(d)"><img data-sec="${id}" src="${secSrc(id)}" alt="" onload="" onerror="">${(setTimeout(secFix,200),'')}<figcaption>${SECART[id].c}</figcaption></figure>`:'';
 function bondLevelUp(k,lv){ const g=k, G=GUIDES[g], L=BOND_LV[lv].n, nm=st.name?`, ${st.name}`:'';
   const sec=GLINES[g].secrets[lv-1]; st.cards=st.cards||{}; st.cards[g+':s'+(lv-1)]=Date.now(); save();
-  const B = lv===2 ? freshArt(g==='laura'?['basis','rijks','maur']:g==='rembrandt'?['hg']:g==='durer'?['mix','n3']:['deugden','bijbel','myth','ge','kenner']) : null;
+  const B = lv===2 ? freshArt(g==='laura'?['basis','mix','n3','rijks','maur']:g==='rembrandt'?['hg']:g==='durer'?['mix','n3']:['deugden','bijbel','myth','ge','kenner']) : null;
   const o = B ? winArt(B) : null;
   const m=document.createElement('div'); m.className='lb gl-modal kcel rwd'; if(g==='zeus'||g==='laura') m.dataset.vox='guides|bond_'+g+'_'+lv;
   m.innerHTML=`${confHTML(30)}<div class="gl-box guide-box in-done" onclick="event.stopPropagation()"><div class="eyebrow center">Jullie band groeit</div>
@@ -4324,7 +4324,7 @@ function symNext(){ st.symDeck=(st.symDeck||[]).filter(i=>i<SYMB.length); if(!st
 const symOpen=()=>basisDone()||st.beta||!!st.symUnl;
 function symLockedModal(){ const R=TRACKS.basis.rounds, d=R.filter((_,i)=>roundComplete(i,'basis')).length; const m=document.createElement('div'); m.className='lb gl-modal'; m.onclick=()=>m.remove();
   m.innerHTML=`<div class="gl-box guide-box" onclick="event.stopPropagation()"><div class="gb-fig">${lauraSVG(0,false)}</div><div class="ob-bubble">Symbolen raden kan zodra je <b>Deel 1 · De basis</b> hebt afgerond. Dan ken je genoeg symbolen om het zelf te proberen!<br><br>Je hebt nu <b>${d} van ${R.length}</b> lessen af.</div><button class="btn primary big" onclick="this.closest('.lb').remove();pathMode='course';routeTab='symb';chooseTrack('basis')">Naar De basis →</button><button class="btn" style="margin-top:8px" onclick="this.closest('.lb').remove()">Sluiten</button></div>`; document.body.appendChild(m); }
-function symUnlockedModal(){ const m=document.createElement('div'); m.className='lb gl-modal'; m.onclick=()=>m.remove(); m.innerHTML=`<div class="gl-box guide-box in-done" onclick="event.stopPropagation()"><div class="gb-fig">${lauraSVG(0,false,true)}</div><div class="ob-bubble"><b>Nieuw ontgrendeld!</b> Je hebt De basis afgerond, dus nu kun je symbolen zelf raden. Hoe lang wordt jouw reeks?</div><button class="btn primary big" onclick="this.closest('.lb').remove();startSym()">Probeer het →</button></div>`; document.body.appendChild(m); }
+function symUnlockedModal(){ const m=document.createElement('div'); m.className='lb gl-modal'; m.dataset.vox='guides|unlock_sym'; m.onclick=()=>m.remove(); m.innerHTML=`<div class="gl-box guide-box in-done" onclick="event.stopPropagation()"><div class="gb-fig">${lauraSVG(0,false,true)}</div><div class="ob-bubble"><b>Nieuw ontgrendeld!</b> Je hebt De basis afgerond, dus nu kun je symbolen zelf raden. Hoe lang wordt jouw reeks?</div><button class="btn primary big" onclick="this.closest('.lb').remove();startSym()">Probeer het →</button></div>`; document.body.appendChild(m); }
 /* rondes van max 15: alles goed = meteen door; anders (of bij 5 fouten) 4 uur pauze. Fouten komen in de volgende ronde terug. */
 const SES_MAX=15, SES_BAD=5, SES_LOCK=4*3600e3;
 const symSes=()=>st.symSes||(st.symSes={n:0,bad:0,seen:[]});
@@ -6109,7 +6109,7 @@ function introView(){ st.view='intro'; const it=INTRO[IN.i]; if(!it) return path
       ${nextBar(IN.i<INTRO.length-1?'Volgend begrip →':'Afronden →','introNext()',a===it.c)}<p class="center" style="margin:10px 0 0"><button class="btn small" onclick="askLaura()">💬 Snap je het niet? Stel Laura een vraag</button></p></div>`:''}</div>`); }
 function introQuit(){ if(!st.introQuitAsked) return introQuitModal(); introQuitGo(); }
 function introQuitGo(){ if(IN.from==='onb'){ ob.s=2; return onbView(); } introBack(); }
-function introQuitModal(){ const m=document.createElement('div'); m.className='lb gl-modal'; m.onclick=()=>m.remove();
+function introQuitModal(){ const m=document.createElement('div'); m.className='lb gl-modal'; m.dataset.vox='guides|intro_stop'; m.onclick=()=>m.remove();
   m.innerHTML=`<div class="gl-box guide-box" onclick="event.stopPropagation()"><div class="gb-fig">${lauraSVG(0,false)}</div><div class="ob-bubble"><b>Weet je zeker dat je deze cursus wilt verlaten?</b><br><br>De startcursus is eenmalig. Wil je later toch verder? Op het startscherm staat de knop <b>🎓 Startcursus</b>.</div><button class="btn primary big" onclick="this.closest('.lb').remove()">Nee, ik ga verder</button><button class="btn" style="margin-top:8px" onclick="this.closest('.lb').remove();st.introQuitAsked=true;save();introQuitGo()">Ja, verlaat de cursus</button></div>`; document.body.appendChild(m); }
 function introDone(){ st.view='introDone'; const nm=st.name?`, ${st.name}`:'';
   const conf=Array.from({length:28},(_,k)=>`<i style="left:${(k*37)%100}%;animation-delay:${(k%7)*.18}s;background:${['#d7b46a','#c0645a','#3e63b0','#7fae7a','#efe4cf'][k%5]}"></i>`).join('');
@@ -11676,6 +11676,11 @@ function onbSpeak(tries=0){ const k=onbKey(); if(!k){ onbStop(); ONBLAST=null; r
 try{ if(!st.onb) onbVoxLoad(); }catch(e){}
 /* pop-ups met data-vox="sid|sleutel" lezen hun tekst voor zodra ze echt in beeld komen (ook als ze in de wachtrij stonden) */
 try{ new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{ if(!n.dataset||!n.dataset.vox) return; const [sid,key]=n.dataset.vox.split('|'); voxLoad(sid); let k=0; const go=()=>{ if(!n.isConnected) return; if(window.VOX&&VOX[sid]&&VOX[sid][key]){ try{ auResume(); }catch(e){} speak(sid,key,true); } else if(k++<30) setTimeout(go,150); }; setTimeout(go,600); }))).observe(document.body,{childList:true}); }catch(e){}
+/* Laura blijft je gids in Deel 2 en 3: eenmalig welkom */
+const LWELKOM={mix:'Welkom bij Deel 2! Ik blijf gewoon je gids. In de basis leerde je de bekendste symbolen. Nu gaan we verder: nieuwe symbolen, slimmere puzzels en schilderijen waarin meer verstopt zit dan je denkt.',
+  n3:'Welkom bij Deel 3: meesterlijk kijken! Je kent nu heel wat symbolen. Nu leer je kijken zoals een echte kenner: naar de context, de details en de dubbele bodems. Ik ga gewoon met je mee.'};
+{ const o=window.home; if(typeof o==='function') window.home=function(...a){ const r=o.apply(this,a); try{ const t=st.t; st.gseen=st.gseen||{}; if(LWELKOM[t]&&!st.gseen['w:'+t]){ st.gseen['w:'+t]=1; save(); const m=document.createElement('div'); m.className='lb gl-modal'; m.dataset.vox='guides|welkom_'+t; m.onclick=()=>m.remove();
+  m.innerHTML=`<div class="gl-box guide-box" onclick="event.stopPropagation()"><div class="gb-fig">${lauraSVG(0)}</div><div class="ob-bubble">${LWELKOM[t].replace(/^(Welkom bij [^!]*!)/,'<b>$1</b>')}</div><button class="btn primary big" onclick="this.closest('.lb').remove()">Laten we beginnen</button></div>`; setTimeout(()=>qModal(m),500); } }catch(e){} return r; }; }
 { const o=window.storiesGift; if(typeof o==='function') window.storiesGift=function(...a){ const seen=st.tips&&st.tips.stories; const r=o.apply(this,a); if(!seen){ voxLoad('guides'); let n=0; const tryS=()=>{ if(!document.querySelector('.guide-box')) return; if(window.VOX&&VOX.guides&&VOX.guides.stories_gift){ try{ auResume(); }catch(e){} speak('guides','stories_gift',true); } else if(n++<30) setTimeout(tryS,150); }; setTimeout(tryS,400); } return r; }; }
 /* eindtekst van een hoofdstuk of voorkenniscursus voorlezen als er een opname van is */
 { const o=window.storyChapterDone; if(typeof o==='function') window.storyChapterDone=function(...a){ const id=STQ&&STQ.id, c=STQ&&STQ.c; const r=o.apply(this,a); try{ const S=storyById(id), last=c===S.chapters.length-1, t=last?S.outro:(S.chapters[c].end||''); if(t) setTimeout(()=>speak(id,t,'end'),1100); }catch(e){} return r; }; }
