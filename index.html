@@ -3472,7 +3472,8 @@ function maybeGuide(){ const v=st.view; if(!(v==='q'||v==='big')||!diffOf()||!st
   st.gseen=st.gseen||{}; const g=guideOf(), nm=st.name?`, ${st.name}`:''; const parts=[];
   let hi=false; if(!st.gseen['g:'+g]){ parts.push(GHELLO[g](nm)); st.gseen['g:'+g]=1; hi=true; }
   const rk=st.t+'|'+st.r; if(GROUND[rk]&&!st.gseen['r:'+rk]){ parts.push(GROUND[rk](parts.length?'':nm)); st.gseen['r:'+rk]=1; }
-  if(!parts.length) return; save(); guideModal(g,parts.join('<br><br>')); if(hi) helloSay(g); }
+  if(!parts.length) return; save(); guideModal(g,parts.join('<br><br>')); if(hi) helloSay(g);
+  else if(GROUND[rk]){ const gk='ground_'+rk.replace('|',''); voxLoad('guides'); let n=0; const go=()=>{ if(!document.querySelector('.guide-box')) return; if(window.VOX&&VOX.guides){ if(VOX.guides[gk]){ try{ auResume(); }catch(e){} speak('guides',gk,true); } return; } if(n++<30) setTimeout(go,150); }; setTimeout(go,600); } }
 const guideRow = () => { const g=guideOf(), G=GUIDES[g]; return `<div class="guide-row" onclick="guideModal('${g}',GHELLO['${g}'](st.name?', '+st.name:''))"><span class="gr-h">${G.svg(0,true)}</span><div><div class="muted gr-s">Je gids</div><b>${G.name}</b></div></div>`; };
 /* ================= DAGELIJKSE CONTENTBANK: eenmalige vragen en kunstwerk van de dag =================
    Bron: de symbolenbibliotheek (200 symbolen, 736 schilderijen), niet de cursusvragen.
@@ -3559,7 +3560,7 @@ function dqAns(k){ if(!DQ||DQ.ans[DQ.i]!==undefined) return; DQ.ans[DQ.i]=k; con
 function dqNext(){ if(DQ.i<DQ_N-1){ DQ.i++; dqView(); scrollTo(0,0); } else dqFinish(); }
 function dqQuit(){ if(!DQ||!DQ.ans.length){ clearInterval(dqTimer); DQ=null; return hub(); }
   const m=document.createElement('div'); m.className='lb gl-modal'; m.dataset.vox='guides|dq_stop'; m.onclick=()=>m.remove();
-  m.innerHTML=`<div class="gl-box guide-box" onclick="event.stopPropagation()"><div class="gb-fig">${lauraSVG(0,false)}</div><div class="ob-bubble"><b>Stoppen met de dagquiz?</b><br><br>Je quiz wordt dan afgerond met de vragen die je al beantwoord hebt. Opnieuw beginnen kan vandaag niet meer.</div><button class="btn primary big" onclick="this.closest('.lb').remove()">Nee, ik ga verder</button><button class="btn" style="margin-top:8px" onclick="this.closest('.lb').remove();dqFinish()">Ja, rond af</button></div>`; document.body.appendChild(m); }
+  m.innerHTML=`<div class="gl-box guide-box" onclick="event.stopPropagation()"><div class="gb-fig">${lauraSVG(0,false)}</div><div class="ob-bubble"><b>Stoppen met de dagquiz?</b><br><br>Je quiz wordt afgerond met de vragen die je al beantwoord hebt. Opnieuw beginnen kan vandaag niet meer.</div><button class="btn primary big" onclick="this.closest('.lb').remove()">Nee, ik ga verder</button><button class="btn" style="margin-top:8px" onclick="this.closest('.lb').remove();dqFinish()">Ja, rond af</button></div>`; document.body.appendChild(m); }
 function dqFinish(){ clearInterval(dqTimer); if(!DQ) return; const score=DQ.items.reduce((s,x,k)=>s+(DQ.ans[k]===x.Q.c?1:0),0), secs=Math.min(DQ_SECS,Math.round((Date.now()-DQ.t0)/1000));
   const day=DQ.day; st.dq=st.dq||{}; if(st.dq[day]){ DQ=null; return dqResult(st.dq[day]); }
   /* dagreeks */
@@ -3878,7 +3879,7 @@ let NAPSRC=null;
 function napSpeak(k){ try{ if(NAPSRC){ NAPSRC.onended=null; NAPSRC.stop(); } }catch(e){} NAPSRC=null; if(!vxOn()||!auInit()||!window.NAPVOX||!NAPVOX[k]) return;
   const bin=atob(NAPVOX[k]), arr=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) arr[i]=bin.charCodeAt(i);
   AU.ctx.decodeAudioData(arr.buffer,buf=>{ const s=AU.ctx.createBufferSource(); s.buffer=buf; s.connect(AU.ctx.destination); musDuck(true); s.onended=()=>{ if(NAPSRC===s){ NAPSRC=null; musDuck(false); } }; NAPSRC=s; s.start(); },()=>{}); }
-var VOXV='20261125t';
+var VOXV='20261127a';
 function napLoad(){ if(window.NAPVOX||window._napL) return; window._napL=1; const s=document.createElement('script'); s.src='vox/napoleon.js?v='+VOXV; s.async=true; s.onerror=()=>{window._napL=0;}; document.head.appendChild(s); }
 const NAPL={
  n1:'<b>Bonjour, lieve testers!</b> Ik ben Napoleon Bonaparte. Laura heeft mij gevraagd of ik leuk nieuws met jullie wilde delen.',
@@ -4332,7 +4333,7 @@ function symNext(){ st.symDeck=(st.symDeck||[]).filter(i=>i<SYMB.length); if(!st
 const symOpen=()=>basisDone()||st.beta||!!st.symUnl;
 function symLockedModal(){ const R=TRACKS.basis.rounds, d=R.filter((_,i)=>roundComplete(i,'basis')).length; const m=document.createElement('div'); m.className='lb gl-modal'; m.onclick=()=>m.remove();
   m.innerHTML=`<div class="gl-box guide-box" onclick="event.stopPropagation()"><div class="gb-fig">${lauraSVG(0,false)}</div><div class="ob-bubble">Symbolen raden kan zodra je <b>Deel 1 · De basis</b> hebt afgerond. Dan ken je genoeg symbolen om het zelf te proberen!<br><br>Je hebt nu <b>${d} van ${R.length}</b> lessen af.</div><button class="btn primary big" onclick="this.closest('.lb').remove();pathMode='course';routeTab='symb';chooseTrack('basis')">Naar De basis →</button><button class="btn" style="margin-top:8px" onclick="this.closest('.lb').remove()">Sluiten</button></div>`; document.body.appendChild(m); }
-function symUnlockedModal(){ const m=document.createElement('div'); m.className='lb gl-modal'; m.dataset.vox='guides|unlock_sym'; m.onclick=()=>m.remove(); m.innerHTML=`<div class="gl-box guide-box in-done" onclick="event.stopPropagation()"><div class="gb-fig">${lauraSVG(0,false,true)}</div><div class="ob-bubble"><b>Nieuw ontgrendeld!</b> Je hebt De basis afgerond, dus nu kun je symbolen zelf raden. Hoe lang wordt jouw reeks?</div><button class="btn primary big" onclick="this.closest('.lb').remove();startSym()">Probeer het →</button></div>`; document.body.appendChild(m); }
+function symUnlockedModal(){ const m=document.createElement('div'); m.className='lb gl-modal'; m.dataset.vox='guides|unlock_sym'; m.onclick=()=>m.remove(); m.innerHTML=`<div class="gl-box guide-box in-done" onclick="event.stopPropagation()"><div class="gb-fig">${lauraSVG(0,false,true)}</div><div class="ob-bubble"><b>Nieuw level ontgrendeld!</b> Je hebt De basis afgerond, dus nu kun je symbolen zelf raden. Hoe lang wordt jouw reeks?</div><button class="btn primary big" onclick="this.closest('.lb').remove();startSym()">Probeer het →</button></div>`; document.body.appendChild(m); }
 /* rondes van max 15: alles goed = meteen door; anders (of bij 5 fouten) 4 uur pauze. Fouten komen in de volgende ronde terug. */
 const SES_MAX=15, SES_BAD=5, SES_LOCK=4*3600e3;
 const symSes=()=>st.symSes||(st.symSes={n:0,bad:0,seen:[]});
@@ -11687,7 +11688,7 @@ try{ if(!st.onb) onbVoxLoad(); }catch(e){}
 /* pop-ups met data-vox="sid|sleutel" lezen hun tekst voor zodra ze echt in beeld komen (ook als ze in de wachtrij stonden) */
 try{ new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{ if(!n.dataset||!n.dataset.vox) return; const [sid,key]=n.dataset.vox.split('|'); voxLoad(sid); let k=0; const go=()=>{ if(!n.isConnected) return; if(window.VOX&&VOX[sid]&&VOX[sid][key]){ try{ auResume(); }catch(e){} speak(sid,key,true); } else if(k++<30) setTimeout(go,150); }; setTimeout(go,600); }))).observe(document.body,{childList:true}); }catch(e){}
 /* Laura blijft je gids in Deel 2 en 3: eenmalig welkom */
-const LWELKOM={mix:'Welkom bij Deel 2! Ik blijf gewoon je gids. In de basis leerde je de bekendste symbolen. Nu gaan we verder: nieuwe symbolen, slimmere puzzels en schilderijen waarin meer verstopt zit dan je denkt.',
+const LWELKOM={mix:'Welkom bij Deel 2! Ik blijf gewoon je gids. In de basis leerde je de bekendste symbolen. Nu gaan we verder: nieuwe symbolen, moeilijkere puzzels en schilderijen waarin meer verstopt zit dan je denkt.',
   n3:'Welkom bij Deel 3: meesterlijk kijken! Je kent nu heel wat symbolen. Nu leer je kijken zoals een echte kenner: naar de context, de details en de dubbele bodems. Ik ga gewoon met je mee.'};
 { const o=window.home; if(typeof o==='function') window.home=function(...a){ const r=o.apply(this,a); try{ const t=st.t; st.gseen=st.gseen||{}; if(LWELKOM[t]&&!st.gseen['w:'+t]){ st.gseen['w:'+t]=1; save(); const m=document.createElement('div'); m.className='lb gl-modal'; m.dataset.vox='guides|welkom_'+t; m.onclick=()=>m.remove();
   m.innerHTML=`<div class="gl-box guide-box" onclick="event.stopPropagation()"><div class="gb-fig">${lauraSVG(0)}</div><div class="ob-bubble">${LWELKOM[t].replace(/^(Welkom bij [^!]*!)/,'<b>$1</b>')}</div><button class="btn primary big" onclick="this.closest('.lb').remove()">Laten we beginnen</button></div>`; setTimeout(()=>qModal(m),500); } }catch(e){} return r; }; }
