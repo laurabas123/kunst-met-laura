@@ -3254,21 +3254,26 @@ function toggleKenner(){ st.kenner=!st.kenner; render(); }
 const kennerToggle = () => `<label class="ktoggle"><input type="checkbox" ${st.kenner?'checked':''} onchange="toggleKenner()"><span class="kt-sw"></span><span><b>🎓 Ook goede kunst leren herkennen</b><br><span class="muted" style="font-size:.82rem">Dan krijg je in elke basisronde, vóór het meesterwerk, de kunstkennersles van dezelfde les. Telt ook mee voor de losse module.</span></span></label>`;
 
 /* ================= KUNST MET LAURA: avatar, welkom, thema-badges ================= */
-const LAURA = {hair:'#5e3a22', hairHi:'#9a6a3e', hairDk:'#40261a', skin:'#efc6a3', skinSh:'#d9a684', dress:'#1f3a78', dressSh:'#152a59', gold:'#d7b46a', lace:'#efe4cf', glasses:'#3e63b0', lips:'#c0645a'};
+const LAURA = {hair:'#6b4126', hairHi:'#b98552', hairDk:'#3a2213', skin:'#efc29f', skinSh:'#cf9874', dress:'#1f3a78', dressSh:'#122651', gold:'#d7b46a', lace:'#f1e7d3', glasses:'#4a6fc4', lips:'#c86a60'};
 function lauraSVG(size,head,clap,gala){ const C=gala?LAURA_GALA:LAURA;
   const curls=(x,y,n,dir)=>Array.from({length:n},(_,k)=>`<path d="M${x+dir*(k%2?4:-2)} ${y+k*18} q${dir*14} 8 ${dir*2} 18" stroke="${C.hairHi}" stroke-width="2.2" fill="none" stroke-linecap="round" opacity=".75"/>`).join('');
   return `<svg class="${head?'lhead':'laura'}" viewBox="${head?'72 34 96 96':'0 0 240 360'}" ${size?`style="width:${size}px"`:''} xmlns="http://www.w3.org/2000/svg" aria-label="Laura">
   <defs><linearGradient id="lDress${gala?'G':''}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${C.dress}"/><stop offset="1" stop-color="${C.dressSh}"/></linearGradient>
   <linearGradient id="lSide${gala?'G':''}" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000" stop-opacity=".38"/><stop offset=".3" stop-color="#fff" stop-opacity=".1"/><stop offset=".55" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".45"/></linearGradient>
-  <radialGradient id="lFace${gala?'G':''}" cx=".4" cy=".35" r=".75"><stop offset=".55" stop-color="${C.skin}"/><stop offset="1" stop-color="${C.skinSh}"/></radialGradient></defs>
+  <radialGradient id="lFace${gala?'G':''}" cx=".42" cy=".38" r=".7"><stop offset="0" stop-color="#f6d4b7"/><stop offset=".55" stop-color="${C.skin}"/><stop offset="1" stop-color="${C.skinSh}"/></radialGradient>
+  <linearGradient id="lHair${gala?'G':''}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${C.hairDk}"/><stop offset=".35" stop-color="${C.hair}"/><stop offset=".8" stop-color="#8a5a34"/><stop offset="1" stop-color="${C.hair}"/></linearGradient>
+  <linearGradient id="lLip${gala?'G':''}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d27a6e"/><stop offset="1" stop-color="#a8504a"/></linearGradient>
+  <linearGradient id="lWing${gala?'G':''}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7fa6ec"/><stop offset=".6" stop-color="#2f5fc4"/><stop offset="1" stop-color="#1b3a85"/></linearGradient>
+  <pattern id="lDam${gala?'G':''}" width="26" height="30" patternUnits="userSpaceOnUse"><path d="M13 4 c-5 4 -5 10 0 13 c5 -3 5 -9 0 -13z M13 17 v9 M7 22 c3 -3 6 -2 6 1 M19 22 c-3 -3 -6 -2 -6 1" stroke="#8fb0ee" stroke-width="1" fill="none" opacity=".16"/></pattern></defs>
   <ellipse cx="120" cy="350" rx="74" ry="7" fill="#000" opacity=".35"/>
   <!-- lang golvend haar, achter -->
-  <path d="M76 90 C66 46 100 30 122 32 C152 32 176 52 168 94 C176 120 182 150 176 186 C172 204 160 210 150 200 C154 186 150 170 148 160 L94 160 C90 172 88 188 92 200 C80 210 66 202 64 184 C58 150 66 120 76 90Z" fill="${C.hair}"/>
-  <path d="M70 120 C62 150 66 176 76 196 M170 120 C178 150 176 176 164 198" stroke="${C.hairDk}" stroke-width="3" fill="none" opacity=".6"/>
-  ${curls(70,118,4,1)}${curls(170,118,4,-1)}
+  <path d="M78 86 C66 44 100 26 122 28 C154 28 180 50 170 92 C182 112 176 132 184 152 C190 170 178 184 182 200 C176 214 158 214 152 202 C156 188 150 174 148 162 L94 162 C90 174 86 190 90 202 C82 214 62 212 58 198 C62 182 52 168 58 150 C64 132 58 112 78 86Z" fill="url(#lHair${gala?'G':''})"/>
+  <path d="M66 112 C56 136 70 150 60 172 C56 184 64 196 72 200 M174 112 C184 136 170 150 180 172 C184 184 176 196 168 200" stroke="${C.hairDk}" stroke-width="3" fill="none" opacity=".55" stroke-linecap="round"/>
+  <path d="M74 110 C66 130 78 146 70 166 C66 178 72 188 78 194 M168 110 C176 130 164 146 172 166 C176 178 170 188 164 194 M82 126 C78 146 88 160 82 182 M160 126 C164 146 154 160 160 182" stroke="${C.hairHi}" stroke-width="2.2" fill="none" opacity=".7" stroke-linecap="round"/>
   <!-- rok -->
   <path d="M96 216 C78 250 60 290 50 330 C96 344 144 344 190 330 C180 290 162 250 144 216Z" fill="url(#lDress${gala?'G':''})"/>
-  <path d="M70 300 c10 -8 20 -2 18 8 M104 318 c8 -12 22 -6 18 6 M146 304 c10 -10 22 0 14 10 M120 270 c6 -10 18 -4 14 6 M84 262 c8 -6 16 0 12 8 M156 262 c6 -8 16 -2 12 8" stroke="${C.gold}" stroke-width="2" fill="none" opacity=".85"/>
+  <path d="M96 216 C78 250 60 290 50 330 C96 344 144 344 190 330 C180 290 162 250 144 216Z" fill="url(#lDam${gala?'G':''})"/>
+  <path d="M70 300 c10 -8 20 -2 18 8 c-2 6 -10 6 -10 0 M104 318 c8 -12 22 -6 18 6 M146 304 c10 -10 22 0 14 10 c-4 4 -10 2 -8 -3 M120 270 c6 -10 18 -4 14 6 M84 262 c8 -6 16 0 12 8 M156 262 c6 -8 16 -2 12 8 M62 326 q58 14 116 0" stroke="${C.gold}" stroke-width="1.8" fill="none" opacity=".85"/>
   <path d="M96 216 C78 250 60 290 50 330 C96 344 144 344 190 330 C180 290 162 250 144 216Z" fill="url(#lSide${gala?'G':''})"/>
   <path d="M100 226 C90 260 82 296 78 334 M140 226 C150 260 158 296 162 334 M120 228 C118 266 116 300 116 338" stroke="#000" stroke-width="5" fill="none" opacity=".16" stroke-linecap="round"/>
   <path d="M106 226 C98 258 92 292 90 330" stroke="#fff" stroke-width="3" fill="none" opacity=".12" stroke-linecap="round"/>
@@ -3282,12 +3287,18 @@ function lauraSVG(size,head,clap,gala){ const C=gala?LAURA_GALA:LAURA;
   <!-- lijfje -->
   <path d="M90 150 C104 156 136 156 150 150 L160 172 C152 190 148 204 146 222 L94 222 C92 204 88 190 80 172Z" fill="url(#lDress${gala?'G':''})"/>
   <path d="M90 150 C104 156 136 156 150 150 L160 172 C152 190 148 204 146 222 L94 222 C92 204 88 190 80 172Z" fill="url(#lSide${gala?'G':''})"/>
-  <path d="M120 162 V220 M106 170 q14 10 28 0 M104 190 q16 10 32 0 M108 208 q12 6 24 0" stroke="${C.gold}" stroke-width="1.8" fill="none"/>
+  <path d="M90 150 C104 156 136 156 150 150 L160 172 C152 190 148 204 146 222 L94 222 C92 204 88 190 80 172Z" fill="url(#lDam${gala?'G':''})"/>
+  <path d="M110 166 L130 166 L124 220 L116 220Z" fill="${C.dressSh}" opacity=".5"/>
+  <path d="M120 168 V218 M120 176 c-6 -2 -9 3 -6 7 M120 176 c6 -2 9 3 6 7 M120 192 c-7 -2 -10 4 -6 8 M120 192 c7 -2 10 4 6 8 M120 207 c-5 -1 -7 3 -4 6 M120 207 c5 -1 7 3 4 6 M110 166 L116 220 M130 166 L124 220" stroke="${C.gold}" stroke-width="1.5" fill="none" stroke-linecap="round"/>
   <path d="M94 222 Q120 230 146 222" stroke="${C.gold}" stroke-width="3" fill="none"/>
   <!-- hals en vierkante halslijn met kant -->
   <path d="M109 122 h22 v28 c-6 6 -16 6 -22 0z" fill="${C.skin}"/><path d="M109 128 h22 v6 c-8 4 -14 4 -22 0z" fill="${C.skinSh}" opacity=".55"/><ellipse cx="120" cy="127" rx="12" ry="4" fill="${C.skinSh}" opacity=".7"/>
   <path d="M98 150 L142 150 L138 164 L102 164Z" fill="${C.skin}"/>
-  <path d="M96 150 q4 4 8 0 q4 4 8 0 q4 4 8 0 q4 4 8 0 q4 4 8 0 q4 4 8 0" stroke="${C.lace}" stroke-width="3" fill="none"/>
+  <path d="M94 148 q4 6 8 0 q4 6 8 0 q4 6 8 0 q4 6 8 0 q4 6 8 0 q4 6 8 0 l0 4 l-48 0z" fill="${C.lace}"/>
+  <path d="M95 153 q4 5 8 0 q4 5 8 0 q4 5 8 0 q4 5 8 0 q4 5 8 0 q4 5 8 0" stroke="#d8c8a6" stroke-width="1.2" fill="none"/>
+  <path d="M98 150 h44" stroke="#c9b48a" stroke-width=".8" stroke-dasharray="1.5 2"/>
+  <ellipse cx="86" cy="158" rx="11" ry="9" fill="${C.dress}"/><ellipse cx="154" cy="158" rx="11" ry="9" fill="${C.dress}"/>
+  <path d="M80 154 q6 -5 12 0 M148 154 q6 -5 12 0" stroke="#5b80cf" stroke-width="1.6" fill="none" opacity=".6"/>
   <path d="M100 164 L140 164" stroke="${C.gold}" stroke-width="2"/>
   ${clap?`  <!-- beide armen klappen -->
   <g class="clapL"><path d="M88 168 C78 190 92 204 110 194" stroke="${C.dress}" stroke-width="14" stroke-linecap="round" fill="none"/>
@@ -3301,35 +3312,43 @@ function lauraSVG(size,head,clap,gala){ const C=gala?LAURA_GALA:LAURA;
     <g transform="translate(188 114)"><ellipse rx="9.5" ry="11.5" fill="${C.skin}"/><path d="M-8 -6 l-2 -12 M-3 -9 l0 -13 M3 -9 l2 -12 M8 -5 l5 -9" stroke="${C.skin}" stroke-width="5" stroke-linecap="round"/></g></g>
 `}
   <!-- hoofd -->
-  <ellipse cx="120" cy="90" rx="30" ry="37" fill="url(#lFace${gala?'G':''})"/>
-  <ellipse cx="108" cy="100" rx="6" ry="3.5" fill="${C.lips}" opacity=".18"/><ellipse cx="133" cy="100" rx="6" ry="3.5" fill="${C.lips}" opacity=".18"/>
+  <path d="M120 52 C99 52 89 68 89 88 C89 104 96 118 108 124 C113 127 117 128 120 128 C123 128 127 127 132 124 C144 118 151 104 151 88 C151 68 141 52 120 52Z" fill="url(#lFace${gala?'G':''})"/>
+  <path d="M144 98 C142 112 134 122 124 127 C134 126 146 116 149 100Z" fill="${C.skinSh}" opacity=".55"/>
+  <path d="M100 96 q4 -3 9 -1 M131 95 q5 -2 9 1" stroke="#fbe2cc" stroke-width="2.4" fill="none" opacity=".6" stroke-linecap="round"/>
   <ellipse cx="90" cy="94" rx="4.5" ry="8" fill="${C.skinSh}"/><ellipse cx="150" cy="94" rx="4.5" ry="8" fill="${C.skinSh}"/>
-  <circle cx="90" cy="105" r="2.6" fill="${C.gold}"/><circle cx="150" cy="105" r="2.6" fill="${C.gold}"/>
+  <circle cx="90" cy="103" r="2" fill="${C.gold}"/><path d="M90 104 c-3 3 -3 7 0 9 c3 -2 3 -6 0 -9z" fill="${C.gold}" stroke="#a8843c" stroke-width=".6"/><circle cx="150" cy="103" r="2" fill="${C.gold}"/><path d="M150 104 c-3 3 -3 7 0 9 c3 -2 3 -6 0 -9z" fill="${C.gold}" stroke="#a8843c" stroke-width=".6"/>
   <!-- haar voor: middenscheiding, volle golven langs het gezicht -->
-  <path d="M90 92 C84 60 100 44 120 46 C140 44 158 60 152 92 C148 74 140 60 122 58 C104 60 94 72 90 92Z" fill="${C.hair}"/>
-  <path d="M90 84 C80 100 84 120 78 140 C86 132 92 116 92 100Z M152 84 C160 100 156 120 162 140 C154 132 148 116 148 100Z" fill="${C.hair}"/>
-  <path d="M120 47 C114 54 108 58 100 62 M120 47 C127 54 134 58 142 62" stroke="${C.hairHi}" stroke-width="1.8" fill="none" stroke-linecap="round" opacity=".7"/>
-  <path d="M86 98 q-6 10 0 20 q6 8 -2 18 M154 98 q6 10 0 20 q-6 8 2 18" stroke="${C.hairHi}" stroke-width="2.2" fill="none" stroke-linecap="round" opacity=".8"/>
+  <path d="M88 96 C80 58 100 40 124 42 C148 42 162 60 154 96 C150 78 142 64 128 58 C122 66 108 70 96 74 C92 80 90 88 88 96Z" fill="url(#lHair${gala?'G':''})"/>
+  <path d="M90 82 C78 96 86 114 76 132 C72 142 78 152 84 156 C88 146 92 136 92 124 C94 112 90 100 94 90Z M152 82 C164 96 156 114 166 132 C170 142 164 152 158 156 C154 146 150 136 150 124 C148 112 152 100 148 90Z" fill="${C.hair}"/>
+  <path d="M124 43 C114 50 104 60 96 74 M126 44 C138 50 148 62 152 80 M128 58 C138 62 146 72 150 86" stroke="${C.hairHi}" stroke-width="2" fill="none" stroke-linecap="round" opacity=".75"/>
+  <path d="M88 92 q-8 12 -2 22 q6 10 -4 22 q-4 8 2 16 M154 92 q8 12 2 22 q-6 10 4 22 q4 8 -2 16" stroke="${C.hairHi}" stroke-width="2.4" fill="none" stroke-linecap="round" opacity=".85"/>
+  <path d="M84 100 q-4 10 2 18 M158 100 q4 10 -2 18" stroke="${C.hairDk}" stroke-width="2" fill="none" stroke-linecap="round" opacity=".6"/>
   <!-- wenkbrauwen -->
-  <path d="M101 74 q8 -5 16 -1 M124 73 q8 -4 16 1" stroke="${C.hairDk}" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+  <path d="M100 75 C104 71 111 70 117 72 L116 74.5 C111 73 105 74 101 76.5Z M123 72 C129 70 136 71 140 75 L139 76.5 C135 74 129 73 124 74.5Z" fill="${C.hairDk}"/>
   <!-- ogen, lachend -->
-  <g class="blink"><ellipse cx="109" cy="86" rx="3.2" ry="3.4" fill="#4a2c18"/><ellipse cx="132" cy="86" rx="3.2" ry="3.4" fill="#4a2c18"/>
-    <circle cx="110.2" cy="84.8" r="1" fill="#fff"/><circle cx="133.2" cy="84.8" r="1" fill="#fff"/></g>
-  <path d="M104 91 q5 3 10 0 M127 91 q5 3 10 0" stroke="${C.skinSh}" stroke-width="1.4" fill="none"/>
+  <g class="blink"><path d="M102.5 86.5 C105 82 113 82 115.5 86.5 C112 89 106 89 102.5 86.5Z M125.5 86.5 C128 82 136 82 138.5 86.5 C135 89 129 89 125.5 86.5Z" fill="#fbf3ea"/>
+    <circle cx="109" cy="85.6" r="3.1" fill="#6b4122"/><circle cx="132" cy="85.6" r="3.1" fill="#6b4122"/><circle cx="109" cy="85.6" r="1.5" fill="#1e1009"/><circle cx="132" cy="85.6" r="1.5" fill="#1e1009"/>
+    <circle cx="110.2" cy="84.5" r=".9" fill="#fff"/><circle cx="133.2" cy="84.5" r=".9" fill="#fff"/>
+    <path d="M102 86.5 C105 81.5 113 81.5 116 86 M125 86 C128 81.5 136 81.5 139 86.5" stroke="#2a170c" stroke-width="1.5" fill="none" stroke-linecap="round"/></g>
+  <path d="M104 90 q5 2.5 10 0 M127 90 q5 2.5 10 0" stroke="${C.skinSh}" stroke-width="1.2" fill="none"/>
   <!-- les blauwe bril  -->
   <g fill="none">
-    <circle cx="109" cy="86" r="11" stroke="${C.glasses}" stroke-width="2.6"/><circle cx="132" cy="86" r="11" stroke="${C.glasses}" stroke-width="2.6"/>
-    <circle cx="109" cy="86" r="11" stroke="#9fb7e6" stroke-width=".8" stroke-dasharray="1 5" opacity=".6"/><circle cx="132" cy="86" r="11" stroke="#9fb7e6" stroke-width=".8" stroke-dasharray="1 5" opacity=".6"/>
+    <path d="M99 82 C99 76 104 75 109.5 75.4 C115 75.8 119 78.5 119 85 C119 91 114.5 95.5 109 95.5 C103 95.5 99 90.5 99 82Z M143 82 C143 76 138 75 132.5 75.4 C127 75.8 123 78.5 123 85 C123 91 127.5 95.5 133 95.5 C139 95.5 143 90.5 143 82Z" fill="#cfe0ff" fill-opacity=".08" stroke="${C.glasses}" stroke-width="2"/>
+    <path d="M99 82 C99 76 104 75 109.5 75.4 C115 75.8 119 78.5 119 85 C119 91 114.5 95.5 109 95.5 C103 95.5 99 90.5 99 82Z M143 82 C143 76 138 75 132.5 75.4 C127 75.8 123 78.5 123 85 C123 91 127.5 95.5 133 95.5 C139 95.5 143 90.5 143 82Z" stroke="#8fb0ee" stroke-width=".6" opacity=".5"/>
+    <path d="M102 80 l5 -3 M126 80 l5 -3" stroke="#fff" stroke-width="1.6" stroke-linecap="round" opacity=".55"/>
     <path d="M120 85 q0.5 -2 1 0" stroke="${C.glasses}" stroke-width="2.4"/>
-    <path d="M98 84 L90 82 M143 84 L151 82" stroke="${C.glasses}" stroke-width="2.4" stroke-linecap="round"/>
+    <path d="M98 81 L90 80 M144 81 L151 80" stroke="${C.glasses}" stroke-width="2.4" stroke-linecap="round"/>
   </g>
-  <g transform="translate(150 54) rotate(-28)"><path d="M-9 1 H9" stroke="${C.gold}" stroke-width="1.6" stroke-linecap="round"/><path d="M0 0 C-4 -9 -11 -8 -10 -2 C-9 3 -4 3 0 0Z M0 0 C4 -9 11 -8 10 -2 C9 3 4 3 0 0Z" fill="#3b6fd1" stroke="${C.gold}" stroke-width=".8"/>
+  <g transform="translate(150 54) rotate(-28)"><path d="M-9 1 H9" stroke="${C.gold}" stroke-width="1.6" stroke-linecap="round"/><path d="M0 0 C-4 -10 -13 -10 -12 -3 C-11 3 -5 3 0 0Z M0 0 C4 -10 13 -10 12 -3 C11 3 5 3 0 0Z" fill="url(#lWing${gala?'G':''})" stroke="${C.gold}" stroke-width=".8"/><circle cx="-7" cy="-4" r="1.2" fill="#dfe9ff"/><circle cx="7" cy="-4" r="1.2" fill="#dfe9ff"/>
     <path d="M0 0 C-3 5 -8 6 -7 2Z M0 0 C3 5 8 6 7 2Z" fill="#2a4fa0" stroke="${C.gold}" stroke-width=".6"/><path d="M0 -4 V4" stroke="${C.gold}" stroke-width="1.2"/></g>
   <!-- neus, wangen, grote lach -->
-  <path d="M120 90 q-3 10 1 12" stroke="${C.skinSh}" stroke-width="2" fill="none" stroke-linecap="round"/>
-  <ellipse cx="101" cy="102" rx="6" ry="3.5" fill="#e79a8a" opacity=".45"/><ellipse cx="139" cy="102" rx="6" ry="3.5" fill="#e79a8a" opacity=".45"/>
-  <path d="M106 108 Q120 124 134 108 Q120 112 106 108Z" fill="${C.lips}"/>
-  <path d="M108.5 109.5 Q120 113 131.5 109.5 Q129 115 120 116 Q111 115 108.5 109.5Z" fill="#fff"/>
+  <path d="M121 88 C120 94 117 99 117 101.5 C118.5 103 121.5 103 124 101.5" stroke="${C.skinSh}" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M122 90 v8" stroke="#fbe2cc" stroke-width="1.4" opacity=".5"/>
+  <ellipse cx="101" cy="101" rx="6.5" ry="3.8" fill="#e8907f" opacity=".38"/><ellipse cx="140" cy="101" rx="6.5" ry="3.8" fill="#e8907f" opacity=".38"/>
+  <path d="M104 104 q-2 4 1 7 M137 104 q2 4 -1 7" stroke="${C.skinSh}" stroke-width="1.1" fill="none" opacity=".7"/>
+  <path d="M107.5 107.5 C113 106.5 127 106.5 132.5 107.5 C130.5 112.5 126 115 120 115 C114 115 109.5 112.5 107.5 107.5Z" fill="#9a4a42"/>
+  <path d="M108.5 108 C114 107.3 126 107.3 131.5 108 C130.8 111.4 109.2 111.4 108.5 108Z" fill="#fffaf3"/><path d="M114 107.7 v2.4 M118 107.6 v2.7 M122 107.6 v2.7 M126 107.7 v2.4" stroke="#e5dacb" stroke-width=".45"/>
+  <path d="M106 107.6 C112 105.2 117 105.8 120 106.6 C123 105.8 128 105.2 134 107.6 C128 107 123 107.3 120 107.7 C117 107.3 112 107 106 107.6Z" fill="url(#lLip${gala?'G':''})"/>
+  <path d="M108 108.8 C111 113.6 116 116 120 116 C124 116 129 113.6 132 108.8 C130.4 115 125 117.8 120 117.8 C115 117.8 109.6 115 108 108.8Z" fill="url(#lLip${gala?'G':''})"/>
 ${gala?`<g><path d="M98 58 L104 46 L112 54 L120 40 L128 54 L136 46 L142 58 Q120 52 98 58Z" fill="#e3c77e" stroke="#b8963f" stroke-width="1"/><circle cx="120" cy="44" r="3" fill="#c0304f"/><circle cx="104" cy="49" r="2" fill="#f7f1e3"/><circle cx="136" cy="49" r="2" fill="#f7f1e3"/>
   ${Array.from({length:11},(_,k)=>`<circle cx="${100+k*4}" cy="${154+Math.sin(k/10*Math.PI)*12}" r="2.3" fill="#f7f1e3"/>`).join('')}<circle cx="120" cy="170" r="3.6" fill="#c0304f" stroke="#e3c77e" stroke-width="1"/></g>`:''}
 </svg>`; }
