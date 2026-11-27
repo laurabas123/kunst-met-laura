@@ -3879,7 +3879,7 @@ let NAPSRC=null;
 function napSpeak(k){ try{ if(NAPSRC){ NAPSRC.onended=null; NAPSRC.stop(); } }catch(e){} NAPSRC=null; if(!vxOn()||!auInit()||!window.NAPVOX||!NAPVOX[k]) return;
   const bin=atob(NAPVOX[k]), arr=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) arr[i]=bin.charCodeAt(i);
   AU.ctx.decodeAudioData(arr.buffer,buf=>{ const s=AU.ctx.createBufferSource(); s.buffer=buf; s.connect(AU.ctx.destination); musDuck(true); s.onended=()=>{ if(NAPSRC===s){ NAPSRC=null; musDuck(false); } }; NAPSRC=s; s.start(); },()=>{}); }
-var VOXV='20261127c';
+var VOXV='20261127d';
 function napLoad(){ if(window.NAPVOX||window._napL) return; window._napL=1; const s=document.createElement('script'); s.src='vox/napoleon.js?v='+VOXV; s.async=true; s.onerror=()=>{window._napL=0;}; document.head.appendChild(s); }
 const NAPL={
  n1:'<b>Bonjour, lieve testers!</b> Ik ben Napoleon Bonaparte. Laura heeft mij gevraagd of ik leuk nieuws met jullie wilde delen.',
@@ -4863,7 +4863,7 @@ function speak(sid,html,free){ speakStop(); if(!vxOn()||!auInit()) return; const
   if(VOXBUF[k]) return play(VOXBUF[k]);
   const bin=atob(d[t]), arr=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) arr[i]=bin.charCodeAt(i);
   AU.ctx.decodeAudioData(arr.buffer,buf=>{ VOXBUF[k]=buf; play(buf); },()=>{}); }
-function cur_line(){ if(!STQ) return ''; const x=storyById(STQ.id).chapters[STQ.c].beats[STQ.b]; return (x.s&&x.x)||x.n||''; }
+function cur_line(){ if(!STQ) return ''; const x=storyById(STQ.id).chapters[STQ.c].beats[STQ.b]; return (x.s&&x.x)||x.n||(x.art&&x.x)||''; }
 function cur_lines(){ if(!STQ) return []; const x=storyById(STQ.id).chapters[STQ.c].beats[STQ.b]; return [cur_line(),x.ya||'',x.na||''].filter(Boolean).map(voxNorm); }
 function speakStop(){ if(VOXSRC){ try{ VOXSRC.onended=null; VOXSRC.stop(); }catch(e){} VOXSRC=null; } musDuck(false); }
 
@@ -4908,7 +4908,7 @@ const PRE_LIST = [
       e:'Kunstenaars in de renaissance lazen vooral Latijnse schrijvers, zoals <b>Ovidius</b>. Daarom heten de schilderijen <i>Venus en Mars</i> en <i>Diana en Actaeon</i>. Je hebt dus beide namen nodig.', img:false},
     {s:'zeus', x:'Kom, ik laat je mijn familie zien. Laten we bij het begin beginnen.'},
     {tree:1, n:'Eerst waren er <b>Gaia</b>, de Aarde, en <b>Uranus</b>, de Hemel. Hun kinderen waren de reusachtige <b>titanen</b>.'},
-    {n:'Wat is een titaan eigenlijk? Titanen zijn de reuzen uit de oertijd: de goden van vóór Zeus. Ze zijn enorm groot en oersterk, en ze staan voor de krachten van de natuur, zoals de zee, de zon en de tijd.'},
+    {n:'Titanen zijn de reuzen uit de oertijd: de goden van vóór Zeus. Ze zijn enorm groot en oersterk, en ze staan voor de krachten van de natuur, zoals de zee, de zon en de tijd.'},
     {art:'P:f4', t:'De geketende Prometheus', a:'Peter Paul Rubens (met Frans Snyders)', yr:'1611–1618', x:'Dit is ook een titaan: <b>Prometheus</b>. Kijk hoe reusachtig Rubens hem maakt: zijn lijf vult bijna het hele doek. Prometheus stal het vuur van de goden en gaf het aan de mensen. Als straf liet Zeus hem aan een rots ketenen, en elke dag at een adelaar van zijn lever.'},
     {tree:2, s:'zeus', x:'Twee van die titanen waren mijn ouders: Kronos en Rhea. Ja, ze waren broer en zus.'},
     {q:'Broer en zus die samen kinderen krijgen. Hoe moet je dat zien?', o:['Dat was bij de Grieken heel gewoon','In de oertijd waren er nog geen anderen: het zijn verhalen over het ontstaan van de wereld, geen voorbeeld voor mensen','Het is een vertaalfout'], c:1,
