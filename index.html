@@ -4409,7 +4409,9 @@ function symStrike(n){ const nm=st.name?`, ${st.name}`:''; const d=document.crea
   d.innerHTML=`<div class="gl-box guide-box in-done" onclick="event.stopPropagation()"><div class="confetti">${conf}</div><div class="gb-fig">${lauraSVG(0,false,true)}</div>
     <div class="sym-strike">🔥 ${n}</div><div class="ob-bubble">${msg}</div>
     <button class="btn primary big" onclick="this.closest('.lb').remove()">Ga door →</button></div>`; qModal(d); }
-function symImg(k){ return (window.SYMIMG&&window.SYMIMG[k])||BLANK; }
+/* scherpere versies van symboolbeelden die de app al in hoge resolutie heeft */
+const SYMHI={s5:'xB',s18:'m3a',s27:'f1',s47:'j2c',s71:'q17c',s130:'j4a',s131:'j4',s133:'j4b',s159:'m5b',s185:'y5a',s220:'g5a',s223:'h5c',s231:'g5a',s234:'q7',s235:'q7a',s242:'q6a',s246:'q18a',s260:'q10',s276:'k16a',s297:'q11',s322:'q13c',s344:'l1a',s374:'y1a',s375:'y1c',s415:'j2b',s428:'lB',s467:'q8c',s509:'p2',s526:'t5',s542:'y3b',s545:'m1b',s558:'p1',s566:'d2',s598:'v4a',s635:'rb5',s661:'v4b',s677:'x4'};
+function symImg(k){ if(SYMHI[k]) return P(SYMHI[k]); return (window.SYMIMG&&window.SYMIMG[k])||BLANK; }
 function symView(){ st.view='sym'; if(!SYMQ) symNext(); if(!symReady()) symLoad(); const S=SYMB[SYMQ.i], a=SYMQ.a;
   const main=S.i[0], more=S.i.length>=4?S.i.slice(1,4):S.i.slice(0,3);
   const cap=x=>`<div class="sym-cap"><i>${x[1]}</i><br>${x[2]}${x[3]?' · '+x[3]:''}</div>`;
