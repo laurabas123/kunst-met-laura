@@ -3824,7 +3824,7 @@ const GUIDES = {
   durer:{name:'Albrecht Dürer', role:'schilder en graveur, 1471–1528', svg:(s,h,c)=>charSVG(CHARS.durer,s,h,c)},
   zeus:{name:'Zeus', role:'oppergod van de Olympus', svg:(s,h,c)=>charSVG(CHARS.zeus,s,h,c)}
 };
-function guideOf(t=st.t){ if(t==='basis') return 'laura'; if(t==='hg') return 'rembrandt'; if(t==='mix'||t==='n3'||t==='n4') return 'laura';
+function guideOf(t=st.t){ if(t==='basis') return 'laura'; if(t==='hg') return 'rembrandt'; if(t==='mix'||t==='n3'||t==='n4'||t==='tech') return 'laura';
   if(t==='myth') return 'zeus'; if(['deugden','bijbel','heilig','ge','kenner'].includes(t)) return 'catharina'; return 'gala'; }
 const GHELLO = {
   laura: nm=>`Hoi${nm}! Ik ben <b>Laura</b> en ik neem je mee door de basis van de symboliek. Na deze cursus kijk je nooit meer hetzelfde naar een schedel, een lelie of een hondje.`,
@@ -12197,6 +12197,194 @@ const HEIL_BADGES = [
   {name:'Drakendoder', icon:'arrows', txt:'Joris of Michaël, Christoffel of Rochus: jij weet het.'},
   {name:'Heiligenkenner', icon:'lily', txt:'De meesterproef gehaald: een fresco vol heiligen lees je als een boek.'}];
 
+const TECH_ROUNDS = [
+{ title:"Techniek · Les 1 — Waarop is het geschilderd?", sub:"Fresco, paneel, doek en perkament",
+  q:[
+  { icon:null, name:'In de natte kalk', in:{img:'s4a1', t:'De Judaskus', a:'Giotto di Bondone', y:'ca. 1305', where:'Cappella degli Scrovegni, Padua', s:'Giotto Kiss of Judas'},
+    question:'Giotto schilderde dit direct op de muur van een kapel, in verse, natte kalk. Hoe heet die techniek?',
+    opts:['Fresco','Tempera','Ets'], c:0,
+    exp:'<b>Fresco</b> komt van het Italiaanse woord voor vers. De kleur trekt in de natte kalk en wordt er één mee. Je moest snel werken: elke dag maakte de schilder een stuk nieuw pleisterwerk, een <b>giornata</b> (dagwerk). In Italië zie je fresco’s in elke kerk.',
+    also:[{img:'jj1', t:'De schepping van Adam', a:'Michelangelo', y:'ca. 1511', n:'Het plafond van de Sixtijnse Kapel: een fresco.', s:'Michelangelo Creation of Adam'}]},
+  { icon:null, name:'Op hout', in:{img:'b1', t:'Het Arnolfini-portret', a:'Jan van Eyck', y:'1434', where:'National Gallery, Londen', s:'Arnolfini Portrait'},
+    question:'Op het zaalbordje staat: “olieverf op paneel”. Wat is een paneel?',
+    opts:['Een plank of samengevoegde planken hout, meestal eik','Een stuk metaal','Een gespannen linnen doek'], c:0,
+    exp:'Tot ver in de 16e eeuw schilderde men vooral op <b>houten panelen</b>: in het Noorden eiken, in Italië populier. Hout scheurt en werkt, maar geeft een glad oppervlak voor fijn detail. Met de <b>jaarringen</b> van het hout kunnen onderzoekers een paneel zelfs dateren.',
+    also:[{img:'k5a', t:'De kruisafneming', a:'Rogier van der Weyden', y:'ca. 1435', n:'Ook op eikenhouten panelen.', s:'Rogier Descent'}]},
+  { icon:null, name:'Gespannen linnen', in:{img:'gB', t:'De Nachtwacht', a:'Rembrandt', y:'1642', where:'Rijksmuseum, Amsterdam', s:'Rembrandt Night Watch'},
+    question:'De Nachtwacht is bijna vier bij vijf meter. Waarom kon dat niet op een paneel?',
+    opts:['Een doek is licht en kan heel groot, en je kunt het zelfs oprollen','Panelen waren verboden in Amsterdam','Doek was duurder en dus deftiger'], c:0,
+    exp:'<b>Doek</b> (linnen of canvas, gespannen op een houten raam) werd vanaf de 16e eeuw in Venetië populair. Het is licht, goedkoper en kan enorm groot. Daardoor konden schilders reusachtige werken maken en vervoeren.',
+    also:[{img:'s4e3', t:'Het vlot van de Medusa', a:'Géricault', y:'1818–1819', n:'Zeven meter breed: alleen op doek mogelijk.', s:'Gericault Medusa'}]},
+  { icon:null, name:'Op dierenhuid', in:{img:'ha1', t:'Getijdenboek van Catharina van Kleef', a:'Meester van Catharina van Kleef', y:'ca. 1440', where:'Morgan Library, New York', s:'Hours of Catherine of Cleves'},
+    question:'Middeleeuwse handschriften werden geschreven en beschilderd op perkament. Wat is perkament?',
+    opts:['Papier van boomschors','Bewerkte dierenhuid, meestal van kalf, geit of schaap','Zijde uit China'], c:1,
+    exp:'<b>Perkament</b> is dun geschraapte en gedroogde dierenhuid. Het allerfijnste heet velijn, van kalfshuid. Voor één groot boek waren tientallen dieren nodig. Daarom waren verluchte handschriften zo kostbaar.',
+    also:[{img:'s4a2', t:'Maestà', a:'Duccio', y:'1308–1311', n:'Ook middeleeuws, maar op houten paneel met bladgoud.', s:'Duccio Maesta'}]},
+  { icon:null, name:'Het zaalbordje', in:{img:'s4a2', t:'Maestà', a:'Duccio di Buoninsegna', y:'1308–1311', where:'Museo dell’Opera del Duomo, Siena', s:'Duccio Maesta'},
+    question:'Op een bordje staat: “tempera en bladgoud op paneel”. Wat betekent dat?',
+    opts:['Geschilderd met eiverf en bladgoud, op hout','Geschilderd met olieverf op linnen','Een kopie op papier'], c:0,
+    exp:'Een zaalbordje noemt eerst de <b>verf</b>, dan de <b>drager</b>. <b>Tempera</b> = verf met eigeel als bindmiddel. <b>Bladgoud</b> = flinterdun geslagen goud. <b>Paneel</b> = hout. Nu kun je elk bordje lezen.',
+    also:[{img:'s4a4', t:'Het Wilton-diptiek', a:'onbekende meester', y:'ca. 1395–1399', n:'Ook tempera en goud op eikenhout.', s:'Wilton Diptych'}]}
+  ],
+  big:{ img:'gB', t:'De Nachtwacht', a:'Rembrandt', y:'1642', where:'Rijksmuseum, Amsterdam', s:'Rembrandt Night Watch',
+    intro:'Het bekendste doek van Nederland heeft een heel eigen levensverhaal. Tik op het schilderij om het groter te zien.',
+    details:[
+      {d:'Het doek is nu kleiner dan Rembrandt het maakte.', q:'Wat is er gebeurd?', opts:['In 1715 werd het aan alle kanten bijgesneden om in het stadhuis te passen','Het is gekrompen in de was','Rembrandt sneed het zelf af'], c:0,
+        e:'In <b>1715</b> verhuisde het doek naar het stadhuis op de Dam. Het paste niet tussen twee deuren en werd <b>bijgesneden</b>, vooral links. Een kleine kopie van Gerrit Lundens laat zien hoe het eerst was.'},
+      {d:'Het schilderij heet De Nachtwacht, maar het speelt overdag.', q:'Waar komt die naam vandaan?', opts:['Van het donker geworden vernis','Rembrandt noemde het zo','De schutters liepen ’s nachts wacht'], c:0,
+        e:'Het oude <b>vernis</b> werd geel en donker, waardoor men dacht dat het nacht was. De naam ontstond pas in de 18e eeuw.'},
+      {d:'Een doek is gemaakt van linnen dat op een houten raam is gespannen, met een grondlaag eronder.', q:'Waarom was dat voor Rembrandt handig?', opts:['Hij kon heel groot werken en de verf dik opbrengen','Het droogde sneller dan hout','Hij kon er niet op tekenen'], c:0,
+        e:'Op <b>doek</b> kon Rembrandt het enorme formaat halen en de verf soms dik en ruw zetten. Van dichtbij zie je de streken.'},
+      {d:'In 1975 werd het doek met een mes beschadigd, in 1990 met zuur bespoten.', q:'Wat deden restauratoren?', opts:['Ze herstelden het zorgvuldig; de sporen zijn bijna onzichtbaar','Ze maakten een nieuw schilderij','Ze lieten het zo'], c:0,
+        e:'<b>Restauratoren</b> herstelden de schade. Ook onderzoek hoort bij hun werk: met scans kijken ze onder de verf.'},
+      {d:'Sinds 2019 wordt het schilderij in het openbaar onderzocht en gerestaureerd, achter glas in de Eregalerij.', q:'Hoe heet dat project?', opts:['Operatie Nachtwacht','Project Rembrandt','De Grote Schoonmaak'], c:0,
+        e:'Bij <b>Operatie Nachtwacht</b> werd het doek met de modernste technieken in kaart gebracht. Bezoekers konden live meekijken.'}
+    ],
+    story:'<p>Een schilderij is ook een <b>voorwerp</b>: het wordt verplaatst, bijgesneden, vernist, beschadigd en hersteld. Wie weet waarop het geschilderd is, begrijpt ook waarom het er zo uitziet.</p>'
+  }
+},
+{ title:"Techniek · Les 2 — Waarmee is het geschilderd?", sub:"Tempera, olieverf, glacis en impasto",
+  q:[
+  { icon:null, name:'Verf met ei', in:{img:'s4b1', t:'De geboorte van Venus', a:'Sandro Botticelli', y:'ca. 1484–1486', where:'Uffizi, Florence', s:'Botticelli Birth of Venus'},
+    question:'Botticelli schilderde dit met tempera. Wat was het bindmiddel in die verf?',
+    opts:['Eigeel','Lijnolie','Water met lijm'], c:0,
+    exp:'<b>Tempera</b> = pigment gemengd met <b>eigeel</b>. Het droogt snel en mat, in heldere kleuren. Je kunt niet goed mengen op het doek: schilders werkten met fijne arceringen. Daarom ziet Botticelli er zo lijnachtig en helder uit.',
+    also:[{img:'s4a2', t:'Maestà', a:'Duccio', y:'1308–1311', n:'Ook tempera, met bladgoud.', s:'Duccio'}]},
+  { icon:null, name:'Laag over laag', in:{img:'b1', t:'Het Arnolfini-portret', a:'Jan van Eyck', y:'1434', where:'National Gallery, Londen', s:'Arnolfini Portrait'},
+    question:'Van Eyck legde dunne, doorschijnende laagjes olieverf over elkaar. Hoe heet zo’n doorschijnend laagje?',
+    opts:['Een glacis','Een fresco','Een impasto'], c:0,
+    exp:'Een <b>glacis</b> is een dun, doorzichtig laagje olieverf. Licht gaat erdoorheen, kaatst terug op de lagen eronder en geeft diepte en <b>glans</b>. Van Eyck vond de olieverf niet uit, maar werd de grote meester ervan.',
+    also:[{img:'o4', t:'De heilige Barbara', a:'Jan van Eyck', y:'1437', n:'Hier zie je de ondertekening: Van Eyck maakte het nooit af.', s:'Van Eyck Barbara'}]},
+  { icon:null, name:'Dik als boter', in:{img:'hg1', t:'Zonnebloemen', a:'Vincent van Gogh', y:'1888', where:'National Gallery, Londen', s:'Van Gogh Sunflowers'},
+    question:'Van Gogh smeerde de verf zo dik op dat je de streken als reliëf ziet. Hoe heet dat?',
+    opts:['Glacis','Impasto','Sfumato'], c:1,
+    exp:'<b>Impasto</b> = verf zo dik opgebracht dat de streken blijven staan. Rembrandt deed het al, Van Gogh maakte het zijn handschrift. Het vangt het licht en geeft energie.',
+    also:[{img:'rc4', t:'Zelfportret als de apostel Paulus', a:'Rembrandt', y:'1661', n:'Rembrandts late stijl: dikke, ruwe verf.', s:'Rembrandt Paul'}]},
+  { icon:null, name:'Puntjes zuivere kleur', in:{img:'s4f5', t:'Een zondagmiddag op La Grande Jatte', a:'Georges Seurat', y:'1884–1886', where:'Art Institute of Chicago', s:'Seurat Grande Jatte'},
+    question:'Waarom konden 19e-eeuwse schilders buiten werken, terwijl dat eerder lastig was?',
+    opts:['Door verf in tinnen tubes en nieuwe synthetische kleuren','Omdat het warmer was','Omdat ze geen ezel meer nodig hadden'], c:0,
+    exp:'Vanaf 1841 kwam verf in <b>tinnen tubes</b>. Daarvoor bewaarden schilders verf in varkensblaasjes en maalden ze pigment zelf. Tubes en nieuwe heldere kleuren maakten het <b>impressionisme</b> mogelijk.',
+    also:[{img:'s4f1', t:'Impressie, opkomende zon', a:'Monet', y:'1872', n:'Snel buiten geschilderd.', s:'Monet Impression'}]},
+  { icon:null, name:'Waar komt kleur vandaan?', in:{img:'s4a4', t:'Het Wilton-diptiek', a:'onbekende meester', y:'ca. 1395–1399', where:'National Gallery, Londen', s:'Wilton Diptych'},
+    question:'Verf bestaat uit pigment en een bindmiddel. Waar kwamen pigmenten vroeger vandaan?',
+    opts:['Uit gemalen stenen, aarde, planten, insecten en zelfs metalen','Alleen uit bloemen','Uit fabrieken in Engeland'], c:0,
+    exp:'<b>Pigmenten</b> werden gemaakt van van alles: lapis lazuli (blauw), oker uit aarde (geel en bruin), cochenilleluizen (rood), loodwit en zelfs giftig arsenicum. Kleur was dus geen kwestie van smaak alleen, maar ook van geld.',
+    also:[{img:'s4a3', t:'Annunciatie', a:'Simone Martini', y:'1333', n:'Ultramarijn en goud: de duurste materialen voor Maria.', s:'Simone Martini'}]}
+  ],
+  big:{ img:'hg1', t:'Zonnebloemen', a:'Vincent van Gogh', y:'1888', where:'National Gallery, Londen (een latere versie hangt in het Van Gogh Museum)', s:'Van Gogh Sunflowers',
+    intro:'Een van de bekendste schilderijen ter wereld, en een les in verf. Tik op het schilderij om het groter te zien.',
+    details:[
+      {d:'Van Gogh schilderde in Arles een reeks zonnebloemen om de kamer van een vriend te versieren.', q:'Voor wie?', opts:['Voor Paul Gauguin, die bij hem kwam wonen','Voor zijn broer Theo','Voor een kunsthandelaar in Parijs'], c:0,
+        e:'Hij verwachtte <b>Gauguin</b> in het Gele Huis en wilde zijn kamer versieren. In januari 1889 maakte hij herhalingen; een daarvan hangt in het Van Gogh Museum.'},
+      {d:'Kijk naar de harten van de bloemen: de verf staat er als korstjes op.', q:'Hoe heet die techniek?', opts:['Impasto','Glacis','Fresco'], c:0,
+        e:'<b>Impasto</b>: dik opgebrachte verf. De zaden in het hart van de bloemen bestaan bijna uit verfbolletjes.'},
+      {d:'Bijna alles is geel: geel op geel, met nieuwe heldere fabrieksgelen.', q:'Wat is het probleem met sommige van die gelen?', opts:['Ze verkleuren in de loop van de tijd naar bruiniger','Ze worden groen in de zon','Ze vallen eraf'], c:0,
+        e:'Onderzoek liet zien dat het <b>chroomgeel</b> dat Van Gogh gebruikte, onder licht <b>donkerder</b> kan worden. Daarom hangt het schilderij nu met gedempt licht.'},
+      {d:'De vaas, de tafel en de achtergrond zijn bijna allemaal geel.', q:'Wat probeerde Van Gogh?', opts:['Te laten zien hoeveel tinten één kleur kan hebben','Hij had alleen gele verf','Het was een opdracht van een bloemist'], c:0,
+        e:'<b>Geel op geel</b>: Van Gogh zocht hoeveel verschillende gelen naast elkaar kunnen staan. Voor hem was geel de kleur van zon en hoop.'},
+      {d:'Sommige bloemen zijn vers, andere verwelkt en kaal.', q:'Wat zegt dat?', opts:['Hij schilderde de hele levensloop, van bloei tot verval','Hij had geen verse bloemen meer','Het is toeval'], c:0,
+        e:'Van bloei tot verwelking: net als in een Hollands <b>bloemstilleven</b> zit er ook vergankelijkheid in.'}
+    ],
+    story:'<p>Verf is niet zomaar kleur. <b>Tempera</b> geeft heldere, matte lijnen, <b>olieverf</b> diepte en glans, en <b>impasto</b> energie. Van Gogh gebruikte de nieuwste fabrieksverf, met als nadeel dat sommige kleuren veranderen. Zo vertelt het materiaal mee.</p>'
+  }
+},
+{ title:"Techniek · Les 3 — Prenten", sub:"Houtsnede, gravure en ets",
+  q:[
+  { icon:null, name:'Gesneden in koper', in:{img:'nB', t:'Adam en Eva', a:'Albrecht Dürer', y:'1504', where:'Rijksmuseum, Amsterdam (afdruk)', s:'Durer Adam and Eve engraving'},
+    question:'Dürer sneed de lijnen met een scherp staal in een koperen plaat, inktte die in en drukte hem af. Hoe heet zo’n prent?',
+    opts:['Een gravure','Een fresco','Een tempera'], c:0,
+    exp:'Bij een <b>gravure</b> snijdt de graveur met een <b>burijn</b> groeven in koper. De inkt blijft in de groeven en komt onder hoge druk op het papier. Zo kon een kunstwerk honderden keren worden afgedrukt.',
+    also:[{img:'n3a', t:'De heilige Eustachius', a:'Albrecht Dürer', y:'ca. 1501', n:'Dürers grootste gravure.', s:'Durer Eustace'}]},
+  { icon:null, name:'Met een naald en zuur', in:{img:'u5b', t:'De opwekking van Lazarus (ets)', a:'Rembrandt', y:'1642', where:'Rijksmuseum, Amsterdam', s:'Rembrandt Raising of Lazarus etching'},
+    question:'Rembrandt tekende met een naald in een waslaag op een koperen plaat. Daarna ging de plaat in een zuurbad. Hoe heet dat?',
+    opts:['Een houtsnede','Een ets','Een gravure'], c:1,
+    exp:'Bij een <b>ets</b> krast de kunstenaar door een waslaag. Het <b>zuur</b> vreet de lijnen in het koper. Etsen tekent bijna als met een pen: daarom zijn Rembrandts etsen zo levendig. Hij was er een van de grootste meesters in.',
+    also:[{img:'u5c', t:'De opwekking van Lazarus (ets)', a:'Rembrandt', y:'ca. 1632', n:'Een eerdere ets van hetzelfde onderwerp.', s:'Rembrandt Lazarus 1632'}]},
+  { icon:null, name:'Twee namen onder één prent', in:{img:'r1', t:'De Hoop (Spes)', a:'naar Pieter Bruegel de Oude, gravure door Philips Galle', y:'1559–1560', where:'prent', s:'Bruegel Spes engraving'},
+    question:'Onder veel prenten staan twee namen: één met “inv.” en één met “sculp.” of “fecit”. Wat betekent dat?',
+    opts:['De ontwerper (invenit) en de graveur (sculpsit)','De koper en de verkoper','De vader en de zoon'], c:0,
+    exp:'<b>Invenit</b> (“bedacht”) = de ontwerper, hier Bruegel. <b>Sculpsit</b> (“sneed”) = de graveur, hier Philips Galle. Bruegel maakte de tekening, een specialist zette die in koper. Uitgevers als Hieronymus Cock in Antwerpen verkochten de prenten in heel Europa.',
+    also:[{img:'r1b', t:'Het Geloof (Fides)', a:'naar Pieter Bruegel de Oude', y:'1559–1560', n:'Uit dezelfde reeks deugden.', s:'Bruegel Fides'}]},
+  { icon:null, name:'Hout of metaal?', in:{img:'nB', t:'Adam en Eva', a:'Albrecht Dürer', y:'1504', where:'prent', s:'Durer Adam and Eve'},
+    question:'Bij een houtsnede snij je alles weg wat wit moet blijven. Wat is het verschil met een gravure?',
+    opts:['Bij een houtsnede drukken de verhoogde delen; bij een gravure de groeven','Er is geen verschil','Een houtsnede is altijd in kleur'], c:0,
+    exp:'Een <b>houtsnede</b> is een <b>hoogdruk</b>: wat blijft staan, wordt geïnkt (zoals een stempel). Een gravure en een ets zijn <b>diepdruk</b>: de inkt zit in de groeven. Houtsneden hebben vaak dikkere, krachtiger lijnen.',
+    also:[{img:'r1', t:'De Hoop (Spes)', a:'naar Bruegel', y:'1559–1560', n:'Een gravure: fijne lijnen en arcering.', s:'Spes'}]},
+  { icon:null, name:'Waarom prenten?', in:{img:'u5b', t:'De opwekking van Lazarus (ets)', a:'Rembrandt', y:'1642', where:'prent', s:'Rembrandt Lazarus'},
+    question:'Waarom waren prenten zo belangrijk voor de kunstgeschiedenis?',
+    opts:['Ze verspreidden beelden en ideeën snel en goedkoop door heel Europa','Ze waren duurder dan schilderijen','Alleen koningen mochten ze bezitten'], c:0,
+    exp:'Prenten waren het <b>internet van de renaissance</b>. Schilders in Spanje zagen zo de vondsten van Dürer of Rafaël. Veel schilderijen in deze app zijn gebaseerd op een prent die de schilder ooit zag.',
+    also:[{img:'n3a', t:'De heilige Eustachius', a:'Dürer', y:'ca. 1501', n:'Werd in heel Europa nagevolgd.', s:'Durer Eustace'}]}
+  ],
+  big:{ img:'nB', t:'Adam en Eva', a:'Albrecht Dürer', y:'1504', where:'gravure', s:'Durer Adam and Eve 1504 engraving',
+    intro:'Dürers beroemdste gravure: een staaltje technisch meesterschap. Tik op de prent om hem groter te zien.',
+    details:[
+      {d:'Aan een tak hangt een <b>bordje</b> met een Latijnse tekst en het jaar 1504.', q:'Wat staat erop?', opts:['Dürers naam en het jaar: zijn trotse signatuur','Een Bijbeltekst','De prijs van de prent'], c:0,
+        e:'“<i>Albertus Durer Noricus faciebat</i>”: Albrecht Dürer uit Neurenberg maakte dit. Met zijn bekende <b>AD-monogram</b>. Dürer was trots en beschermde zijn naam zelfs voor de rechter.'},
+      {d:'De schaduwen bestaan uit duizenden kruisende lijntjes.', q:'Hoe heet die techniek?', opts:['Arcering','Sfumato','Pointillisme'], c:0,
+        e:'Met <b>arcering</b> en kruisarcering maakte Dürer met alleen lijnen alle grijstinten, van licht tot diep zwart.'},
+      {d:'Adam en Eva hebben ideale verhoudingen.', q:'Waar haalde Dürer die vandaan?', opts:['Uit studies naar klassieke beelden en maatverhoudingen','Hij gebruikte zijn buren als model','Uit een Bijbel'], c:0,
+        e:'Dürer bestudeerde de <b>ideale verhoudingen</b> van antieke beelden zoals de Apollo Belvedere. Hij reisde naar Italië om de renaissance te leren.'},
+      {d:'Aan de voeten liggen een kat en een muis, verderop een eland, een konijn, een os.', q:'Wat betekenen die dieren?', opts:['De vier temperamenten, die na de zondeval uit balans raakten','Een dierentuin','Zijn huisdieren'], c:0,
+        e:'De dieren staan voor de <b>vier temperamenten</b>. Nu zijn ze nog in balans; na de zondeval zou de kat de muis grijpen.'},
+      {d:'Van deze prent bestaan proefdrukken: afdrukken van de plaat terwijl Dürer nog werkte.', q:'Waarom zijn die zo bijzonder?', opts:['Je ziet hoe de kunstenaar stap voor stap werkte','Ze zijn in kleur','Ze zijn groter'], c:0,
+        e:'<b>Proefdrukken</b> (staten) laten het werkproces zien. Verzamelaars zijn er dol op, want er bestaan er maar heel weinig van.'}
+    ],
+    story:'<p>Prenten maakten kunstenaars beroemd. Dürer verdiende een groot deel van zijn geld met prenten die zijn vrouw Agnes op markten verkocht. Zijn Adam en Eva werd een voorbeeld voor generaties schilders, ook ver buiten Duitsland.</p>'
+  }
+},
+{ title:"Techniek · Les 4 — Beelden en het zaalbordje", sub:"Marmer, brons en hout, en hoe je alles leest",
+  q:[
+  { icon:null, name:'Uit één blok', in:{img:'hlC', t:'Pietà', a:'Michelangelo', y:'1498–1499', where:'Sint-Pietersbasiliek, Vaticaan', s:'Michelangelo Pieta'},
+    question:'Michelangelo hakte deze groep uit één blok marmer. Hoe noemen we die manier van beeldhouwen?',
+    opts:['Wegnemen: je hakt weg tot de vorm overblijft','Opbouwen: je voegt klei toe','Gieten: je giet vloeibaar metaal'], c:0,
+    exp:'Bij <b>marmer</b> werk je door <b>weg te nemen</b>: elke klap is definitief. Michelangelo zei dat het beeld al in de steen zat; hij hoefde het alleen te bevrijden. Het witte marmer kwam uit Carrara.',
+    also:[{img:'s4c5', t:'De extase van de heilige Teresa', a:'Bernini', y:'1647–1652', n:'Marmer dat lijkt op stof en wolken.', s:'Bernini Teresa'}]},
+  { icon:null, name:'Gegoten metaal', in:{img:'w5b', t:'Christus en de heilige Thomas', a:'Andrea del Verrocchio', y:'1467–1483', where:'Orsanmichele, Florence', s:'Verrocchio Christ and Saint Thomas'},
+    question:'Deze beelden zijn van brons. Hoe maak je een bronzen beeld?',
+    opts:['Je boetseert een model, maakt er een mal van en giet er vloeibaar brons in','Je hakt het uit een blok metaal','Je smeedt het met een hamer'], c:0,
+    exp:'Brons wordt <b>gegoten</b>. Eerst komt er een model van klei of was, dan een mal. Bij de <b>verloren-wasmethode</b> smelt de was weg en vult het hete brons de holte. Brons kan dunner en wilder dan marmer: armen kunnen vrij in de lucht steken.',
+    also:[{img:'j3b', t:'David', a:'Michelangelo', y:'1501–1504', n:'Ter vergelijking: marmer.', s:'Michelangelo David'}]},
+  { icon:null, name:'Hout en verf', in:{img:'qa1', t:'Catharina van Alexandrië', a:'Meester van Koudewater', y:'ca. 1470', where:'Museum Krona, Uden', s:'Meester van Koudewater Catharina'},
+    question:'Veel middeleeuwse heiligenbeelden zijn van hout en waren oorspronkelijk beschilderd. Hoe noemen we die beschildering?',
+    opts:['Polychromie: veelkleurigheid','Grisaille: grijs in grijs','Impasto'], c:0,
+    exp:'<b>Polychromie</b> betekent veelkleurig. Beelden werden beschilderd en verguld, zodat ze levensecht leken. Vaak is de verf verdwenen en zie je nu het kale eikenhout. Ook antieke Griekse beelden waren beschilderd.',
+    also:[{img:'ba3', t:'De heilige Antonius Abt', a:'Meester van Elsloo', y:'ca. 1520', n:'Een Limburgse houtsnijder.', s:'Antonius Elsloo'}]},
+  { icon:null, name:'Alle stukjes bij elkaar', in:{img:'xB', t:'Het Lam Gods', a:'Hubert en Jan van Eyck', y:'1432', where:'Sint-Baafskathedraal, Gent', s:'Ghent Altarpiece'},
+    question:'Op het bordje staat: “Hubert en Jan van Eyck, Het Lam Gods, 1432, olieverf op eikenhout, Sint-Baafskathedraal”. In welke volgorde lees je zo’n bordje meestal?',
+    opts:['Maker, titel, jaar, techniek en drager, eigenaar of plaats','Prijs, maker, titel','Titel, prijs, verzekering'], c:0,
+    exp:'Bijna elk zaalbordje volgt dezelfde volgorde: <b>maker</b>, <b>titel</b>, <b>jaar</b>, <b>techniek en drager</b>, en vaak <b>herkomst of eigenaar</b>. Staat er “toegeschreven aan” of “werkplaats van”? Dat leerde je bij de Kunstkenner.',
+    also:[{img:'q14', t:'Het Lam Gods (detail)', a:'Van Eyck', y:'1432', n:'Het middenpaneel met het Lam.', s:'Ghent Altarpiece Lamb'}]},
+  { icon:null, name:'Ga het museum in', in:{img:'s4f5', t:'Een zondagmiddag op La Grande Jatte', a:'Georges Seurat', y:'1884–1886', where:'Art Institute of Chicago', s:'Seurat Grande Jatte'},
+    question:'Je staat voor een onbekend werk in een museum. Wat is de beste volgorde?',
+    opts:['Eerst kijken, dan het bordje lezen, dan opnieuw kijken met wat je weet','Eerst het bordje, dan door naar het volgende werk','Alleen naar het bordje kijken'], c:0,
+    exp:'Kijk eerst een minuut <b>zelf</b> (stap 1 van Panofsky), lees dan het <b>bordje</b> (maker, tijd, techniek) en kijk dan <b>opnieuw</b>. Je ziet ineens veel meer. Dat heet slow looking: minder werken, beter kijken.',
+    also:[{img:'g1', t:'Vrouw met een weegschaal', a:'Vermeer', y:'ca. 1662–1663', n:'De drie stappen uit de basis.', s:'Vermeer Balance'}]}
+  ],
+  big:{ img:'j3b', t:'David', a:'Michelangelo', y:'1501–1504', where:'Galleria dell’Accademia, Florence', s:'Michelangelo David',
+    intro:'Het beroemdste beeld ter wereld: ruim vijf meter marmer. Tik op de foto om hem groter te zien.',
+    details:[
+      {d:'Michelangelo kreeg een enorm blok marmer waar eerder andere beeldhouwers aan begonnen en dat jarenlang had stilgelegen.', q:'Wat deed hij?', opts:['Hij maakte uit dat lastige blok toch een meesterwerk','Hij liet een nieuw blok halen','Hij zaagde het in stukken'], c:0,
+        e:'Het blok heette “de reus” en was al half bewerkt. De 26-jarige <b>Michelangelo</b> maakte er tussen 1501 en 1504 zijn David uit.'},
+      {d:'Het hoofd en de handen zijn verhoudingsgewijs erg groot.', q:'Waarom?', opts:['Het beeld zou hoog op de kathedraal komen; van onderen ziet het er dan goed uit','Michelangelo kon geen handen maken','David had grote handen'], c:0,
+        e:'Het beeld was eerst bedoeld voor <b>hoog op de Dom</b>. Van beneden gezien kloppen de verhoudingen dan juist.'},
+      {d:'David kijkt gespannen opzij, met de slinger over zijn schouder.', q:'Welk moment kiest Michelangelo?', opts:['Het moment vóór het gevecht met Goliath','Het moment na de overwinning, met het hoofd','David als koning'], c:0,
+        e:'Geen overwinnaar met het hoofd van Goliath, maar het <b>moment ervoor</b>: concentratie en moed.'},
+      {d:'Het beeld kwam niet op de kathedraal maar voor het stadhuis, het Palazzo Vecchio.', q:'Waarom daar?', opts:['Als symbool van de kleine republiek Florence die machtige vijanden trotseert','Omdat het daar droog was','Om toeristen te trekken'], c:0,
+        e:'David werd het symbool van <b>Florence</b>: klein maar dapper tegen grote vijanden. In 1873 ging het naar de Accademia; buiten staat een kopie.'},
+      {d:'Het marmer is wit en glad, met de aders zichtbaar in de hals.', q:'Uit welke groeve kwam beroemd wit marmer?', opts:['Carrara','Bentheim','Namen'], c:0,
+        e:'Het witte marmer kwam uit <b>Carrara</b> in Toscane, waar het nog steeds gewonnen wordt.'}
+    ],
+    story:'<p>Nu ken je de materialen: <b>fresco</b>, <b>paneel</b>, <b>doek</b>, <b>tempera</b>, <b>olieverf</b>, <b>prenten</b>, <b>marmer</b>, <b>brons</b> en <b>hout</b>. Daarmee lees je elk zaalbordje, en begrijp je waarom een werk eruitziet zoals het eruitziet.</p>'
+  }
+}
+];
+const TECH_BADGES = [
+  {name:'Dragerkenner', icon:'painting', txt:'Fresco, paneel, doek of perkament: je weet waarop het gemaakt is.'},
+  {name:'Verfkenner', icon:'tulip', txt:'Tempera, olieverf, glacis en impasto liggen je.'},
+  {name:'Prentkenner', icon:'letter', txt:'Gravure, ets of houtsnede: je ziet het verschil.'},
+  {name:'Bordjeslezer', icon:'loupe', txt:'Marmer, brons, hout en elk zaalbordje lees je in één oogopslag.'}];
+
 const TRACKS = {
   basis:{id:'basis', name:'Basis', eyebrow:'Deel 1 · De basis', title:'Symboliek in de Kunst', rank:'Beginner', grand:'Iconoloog', icon:'skull',
     desc:'Van middeleeuwen tot 1900. Per les vijf symbolen: kies A, B of C, lees wat het betekent en ontdek waar het nog meer voorkomt. Na de vijf vragen volgt de <b>eindtoets</b>: samen ontleden we een groot meesterwerk.',
@@ -12225,6 +12413,9 @@ const TRACKS = {
   kenner:{id:'kenner', ribbon:'Connaisseur', noGames:true, name:'Module: Goede kunst herkennen', eyebrow:'Module · Kunstkenner', title:'Goede kunst herkennen', rank:'Kunstkenner', grand:'Kunstkenner', icon:'loupe',
     desc:'Leer zien waarom een meesterwerk een meesterwerk is: vergelijk meesters met hun kopiisten, werkplaatsen en zelfs vervalsers. Let op handen, materiaal, licht en compositie.',
     rounds:KENNER_ROUNDS, badges:KENNER_BADGES},
+  tech:{id:'tech', ribbon:'Connaisseur', name:'Module: Hoe is het gemaakt?', eyebrow:'Module · Technieken', title:'Hoe is het gemaakt?', rank:'Materiaalkenner', grand:'Kunstkenner', icon:'painting',
+    desc:'Fresco, paneel, doek, tempera, olieverf, prenten, marmer en brons. Vier korte lessen waarna je elk zaalbordje kunt lezen en begrijpt waarom een werk eruitziet zoals het eruitziet.',
+    rounds:TECH_ROUNDS, badges:TECH_BADGES},
   ge:{id:'ge', ribbon:'Specialist', name:'Specialisatie: Gouden Eeuw & Verlichting', eyebrow:'Specialisatie', title:'Gouden Eeuw & Verlichting', rank:'Specialist Gouden Eeuw & Verlichting', grand:'Iconoloog', icon:'tulip',
     desc:'Dubbele bodems in Hollandse interieurs en stillevens, landschap en zee, en de kunst van de Verlichting.',
     rounds:GE_ROUNDS, badges:GE_BADGES},
@@ -12255,10 +12446,10 @@ function grandModal(t){ const ok=trackDone(t); const d=document.createElement('d
    </div><button class="btn primary lbclose">Sluiten</button>`;
   d.onclick=()=>d.remove(); document.body.appendChild(d); }
 const kennerStarted = () => (typeof KENNER_ROUNDS!=='undefined')&&KENNER_ROUNDS.some((K,r)=>K&&!K.soon&&Object.keys(res(r,'kenner')).length);
-const isOpen = t => t==='basis'||(t==='kenner'&&(kennerStarted()||(st.mile&&st.mile['kenner|unl'])))||t==='hg'||(TRACKS[t]&&TRACKS[t].museum)||basisDone()||st.beta||!!(st.unl&&st.unl[t]);
+const isOpen = t => t==='basis'||t==='tech'||(t==='kenner'&&(kennerStarted()||(st.mile&&st.mile['kenner|unl'])))||t==='hg'||(TRACKS[t]&&TRACKS[t].museum)||basisDone()||st.beta||!!(st.unl&&st.unl[t]);
 function chooseTrack(t){ if(!isOpen(t)) return; setTrack(t); home(); }
 const ROUTE_GROUPS = [
-  {id:'symb', ic:'🎨', t:'Symboliek in de kunst', s:'Leer symbolen lezen: eerst de basis, daarna verdiepen of specialiseren.', tr:['basis','mix','n3','n4','deugden','bijbel','heilig','myth','ge','kenner']},
+  {id:'symb', ic:'🎨', t:'Symboliek in de kunst', s:'Leer symbolen lezen: eerst de basis, daarna verdiepen of specialiseren.', tr:['basis','mix','n3','n4','deugden','bijbel','heilig','myth','ge','kenner','tech']},
   {id:'hg', ic:'🦁', t:'Hollandse glorie', s:'Kunst- en vaderlandse geschiedenis in acht lessen, van de middeleeuwen tot nu. Rembrandt is je gids.', tr:['hg']},
   {id:'mus', ic:'🏛️', t:'Musea', s:'Bereid je museumbezoek voor: de topstukken en hun symboliek. Musea door het hele land.', tr:['rijks','maur',...EXTRA_MUSEUMS.map(m=>m.id)]}];
 function trackBar(t){ const R=TRACKS[t].rounds, n=R.length, d=trackProgress(t), started=R.some((_,r)=>roundDone(r,t)>0); return {n,d,started,pct:Math.round(d/n*100)}; }
