@@ -3879,7 +3879,7 @@ let NAPSRC=null;
 function napSpeak(k){ try{ if(NAPSRC){ NAPSRC.onended=null; NAPSRC.stop(); } }catch(e){} NAPSRC=null; if(!vxOn()||!auInit()||!window.NAPVOX||!NAPVOX[k]) return;
   const bin=atob(NAPVOX[k]), arr=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) arr[i]=bin.charCodeAt(i);
   AU.ctx.decodeAudioData(arr.buffer,buf=>{ const s=AU.ctx.createBufferSource(); s.buffer=buf; s.connect(AU.ctx.destination); musDuck(true); s.onended=()=>{ if(NAPSRC===s){ NAPSRC=null; musDuck(false); } }; NAPSRC=s; s.start(); },()=>{}); }
-var VOXV='20261127a';
+var VOXV='20261127b';
 function napLoad(){ if(window.NAPVOX||window._napL) return; window._napL=1; const s=document.createElement('script'); s.src='vox/napoleon.js?v='+VOXV; s.async=true; s.onerror=()=>{window._napL=0;}; document.head.appendChild(s); }
 const NAPL={
  n1:'<b>Bonjour, lieve testers!</b> Ik ben Napoleon Bonaparte. Laura heeft mij gevraagd of ik leuk nieuws met jullie wilde delen.',
@@ -5549,11 +5549,11 @@ const STORIES=[
 ,
 { id:'vincent', t:'Vincent van Gogh', sub:'Brieven aan Theo', yrs:'1853–1890', who:'vincent', col:'#2f5f9a',
   intro:'Hij verkocht bijna niets en werd pas na zijn dood wereldberoemd. Zijn broer Theo steunde hem zijn hele leven. Volg Vincent van Brabant naar Parijs en het felle licht van Zuid-Frankrijk, aan de hand van hun brieven.',
-  outro:'Mooi gedaan! Je kent nu het verhaal van Vincent en Theo. Ze schreven elkaar honderden brieven; daardoor weten we zo veel over hoe Vincent dacht en werkte. Hij was maar tien jaar kunstenaar, en maakte in die tijd zo’n 860 schilderijen.',
+  outro:'Zo eindigt het verdrietige verhaal van twee broers die veel voor elkaar betekenden. Dankzij hun honderden brieven kennen we hun bijzondere band. Vincent werd maar 37 jaar oud en schilderde slechts tien jaar. Toch maakte hij zo’n 860 schilderijen, die vandaag de dag wereldwijd worden bewonderd. Zelf heeft hij dat succes nooit meegemaakt.',
   chapters:[
   { t:'Twee broers', y:'1853–1885', end:'De Aardappeleters zijn af. Nu wil Vincent kleur.', beats:[
     {bg:'field', in:'vincent', at:'c', n:'30 maart 1853. In Zundert, Brabant, wordt Vincent van Gogh geboren, zoon van een dominee. Vier jaar later komt zijn broertje <b>Theo</b>.', y:'1853', weather:'birds', e:'happy'},
-    {n:'Vincent is een felle, ernstige jongen. Hij leest veel, zwerft urenlang door de natuur en maakt moeilijk vrienden. Theo is rustiger, vriendelijker en makkelijk in de omgang. Toch worden ze onafscheidelijk.'},
+    {n:'Vincent is een felle, serieuze jongen. Hij leest veel, zwerft urenlang door de natuur en maakt moeilijk vrienden. Theo, zijn broer, is rustiger, vriendelijker en makkelijk in de omgang. Toch worden ze onafscheidelijk.'},
     {q:'Wat was Vincents eerste baan?', o:['Schilder van uithangborden voor winkels in Brabant','Verkoper bij een kunsthandel in Den Haag, Londen en Parijs','Onderwijzer op een dorpsschool in de buurt van Zundert, waar hij zelf was geboren'], c:1,
       e:'Hij werkte vanaf zijn zestiende bij kunsthandel <b>Goupil & Cie</b>. Hij zag daar dagelijks kunst. Theo ging later ook in de kunsthandel werken, en bleef dat zijn hele leven doen.'},
     {in:'theo', at:'r', s:'theo', x:'In 1872 maakten Vincent en ik een wandeling langs een molen bij Rijswijk. We beloofden elkaar altijd te blijven schrijven. Dat hebben we gedaan: achttien jaar lang.', y:'1872', emo:{vincent:'happy'}},
