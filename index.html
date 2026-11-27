@@ -394,7 +394,7 @@ b,strong{font-weight:800}
 .hk-hello{text-align:center}.hk-stats{display:flex;justify-content:center;align-items:center;gap:8px;margin:-6px 0 18px;color:var(--gold2);font-size:.88rem;flex-wrap:wrap}.hk-stats button{background:none;border:0;color:inherit;font:inherit;padding:6px 2px;cursor:pointer}.hk-stats span{opacity:.45}
 .hk-gilt{display:block;padding:11px;background:linear-gradient(135deg,#a97f36,#f0d28c 28%,#9c6f2a 55%,#e8c677 78%,#a37a33);box-shadow:0 18px 38px rgba(0,0,0,.55),inset 0 0 0 1px rgba(255,240,200,.35)}
 .hk-gilt.sm{padding:5px;box-shadow:0 8px 18px rgba(0,0,0,.45)}.hk-mat{display:block;padding:6px;background:#0b1120}.hk-gilt.sm .hk-mat{padding:0}
-.hk-frame{display:block;width:100%;border:0;padding:0;background:none;cursor:pointer}.hk-frame img{display:block;width:100%;height:220px;object-fit:cover;object-position:center 35%}@media(min-width:700px){.hk-frame img{height:clamp(260px,32vw,360px)}.hk-tile img,.hk-ico{aspect-ratio:1/1!important}}
+.hk-frame{display:block;width:100%;border:0;padding:0;background:none;cursor:pointer}.hk-frame img{display:block;width:100%;height:220px;object-fit:cover;object-position:center 35%}@media(min-width:700px){.hk-frame img{height:clamp(360px,46vw,480px);object-position:center 22%}.hk-tile img,.hk-ico{aspect-ratio:1/1!important}}
 .hk-plaque{margin:-8px auto 0;position:relative;max-width:270px;padding:9px 18px;background:linear-gradient(180deg,#e2c27a,#a9803a);color:#1d1408;text-align:center;box-shadow:0 4px 12px rgba(0,0,0,.45)}.hk-plaque b{display:block;font-family:var(--serif);font-weight:600;font-size:1.2rem;line-height:1.15}.hk-plaque small{display:block;font-size:.78rem;margin-top:2px}
 .hk-cta{display:block;margin:14px auto 4px;min-height:48px;padding:0 32px;border-radius:24px;border:1px solid var(--gold);background:transparent;color:var(--ink);font:inherit;font-weight:700;font-size:1rem;cursor:pointer}.hk-cta:hover{background:rgba(215,180,106,.12)}
 .rv-card{display:flex;align-items:center;gap:12px;width:100%;text-align:left;color:inherit;font:inherit;cursor:pointer;margin:0 0 14px;padding:12px 14px;border-radius:14px;border:1px solid rgba(215,180,106,.55);background:linear-gradient(135deg,rgba(215,180,106,.16),rgba(31,58,120,.25));position:relative;overflow:hidden}.rv-card.done{border-color:rgba(215,180,106,.3);background:rgba(255,255,255,.04)}
@@ -417,7 +417,7 @@ b,strong{font-weight:800}
 .rt-h{display:flex;justify-content:space-between;gap:8px;align-items:baseline}.rt-h small{color:var(--muted);font-size:.75rem}.rt-bar{height:5px;border-radius:4px;background:rgba(255,255,255,.08);margin:6px 0}.rt-bar i{display:block;height:100%;border-radius:4px;background:var(--gold2,#d7b46a)}
 .rt-can{font-size:.84rem;margin:4px 0 8px;color:var(--muted)}.rt-trs{display:flex;flex-wrap:wrap;gap:6px}.rt-tr{display:inline-flex;gap:8px;align-items:center;padding:6px 10px;border-radius:16px;border:1px solid rgba(215,180,106,.4);background:transparent;color:inherit;font:inherit;font-size:.8rem;cursor:pointer}.rt-tr small{color:var(--muted)}.rt-tr.done{background:rgba(215,180,106,.18)}
 .rt-extra{margin-top:10px;display:flex;flex-direction:column;gap:8px}.rt-m{font-size:.82rem;line-height:1.4}.rt-m span{color:var(--gold2,#d7b46a);font-weight:700}.rt-m.ok b::after{content:' ✓'}.rt a,.rt-m a{color:var(--gold2,#d7b46a)}
-.hk-h{text-align:center}.hk-tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:6px}
+.wow-pic{width:min(240px,62vw);margin:0 auto 14px;transform:rotate(-2deg)}.wow-pic img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover}.hk-h{text-align:center}.hk-tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:6px}
 .hk-tile{display:flex;flex-direction:column;align-items:center;gap:6px;border:0;background:none;color:var(--ink);font:inherit;cursor:pointer;text-align:center;padding:0}.hk-tile .hk-gilt{width:100%;box-sizing:border-box}.hk-tile img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover}
 .hk-tile b{font-size:.92rem;margin-top:4px}.hk-tile small{font-size:.76rem;color:var(--muted);margin-top:-4px}.hk-tile.done img{filter:grayscale(.5) brightness(.75)}
 .hk-ico{aspect-ratio:4/5;display:grid!important;place-items:center;color:var(--gold2);position:relative;overflow:hidden}.hk-ico>img{position:absolute;inset:0;width:100%;height:100%!important;aspect-ratio:auto!important;object-fit:cover;filter:brightness(.55)}.hk-ico svg{fill:none;stroke:currentColor;stroke-width:1.4;stroke-linecap:round;position:relative;width:46px;height:46px;padding:12px;border-radius:50%;background:rgba(11,17,32,.72);border:1px solid rgba(215,180,106,.6)}
@@ -6767,7 +6767,7 @@ function wowView(){ const S=WOW.step;
       <button class="btn primary big" id="wowbtn" onclick="wowReveal()">Kijk er schuin langs ↗</button>`,2);
   if(S===3) return wowShell(`<figure class="wow-fig"><img src="img/hieronymus.jpg?v=2" alt="Albrecht Dürer, Hiëronymus in zijn studeerkamer"><figcaption>Albrecht Dürer, <i>Hiëronymus in zijn studeerkamer</i>, 1514 (detail)</figcaption></figure><p class="wow-q">Dan een makkelijke. Achter de geleerde hangt een <b>zandloper</b> aan de muur. Waar herinnert die hem aan?</p>
       <div class="wow-opts">${[['Dat zijn tijd kostbaar is',1],['Dat het bijna etenstijd is',0],['Dat hij moet gaan slapen',0]].map(([t,c])=>`<button class="btn" onclick="wowAns(this,${c})">${t}</button>`).join('')}</div>`,3);
-  if(S===4) return wowShell(`<div class="wow-hero"><div class="wow-card"><small>Je eerste symbool</small><b>Memento mori</b><span>Gedenk dat je sterven zult</span></div>
+  if(S===4) return wowShell(`<div class="wow-hero"><div class="frame wow-pic"><img src="${P('q1')}" alt="Vanitas-stilleven met schedel"></div><div class="wow-card"><small>Je eerste symbool</small><b>Memento mori</b><span>Gedenk dat je sterven zult</span></div>
       <h1>Er zitten nog bijna 200 geheimen in de kunst verstopt.</h1><p class="wow-cap">Zullen we meteen het volgende ontdekken?</p>
       <button class="btn primary big" onclick="wowEnd(1)">Ja, ik wil meer! →</button><button class="btn" style="margin-top:10px" onclick="wowEnd(0)">Eerst rondkijken</button>
       <p class="wow-cap" style="font-size:.78rem">En elke ochtend om 8:00 staat er een extra dagquiz voor je klaar.</p></div>`,4);
@@ -9706,7 +9706,7 @@ const RIJKS_ROUNDS = [
 { icon:null, name:'Het Melkmeisje',
     in:{img:'ra1', t:'Het melkmeisje', a:'Johannes Vermeer', y:'ca. 1660', where:'Rijksmuseum, Amsterdam (Eregalerij)', s:'Vermeer Melkmeisje Rijksmuseum'},
     question:'Rechtsonder op de vloer staat een houten kastje met gaatjes. Op de tegels erachter staat een Cupido. Wat is dat kastje?',
-    opts:['Een broodtrommel','Een voetstoof, waarin een potje met gloeiende kooltjes stond','Een muizenval'], c:1,
+    opts:['Een broodtrommel, waarin het brood voor de hele week werd bewaard','Een voetstoof, waarin een potje met gloeiende kooltjes stond','Een muizenval met een stukje kaas, tegen ongedierte in de keuken'], c:1,
     exp:'Het is een <b>voetstoof</b>: een kastje met een vuurpotje erin, waarop vrouwen hun voeten warmden. In emblemen stond de stoof soms voor <b>verlangen</b>, en ook de <b>Cupido</b> op het tegeltje erachter wijst op liefde. Toch gaat de meid helemaal op in haar werk: ze schenkt melk voor een broodpap. Daardoor zien veel kijkers juist een beeld van <b>huiselijke deugd en toewijding</b>. <br><br><b>In het museum:</b> kijk naar de spijkergaatjes in de muur, de lichtpuntjes op het brood en het piepkleine gaatje in de verf waar Vermeer zijn perspectieflijnen spande.',
     also:[
       {img:'ra1a', t:'Slapende jonge vrouw', a:'Johannes Vermeer', y:'ca. 1656–1657', n:'Het tegenovergestelde van het Melkmeisje: een dienstmeid die in slaap valt, een beeld van luiheid.', s:'Vermeer A Maid Asleep Met'},
@@ -9715,7 +9715,7 @@ const RIJKS_ROUNDS = [
   { icon:null, name:'Het Joodse bruidje',
     in:{img:'ra2', t:'Portret van een paar als oudtestamentische figuren (Het Joodse bruidje)', a:'Rembrandt', y:'ca. 1665–1669', where:'Rijksmuseum, Amsterdam (Eregalerij)', s:'Rembrandt Joodse bruidje Rijksmuseum'},
     question:'Een man legt teder zijn hand op de borst van een vrouw, die haar hand op de zijne legt. Wie stellen ze waarschijnlijk voor?',
-    opts:['Rembrandt en Saskia op hun bruiloft','Isaak en Rebekka uit het Oude Testament, gespeeld door een Amsterdams echtpaar','Een Joodse vader en zijn dochter'], c:1,
+    opts:['Rembrandt en Saskia op hun bruiloft, verkleed in oosterse kostuums uit zijn eigen kist','Isaak en Rebekka uit het Oude Testament, gespeeld door een Amsterdams echtpaar','Een Joodse vader en zijn dochter uit de Jodenbreestraat, vlak voor haar huwelijk'], c:1,
     exp:'De bijnaam “<b>Het Joodse bruidje</b>” kreeg het schilderij pas in de 19e eeuw. Kunsthistorici denken dat een Amsterdams echtpaar zich liet portretteren als <b>Isaak en Rebekka</b>: in Genesis zag koning Abimelech hen elkaar liefkozen en begreep zo dat ze getrouwd waren. Het <b>gebaar van de handen</b> is dus het hart van het schilderij: liefde en trouw. <br><br><b>In het museum:</b> kijk van dichtbij naar de mouw van de man. Rembrandt bracht de verf er in dikke lagen op, deels met een paletmes. Van Gogh zei dat hij tien jaar van zijn leven zou geven om twee weken voor dit schilderij te mogen zitten.',
     also:[
       {img:'ra2a', t:'Zelfportret met Saskia (als de verloren zoon)', a:'Rembrandt', y:'ca. 1635', n:'Ook hier speelt een echtpaar een bijbelse rol: Rembrandt als losbol in de herberg.', s:'Rembrandt Saskia prodigal son Dresden'},
@@ -9724,7 +9724,7 @@ const RIJKS_ROUNDS = [
   { icon:null, name:'De Staalmeesters',
     in:{img:'ra3', t:'De waardijns van het Amsterdamse lakenbereidersgilde (De Staalmeesters)', a:'Rembrandt', y:'1662', where:'Rijksmuseum, Amsterdam (Eregalerij)', s:'Rembrandt Staalmeesters Rijksmuseum'},
     question:'Vijf heren in het zwart, met een man zonder hoed erachter, kijken op van een boek op een rode tafel. Wat was hun taak?',
-    opts:['Ze keurden de kwaliteit van geverfd laken, aan de hand van stalen','Ze spraken recht over dieven','Ze waren predikanten'], c:0,
+    opts:['Ze keurden de kwaliteit van geverfd laken, aan de hand van stalen','Ze spraken recht over dieven en bedriegers op de markt van Amsterdam','Ze waren predikanten die de preken voor de komende zondag bespraken'], c:0,
     exp:'De <b>staalmeesters</b> waren keurmeesters van het lakengilde: ze controleerden de kwaliteit van geverfde stoffen aan de hand van kleine <b>stalen</b>. Het opengeslagen boek is waarschijnlijk hun staalboek. Rembrandt laat het lijken alsof wij hun vergadering onderbreken: ze kijken allemaal naar ons en één van hen komt net overeind. Zo maakt hij van een stijf groepsportret een moment. <br><br><b>In het museum:</b> het schilderij hangt hoog, zoals in de oorspronkelijke gildekamer. Daardoor kijken de heren écht op ons neer.',
     also:[
       {img:'ra3a', t:'Studie voor een van de Staalmeesters', a:'Rembrandt', y:'1662', n:'Een tekening: Rembrandt zocht de juiste houding van de opstaande man.', s:'Rembrandt study Syndics drawing'},
@@ -9733,7 +9733,7 @@ const RIJKS_ROUNDS = [
   { icon:'letter', name:'De brief en de kaart',
     in:{img:'ra4', t:'Brieflezende vrouw in het blauw', a:'Johannes Vermeer', y:'ca. 1663', where:'Rijksmuseum, Amsterdam (Eregalerij)', s:'Vermeer Brieflezende vrouw in het blauw'},
     question:'Een vrouw in een blauwe jak leest geconcentreerd een brief. Achter haar hangt een grote landkaart. Wat suggereert die kaart?',
-    opts:['Dat ze aardrijkskunde studeert','Dat de brief van ver komt, misschien van een geliefde op reis','Dat ze gaat verhuizen'], c:1,
+    opts:['Dat ze aardrijkskunde studeert en de wereld wil leren kennen','Dat de brief van ver komt, misschien van een geliefde op reis','Dat ze gaat verhuizen naar een andere stad en de route bekijkt op de kaart'], c:1,
     exp:'Een <b>landkaart</b> naast een brieflezende vrouw laat de verbeelding de wereld in gaan: de schrijver is waarschijnlijk <b>ver weg</b>, op reis of op zee. Het is een kaart van Holland en West-Friesland die Vermeer vaker schilderde. Of de vrouw <b>zwanger</b> is, wordt al lang besproken: haar silhouet kan ook gewoon de mode van toen zijn. <br><br><b>In het museum:</b> let op het stralende blauw. Vermeer gebruikte <b>ultramarijn</b>, gemaakt van de dure halfedelsteen lapis lazuli.',
     also:[
       {img:'ra4a', t:'Vrouw die een brief leest', a:'Gabriel Metsu', y:'ca. 1664–1666', n:'De dienstmeid trekt het gordijn weg voor een zeegezicht: de geliefde is op zee.', s:'Metsu Woman Reading a Letter Dublin'},
@@ -9742,7 +9742,7 @@ const RIJKS_ROUNDS = [
   { icon:null, name:'Het straatje',
     in:{img:'ra5', t:'Gezicht op huizen in Delft (Het straatje)', a:'Johannes Vermeer', y:'ca. 1658', where:'Rijksmuseum, Amsterdam (Eregalerij)', s:'Vermeer Het straatje Rijksmuseum'},
     question:'Een vrouw zit in een deuropening te naaien, in een gangetje werkt een dienstmeid en twee kinderen spelen op de stoep. Wat laat Vermeer hier vooral zien?',
-    opts:['Armoede in Delft','Het rustige, deugdzame dagelijks leven: huiselijkheid, orde en vlijt','Een stad die verlaten is door de pest'], c:1,
+    opts:['Armoede in Delft: de huizen vallen uit elkaar en de bewoners hebben geen geld voor herstel','Het rustige, deugdzame dagelijks leven: huiselijkheid, orde en vlijt','Een stad die verlaten is door de pest, waar alleen nog een paar mensen wonen'], c:1,
     exp:'Het straatje lijkt een momentopname, maar is ook een <b>lofzang op het huiselijke leven</b>: schoon, ordelijk en vlijtig, idealen van de Hollandse burger. Er gebeurt niets spectaculairs, en juist dat is de boodschap. In 2015 ontdekte kunsthistoricus Frans Grijzenhout met oude kadasterregisters waar het stond: aan de <b>Vlamingstraat</b> in Delft, waar Vermeers tante woonde. <br><br><b>In het museum:</b> zoek de bakstenen muur. Vermeer schilderde zelfs de gerepareerde scheuren en het witsel.',
     also:[
       {img:'ra5a', t:'Binnenplaats van een huis in Delft', a:'Pieter de Hooch', y:'1658', n:'Hetzelfde jaar, dezelfde stad: De Hooch schildert een vrouw en een kind op een binnenplaats.', s:'Pieter de Hooch Courtyard Delft 1658'},
@@ -9752,15 +9752,15 @@ const RIJKS_ROUNDS = [
 big:{ img:'raB', t:'De bedreigde zwaan', a:'Jan Asselijn', y:'ca. 1650', where:'Rijksmuseum, Amsterdam', s:'Asselijn De bedreigde zwaan Rijksmuseum',
     intro:'Het allereerste schilderij dat de Nationale Kunst-Galerij, de voorloper van het Rijksmuseum, in 1800 kocht. Een zwaan die woedend zijn nest verdedigt, en een politiek symbool.',
     details:[
-      {d:'Een witte zwaan spreidt zijn vleugels en sist naar een <b>hond</b> die linksonder door het water aan komt zwemmen.', q:'Wat zag de schilder er oorspronkelijk in?', opts:['Een politiek spotprent','Een dramatisch natuurtafereel: een zwaan die zijn nest verdedigt','Een illustratie bij een sprookje'], c:1,
+      {d:'Een witte zwaan spreidt zijn vleugels en sist naar een <b>hond</b> die linksonder door het water aan komt zwemmen.', q:'Wat zag de schilder er oorspronkelijk in?', opts:['Een politieke spotprent op de Engelsen, die de Hollandse vloot aanvielen','Een dramatisch natuurtafereel: een zwaan die zijn nest verdedigt','Een illustratie bij een sprookje over een betoverde prinses die een zwaan werd'], c:1,
         e:'Asselijn schilderde waarschijnlijk gewoon een spectaculair <b>dierstuk</b>: de zwaan levensgroot, bijna van onderen gezien, zodat hij heroïsch en enorm lijkt. De politieke betekenis kwam pas later.'},
-      {d:'In het nest rechts ligt een ei met daarop het woord <b>HOLLAND</b>.', q:'Wat betekent dat ei?', opts:['Het gewest Holland, dat beschermd moet worden','Het eten van de zwaan','De handtekening van de schilder'], c:0,
+      {d:'In het nest rechts ligt een ei met daarop het woord <b>HOLLAND</b>.', q:'Wat betekent dat ei?', opts:['Het gewest Holland, dat beschermd moet worden','Het eten van de zwaan, die zijn voorraad bewaakt','De handtekening van de schilder, verstopt in het nest'], c:0,
         e:'Een latere eigenaar liet opschriften toevoegen. Het ei werd <b>Holland</b>, het kostbare bezit dat verdedigd moet worden. Zo werd het dierstuk een <b>allegorie</b>.'},
-      {d:'Onder de zwaan staat <b>DE RAAD-PENSIONARIS</b>, en bij de hond <b>DE VIAND VAN DE STAAT</b>.', q:'Wie werd met de raadpensionaris bedoeld?', opts:['Johan de Witt, de leider van de Republiek, die in 1672 werd vermoord','Willem van Oranje','Michiel de Ruyter'], c:0,
+      {d:'Onder de zwaan staat <b>DE RAAD-PENSIONARIS</b>, en bij de hond <b>DE VIAND VAN DE STAAT</b>.', q:'Wie werd met de raadpensionaris bedoeld?', opts:['Johan de Witt, de leider van de Republiek, die in 1672 werd vermoord','Willem van Oranje, de Vader des Vaderlands, die in 1584 werd vermoord in Delft','Michiel de Ruyter, de admiraal die de Engelse vloot versloeg bij Chatham'], c:0,
         e:'De <b>raadpensionaris</b> Johan de Witt leidde de Republiek tussen 1653 en 1672. Na zijn gewelddadige dood werd hij door aanhangers vereerd als de beschermer van het land. De zwaan stond nu voor De Witt die Holland beschermde tegen <b>de vijand van de staat</b>.'},
-      {d:'Overal dwarrelen losse <b>veren</b> door de lucht en op het water.', q:'Wat suggereren die veren?', opts:['Dat het herfst is','Dat er al gevochten wordt: het gevaar is echt','Dat de zwaan ziek is'], c:1,
+      {d:'Overal dwarrelen losse <b>veren</b> door de lucht en op het water.', q:'Wat suggereren die veren?', opts:['Dat het herfst is en de vogels in de rui zijn','Dat er al gevochten wordt: het gevaar is echt','Dat de zwaan ziek is en zijn veren verliest door de kou'], c:1,
         e:'De rondvliegende veren maken de dreiging tastbaar: het gevecht is al begonnen. Het maakt het beeld nog dramatischer, en de allegorie overtuigender.'},
-      {d:'De zwaan vult bijna het hele doek, tegen een donkere, onweerachtige lucht.', q:'Waarom werkt dit beeld zo goed als symbool?', opts:['Omdat zwanen zeldzaam waren','Omdat de witte, verdedigende zwaan staat voor moed en waakzaamheid tegen een donkere dreiging','Omdat het klein is'], c:1,
+      {d:'De zwaan vult bijna het hele doek, tegen een donkere, onweerachtige lucht.', q:'Waarom werkt dit beeld zo goed als symbool?', opts:['Omdat zwanen in Holland heel zeldzaam waren en dus meteen opvielen bij iedere kijker die het zag','Omdat de witte, verdedigende zwaan staat voor moed en waakzaamheid tegen een donkere dreiging','Omdat het klein en goedkoop was, zodat iedere burger in de Republiek het aan de muur kon hangen'], c:1,
         e:'Wit tegen donker, groot tegen klein: de compositie vertelt zelf het verhaal van een <b>moedige verdediger</b>. Daarom kon een gewoon dierstuk zo makkelijk een nationaal symbool worden. Het werd een van de bekendste werken van het museum.'}
     ],
     story:'<p>Jan Asselijn (ca. 1610–1652) werkte lang in Italië en schilderde vooral Italiaanse landschappen. Deze zwaan is zijn beroemdste werk. In 1800 werd het het eerste schilderij dat de jonge Nationale Kunst-Galerij in Den Haag aankocht: het begin van de rijkscollectie.</p><p>Het verhaal van de opschriften laat zien hoe betekenis kan <b>groeien</b>: een schilderij kan later een symbool worden dat de maker nooit zo bedoeld heeft.</p>'
@@ -9771,7 +9771,7 @@ big:{ img:'raB', t:'De bedreigde zwaan', a:'Jan Asselijn', y:'ca. 1650', where:'
 { icon:null, name:'De roe in de schoen',
     in:{img:'rb1', t:'Het Sint-Nicolaasfeest', a:'Jan Steen', y:'ca. 1665–1668', where:'Rijksmuseum, Amsterdam (Eregalerij)', s:'Jan Steen Sint-Nicolaasfeest Rijksmuseum'},
     question:'Een meisje klemt een pop en een emmertje snoep vast, terwijl haar broer staat te huilen. Wat heeft hij in zijn schoen gevonden?',
-    opts:['Een roe: hij is stout geweest','Een sinaasappel','Een gouden munt'], c:0,
+    opts:['Een roe: hij is stout geweest','Een sinaasappel uit Spanje, als traktatie','Een gouden munt van Sinterklaas'], c:0,
     exp:'De <b>roe</b> in de schoen was voor stoute kinderen. Maar kijk goed: achterin wenkt grootmoeder de huilende jongen naar het bed, achter het gordijn ligt vast nog een cadeautje. Ook het lekkers is herkenbaar, zoals het lange <b>Sinterklaasbrood</b> dat tegen de tafel staat. Het feest was populair, maar protestantse predikanten vonden het een paapse gewoonte. Steen laat vooral de <b>menselijke emoties</b> zien: jaloezie, leedvermaak en troost.',
     also:[
       {img:'rb1a', t:'Driekoningenavond', a:'Jan Steen', y:'1662', n:'Nog een volksfeest: wie de boon in de koek vindt, wordt koning voor één avond.', s:'Jan Steen Twelfth Night'},
@@ -9780,7 +9780,7 @@ big:{ img:'raB', t:'De bedreigde zwaan', a:'Jan Asselijn', y:'ca. 1650', where:'
   { icon:null, name:'De linnenkast',
     in:{img:'rb2', t:'Interieur met vrouwen bij een linnenkast', a:'Pieter de Hooch', y:'1663', where:'Rijksmuseum, Amsterdam', s:'Pieter de Hooch Linnenkast Rijksmuseum'},
     question:'Twee vrouwen leggen keurig gevouwen linnen in een grote eikenhouten kast, terwijl in de deuropening een kind speelt. Wat zegt die linnenkast?',
-    opts:['Dat ze wasvrouwen zijn','Welstand en een goed bestierd huishouden','Dat er een bruiloft komt'], c:1,
+    opts:['Dat ze wasvrouwen zijn die voor de rijke buren werken','Welstand en een goed bestierd huishouden','Dat er een bruiloft komt en de uitzet klaar moet zijn'], c:1,
     exp:'<b>Linnen</b> was kostbaar, en een volle linnenkast was de trots van het huishouden. Het tafereel toont de 17e-eeuwse idealen: <b>orde, netheid en zorg</b>. De vrouw des huizes leidt het werk samen met haar dienstmeid. Door de open deur kijk je naar buiten, een handelsmerk van De Hooch. Het kind speelt met een <b>kolfstok</b>, een voorloper van golf.',
     also:[
       {img:'rb2a', t:'Moeder die haar kind ontluist', a:'Pieter de Hooch', y:'ca. 1660', n:'Ook zorg is deugd: een moeder kamt het haar van haar kind op luizen.', s:'Pieter de Hooch mother delousing child Rijksmuseum'},
@@ -9789,7 +9789,7 @@ big:{ img:'raB', t:'De bedreigde zwaan', a:'Jan Asselijn', y:'ca. 1650', where:'
   { icon:null, name:'Het zieke kind',
     in:{img:'rb3', t:'Het zieke kind', a:'Gabriel Metsu', y:'ca. 1664–1666', where:'Rijksmuseum, Amsterdam', s:'Gabriel Metsu Het zieke kind Rijksmuseum'},
     question:'Een moeder houdt een slap, ziek kindje op schoot. Aan de muur hangt een schilderijtje van de kruisiging. Wat zegt dat schilderijtje?',
-    opts:['Dat het kind zeker zal sterven','Troost en hoop: vertrouwen op God in moeilijke tijden','Niets, het is decoratie'], c:1,
+    opts:['Dat het kind zeker zal sterven en de moeder al rouwt om het verlies','Troost en hoop: vertrouwen op God in moeilijke tijden','Niets, het is decoratie die toevallig in de kamer hing'], c:1,
     exp:'Het kruisigingsschilderijtje geeft het intieme tafereel een <b>religieuze lading</b>: lijden wordt gedragen in vertrouwen op God. Veel kijkers zien in de houding van moeder en kind ook een echo van een <b>Piëta</b>, Maria met de dode Christus. Kindersterfte was in de 17e eeuw heel gewoon. Metsu laat de stille zorg zien, zonder drama.',
     also:[
       {img:'rb3a', t:'Een ziek kind', a:'Pieter de Hooch', y:'17e eeuw', n:'Ook De Hooch schilderde de zorg om een ziek kind.', s:'Pieter de Hooch sick child'},
@@ -9798,7 +9798,7 @@ big:{ img:'raB', t:'De bedreigde zwaan', a:'Jan Asselijn', y:'ca. 1650', where:'
   { icon:null, name:'De kalkoenpastei',
     in:{img:'rb4', t:'Stilleven met kalkoenpastei', a:'Pieter Claesz', y:'1627', where:'Rijksmuseum, Amsterdam (Eregalerij)', s:'Pieter Claesz Stilleven met kalkoenpastei'},
     question:'Een tafel vol luxe: een pastei met een opgezette kalkoen erop, een half geschilde citroen, olijven, oesters en een omgevallen glas. Wat is de boodschap?',
-    opts:['Een recept voor Kerstmis','Pronk én waarschuwing: kijk wat wij hebben, maar genot is vergankelijk','Het ontbijt van een boer'], c:1,
+    opts:['Een recept voor Kerstmis: zo maakte men in de 17e eeuw een feestmaal','Pronk én waarschuwing: kijk wat wij hebben, maar genot is vergankelijk','Het ontbijt van een boer na een lange ochtend op het land, met wat er over was'], c:1,
     exp:'Dit is een <b>pronkontbijtje</b>: exotische en dure spijzen, zoals een <b>kalkoen</b> (uit Amerika), olijven, citroen en peper in een papieren puntzak. De kijker mocht genieten van de rijkdom en van de virtuoze weergave van zilver, glas en tin. Tegelijk zitten er <b>vanitas-signalen</b> in: het omgevallen glas, het half opgegeten eten, de schil die afhangt. Genot duurt kort.',
     also:[
       {img:'rb4a', t:'Schalen met oesters, vruchten en wijn', a:'Osias Beert', y:'ca. 1625', n:'In Antwerpen schilderde men vergelijkbare luxe tafels.', s:'Osias Beert dishes oysters fruit wine'},
@@ -9807,7 +9807,7 @@ big:{ img:'raB', t:'De bedreigde zwaan', a:'Jan Asselijn', y:'ca. 1650', where:'
   { icon:null, name:'De vrolijke drinker',
     in:{img:'rb5', t:'De vrolijke drinker', a:'Frans Hals', y:'ca. 1628–1630', where:'Rijksmuseum, Amsterdam', s:'Frans Hals De vrolijke drinker'},
     question:'Een man met een glas wijn steekt zijn hand naar ons uit, alsof hij ons uitnodigt. Wat maakt dit schilderij typisch Frans Hals?',
-    opts:['Een gladde, onzichtbare toets','Snelle, losse penseelstreken, waardoor het lijkt alsof je iemand op heterdaad betrapt','Het is met een liniaal getekend'], c:1,
+    opts:['Een gladde, onzichtbare toets, zodat je geen enkele penseelstreek meer kunt zien in de verf','Snelle, losse penseelstreken, waardoor het lijkt alsof je iemand op heterdaad betrapt','Het is met een liniaal en passer getekend en daarna heel nauwkeurig ingekleurd met dunne verf'], c:1,
     exp:'Frans Hals schilderde met <b>snelle, zichtbare streken</b>, zonder alles glad af te werken. Daardoor lijkt zijn drinker te bewegen en te praten. Zulke vrolijke figuren waren geen portretten van bestelde personen, maar <b>tronies</b> of genrefiguren. Ze konden een zintuig uitbeelden, zoals de smaak, of als lichte waarschuwing tegen drankmisbruik dienen. <br><br><b>In het museum:</b> ga dichtbij staan en dan weer ver weg. Van dichtbij zie je alleen vegen, van een afstand komt alles tot leven.',
     also:[
       {img:'p3c', t:'Drinkende jongen (De smaak)', a:'Frans Hals', y:'ca. 1628', n:'Een jongen met een glas: de smaak, uit een ronde serie van de vijf zintuigen.', s:'Frans Hals Drinking Boy'},
@@ -9817,15 +9817,15 @@ big:{ img:'raB', t:'De bedreigde zwaan', a:'Jan Asselijn', y:'ca. 1650', where:'
 big:{ img:'rbB', t:'Winterlandschap met schaatsers', a:'Hendrick Avercamp', y:'ca. 1608', where:'Rijksmuseum, Amsterdam', s:'Avercamp Winterlandschap met schaatsers Rijksmuseum',
     intro:'Een bevroren dorp vol schaatsers, sleden en kolvers. Avercamp, de “stomme van Kampen”, was doof en kon niet spreken. Hij keek des te beter. Zoek mee.',
     details:[
-      {d:'Op het ijs zie je rijke heren met hoge hoeden, boeren, kinderen, verliefde stelletjes en een slee met een paard.', q:'Wat laat Avercamp zien door al die mensen samen op het ijs te zetten?', opts:['Dat iedereen, arm en rijk, samen van het ijs geniet','Dat het een markt is','Dat er een oorlog is'], c:0,
+      {d:'Op het ijs zie je rijke heren met hoge hoeden, boeren, kinderen, verliefde stelletjes en een slee met een paard.', q:'Wat laat Avercamp zien door al die mensen samen op het ijs te zetten?', opts:['Dat iedereen, arm en rijk, samen van het ijs geniet','Dat het een markt is waar kooplieden hun waren op het ijs verkopen','Dat er een oorlog is en iedereen over het ijs naar de stad vlucht'], c:0,
         e:'Op het ijs komt de hele samenleving samen: <b>arm en rijk, jong en oud</b>. Avercamp schilderde zo’n honderd figuren, elk met een eigen verhaaltje. Het was de tijd van de Kleine IJstijd, met strenge winters.'},
-      {d:'Sommige mannen slaan met een stok een balletje over het ijs.', q:'Welk spel is dat?', opts:['IJshockey','Kolf, een voorloper van golf','Curling'], c:1,
+      {d:'Sommige mannen slaan met een stok een balletje over het ijs.', q:'Welk spel is dat?', opts:['IJshockey, met houten sticks','Kolf, een voorloper van golf','Curling, met ronde stenen'], c:1,
         e:'<b>Kolf</b> werd gespeeld met een stok en een bal, op het ijs of op een baan. Het geldt als een van de voorlopers van golf. Je kwam de kolfstok al tegen bij het kind in De Hoochs linnenkast.'},
-      {d:'Helemaal linksonder liggen de resten van een <b>dood dier</b>, waar vogels aan pikken. Op het ijs gaan hier en daar mensen onderuit.', q:'Wat zit er naast al het plezier ook in dit schilderij?', opts:['Niets, het is alleen vrolijk','Kleine herinneringen aan vergankelijkheid en ongelukken: de dood en het vallen horen erbij','Een reclame voor schaatsen'], c:1,
+      {d:'Helemaal linksonder liggen de resten van een <b>dood dier</b>, waar vogels aan pikken. Op het ijs gaan hier en daar mensen onderuit.', q:'Wat zit er naast al het plezier ook in dit schilderij?', opts:['Niets: het is alleen vrolijk, een feestelijke winterdag zonder enige diepere boodschap','Kleine herinneringen aan vergankelijkheid en ongelukken: de dood en het vallen horen erbij','Een reclame voor schaatsen en sleden, besteld door een winkel in de stad Kampen'], c:1,
         e:'Het <b>kadaver</b> met de vogels en de vallende schaatsers laten zien dat het geluk op het ijs broos is. Voor de toenmalige kijker was het ijs ook een beeld van de <b>wankelheid van het leven</b>. Lachen om een val hoorde er net zo goed bij.'},
-      {d:'Kijk goed in de hoeken en bij de huizen: Avercamp verstopte ook ondeugende details.', q:'Waarom stopte hij zulke grappige of schunnige details in zijn werk?', opts:['Uit vergissing','Om de kijker te vermaken en te laten zoeken, zoals Bruegel vóór hem','Omdat de opdrachtgever dat eiste'], c:1,
+      {d:'Kijk goed in de hoeken en bij de huizen: Avercamp verstopte ook ondeugende details.', q:'Waarom stopte hij zulke grappige of schunnige details in zijn werk?', opts:['Uit vergissing: hij zag ze pas toen het schilderij al af was','Om de kijker te vermaken en te laten zoeken, zoals Bruegel vóór hem','Omdat de opdrachtgever dat eiste, om zijn gasten aan het lachen te maken'], c:1,
         e:'Net als <b>Pieter Bruegel</b> maakte Avercamp een <b>zoekplaat</b>. Wie goed kijkt, vindt kleine grappen: iemand die zijn behoefte doet, een stel dat even verdwijnt, een hond die rondsnuffelt. Het hoort bij het plezier van het kijken.'},
-      {d:'Het landschap verdwijnt naar achteren in een blauwgrijze nevel, met een hoge horizon.', q:'Wat doet die vervaging?', opts:['Het schilderij is onaf','Ze geeft diepte: dingen die verder weg zijn, worden lichter en blauwer (luchtperspectief)','Het is mist van een brand'], c:1,
+      {d:'Het landschap verdwijnt naar achteren in een blauwgrijze nevel, met een hoge horizon.', q:'Wat doet die vervaging?', opts:['Het schilderij is onaf: Avercamp is nooit aan de achtergrond toegekomen voor zijn dood','Ze geeft diepte: dingen die verder weg zijn, worden lichter en blauwer (luchtperspectief)','Het is de mist van een grote brand in de stad, die die winter veel huizen verwoestte'], c:1,
         e:'Met <b>luchtperspectief</b> laat Avercamp de verte vervagen. De hoge horizon komt uit de Vlaamse traditie en geeft ruimte voor heel veel figuren. In het museum hangen meer van zijn winterlandschappen: zoek de verschillen.'}
     ],
     story:'<p>Hendrick Avercamp (1585–1634) werd geboren in Amsterdam en werkte in Kampen. Hij was doofstom en werd “de stomme van Kampen” genoemd. Hij werd beroemd met winterlandschappen, die kopers als feestelijke zoekplaten in huis hingen.</p><p>Zijn werk is ook een historisch document: kleding, sleden, schaatsen en spelletjes uit het begin van de 17e eeuw, alsof je door het raam van de geschiedenis kijkt.</p>'
@@ -9836,7 +9836,7 @@ big:{ img:'rbB', t:'Winterlandschap met schaatsers', a:'Hendrick Avercamp', y:'c
 { icon:null, name:'De boom uit de slaper',
     in:{img:'rc1', t:'De boom van Jesse', a:'Kring van Geertgen tot Sint Jans', y:'ca. 1500', where:'Rijksmuseum, Amsterdam', s:'Geertgen tot Sint Jans Boom van Jesse Rijksmuseum'},
     question:'Een man ligt te slapen. Uit zijn lichaam groeit een boom vol koningen, en in de top zit Maria met het kind. Wie is de slaper?',
-    opts:['Adam','Jesse, de vader van koning David','Jakob, die van een ladder droomt'], c:1,
+    opts:['Adam, de eerste mens, die in het paradijs slaapt','Jesse, de vader van koning David','Jakob, die droomt van een ladder naar de hemel'], c:1,
     exp:'De profeet Jesaja voorspelde: “Een twijg zal uit de stronk van <b>Isaï</b> (Jesse) opschieten.” De middeleeuwers maakten daar een <b>stamboom</b> van: uit de slapende Jesse groeit een boom met de koningen van Israël, de voorouders van Christus, met <b>koning David</b> met zijn harp. Bovenaan bloeit <b>Maria met het kind</b>. Zo laat het schilderij zien dat Christus uit het koningshuis van David stamt.',
     also:[
       {img:'rc1a', t:'De voorouders van Christus: Jesse', a:'Michelangelo', y:'1509', n:'Ook op het plafond van de Sixtijnse Kapel staan de voorouders van Christus.', s:'Michelangelo Sistine ancestors of Christ Jesse'},
@@ -9844,7 +9844,7 @@ big:{ img:'rbB', t:'Winterlandschap met schaatsers', a:'Hendrick Avercamp', y:'c
   { icon:'tablets', name:'De dans om het kalf',
     in:{img:'rc2', t:'De dans om het gouden kalf', a:'Lucas van Leyden', y:'ca. 1530', where:'Rijksmuseum, Amsterdam', s:'Lucas van Leyden Dans om het gouden kalf'},
     question:'Op de voorgrond eten, drinken en vrijen mensen; in het midden dansen ze rond een beeld op een zuil. Wat zie je helemaal in de verte, op de berg?',
-    opts:['Mozes, die de stenen tafelen ontvangt en straks woedend terugkomt','Noachs ark','Jezus die preekt'], c:0,
+    opts:['Mozes, die de stenen tafelen ontvangt en straks woedend terugkomt','Noachs ark, terwijl de mensen buiten nog feestvieren tot het water komt','Jezus die op de berg preekt en de mensen oproept zich te bekeren'], c:0,
     exp:'Terwijl <b>Mozes</b> op de berg Sinaï de <b>Tien Geboden</b> ontving, lieten de Israëlieten een <b>gouden kalf</b> maken en vierden ze feest. Lucas zet de afgoderij en de losbandigheid vooraan, en Mozes klein op de achtergrond. Zo zie je het begin en het einde van het verhaal tegelijk. Het werk is een <b>drieluik</b>: het tafereel loopt over de luiken heen door.',
     also:[
       {img:'rc2a', t:'De aanbidding van het gouden kalf', a:'Jan Steen', y:'1677', n:'Bij Steen wordt het een rommelig volksfeest.', s:'Jan Steen golden calf'},
@@ -9853,7 +9853,7 @@ big:{ img:'rbB', t:'Winterlandschap met schaatsers', a:'Hendrick Avercamp', y:'c
   { icon:null, name:'De handdruk van de vrede',
     in:{img:'rc3', t:'Schuttersmaaltijd ter viering van de Vrede van Munster', a:'Bartholomeus van der Helst', y:'1648', where:'Rijksmuseum, Amsterdam (Eregalerij)', s:'Van der Helst Schuttersmaaltijd Vrede van Munster'},
     question:'Rond een feestelijke tafel schudden twee schutters elkaar de hand, en een ander heft een zilveren drinkhoorn. Wat vieren ze?',
-    opts:['Een bruiloft','De Vrede van Munster (1648): het einde van de Tachtigjarige Oorlog','Een overwinning op zee'], c:1,
+    opts:['Een bruiloft van de dochter van de kapitein, met alle schutters als gasten','De Vrede van Munster (1648): het einde van de Tachtigjarige Oorlog','Een overwinning op zee tegen de Engelsen, gevierd in de doelen van de schutters'], c:1,
     exp:'In 1648 erkende Spanje de Republiek met de <b>Vrede van Munster</b>. De Amsterdamse schutterij vierde dat met een groot feestmaal. De <b>handdruk</b> staat voor vrede en verbondenheid, de grote zilveren <b>drinkhoorn</b> is het pronkstuk van de schutterij. Op de trommel staat een gedicht van Jan Vos over de vrede. <br><br><b>In het museum:</b> dit schilderij hangt vlak bij de Nachtwacht. Vergelijk de gladde, heldere stijl van Van der Helst met Rembrandts licht en donker.',
     also:[
       {img:'rc3a', t:'Feestmaal van de officieren van de Sint-Jorisschutterij', a:'Frans Hals', y:'1616', n:'In Haarlem schilderde Hals een even vrolijk schuttersbanket.', s:'Frans Hals banquet St George civic guard'},
@@ -9862,7 +9862,7 @@ big:{ img:'rbB', t:'Winterlandschap met schaatsers', a:'Hendrick Avercamp', y:'c
   { icon:null, name:'Het zwaard onder de mantel',
     in:{img:'rc4', t:'Zelfportret als de apostel Paulus', a:'Rembrandt', y:'1661', where:'Rijksmuseum, Amsterdam', s:'Rembrandt zelfportret als apostel Paulus'},
     question:'Rembrandt kijkt ons met opgetrokken wenkbrauwen aan. Uit zijn mantel steekt het heft van een zwaard en hij houdt beschreven vellen vast. Als wie schildert hij zichzelf?',
-    opts:['Als de apostel Paulus','Als Petrus','Als een krijgsheer'], c:0,
+    opts:['Als de apostel Paulus','Als de apostel Petrus','Als een oosterse krijgsheer'], c:0,
     exp:'Het <b>zwaard</b> is het attribuut van de apostel <b>Paulus</b>: hij werd in Rome onthoofd. De <b>vellen papier</b> staan voor zijn brieven, de Epistels in het Nieuwe Testament. Rembrandt kruipt in de huid van de apostel, als een acteur. Hij was toen 55, failliet en zijn vrouw Saskia was al lang overleden. Een zelfportret als gesprek over geloof en twijfel.',
     also:[
       {img:'rc4a', t:'De apostel Paulus', a:'Rembrandt', y:'ca. 1657–1659', n:'Paulus aan zijn schrijftafel, het zwaard binnen handbereik.', s:'Rembrandt Apostle Paul Washington'},
@@ -9871,7 +9871,7 @@ big:{ img:'rbB', t:'Winterlandschap met schaatsers', a:'Hendrick Avercamp', y:'c
   { icon:null, name:'De profeet bij de brandende stad',
     in:{img:'rc5', t:'Jeremia treurt over de verwoesting van Jeruzalem', a:'Rembrandt', y:'1630', where:'Rijksmuseum, Amsterdam', s:'Rembrandt Jeremia Rijksmuseum'},
     question:'Een oude man leunt verslagen met zijn hoofd op zijn hand. Links op de achtergrond brandt een stad. Wie is hij?',
-    opts:['De profeet Jeremia, die de val van Jeruzalem voorspelde','Noach','Koning Salomo'], c:0,
+    opts:['De profeet Jeremia, die de val van Jeruzalem voorspelde','Noach, die na de zondvloed om de verloren wereld treurt','Koning Salomo, die op zijn oude dag spijt heeft van zijn zonden'], c:0,
     exp:'De profeet <b>Jeremia</b> had gewaarschuwd dat Jeruzalem zou vallen. Hier zit hij bij de ruïnes terwijl de stad en de <b>tempel</b> branden. Het hoofd op de hand is de klassieke houding van de <b>melancholie</b>: diepe rouw en bezinning. Op de rots liggen gouden schalen, gered uit de tempel. Rembrandt was pas 24 en woonde nog in Leiden.',
     also:[
       {img:'rc5a', t:'De profeet Jeremia', a:'Michelangelo', y:'1512', n:'Op het Sixtijnse plafond zit Jeremia in dezelfde peinzende houding.', s:'Michelangelo prophet Jeremiah'},
@@ -9881,15 +9881,15 @@ big:{ img:'rbB', t:'Winterlandschap met schaatsers', a:'Hendrick Avercamp', y:'c
 big:{ img:'rcB', t:'De zeven werken van barmhartigheid', a:'Meester van Alkmaar', y:'1504', where:'Rijksmuseum, Amsterdam', s:'Meester van Alkmaar Zeven werken van barmhartigheid',
     intro:'Zeven panelen naast elkaar, als een stripverhaal over goed doen. Ze hingen in de Sint-Laurenskerk in Alkmaar. Kijk wie er in elke scène tussen de mensen staat.',
     details:[
-      {d:'In het eerste paneel worden broden uitgedeeld aan armen en kreupelen, in het tweede krijgen dorstigen te drinken.', q:'Waar komen de zeven werken van barmhartigheid vandaan?', opts:['Uit de woorden van Christus over het Laatste Oordeel (Mattheüs 25), aangevuld met het begraven van de doden','Uit het stadsrecht van Alkmaar','Uit een Romeins wetboek'], c:0,
+      {d:'In het eerste paneel worden broden uitgedeeld aan armen en kreupelen, in het tweede krijgen dorstigen te drinken.', q:'Waar komen de zeven werken van barmhartigheid vandaan?', opts:['Uit de woorden van Christus over het Laatste Oordeel (Mattheüs 25), aangevuld met het begraven van de doden','Uit het stadsrecht van Alkmaar, dat bepaalde wat burgers voor armen moesten doen in de stad','Uit een Romeins wetboek van keizer Justinianus, dat in de middeleeuwen werd overgenomen'], c:0,
         e:'In <b>Mattheüs 25</b> zegt Christus: “Ik had honger en jullie gaven mij te eten, ik had dorst en jullie gaven mij te drinken…” Zes werken komen daaruit: hongerigen voeden, dorstigen laven, naakten kleden, vreemdelingen herbergen, zieken bezoeken, gevangenen bezoeken. Het <b>begraven van de doden</b> werd later toegevoegd.'},
-      {d:'Kijk in elk paneel goed naar de omstanders: steeds staat er een man met een <b>stralenkrans</b> tussen de armen.', q:'Wie is dat, en waarom staat hij daar?', opts:['De opdrachtgever','Christus: “Wat je voor de minste van de mijnen doet, doe je voor mij”','Een engel'], c:1,
+      {d:'Kijk in elk paneel goed naar de omstanders: steeds staat er een man met een <b>stralenkrans</b> tussen de armen.', q:'Wie is dat, en waarom staat hij daar?', opts:['De opdrachtgever, die zichzelf tussen de armen liet schilderen als bewijs van zijn vroomheid','Christus: “Wat je voor de minste van de mijnen doet, doe je voor mij”','Een engel die opschrijft wie er goede werken doet, voor het Laatste Oordeel'], c:1,
         e:'Christus staat telkens tussen de <b>hulpbehoevenden</b>. Dat illustreert zijn woorden: wie een arme helpt, helpt hem. Barmhartigheid is dus niet alleen goed doen, maar ook Christus ontmoeten.'},
-      {d:'In het middelste paneel wordt een dode begraven. Daarboven zweeft <b>Christus als rechter</b> op een regenboog, met Maria en Johannes.', q:'Waarom staat het Laatste Oordeel juist in het midden?', opts:['Toeval','Omdat de werken van barmhartigheid bepalen hoe je beoordeeld wordt bij het Laatste Oordeel','Omdat dat paneel het grootst is'], c:1,
+      {d:'In het middelste paneel wordt een dode begraven. Daarboven zweeft <b>Christus als rechter</b> op een regenboog, met Maria en Johannes.', q:'Waarom staat het Laatste Oordeel juist in het midden?', opts:['Toeval: de schilder begon gewoon in het midden en werkte zo naar buiten toe','Omdat de werken van barmhartigheid bepalen hoe je beoordeeld wordt bij het Laatste Oordeel','Omdat dat paneel het grootst is, en het Laatste Oordeel het meeste ruimte nodig heeft'], c:1,
         e:'Bij het <b>Laatste Oordeel</b> scheidt Christus de goeden van de kwaden, op basis van wat ze voor anderen deden. Het middenpaneel verbindt alles: de dood, het oordeel en de vraag of je barmhartig was. Een duidelijke boodschap voor de kerkgangers.'},
-      {d:'De scènes spelen zich af in de straten van een <b>Hollandse stad</b>, met trapgevels en kerktorens.', q:'Waarom niet in het oude Jeruzalem?', opts:['De schilder was nooit in Jeruzalem geweest','Om te laten zien dat barmhartigheid hier en nu in je eigen stad moet gebeuren','Omdat het goedkoper was'], c:1,
+      {d:'De scènes spelen zich af in de straten van een <b>Hollandse stad</b>, met trapgevels en kerktorens.', q:'Waarom niet in het oude Jeruzalem?', opts:['De schilder was nooit in Jeruzalem geweest en wist niet hoe de stad eruitzag','Om te laten zien dat barmhartigheid hier en nu in je eigen stad moet gebeuren','Omdat het goedkoper was om bestaande huizen na te schilderen dan iets te verzinnen'], c:1,
         e:'Door de werken in een herkenbare <b>Alkmaarse omgeving</b> te plaatsen, met mensen in eigentijdse kleding, wordt de opdracht direct: dit is wat jij moet doen, hier, in jouw straat. Het werk werd besteld door een Alkmaarse broederschap die zelf armen hielp.'},
-      {d:'Je ziet krassen en beschadigingen, vooral bij sommige gezichten.', q:'Waardoor zijn die ontstaan?', opts:['Door een brand','Door beeldenstormers in 1566, die religieuze beelden aanvielen','Door kinderen'], c:1,
+      {d:'Je ziet krassen en beschadigingen, vooral bij sommige gezichten.', q:'Waardoor zijn die ontstaan?', opts:['Door een grote brand in de kerk van Alkmaar in de 18e eeuw','Door beeldenstormers in 1566, die religieuze beelden aanvielen','Door kinderen die er eeuwenlang met stenen naar gooiden'], c:1,
         e:'Tijdens de <b>Beeldenstorm</b> van 1566 werden in veel kerken religieuze schilderijen en beelden vernield. Ook deze panelen raakten beschadigd. Ze overleefden toch, en kwamen later in het Rijksmuseum.'}
     ],
     story:'<p>De Meester van Alkmaar is een noodnaam: we weten niet hoe de schilder echt heette. Het werk is gedateerd <b>1504</b>, aan het einde van de middeleeuwen, en geeft een uniek beeld van het dagelijks leven in een Hollandse stad rond 1500.</p><p>De zeven werken van barmhartigheid werden ook later nog geschilderd, bijvoorbeeld door Caravaggio in Napels, die ze allemaal in één donkere straat liet samenkomen.</p>'
