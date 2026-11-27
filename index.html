@@ -1336,7 +1336,7 @@ load();
 const L = ['A','B','C','D','E'];
 const $ = h => { const a=document.getElementById('app'); a.innerHTML=h; a.firstElementChild&&a.firstElementChild.classList.add('fade'); try{ navUpdate(); }catch(e){} try{ goldDecorate(); }catch(e){} try{ setTimeout(flushDefer,50); }catch(e){} window.scrollTo({top:0,behavior:'smooth'}); save(); setTimeout(()=>{ if(typeof maybeGuide==='function') maybeGuide(); },350); setTimeout(()=>{ try{ cameoFlush(); }catch(e){} },1100); };
 const BLANK='data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
-const P = k => { if(window.IMG&&window.IMG[k]) return window.IMG[k]; if(/^n3_/.test(k)){ ensureBundle('n3'); return BLANK; } if(/^s4[a-f]\d/.test(k)){ ensureBundle('n4'); return BLANK; } if(/^j[jklm](\d|B)$/.test(k)){ ensureBundle('bj2'); return BLANK; } if(/^yy[0-9]/.test(k)){ ensureBundle('yy'); return BLANK; } const m=EXTRA_MUSEUMS.find(m=>m.bre.test(k)); if(!m) return 'img/'+k+'.jpg?v=3';
+const P = k => { if(window.IMG&&window.IMG[k]) return window.IMG[k]; if(/^n3_/.test(k)){ ensureBundle('n3'); return BLANK; } if(/^s4[a-f]\d/.test(k)){ ensureBundle('n4'); return BLANK; } if(/^j[jklm](\d|B)$/.test(k)){ ensureBundle('bj2'); return BLANK; } if(/^hl[2479C]$/.test(k)){ ensureBundle('heil'); return BLANK; } if(/^yy[0-9]/.test(k)){ ensureBundle('yy'); return BLANK; } const m=EXTRA_MUSEUMS.find(m=>m.bre.test(k)); if(!m) return 'img/'+k+'.jpg?v=3';
   const cur=TRACKS[st.t]&&TRACKS[st.t].bundle; if(cur && cur!==m.bundle && BUNDLES[cur]!=='ok') return BLANK; ensureBundle(m.bundle); return BLANK; };
 const BUNDLES={};
 function ensureBundle(id){ if(BUNDLES[id]) return; BUNDLES[id]='loading'; const s=document.createElement('script'); s.src='img/mus_'+id+'.js?v=3'; s.async=true; s.onerror=()=>{BUNDLES[id]=null;}; document.head.appendChild(s); }
@@ -3825,7 +3825,7 @@ const GUIDES = {
   zeus:{name:'Zeus', role:'oppergod van de Olympus', svg:(s,h,c)=>charSVG(CHARS.zeus,s,h,c)}
 };
 function guideOf(t=st.t){ if(t==='basis') return 'laura'; if(t==='hg') return 'rembrandt'; if(t==='mix'||t==='n3'||t==='n4') return 'laura';
-  if(t==='myth') return 'zeus'; if(['deugden','bijbel','ge','kenner'].includes(t)) return 'catharina'; return 'gala'; }
+  if(t==='myth') return 'zeus'; if(['deugden','bijbel','heilig','ge','kenner'].includes(t)) return 'catharina'; return 'gala'; }
 const GHELLO = {
   laura: nm=>`Hoi${nm}! Ik ben <b>Laura</b> en ik neem je mee door de basis van de symboliek. Na deze cursus kijk je nooit meer hetzelfde naar een schedel, een lelie of een hondje.`,
   gala: nm=>`Welkom in de museumroute${nm}! Voor de musea heb ik mijn <b>mooiste jurk</b> aangetrokken. We gaan langs de topstukken, zodat je straks met andere ogen door de zalen loopt.`,
@@ -11917,6 +11917,286 @@ const N4_BADGES = [
   {name:'Stormkijker', icon:'bubbles', txt:'Gevoel of werkelijkheid: romantiek en realisme liggen je.'},
   {name:'Stijlkenner', icon:'painting', txt:'Van Duccio tot Kandinsky: je plaatst elk schilderij in zijn tijd.'}];
 
+const HEIL_ROUNDS = [
+{ title:"Heiligen · Les 1 — Martelaren en hun werktuigen", sub:"Catharina, Barbara, Laurentius, Stefanus en Sebastiaan",
+  q:[
+  { icon:null, name:'Het rad met spijkers', in:{img:'q13', t:'Heilige Catharina van Alexandrië', a:'Caravaggio', y:'ca. 1598', where:'Museo Thyssen-Bornemisza, Madrid', s:'Caravaggio Saint Catherine'},
+    question:'Een rijk geklede jonge vrouw leunt op een kapot houten rad met scherpe punten. Ze houdt een zwaard vast. Hoe weet je wie ze is?',
+    opts:['Aan het rad: het martelwerktuig van Catharina van Alexandrië','Aan het zwaard: het attribuut van de godin Minerva','Aan haar jurk: ze is een Romeinse keizerin'], c:0,
+    exp:'Een heilige draagt vaak het <b>werktuig van haar marteldood</b> als attribuut. <b>Catharina</b> zou op een spijkerrad worden gemarteld, maar het rad brak. Daarna werd ze onthoofd: vandaar ook het <b>zwaard</b>. Haar verhaal staat in de Gulden Legende.',
+    also:[{img:'q13a', t:'Heilige Catharina van Alexandrië', a:'Rafaël', y:'ca. 1507', n:'Ook bij Rafaël leunt ze op haar rad.', s:'Raphael Saint Catherine'},{img:'qa1', t:'Catharina van Alexandrië', a:'Meester van Koudewater', y:'ca. 1470', n:'Als beeld in hout: met rad en zwaard.', s:'Meester van Koudewater Catharina'}]},
+  { icon:null, name:'Een toren met drie ramen', in:{img:'o4', t:'De heilige Barbara', a:'Jan van Eyck', y:'1437', where:'Koninklijk Museum voor Schone Kunsten, Antwerpen', s:'Jan van Eyck Saint Barbara'},
+    question:'Een jonge vrouw zit te lezen. Achter haar bouwen werklieden een enorme gotische toren. Wie is zij?',
+    opts:['De heilige Barbara','De heilige Ursula','De heilige Clara'], c:0,
+    exp:'<b>Barbara</b> werd door haar vader in een <b>toren</b> opgesloten. Ze liet er een derde raam in maken, voor de Drie-eenheid, en werd christen. Haar vader onthoofdde haar en werd daarna door de bliksem getroffen. Daarom is ze de beschermheilige van wie met vuur en explosies werkt.',
+    also:[{img:'qa5', t:'Barbara', a:'Meester van Koudewater', y:'ca. 1470', n:'Met een torentje in haar hand.', s:'Barbara Koudewater'},{img:'o4a', t:'De heilige Barbara', a:'Robert Campin', y:'1438', n:'Door het raam zie je de toren in aanbouw.', s:'Campin Saint Barbara Werl'}]},
+  { icon:null, name:'Het rooster', in:{img:'qa3', t:'Laurentius', a:'Navolger van de Meester van Koudewater', y:'ca. 1480–1520', where:'Museum Krona, Uden', s:'Laurentius beeld'},
+    question:'Een jonge geestelijke in een rijk versierd gewaad houdt een metalen rooster vast. Wie is het?',
+    opts:['De heilige Laurentius, die op een rooster werd geroosterd','De heilige Nicolaas, die armen hielp','De heilige Hubertus, de patroon van de jagers'], c:0,
+    exp:'<b>Laurentius</b> was diaken in Rome en werd volgens de legende op een gloeiend <b>rooster</b> gelegd. Hij zou gezegd hebben: “Draai me maar om, deze kant is gaar.” Een diaken herken je aan de <b>dalmatiek</b>, het gewaad met brede mouwen.',
+    also:[{img:'baB', t:'De heilige Stefanus', a:'Giovanni del Biondo', y:'vóór 1399', n:'Ook een diaken in dalmatiek: Stefanus.', s:'Giovanni del Biondo Stephen'}]},
+  { icon:null, name:'Stenen op het hoofd', in:{img:'baB', t:'De heilige Stefanus', a:'Giovanni del Biondo', y:'vóór 1399', where:'Bonnefanten, Maastricht', s:'Giovanni del Biondo Saint Stephen'},
+    question:'Een jonge diaken met stenen op zijn hoofd of in zijn hand, tegen een gouden achtergrond. Wie is hij?',
+    opts:['Laurentius','Stefanus, de eerste christelijke martelaar','Petrus'], c:1,
+    exp:'<b>Stefanus</b> werd gestenigd: hij is de <b>eerste martelaar</b> (Handelingen 7). Zijn attribuut is daarom een <b>steen</b>. Net als Laurentius draagt hij het gewaad van een diaken; let dus op wat hij vasthoudt.',
+    also:[{img:'qa3', t:'Laurentius', a:'Koudewater', y:'ca. 1480–1520', n:'Zelfde gewaad, ander attribuut: het rooster.', s:'Laurentius'}]},
+  { icon:null, name:'Vol pijlen', in:{img:'q16a', t:'Sint-Sebastiaan', a:'Antonello da Messina', y:'ca. 1478', where:'Gemäldegalerie, Dresden', s:'Antonello da Messina Saint Sebastian'},
+    question:'Een jonge man, vastgebonden aan een paal, doorboord met pijlen, kijkt rustig omhoog. Waarom was hij zo populair?',
+    opts:['Hij was de patroon van de boogschutters en een beschermer tegen de pest','Hij was een beroemde Romeinse keizer','Hij was een held uit de mythologie'], c:0,
+    exp:'<b>Sebastiaan</b> was een Romeinse officier die christen werd. Hij overleefde de pijlen en werd later doodgeslagen. Omdat de pest als <b>pijlen van God</b> werd gezien, werd hij een <b>pestheilige</b>. Schuttersgilden kozen hem als patroon.',
+    also:[{img:'q16b', t:'Sint-Sebastiaan', a:'Pietro Perugino', y:'ca. 1490–1495', n:'Een kalme, mooie Sebastiaan: een kans om het naakt te schilderen.', s:'Perugino Sebastian'},{img:'q16c', t:'Sint-Sebastiaan', a:'Guido Reni', y:'ca. 1615–1616', n:'Barok: zacht licht, een blik naar boven.', s:'Reni Sebastian'}]}
+  ],
+  big:{ img:'q16', t:'Sint-Sebastiaan', a:'Andrea Mantegna', y:'ca. 1457–1459', where:'Kunsthistorisches Museum, Wenen', s:'Mantegna Saint Sebastian Vienna',
+    intro:'Een klein paneel vol verborgen details. Tik op het schilderij om het groter te zien.',
+    details:[
+      {d:'Sebastiaan staat vastgebonden aan een <b>Romeinse zuil</b>, tussen brokstukken van klassieke gebouwen.', q:'Wat betekenen die ruïnes?', opts:['De heidense wereld valt, het christendom overwint','Mantegna hield niet van architectuur','Er was net een aardbeving'], c:0,
+        e:'De <b>vervallen oudheid</b> staat voor de heidense wereld die plaatsmaakt voor het geloof. Mantegna was dol op Romeinse resten en tekende ze zorgvuldig na.'},
+      {d:'Op de zuil links staat een inscriptie in het <b>Grieks</b>: “het werk van Andrea”.', q:'Waarom in het Grieks?', opts:['Mantegna was Grieks','Om te laten zien hoe geleerd hij was: een humanistische handtekening','Het was een geheime code'], c:1,
+        e:'Een <b>Griekse signatuur</b> was een statement: Mantegna hoorde bij de geleerde humanisten die de oudheid bestudeerden.'},
+      {d:'Kijk linksboven in de wolken. Eén wolk heeft de vorm van een <b>ruiter</b> te paard.', q:'Wat zou die ruiter kunnen betekenen?', opts:['Een verborgen grap of een teken van het lot, zoals ook in de oudheid beschreven','Een vlek in de verf','Een portret van de opdrachtgever'], c:0,
+        e:'Een <b>beeld in de wolken</b>: al Romeinse schrijvers beschreven hoe je figuren in wolken ziet. Mantegna laat zien dat hij dat ook kan. Sommigen zien er de ruiter van de Apocalyps of het lot in.'},
+      {d:'De pijlen doorboren zijn lichaam, maar zijn gezicht is kalm en kijkt omhoog.', q:'Wat zegt die rust?', opts:['Hij voelt geen pijn','Zijn geloof is sterker dan het lijden','Hij slaapt'], c:1,
+        e:'De <b>kalmte</b> toont de kracht van het geloof. Gelovigen die de pest vreesden, zagen in hem iemand die de pijlen overleefde.'},
+      {d:'Rechtsonder lopen kleine figuren weg: de boogschutters.', q:'Wat is het effect van hun kleine formaat?', opts:['Ze zijn onbelangrijk naast de heilige','Mantegna had geen ruimte meer','Ze zijn ver weg in de toekomst'], c:0,
+        e:'De beulen zijn <b>klein en onbelangrijk</b>, de heilige groot en standvastig. Zo stuurt Mantegna je blik.'}
+    ],
+    story:'<p>Mantegna schilderde Sebastiaan drie keer. Deze versie maakte hij vermoedelijk na een pestepidemie in Padua. Het kleine formaat wijst op privégebed.</p><p>In deze les zag je de regel die je overal helpt: <b>het martelwerktuig wordt het attribuut</b>. Rad, toren, rooster, stenen, pijlen. Wie dat weet, herkent in elk museum tientallen heiligen.</p>'
+  }
+},
+{ title:"Heiligen · Les 2 — Apostelen herkennen", sub:"Petrus, Paulus, Johannes, Lucas en de bekering op weg naar Damascus",
+  q:[
+  { icon:null, name:'De sleutelbewaarder', in:{img:'q11b', t:'Sint-Petrus', a:'Peter Paul Rubens', y:'ca. 1610–1612', where:'Prado, Madrid', s:'Rubens Saint Peter'},
+    question:'Een oude man met kort grijs haar en een korte baard houdt grote sleutels vast. Wie is het?',
+    opts:['Petrus','Paulus','Andreas'], c:0,
+    exp:'<b>Petrus</b> herken je aan de <b>sleutels</b> van het hemelrijk, een korte grijze baard en vaak een kale kruin. Zijn tegenhanger <b>Paulus</b> heeft een lange donkere baard, een hoog voorhoofd, een boek en een <b>zwaard</b>.',
+    also:[{img:'q11a', t:'De berouwvolle Petrus', a:'El Greco', y:'ca. 1600', n:'Petrus huilt na zijn verloochening, met de sleutels aan zijn riem.', s:'El Greco Tears of Saint Peter'}]},
+  { icon:null, name:'Zwaard en brieven', in:{img:'rc4', t:'Zelfportret als de apostel Paulus', a:'Rembrandt', y:'1661', where:'Rijksmuseum, Amsterdam', s:'Rembrandt Self-portrait as Paul'},
+    question:'Rembrandt schilderde zichzelf met een stapel papieren en het gevest van een zwaard onder zijn mantel. Als welke apostel?',
+    opts:['Als Petrus','Als Paulus','Als Thomas'], c:1,
+    exp:'<b>Paulus</b> schreef de <b>brieven</b> van het Nieuwe Testament en werd met een <b>zwaard</b> onthoofd. Rembrandt kroop in zijn huid: een ouder wordende man vol twijfel en geloof.',
+    also:[{img:'rc4a', t:'De apostel Paulus', a:'Rembrandt', y:'ca. 1657', n:'Weer Paulus, schrijvend, met zwaard.', s:'Rembrandt Paul'}]},
+  { icon:null, name:'Van het paard gevallen', in:{img:'x4c', t:'De bekering van Paulus', a:'Caravaggio', y:'1601', where:'Santa Maria del Popolo, Rome', s:'Caravaggio Conversion of Saint Paul'},
+    question:'Een man ligt op de grond met zijn armen gespreid, verblind door licht. Een enorm paard staat over hem heen. Welk verhaal?',
+    opts:['De val van Icarus','De bekering van Saulus tot Paulus','Sint-Joris die de draak verslaat'], c:1,
+    exp:'Op weg naar Damascus werd <b>Saulus</b>, een vervolger van christenen, door een licht van zijn paard geworpen. Hij hoorde Jezus en werd <b>Paulus</b> (Handelingen 9). Caravaggio laat bijna het hele doek vullen door het paard.',
+    also:[{img:'x4', t:'De kruisiging van Petrus', a:'Caravaggio', y:'1601', n:'Hing ertegenover in dezelfde kapel.', s:'Caravaggio Crucifixion of Peter'}]},
+  { icon:null, name:'De beker met de slang', in:{img:'qb5', t:'Johannes de Evangelist', a:'Meester van Koudewater', y:'ca. 1470', where:'Museum Krona, Uden', s:'Johannes Evangelist Koudewater'},
+    question:'Een jonge, baardloze apostel houdt een kelk vast waar een slangetje uit kruipt. Wie is het?',
+    opts:['Johannes de Doper','Johannes de Evangelist','Jacobus'], c:1,
+    exp:'Volgens de legende kreeg <b>Johannes de Evangelist</b> een <b>beker met gif</b>. Hij zegende de beker en het gif kroop eruit als een slang. Hij is de enige apostel die meestal <b>jong en baardloos</b> wordt afgebeeld.',
+    also:[{img:'k5a', t:'De kruisafneming', a:'Rogier van der Weyden', y:'ca. 1435', n:'Johannes in rood, jong, ondersteunt Maria.', s:'Rogier Descent'}]},
+  { icon:null, name:'De schilder onder de apostelen', in:{img:'x5', t:'De heilige Lucas tekent de Madonna', a:'Rogier van der Weyden', y:'ca. 1435–1440', where:'Museum of Fine Arts, Boston', s:'Rogier van der Weyden Saint Luke Drawing the Virgin'},
+    question:'Een man tekent Maria met het kind. In een kamertje achter hem ligt een os met vleugels. Wie is hij, en waarom was hij geliefd bij schilders?',
+    opts:['Lucas: volgens de legende schilderde hij Maria, dus werd hij de patroon van de schilders','Marcus: hij was de eerste kunstenaar van Venetië','Mattheüs: hij betaalde de schilders als tollenaar'], c:0,
+    exp:'De evangelist <b>Lucas</b> zou Maria zelf hebben geschilderd. Daarom heetten schildersgilden het <b>Sint-Lucasgilde</b>. Zijn symbool is de <b>(gevleugelde) stier of os</b>.',
+    also:[{img:'x5a', t:'Lucas schildert de Madonna', a:'Maarten van Heemskerck', y:'1532', n:'Gemaakt voor het Haarlemse schildersgilde.', s:'Heemskerck Luke'}]}
+  ],
+  big:{ img:'hl9', t:'De inspiratie van Mattheüs', a:'Caravaggio', y:'1602', where:'San Luigi dei Francesi, Rome', s:'Caravaggio Inspiration of Saint Matthew',
+    intro:'Een evangelist en een engel. Dit is Caravaggio’s tweede poging: de eerste werd geweigerd. Tik op het schilderij om het groter te zien.',
+    details:[
+      {d:'Boven de oude man zweeft een <b>engel</b> die op zijn vingers iets aftelt.', q:'Wat doet de engel?', opts:['Hij dicteert of somt op wat Mattheüs moet opschrijven','Hij telt het geld van de tollenaar','Hij zegent de kijker'], c:0,
+        e:'De engel <b>telt op zijn vingers</b>: hij somt de stamboom van Christus op, waar het evangelie van Mattheüs mee begint. Een mens met vleugels is het symbool van Mattheüs.'},
+      {d:'Mattheüs leunt op een kruk, met één knie erop. De kruk lijkt van het platform af te kantelen.', q:'Wat is het effect?', opts:['Spanning en haast: de inspiratie overvalt hem','Caravaggio kon geen meubels schilderen','Het is een grap'], c:0,
+        e:'De <b>wankele kruk</b> steekt naar ons toe. Het geeft het moment haast en spanning, typisch voor de barok.'},
+      {d:'De eerste versie liet Mattheüs zien als een ongeletterde boer met vuile blote voeten, wiens hand door de engel werd geleid.', q:'Waarom werd die geweigerd?', opts:['Te respectloos: een heilige als ongeletterde boer','Te klein','De verf was nog nat'], c:0,
+        e:'De geestelijken vonden het <b>onwaardig</b>. In deze tweede versie heeft Mattheüs een rood gewaad en schrijft hij zelf. De eerste versie ging in 1945 in Berlijn verloren.'},
+      {d:'Het schilderij hangt boven het altaar in de Contarellikapel, tussen De roeping en Het martelaarschap van Mattheüs.', q:'Hoe werkte zo’n reeks?', opts:['Drie momenten uit één leven, rond het altaar','Drie willekeurige werken','Drie versies van hetzelfde schilderij'], c:0,
+        e:'Drie werken vertellen samen het leven van <b>Mattheüs</b>: de roeping, de inspiratie, de dood. Hier werd Caravaggio in één klap beroemd.'},
+      {d:'De achtergrond is helemaal donker; alleen de figuren worden belicht.', q:'Hoe heet dat contrast?', opts:['Clair-obscur','Sfumato','Pointillisme'], c:0,
+        e:'<b>Clair-obscur</b>: het licht valt op wat ertoe doet. Zo zie je alleen de man en zijn boodschapper.'}
+    ],
+    story:'<p>In deze les leerde je de apostelen herkennen aan hun attributen: de <b>sleutels</b> van Petrus, het <b>zwaard</b> van Paulus, de <b>gifbeker</b> van Johannes. Van de vier evangelisten heeft elk een symbool: Mattheüs een mens of engel, Marcus een leeuw, Lucas een stier en Johannes een adelaar. Samen heten ze de <b>tetramorf</b>.</p>'
+  }
+},
+{ title:"Heiligen · Les 3 — Kerkvaders en geleerden", sub:"Hiëronymus, Augustinus en de studeerkamer",
+  q:[
+  { icon:null, name:'De leeuw en de hoed', in:{img:'o2', t:'De heilige Hiëronymus in zijn studeervertrek', a:'Antonello da Messina', y:'ca. 1475', where:'National Gallery, Londen', s:'Antonello Saint Jerome in his Study'},
+    question:'Een geleerde in rood zit te lezen in een grote kerkzaal. Rechts in de schaduw loopt een leeuw. Wie is het?',
+    opts:['De heilige Hiëronymus','De heilige Marcus','Koning Salomo'], c:0,
+    exp:'<b>Hiëronymus</b> vertaalde de Bijbel in het Latijn. Hij krijgt een <b>kardinaalsrood</b> gewaad of hoed, al bestonden kardinalen in zijn tijd nog niet. De <b>leeuw</b> komt uit een legende: hij haalde een doorn uit de poot van een leeuw, die daarna bij hem bleef.',
+    also:[{img:'o2a', t:'De heilige Hiëronymus', a:'Albrecht Dürer', y:'1521', n:'Met een schedel: denk aan de dood.', s:'Durer Jerome'}]},
+  { icon:null, name:'Schrijven met de dood', in:{img:'o2b', t:'Schrijvende Hiëronymus', a:'Caravaggio', y:'1607–1608', where:'Co-Kathedraal, Valletta', s:'Caravaggio Saint Jerome Writing Malta'},
+    question:'Een oude man schrijft bij kaarslicht. Op tafel ligt een schedel. Wat zegt die schedel hier?',
+    opts:['Dat hij arts was','Memento mori: hij mediteert over de dood en de eeuwigheid','Dat hij een moordenaar was'], c:1,
+    exp:'De <b>schedel</b> hoort vaak bij Hiëronymus als boeteling en geleerde: <b>memento mori</b>. Zie je een oude man met rood gewaad, boek, schedel en leeuw? Dan is het vrijwel zeker hij.',
+    also:[{img:'o2c', t:'De heilige Hiëronymus', a:'Anthony van Dyck', y:'ca. 1618–1620', n:'Als boeteling in de woestijn, met leeuw.', s:'Van Dyck Jerome'}]},
+  { icon:null, name:'Het hart en het boek', in:{img:'hl4', t:'De heilige Augustinus in zijn studeervertrek', a:'Sandro Botticelli', y:'1480', where:'Ognissanti, Florence', s:'Botticelli Saint Augustine in his Study'},
+    question:'Een bisschop met mijter op tafel kijkt op van zijn boeken, alsof hij iets ziet. Botticelli schilderde hem als tegenhanger van Hiëronymus. Wie is hij?',
+    opts:['De heilige Augustinus, de grote kerkvader uit Noord-Afrika','De heilige Nicolaas van Myra','Paus Gregorius de Grote'], c:0,
+    exp:'<b>Augustinus</b> was bisschop van Hippo en schreef de <i>Belijdenissen</i>. Volgens de legende kreeg hij tijdens het schrijven een visioen van Hiëronymus’ dood. Zijn attributen: <b>bisschopsgewaad</b>, <b>boek</b> en soms een <b>brandend hart</b>.',
+    also:[{img:'o2', t:'De heilige Hiëronymus', a:'Antonello da Messina', y:'ca. 1475', n:'De tweelingbroer in de studeerkamer.', s:'Antonello Jerome'}]},
+  { icon:null, name:'De vier kerkvaders', in:{img:'o2c', t:'De heilige Hiëronymus', a:'Anthony van Dyck', y:'ca. 1618–1620', where:'Museum Boijmans Van Beuningen, Rotterdam', s:'Van Dyck Saint Jerome'},
+    question:'Er zijn vier grote westerse kerkvaders. Welk rijtje klopt?',
+    opts:['Petrus, Paulus, Johannes en Jacobus','Hiëronymus, Augustinus, Ambrosius en Gregorius','Benedictus, Franciscus, Dominicus en Bernardus'], c:1,
+    exp:'De vier <b>kerkvaders</b>: <b>Hiëronymus</b> (kardinaalsrood, leeuw), <b>Augustinus</b> (bisschop, hart), <b>Ambrosius</b> (bisschop, bijenkorf of gesel) en <b>Gregorius</b> (paus met tiara, duif bij zijn oor). Het tweede rijtje zijn apostelen, het laatste kloosterstichters.',
+    also:[{img:'hl4', t:'De heilige Augustinus', a:'Botticelli', y:'1480', n:'Augustinus in bisschopsgewaad.', s:'Botticelli Augustine'}]},
+  { icon:null, name:'Een stier met vleugels', in:{img:'x5', t:'De heilige Lucas tekent de Madonna', a:'Rogier van der Weyden', y:'ca. 1435–1440', where:'Museum of Fine Arts, Boston', s:'Rogier Saint Luke'},
+    question:'Elke evangelist heeft een symbool: een mens, een leeuw, een stier en een adelaar. Welke hoort bij wie?',
+    opts:['Mattheüs mens, Marcus leeuw, Lucas stier, Johannes adelaar','Mattheüs leeuw, Marcus adelaar, Lucas mens, Johannes stier','Ze wisselen per schilderij'], c:0,
+    exp:'Een vaste regel: <b>Mattheüs</b> een mens of engel, <b>Marcus</b> een leeuw (vandaar de leeuw van Venetië), <b>Lucas</b> een stier, <b>Johannes</b> een adelaar. Samen heten ze de <b>tetramorf</b>, naar de vier wezens uit het boek Ezechiël en Openbaring.',
+    also:[{img:'hl9', t:'De inspiratie van Mattheüs', a:'Caravaggio', y:'1602', n:'Mattheüs met zijn engel.', s:'Caravaggio Matthew'}]}
+  ],
+  big:{ img:'o2', t:'De heilige Hiëronymus in zijn studeervertrek', a:'Antonello da Messina', y:'ca. 1475', where:'National Gallery, Londen', s:'Antonello da Messina Saint Jerome in his Study',
+    intro:'Je kijkt door een stenen boog een kerk in, en daarin staat een houten studeerkamer. Tik op het schilderij om het groter te zien.',
+    details:[
+      {d:'Rechts in de schaduw van de zuilengang loopt een <b>leeuw</b>.', q:'Waarom staat die leeuw erbij?', opts:['Hiëronymus was dierentemmer','Hij hoort bij de legende van de doorn in de poot','Hij bewaakt de boeken'], c:1,
+        e:'De <b>leeuw</b> is Hiëronymus’ vaste metgezel sinds hij een doorn uit zijn poot trok. Ook als hij ver weg en klein staat: hij vertelt wie de man is.'},
+      {d:'Op de rand vooraan staan een <b>pauw</b> en een patrijs.', q:'Wat betekent de pauw hier?', opts:['IJdelheid','Onsterfelijkheid','Rijkdom van Venetië'], c:1,
+        e:'Je leerde het in de basis: in een christelijke context staat de <b>pauw</b> voor <b>onsterfelijkheid</b>. Zo omlijst de schilder de heilige met een belofte.'},
+      {d:'Hiëronymus draagt een helderrood gewaad. Zijn rode hoed ligt achter hem.', q:'Klopt dat historisch?', opts:['Ja, hij was kardinaal in Rome','Nee: kardinalen bestonden nog niet, maar het werd zijn vaste kenmerk','Ja, rood was gewone kleding'], c:1,
+        e:'Hiëronymus leefde rond 400, voordat er kardinalen waren. Toch krijgt hij het <b>kardinaalsrood</b>: een eerbetoon dat zijn herkenningsteken werd.'},
+      {d:'De studeerkamer staat als een houten meubel ín een groot gebouw, met boeken, potjes en planten.', q:'Wat vertelt die ruimte?', opts:['Dat hij een timmerman was','Dat hij een geleerde was die in de kerk leefde en werkte','Dat het huis te klein was'], c:1,
+        e:'De <b>studeerkamer</b> laat zien wat hij deed: lezen, schrijven en vertalen. Het gebouw eromheen is de kerk die hij diende.'},
+      {d:'Het paneel is klein, maar vol Vlaams detail, terwijl de ruimte Italiaans perspectief heeft.', q:'Wat zie je hier samenkomen?', opts:['Vlaamse precisie en Italiaans perspectief','Middeleeuws goud en moderne kunst','Japanse en Chinese stijl'], c:0,
+        e:'Antonello kwam uit Sicilië en leerde van Vlaamse schilders werken met <b>olieverf en detail</b>. Hij combineerde dat met <b>Italiaanse ruimte</b>. Lang dacht men zelfs dat dit een werk van Van Eyck was.'}
+    ],
+    story:'<p>Antonello da Messina maakte dit kleine paneel rond 1475. In de 16e eeuw schreef een Venetiaanse kenner al dat sommigen het voor een Van Eyck hielden.</p><p>Hiëronymus is een van de makkelijkst herkenbare heiligen: <b>rood</b>, <b>leeuw</b>, <b>boek</b> en vaak een <b>schedel</b>. Kijk in het museum naar oude mannen in studeerkamers: grote kans dat hij het is.</p>'
+  }
+},
+{ title:"Heiligen · Les 4 — Kluizenaars en kloosterlingen", sub:"Antonius, Franciscus, Dominicus en Catharina van Siena",
+  q:[
+  { icon:null, name:'Het varkentje', in:{img:'ba3', t:'De heilige Antonius Abt', a:'Meester van Elsloo', y:'ca. 1520', where:'Bonnefanten, Maastricht', s:'Antonius Abt Elsloo'},
+    question:'Een oude monnik met een baard, een staf in T-vorm en aan zijn voeten een varkentje. Wie is hij?',
+    opts:['De heilige Antonius Abt, de woestijnvader','De heilige Antonius van Padua','De heilige Franciscus'], c:0,
+    exp:'<b>Antonius Abt</b> leefde als kluizenaar in de Egyptische woestijn. De Antonieten mochten hun <b>varkens</b> vrij laten rondlopen om geld in te zamelen voor hun ziekenhuizen. De <b>T-staf</b> en het vuur verwijzen naar het Antoniusvuur, de ziekte die zij verpleegden.',
+    also:[{img:'ba3a', t:'De verzoeking van de heilige Antonius', a:'Jheronimus Bosch', y:'ca. 1501', n:'De duivels belagen Antonius in de woestijn.', s:'Bosch Temptation of Saint Anthony'}]},
+  { icon:null, name:'Duivels in de woestijn', in:{img:'ba3a', t:'De verzoeking van de heilige Antonius', a:'Jheronimus Bosch', y:'ca. 1501', where:'Museu Nacional de Arte Antiga, Lissabon', s:'Bosch Temptation of Saint Anthony Lisbon'},
+    question:'Overal vreemde wezens, vliegende vissen en brandende huizen. In het midden knielt een monnik. Waar gaat het verhaal over?',
+    opts:['Een kluizenaar die door duivels wordt verleid en belaagd, maar standhoudt','Het Laatste Oordeel','Een feest in een dorp'], c:0,
+    exp:'Volgens de levensbeschrijving werd <b>Antonius</b> in de woestijn bestookt door <b>verleidingen en demonen</b>. Voor Bosch was het een kans om zijn fantasie de vrije loop te laten. Antonius blijft kalm en kijkt naar ons.',
+    also:[{img:'ba3', t:'De heilige Antonius Abt', a:'Meester van Elsloo', y:'ca. 1520', n:'Dezelfde heilige, rustig als beeld.', s:'Antonius Abt'}]},
+  { icon:null, name:'De wonden van Christus', in:{img:'qa4', t:'Franciscus', a:'Meester van Koudewater (kring)', y:'ca. 1480–1500', where:'Museum Krona, Uden', s:'Franciscus Koudewater'},
+    question:'Een monnik in een bruine pij met een touw als riem. In zijn handen en voeten zie je wonden. Wie is hij?',
+    opts:['De heilige Franciscus van Assisi','De heilige Dominicus','De heilige Benedictus'], c:0,
+    exp:'<b>Franciscus</b> stichtte de minderbroeders: bruine pij, <b>touw met drie knopen</b> (armoede, kuisheid, gehoorzaamheid). Hij kreeg volgens de legende de <b>stigmata</b>: dezelfde wonden als Christus aan het kruis. Hij preekte ook voor de vogels.',
+    also:[{img:'q1c', t:'Sint-Franciscus in meditatie', a:'Francisco de Zurbarán', y:'ca. 1635–1640', n:'Franciscus met een schedel, in diepe overpeinzing.', s:'Zurbaran Francis'}]},
+  { icon:null, name:'De hond met de fakkel', in:{img:'ta2', t:'De heilige Dominicus', a:'Jan Provoost', y:'ca. 1500', where:'Rijksmuseum Twenthe, Enschede', s:'Jan Provoost Dominicus'},
+    question:'Een monnik in een wit habijt met een zwarte mantel. Soms staat er een hond bij met een brandende fakkel in zijn bek. Wie is het?',
+    opts:['Franciscus','Dominicus','Hiëronymus'], c:1,
+    exp:'<b>Dominicus</b> stichtte de predikheren: <b>wit habijt, zwarte mantel</b>. Zijn moeder droomde voor zijn geboorte van een hond met een fakkel. In het Latijn klinkt <i>Domini canes</i> als “honden van de Heer”: een woordspeling op de Dominicanen.',
+    also:[{img:'ba5', t:'De heilige Catharina van Siena', a:'Sano di Pietro', y:'15e eeuw', n:'Ook in het wit-zwart van de Dominicanen.', s:'Catherine of Siena'}]},
+  { icon:null, name:'Twee keer Catharina', in:{img:'ba5', t:'De heilige Catharina van Siena', a:'Sano di Pietro', y:'15e eeuw', where:'Bonnefanten, Maastricht', s:'Sano di Pietro Catherine of Siena'},
+    question:'Een non in wit en zwart met een lelie en soms de wonden van Christus. Welke Catharina is dit?',
+    opts:['Catharina van Alexandrië, met rad en zwaard','Catharina van Siena, de mystica uit de 14e eeuw','Catharina de’ Medici'], c:1,
+    exp:'Twee Catharina’s: <b>Catharina van Alexandrië</b> is een prinses met kroon, <b>rad</b> en zwaard. <b>Catharina van Siena</b> (1347–1380) is een non in het <b>wit-zwart</b> van de Dominicanen, met een <b>lelie</b>, soms stigmata. Let dus op de kleding.',
+    also:[{img:'q13', t:'Heilige Catharina van Alexandrië', a:'Caravaggio', y:'ca. 1598', n:'De andere Catharina: kroon, rad en zwaard.', s:'Caravaggio Catherine'}]}
+  ],
+  big:{ img:'ba3a', t:'De verzoeking van de heilige Antonius', a:'Jheronimus Bosch', y:'ca. 1501', where:'Museu Nacional de Arte Antiga, Lissabon', s:'Bosch Temptation of Saint Anthony Lisbon',
+    intro:'Bosch op zijn wildst. Midden in de chaos zit één rustig punt. Tik op het schilderij om het groter te zien.',
+    details:[
+      {d:'In het midden knielt een monnik bij een vervallen gebouw en kijkt ons aan, terwijl hij naar binnen wijst.', q:'Waar wijst hij naar?', opts:['Naar Christus, die in de schaduw van een kapel staat','Naar de uitgang','Naar een schat'], c:0,
+        e:'In het donker achter het altaar staat <b>Christus</b> en wijst op het kruis. Antonius vindt zijn houvast in het geloof, midden in de verleiding.'},
+      {d:'Om hem heen draaien vreemde figuren: half dier, half voorwerp, sommige in deftige kleren.', q:'Wat stellen ze voor?', opts:['Demonen en verleidingen, in Bosch’ eigen beeldtaal','Dieren uit Afrika','Kinderen in carnavalskostuum'], c:0,
+        e:'Bosch verzon <b>monsters</b> uit losse onderdelen. Ze staan voor de zonden en de waanbeelden die de kluizenaar belagen.'},
+      {d:'In de lucht vliegen een schip en een vis.', q:'Wat zegt dat over de wereld rond Antonius?', opts:['De natuurlijke orde is op zijn kop gezet: de duivel regeert','Er was een overstroming','Het is een kaart van de sterren'], c:0,
+        e:'Vliegende <b>schepen en vissen</b>: de wereld is <b>omgekeerd</b>. Zo toont Bosch de waanzin van de zonde.'},
+      {d:'In de verte brandt een dorp.', q:'Waaraan doet dat denken, bij deze heilige?', opts:['Aan het Antoniusvuur, de ziekte die zijn orde verpleegde','Aan een oorlog in Spanje','Aan een vuurwerkfeest'], c:0,
+        e:'Het <b>vuur</b> verwijst naar het <b>Antoniusvuur</b>: brandende pijn in de ledematen. Antonius was de heilige die je daartegen aanriep.'},
+      {d:'Een naakte vrouw verschijnt in een holle boom op een zijluik.', q:'Wat is zij?', opts:['Een verleiding die zich als schoonheid voordoet','Een nimf uit de mythologie','De moeder van Antonius'], c:0,
+        e:'De duivel verscheen volgens het verhaal ook als <b>verleidelijke vrouw</b>. Wie standhoudt, wint: dat is de les van Antonius.'}
+    ],
+    story:'<p>Antonius was in de late middeleeuwen een van de populairste heiligen in de Nederlanden. Bosch schilderde zijn verzoeking meerdere keren. Deze versie in Lissabon is de grootste.</p><p>Kloosterlingen herken je aan hun <b>kleding</b>: bruin met touw voor Franciscus, wit en zwart voor de Dominicanen, zwart voor de Benedictijnen.</p>'
+  }
+},
+{ title:"Heiligen · Les 5 — Ridders, reuzen en engelen", sub:"Joris, Michaël, Christoffel, Rochus en Eustachius",
+  q:[
+  { icon:null, name:'Ridder en draak', in:{img:'o3', t:'Sint-Joris en de draak', a:'Rafaël', y:'ca. 1506', where:'National Gallery of Art, Washington', s:'Raphael Saint George and the Dragon'},
+    question:'Een ridder te paard steekt met zijn lans een draak. Op de achtergrond bidt een prinses. Wie is de ridder?',
+    opts:['Sint-Joris','Sint-Michaël','Sint-Martinus'], c:0,
+    exp:'<b>Joris</b> (Georgius) was een ridder die een draak doodde en zo een prinses redde. Hij was de patroon van ridders, soldaten en schuttersgilden, en van Engeland. Let op: hij heeft <b>geen vleugels</b> en zit meestal te paard.',
+    also:[{img:'o3a', t:'Sint-Joris en de draak', a:'Paolo Uccello', y:'ca. 1470', n:'De prinses houdt de draak aan een lijntje.', s:'Uccello Saint George'},{img:'o3c', t:'Sint-Joris', a:'Andrea Mantegna', y:'ca. 1460', n:'Staand, met gebroken lans.', s:'Mantegna Saint George'}]},
+  { icon:null, name:'Vleugels en een weegschaal', in:{img:'hl2', t:'Sint-Michaël verslaat de duivel', a:'Rafaël', y:'1518', where:'Louvre, Parijs', s:'Raphael Saint Michael Vanquishing Satan'},
+    question:'Een strijder met vleugels en harnas staat op een duivel en heft zijn speer. Joris of Michaël?',
+    opts:['Joris: hij doodt altijd een draak','Michaël: de aartsengel heeft vleugels en verslaat Satan','Gabriël: de engel van de Annunciatie'], c:1,
+    exp:'<b>Michaël</b> is een <b>aartsengel</b>: hij heeft <b>vleugels</b>. Hij verslaat de duivel of een draak (Openbaring 12) en weegt bij het Laatste Oordeel de zielen met een <b>weegschaal</b>. Joris is een mens, te paard.',
+    also:[{img:'hbB', t:'Het Laatste Oordeel', a:'Lucas van Leyden', y:'1526–1527', n:'Bij het oordeel weegt Michaël de zielen.', s:'Lucas van Leyden Last Judgment'}]},
+  { icon:null, name:'De reus met het kind', in:{img:'o5a', t:'De heilige Christoffel', a:'Hans Memling', y:'ca. 1480', where:'Groeningemuseum, Brugge', s:'Memling Saint Christopher'},
+    question:'Een reus met een staf waadt door een rivier, met een klein kind op zijn schouders. Wie is hij?',
+    opts:['Christoffel, de Christusdrager','Hercules met de kleine Telephus','Simson'], c:0,
+    exp:'<b>Christoffel</b> droeg een kind over een rivier. Het werd steeds zwaarder: het was <b>Christus</b>, die de hele wereld droeg. Zijn naam betekent “Christusdrager”. Wie hem zag, zou die dag niet plotseling sterven: daarom hing hij vaak groot bij de kerkdeur.',
+    also:[{img:'o5b', t:'Christoffel draagt het kind', a:'Jacob Jordaens', y:'ca. 1630', n:'Vlaamse barok: een gespierde reus.', s:'Jordaens Christopher'}]},
+  { icon:null, name:'De wond en de hond', in:{img:'ba4', t:'De heilige Rochus', a:'Meester van Elsloo', y:'ca. 1520', where:'Bonnefanten, Maastricht', s:'Rochus Elsloo'},
+    question:'Een pelgrim met hoed en staf tilt zijn mantel op en wijst een wond aan zijn dij aan. Soms staat er een hondje bij met een brood. Wie is hij?',
+    opts:['Jacobus, de pelgrim van Santiago','Rochus, de pestheilige','Christoffel'], c:1,
+    exp:'<b>Rochus</b> verpleegde pestlijders en werd zelf ziek. In het bos bracht een <b>hond</b> hem elke dag brood. Hij wijst de <b>pestbuil</b> op zijn been aan. Samen met Sebastiaan was hij dé heilige tegen de pest.',
+    also:[{img:'o5c', t:'De heiligen Christoffel, Sebastiaan en Rochus', a:'Bernardo Strozzi', y:'17e eeuw', n:'Drie beschermers samen, tegen ziekte en plotselinge dood.', s:'Strozzi Christopher Sebastian Roch'}]},
+  { icon:null, name:'Het hert met het kruis', in:{img:'n3', t:'Het visioen van de heilige Eustachius', a:'Pisanello', y:'ca. 1438–1442', where:'National Gallery, Londen', s:'Pisanello Vision of Saint Eustace'},
+    question:'Ken je hem nog? Een ridder op jacht ziet een kruisbeeld tussen het gewei van een hert. Welke andere heilige kreeg later precies hetzelfde verhaal?',
+    opts:['Hubertus, de patroon van de jagers','Joris','Martinus'], c:0,
+    exp:'Het verhaal van <b>Eustachius</b> werd later ook aan <b>Hubertus</b> toegeschreven, die in de Ardennen jaagde. Hij werd de beschermheilige van de <b>jagers</b>. Zie je een hert met een kruis? Dan is het een van deze twee.',
+    also:[{img:'n3b', t:'De opgraving van de heilige Hubertus', a:'Rogier van der Weyden (atelier)', y:'ca. 1440', n:'Hubertus, eeuwen later als heilige vereerd.', s:'Exhumation of Saint Hubert'}]}
+  ],
+  big:{ img:'o3b', t:'Sint-Joris doodt de draak', a:'Peter Paul Rubens', y:'ca. 1606–1608', where:'Prado, Madrid', s:'Rubens Saint George and the Dragon Prado',
+    intro:'Een drakengevecht vol barokke actie. Tik op het schilderij om het groter te zien.',
+    details:[
+      {d:'Het paard steigert hoog op, de ridder heft zijn zwaard boven zijn hoofd.', q:'Welke stijl herken je in die beweging?', opts:['Barok','Gotiek','Neoclassicisme'], c:0,
+        e:'Een schuine compositie, een steigerend paard, een moment van actie: pure <b>barok</b>. Rubens schilderde het tijdens zijn jaren in Italië.'},
+      {d:'Op de grond ligt een <b>gebroken lans</b>.', q:'Wat vertelt die?', opts:['Dat het gevecht al hevig was: nu moet het zwaard het afmaken','Dat Joris een slechte ridder was','Dat de draak de lans heeft opgegeten'], c:0,
+        e:'De <b>gebroken lans</b> hoort bij het verhaal: eerst stak Joris de draak, toen gebruikte hij zijn zwaard. Je ziet het in veel Joris-schilderijen.'},
+      {d:'Rechts staat een prinses met een <b>lam</b>.', q:'Waarom een lam?', opts:['De stad offerde schapen en jonge mensen aan de draak; nu was zij aan de beurt','Ze was een herderin','Het lam is haar huisdier'], c:0,
+        e:'Volgens de Gulden Legende kreeg de draak eerst <b>schapen</b>, daarna mensen. Het lot viel op de prinses. Het lam laat zien dat zij als offer klaarstond.'},
+      {d:'Joris draagt een glanzend harnas en een rode mantel.', q:'Hoe herken je hem tegenover Michaël?', opts:['Geen vleugels, wel een paard','Een aureool van sterren','Een weegschaal'], c:0,
+        e:'Geen <b>vleugels</b>, wel een <b>paard</b>: dat is Joris. Michaël is een engel en heeft vleugels.'},
+      {d:'Onder de hoeven kronkelt de <b>draak</b> met open bek.', q:'Waar staat de draak voor?', opts:['Voor het kwaad en de duivel','Voor een echt dier uit Afrika','Voor de vijanden van Spanje'], c:0,
+        e:'De draak is het <b>kwaad</b>, de duivel uit het boek Openbaring. Joris is de christelijke held die het overwint, net als Michaël.'}
+    ],
+    story:'<p>De legende van Joris komt uit de <b>Gulden Legende</b>. Na zijn overwinning lieten de inwoners van de stad zich dopen. Schuttersgilden in de Nederlanden noemden zich naar hem: de Sint-Jorisdoelen van Haarlem kennen we van Frans Hals.</p>'
+  }
+},
+{ title:"Heiligen · Les 6 — Maria en de meesterproef", sub:"Onbevlekt, rouwend, als moeder: en daarna alle heiligen door elkaar",
+  q:[
+  { icon:null, name:'Op de maansikkel', in:{img:'q8b', t:'Onbevlekte Ontvangenis', a:'Francisco de Zurbarán', y:'1630', where:'Prado, Madrid', s:'Zurbaran Immaculate Conception'},
+    question:'Een jonge vrouw met gevouwen handen staat op een maansikkel, omringd door licht. Welk type Maria is dit?',
+    opts:['De Onbevlekte Ontvangenis','De Annunciatie','De tenhemelopneming'], c:0,
+    exp:'De <b>Onbevlekte Ontvangenis</b>: Maria werd zelf zonder erfzonde ontvangen. Kunstenaars gebruikten de vrouw uit Openbaring 12: “bekleed met de zon, de <b>maan</b> onder haar voeten en een kroon van <b>twaalf sterren</b>.” Vooral in Spanje erg geliefd.',
+    also:[{img:'x2', t:'Assunta', a:'Titiaan', y:'1516–1518', n:'Niet verwarren: hier stijgt Maria op naar de hemel.', s:'Titian Assunta'}]},
+  { icon:null, name:'Een moeder met haar zoon', in:{img:'hlC', t:'Pietà', a:'Michelangelo', y:'1498–1499', where:'Sint-Pietersbasiliek, Vaticaan', s:'Michelangelo Pieta'},
+    question:'Een jonge vrouw houdt het dode lichaam van haar zoon op haar schoot. Hoe heet dit type?',
+    opts:['Een Pietà','Een Anna te drieën','Een Sedes Sapientiae'], c:0,
+    exp:'Een <b>Pietà</b> (medelijden) toont Maria met de dode Christus op haar schoot. Het verhaal staat niet in de Bijbel: het is een beeld om mee te bidden. Michelangelo was pas 24. Het is het enige werk dat hij ooit signeerde, op de band over Maria’s borst.',
+    also:[{img:'vc2', t:'Pietà (naar Delacroix)', a:'Vincent van Gogh', y:'1889', n:'Ook Van Gogh schilderde een Pietà.', s:'Van Gogh Pieta'}]},
+  { icon:null, name:'Drie generaties', in:{img:'ba2', t:'Anna-te-Drieën', a:'Jan van Steffeswert', y:'1511', where:'Bonnefanten, Maastricht', s:'Jan van Steffeswert Anna te Drieen'},
+    question:'Een oudere vrouw houdt een klein meisje en een nog kleiner kind vast. Hoe heet dit beeldtype?',
+    opts:['Anna te drieën: Anna, Maria en Jezus','De Heilige Familie','De Visitatie'], c:0,
+    exp:'<b>Anna te drieën</b>: grootmoeder <b>Anna</b>, moeder <b>Maria</b> (vaak als klein meisje) en het kind <b>Jezus</b>. Rond 1500 was Anna enorm populair in de Nederlanden. Je kende het al van Leonardo.',
+    also:[{img:'q14b', t:'Maria met Kind en de heilige Anna', a:'Leonardo da Vinci', y:'ca. 1503–1519', n:'Dezelfde drie, bij Leonardo.', s:'Leonardo Anne'}]},
+  { icon:null, name:'Engel of ridder?', in:{img:'o3a', t:'Sint-Joris en de draak', a:'Paolo Uccello', y:'ca. 1470', where:'National Gallery, Londen', s:'Uccello Saint George and the Dragon'},
+    question:'Een ridder op een wit paard, een draak en een prinses die het beest aan een lijntje houdt. Joris of Michaël?',
+    opts:['Michaël, want er is een draak','Joris: geen vleugels, wel een paard en een prinses','Christoffel'], c:1,
+    exp:'Geen vleugels, wel een paard en een prinses: <b>Joris</b>. Bij Uccello heeft de prinses de gewonde draak met haar ceintuur vastgebonden, zoals de Gulden Legende vertelt.',
+    also:[{img:'hl2', t:'Sint-Michaël', a:'Rafaël', y:'1518', n:'De tweeling met vleugels.', s:'Raphael Michael'}]},
+  { icon:null, name:'Wie is wie?', in:{img:'o5c', t:'De heiligen Christoffel, Sebastiaan en Rochus', a:'Bernardo Strozzi', y:'17e eeuw', where:'Italië', s:'Strozzi Saints Christopher Sebastian Roch'},
+    question:'Drie heiligen samen: een reus met een kind, een jongeman met pijlen en een pelgrim met een wond. Wat hebben ze gemeen?',
+    opts:['Het zijn alle drie beschermers tegen ziekte en een plotselinge dood','Het zijn alle drie apostelen','Het zijn alle drie kerkvaders'], c:0,
+    exp:'<b>Christoffel</b> beschermde tegen een plotselinge dood, <b>Sebastiaan</b> en <b>Rochus</b> tegen de pest. In tijden van epidemie werden ze vaak samen afgebeeld. Je herkent ze nu alle drie aan hun attributen.',
+    also:[{img:'q16', t:'Sint-Sebastiaan', a:'Mantegna', y:'ca. 1457–1459', n:'Sebastiaan, uit les 1.', s:'Mantegna Sebastian'}]}
+  ],
+  big:{ img:'hl7', t:'Het Laatste Oordeel', a:'Michelangelo', y:'1536–1541', where:'Sixtijnse Kapel, Vaticaan', s:'Michelangelo Last Judgment',
+    intro:'De meesterproef: rond Christus staan tientallen heiligen. Herken ze aan hun attributen. Tik op het fresco om het groter te zien.',
+    details:[
+      {d:'Rechts naast Christus staat een forse oude man die twee grote <b>sleutels</b> omhoog houdt.', q:'Wie is het?', opts:['Petrus','Paulus','Mozes'], c:0,
+        e:'De <b>sleutels</b> van de hemel: <b>Petrus</b>. Hij geeft ze als het ware terug aan Christus aan het einde der tijden.'},
+      {d:'Onder Christus zit een man met een mes in zijn ene hand en een <b>afgestroopte huid</b> in de andere.', q:'Wie is hij?', opts:['Bartholomeus, die levend werd gevild','Laurentius','Stefanus'], c:0,
+        e:'<b>Bartholomeus</b> werd gevild. Het gezicht in de huid wordt vaak gezien als een <b>zelfportret van Michelangelo</b>.'},
+      {d:'Ook onder Christus houdt een man een <b>rooster</b> vast.', q:'Wie is het?', opts:['Laurentius','Andreas','Joris'], c:0,
+        e:'Het <b>rooster</b>: <b>Laurentius</b>, uit les 1.'},
+      {d:'Rechtsonder van Christus zie je een vrouw met een stuk van een <b>rad</b> en een man met <b>pijlen</b>.', q:'Wie zijn dat?', opts:['Catharina en Sebastiaan','Barbara en Joris','Maria en Johannes'], c:0,
+        e:'Het <b>rad</b> van <b>Catharina</b> en de <b>pijlen</b> van <b>Sebastiaan</b>. Je kent hun werktuigen nu uit je hoofd.'},
+      {d:'Naast Christus zit een vrouw die zich wegdraait en omlaag kijkt.', q:'Wie is zij?', opts:['Maria','Eva','Catharina'], c:0,
+        e:'<b>Maria</b> zit naast haar zoon, als voorspreekster van de mensen. Gefeliciteerd: je kunt nu een heel fresco vol heiligen lezen.'}
+    ],
+    story:'<p>Michelangelo schilderde dit enorme fresco op de altaarwand van de Sixtijnse Kapel, bijna dertig jaar na het plafond. Al die naakte figuren zorgden voor ophef: na zijn dood kreeg een andere schilder de opdracht om er doeken over te schilderen.</p><p>Met deze cursus heb je de belangrijkste sleutel van oude kunst in handen: <b>wie de attributen kent, kent de heiligen</b>.</p>'
+  }
+}
+];
+const HEIL_BADGES = [
+  {name:'Martelarenkenner', icon:'wheel', txt:'Rad, toren, rooster, stenen en pijlen: je kent de werktuigen van de martelaren.'},
+  {name:'Apostelkenner', icon:'keys', txt:'Sleutels, zwaard en gifbeker: je herkent de apostelen.'},
+  {name:'Kerkvaderkenner', icon:'owl', txt:'Hiëronymus, Augustinus en de vier evangelisten liggen je.'},
+  {name:'Kloosterkenner', icon:'skull', txt:'Antonius, Franciscus, Dominicus en Catharina: je leest de kloosterkleding.'},
+  {name:'Drakendoder', icon:'arrows', txt:'Joris of Michaël, Christoffel of Rochus: jij weet het.'},
+  {name:'Heiligenkenner', icon:'lily', txt:'De meesterproef gehaald: een fresco vol heiligen lees je als een boek.'}];
+
 const TRACKS = {
   basis:{id:'basis', name:'Basis', eyebrow:'Deel 1 · De basis', title:'Symboliek in de Kunst', rank:'Beginner', grand:'Iconoloog', icon:'skull',
     desc:'Van middeleeuwen tot 1900. Per les vijf symbolen: kies A, B of C, lees wat het betekent en ontdek waar het nog meer voorkomt. Na de vijf vragen volgt de <b>eindtoets</b>: samen ontleden we een groot meesterwerk.',
@@ -11939,6 +12219,9 @@ const TRACKS = {
   myth:{id:'myth', ribbon:'Specialist', name:'Specialisatie: Mythologie', eyebrow:'Specialisatie', title:'Mythologie', rank:'Specialist Mythologie', grand:'Iconoloog', icon:'trident',
     desc:'Goden, metamorfosen, liefdes en helden uit de Grieks-Romeinse mythen.',
     rounds:MYTH_ROUNDS, badges:MYTH_BADGES},
+  heilig:{id:'heilig', ribbon:'Specialist', name:'Specialisatie: Heiligen en legenden', eyebrow:'Specialisatie', title:'Heiligen en legenden', rank:'Specialist Heiligen', grand:'Iconoloog', icon:'wheel',
+    desc:'Martelaren, apostelen, kerkvaders, kluizenaars en drakendoders uit de Gulden Legende. Leer ze herkennen aan hun attributen: na de Bijbel de grootste bron van oude kunst.',
+    rounds:HEIL_ROUNDS, badges:HEIL_BADGES},
   kenner:{id:'kenner', ribbon:'Connaisseur', noGames:true, name:'Module: Goede kunst herkennen', eyebrow:'Module · Kunstkenner', title:'Goede kunst herkennen', rank:'Kunstkenner', grand:'Kunstkenner', icon:'loupe',
     desc:'Leer zien waarom een meesterwerk een meesterwerk is: vergelijk meesters met hun kopiisten, werkplaatsen en zelfs vervalsers. Let op handen, materiaal, licht en compositie.',
     rounds:KENNER_ROUNDS, badges:KENNER_BADGES},
@@ -11975,7 +12258,7 @@ const kennerStarted = () => (typeof KENNER_ROUNDS!=='undefined')&&KENNER_ROUNDS.
 const isOpen = t => t==='basis'||(t==='kenner'&&(kennerStarted()||(st.mile&&st.mile['kenner|unl'])))||t==='hg'||(TRACKS[t]&&TRACKS[t].museum)||basisDone()||st.beta||!!(st.unl&&st.unl[t]);
 function chooseTrack(t){ if(!isOpen(t)) return; setTrack(t); home(); }
 const ROUTE_GROUPS = [
-  {id:'symb', ic:'🎨', t:'Symboliek in de kunst', s:'Leer symbolen lezen: eerst de basis, daarna verdiepen of specialiseren.', tr:['basis','mix','n3','n4','deugden','bijbel','myth','ge','kenner']},
+  {id:'symb', ic:'🎨', t:'Symboliek in de kunst', s:'Leer symbolen lezen: eerst de basis, daarna verdiepen of specialiseren.', tr:['basis','mix','n3','n4','deugden','bijbel','heilig','myth','ge','kenner']},
   {id:'hg', ic:'🦁', t:'Hollandse glorie', s:'Kunst- en vaderlandse geschiedenis in acht lessen, van de middeleeuwen tot nu. Rembrandt is je gids.', tr:['hg']},
   {id:'mus', ic:'🏛️', t:'Musea', s:'Bereid je museumbezoek voor: de topstukken en hun symboliek. Musea door het hele land.', tr:['rijks','maur',...EXTRA_MUSEUMS.map(m=>m.id)]}];
 function trackBar(t){ const R=TRACKS[t].rounds, n=R.length, d=trackProgress(t), started=R.some((_,r)=>roundDone(r,t)>0); return {n,d,started,pct:Math.round(d/n*100)}; }
