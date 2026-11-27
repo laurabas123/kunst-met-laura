@@ -404,6 +404,7 @@ b,strong{font-weight:800}
 .km{border:1px solid rgba(215,180,106,.35);border-radius:16px;padding:14px;margin:0 0 16px;background:rgba(255,255,255,.03)}.km-h{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px;gap:10px}.km-big{font-family:'Corm',serif;font-size:1.6rem;color:var(--gold2,#d7b46a)}.km-big small{font-family:inherit;font-size:.9rem;color:var(--muted)}
 .km-row{margin:10px 0}.km-t{display:flex;justify-content:space-between;gap:8px;font-size:.86rem;margin-bottom:4px}.km-t span{color:var(--muted);font-size:.76rem;text-align:right}.km-bar{position:relative;height:8px;border-radius:6px;background:rgba(255,255,255,.07);overflow:hidden}.km-bar i{position:absolute;left:0;top:0;bottom:0;border-radius:6px}.km-bar i.s{background:rgba(215,180,106,.3)}.km-bar i.m{background:var(--gold2,#d7b46a)}
 .km-dot{display:inline-block;width:9px;height:9px;border-radius:50%;vertical-align:middle;margin-right:3px}.km-dot.m{background:var(--gold2,#d7b46a)}.km-dot.s{background:rgba(215,180,106,.3)}
+.ew-c{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0}.ew-b{display:flex;flex-direction:column;align-items:center;padding:10px 4px;border-radius:12px;border:1px solid rgba(215,180,106,.4);background:rgba(255,255,255,.04);color:inherit;font:inherit;cursor:pointer}.ew-b b{font-size:1.05rem}.ew-b small{font-size:.66rem;color:var(--muted)}.ew-b.ok{background:rgba(90,170,110,.3);border-color:#5aaa6e}.ew-b.bad{background:rgba(190,80,70,.3);border-color:#be5046}.ew-b.dim{opacity:.45}.ew-card{border-color:rgba(215,180,106,.3);background:rgba(255,255,255,.03)}
 .hk-h{text-align:center}.hk-tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:6px}
 .hk-tile{display:flex;flex-direction:column;align-items:center;gap:6px;border:0;background:none;color:var(--ink);font:inherit;cursor:pointer;text-align:center;padding:0}.hk-tile .hk-gilt{width:100%;box-sizing:border-box}.hk-tile img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover}
 .hk-tile b{font-size:.92rem;margin-top:4px}.hk-tile small{font-size:.76rem;color:var(--muted);margin-top:-4px}.hk-tile.done img{filter:grayscale(.5) brightness(.75)}
@@ -1218,7 +1219,7 @@ async function initCloud(){
       const merge2=(A,B)=>{ const o={...(A||{})}; for(const k in (B||{})){ o[k] = (o[k]&&typeof o[k]==='object'&&!Array.isArray(o[k])&&typeof B[k]==='object') ? {...o[k],...B[k]} : B[k]; } return o; };
       const newer = rUpd>=lUpd ? remote : st, older = rUpd>=lUpd ? st : remote;
       for(const key of ['results','bigRes','match','who','tl','final']) st[key]=merge2(older[key],newer[key]);
-      st.beta = DEV && !!(newer.beta ?? older.beta); st.onb = !!(newer.onb || older.onb); st.name = newer.name || older.name || ''; if(/kunst met laura/i.test(st.name)) st.name=''; st.unl = {...(older.unl||{}),...(newer.unl||{})}; st.diff = {...(older.diff||{}),...(newer.diff||{})}; st.fav = newer.fav || older.fav || {}; st.gseen={...(older.gseen||{}),...(newer.gseen||{})}; st.symBest=Math.max(newer.symBest||0,older.symBest||0); st.story=Object.assign({},older.story||{},newer.story||{}); for(const k in (older.story||{})) st.story[k]=Math.max(st.story[k]||0,older.story[k]); st.introDone=!!(newer.introDone||older.introDone); st.introSkip=!!(newer.introSkip||older.introSkip); st.introQuitAsked=!!(newer.introQuitAsked||older.introQuitAsked); st.kCel={...(older.kCel||{}),...(newer.kCel||{})}; st.cards={...(older.cards||{}),...(newer.cards||{})}; st.mile={...(older.mile||{}),...(newer.mile||{})}; st.bondR={...(older.bondR||{}),...(newer.bondR||{})}; st.bond={...(older.bond||{})}; for(const k in (newer.bond||{})) st.bond[k]=Math.max(st.bond[k]||0,newer.bond[k]); st.quiet=!!newer.quiet; st.xp=Math.max(newer.xp||0,older.xp||0); st.storyUnl={...(older.storyUnl||{}),...(newer.storyUnl||{})}; st.kcards={...(older.kcards||{}),...(newer.kcards||{})}; st.setDone={...(older.setDone||{}),...(newer.setDone||{})}; st.weak={...(older.weak||{}),...(newer.weak||{})}; st.first={...(newer.first||{}),...(older.first||{})}; st.kvd2={...(older.kvd2||{}),...(newer.kvd2||{})}; st.kvdWon={...(older.kvdWon||{}),...(newer.kvdWon||{})}; st.askSeen={...(older.askSeen||{}),...(newer.askSeen||{})}; st.askUnl={...(older.askUnl||{}),...(newer.askUnl||{})}; if(newer.waTap||older.waTap) st.waTap=Math.max(newer.waTap||0,older.waTap||0); for(const k of ['chests','pity','goldBoost','wk','goal','comp','uid','utok','xpDay','chOpened','funSeen','nearT']) if(newer[k]!==undefined) st[k]=newer[k]; else if(older[k]!==undefined) st[k]=older[k]; st.dq={...(older.dq||{}),...(newer.dq||{})}; st.rv={...(older.rv||{}),...(newer.rv||{})}; st.rvDay=Math.max(newer.rvDay||0,older.rvDay||0); st.rvCount=Math.max(newer.rvCount||0,older.rvCount||0); st.dqBadges={...(older.dqBadges||{}),...(newer.dqBadges||{})}; for(const k of ['dqStreak','dqLast','dqBest','dqCount','dqPerfect','dqFreeze']) st[k]=(newer.dqLast||'')>=(older.dqLast||'')?newer[k]:older[k]; st.lastVisit=Math.max(newer.lastVisit||0,older.lastVisit||0); st.opens=Math.max(newer.opens||0,older.opens||0);
+      st.beta = DEV && !!(newer.beta ?? older.beta); st.onb = !!(newer.onb || older.onb); st.name = newer.name || older.name || ''; if(/kunst met laura/i.test(st.name)) st.name=''; st.unl = {...(older.unl||{}),...(newer.unl||{})}; st.diff = {...(older.diff||{}),...(newer.diff||{})}; st.fav = newer.fav || older.fav || {}; st.gseen={...(older.gseen||{}),...(newer.gseen||{})}; st.symBest=Math.max(newer.symBest||0,older.symBest||0); st.story=Object.assign({},older.story||{},newer.story||{}); for(const k in (older.story||{})) st.story[k]=Math.max(st.story[k]||0,older.story[k]); st.introDone=!!(newer.introDone||older.introDone); st.introSkip=!!(newer.introSkip||older.introSkip); st.introQuitAsked=!!(newer.introQuitAsked||older.introQuitAsked); st.kCel={...(older.kCel||{}),...(newer.kCel||{})}; st.cards={...(older.cards||{}),...(newer.cards||{})}; st.mile={...(older.mile||{}),...(newer.mile||{})}; st.bondR={...(older.bondR||{}),...(newer.bondR||{})}; st.bond={...(older.bond||{})}; for(const k in (newer.bond||{})) st.bond[k]=Math.max(st.bond[k]||0,newer.bond[k]); st.quiet=!!newer.quiet; st.xp=Math.max(newer.xp||0,older.xp||0); st.storyUnl={...(older.storyUnl||{}),...(newer.storyUnl||{})}; st.kcards={...(older.kcards||{}),...(newer.kcards||{})}; st.setDone={...(older.setDone||{}),...(newer.setDone||{})}; st.weak={...(older.weak||{}),...(newer.weak||{})}; st.first={...(newer.first||{}),...(older.first||{})}; st.kvd2={...(older.kvd2||{}),...(newer.kvd2||{})}; st.kvdWon={...(older.kvdWon||{}),...(newer.kvdWon||{})}; st.askSeen={...(older.askSeen||{}),...(newer.askSeen||{})}; st.askUnl={...(older.askUnl||{}),...(newer.askUnl||{})}; if(newer.waTap||older.waTap) st.waTap=Math.max(newer.waTap||0,older.waTap||0); for(const k of ['chests','pity','goldBoost','wk','goal','comp','uid','utok','xpDay','chOpened','funSeen','nearT']) if(newer[k]!==undefined) st[k]=newer[k]; else if(older[k]!==undefined) st[k]=older[k]; st.dq={...(older.dq||{}),...(newer.dq||{})}; st.rv={...(older.rv||{}),...(newer.rv||{})}; st.rvDay=Math.max(newer.rvDay||0,older.rvDay||0); st.rvCount=Math.max(newer.rvCount||0,older.rvCount||0); st.ewBest=Math.max(newer.ewBest||0,older.ewBest||0); st.ewPlays=Math.max(newer.ewPlays||0,older.ewPlays||0); st.dqBadges={...(older.dqBadges||{}),...(newer.dqBadges||{})}; for(const k of ['dqStreak','dqLast','dqBest','dqCount','dqPerfect','dqFreeze']) st[k]=(newer.dqLast||'')>=(older.dqLast||'')?newer[k]:older[k]; st.lastVisit=Math.max(newer.lastVisit||0,older.lastVisit||0); st.opens=Math.max(newer.opens||0,older.opens||0);
       if(newer===remote && st.view!=='onb'){ const {view,r,i,bigStep,t,tlMode}=remote; Object.assign(st,{r,i,bigStep,tlMode}); setTrack(t||'basis');
         if(view && !['home','gloss','paths','intro','introDone','introAsk','onb'].includes(view)){ resumeFrom={t:t||'basis',view,r,i,bigStep}; st.view='home'; go(r,{view,i,bigStep},t||'basis'); } else render(); }
       else render();
@@ -3823,7 +3824,7 @@ const GUIDES = {
   durer:{name:'Albrecht Dürer', role:'schilder en graveur, 1471–1528', svg:(s,h,c)=>charSVG(CHARS.durer,s,h,c)},
   zeus:{name:'Zeus', role:'oppergod van de Olympus', svg:(s,h,c)=>charSVG(CHARS.zeus,s,h,c)}
 };
-function guideOf(t=st.t){ if(t==='basis') return 'laura'; if(t==='hg') return 'rembrandt'; if(t==='mix'||t==='n3') return 'laura';
+function guideOf(t=st.t){ if(t==='basis') return 'laura'; if(t==='hg') return 'rembrandt'; if(t==='mix'||t==='n3'||t==='n4') return 'laura';
   if(t==='myth') return 'zeus'; if(['deugden','bijbel','ge','kenner'].includes(t)) return 'catharina'; return 'gala'; }
 const GHELLO = {
   laura: nm=>`Hoi${nm}! Ik ben <b>Laura</b> en ik neem je mee door de basis van de symboliek. Na deze cursus kijk je nooit meer hetzelfde naar een schedel, een lelie of een hondje.`,
@@ -6519,6 +6520,32 @@ function meterView(){ st.view='meter'; save(); const M=rvMeter(), n=rvReady();
     <p class="muted">Alles wat je in de lessen leert, komt terug in de herhaalronde. Steeds net voordat je het zou vergeten: na 1 dag, 3 dagen, een week, twee weken en een maand.</p>
     ${n&&!rvDone()?`<button class="btn primary big" style="margin:8px 0 14px" onclick="rvStart()">Start herhaalronde (${n})</button>`:''}${meterHTML(M)}</div>`); }
 
+/* ---------- Raad de eeuw ---------- */
+let EW=null; const EW_N=10;
+function ewYear(y){ if(!y) return null; const m=String(y).match(/(1[2-9]\d\d)/); if(m) return +m[1]; const c=String(y).match(/(1[3-9]|20)e eeuw/); if(c) return (+c[1]-1)*100+50; return null; }
+function ewPool(){ const out=[], seen=new Set(); const add=(o)=>{ if(!o||!o.img||seen.has(o.img)) return; const yr=ewYear(o.y); if(!yr||yr<1250||yr>1960) return; seen.add(o.img); out.push({img:o.img,t:o.t,a:o.a,y:o.y,yr}); };
+  for(const t of Object.keys(TRACKS)){ (TRACKS[t].rounds||[]).forEach(R=>{ if(!R||R.soon) return; (R.q||[]).forEach(q=>{ add(q.in); (q.also||[]).forEach(add); }); if(R.big) add(R.big); }); } return out; }
+const EW_PER=[[1250,1420,'middeleeuwen en gotiek'],[1420,1520,'renaissance'],[1520,1600,'maniërisme'],[1600,1720,'barok en Gouden Eeuw'],[1720,1790,'rococo'],[1790,1830,'neoclassicisme en romantiek'],[1830,1870,'romantiek en realisme'],[1870,1905,'impressionisme'],[1905,1961,'moderne kunst']];
+function ewPeriod(yr){ const p=EW_PER.find(p=>yr>=p[0]&&yr<p[1]); return p?p[2]:''; }
+function ewStart(){ const pool=ewPool().sort(()=>Math.random()-.5); const pick=[]; const cs={}; for(const x of pool){ const c=Math.floor(x.yr/100); if((cs[c]||0)>=3) continue; cs[c]=(cs[c]||0)+1; pick.push(x); if(pick.length>=EW_N) break; }
+  EW={items:pick,i:0,ans:[],pts:0}; st.view='eeuw'; ewView(); scrollTo(0,0); }
+function ewView(){ if(!EW) return hub(); st.view='eeuw'; const x=EW.items[EW.i], a=EW.ans[EW.i], cents=[13,14,15,16,17,18,19,20], cx=Math.floor(x.yr/100)+1;
+  $(`<div class="dq rv ew"><div class="top"><button class="btn small" onclick="EW=null;hub()">✕ Stoppen</button><span class="dq-clock">${EW.i+1}/${EW.items.length} · ${EW.pts} pt</span></div>
+   <div class="eyebrow">Raad de eeuw</div><h2 class="serif" style="margin:2px 0 8px">Uit welke eeuw komt dit werk?</h2>
+   <div class="frame dq-img"><img src="${P(x.img)}" alt="" onerror="ewSkip()"></div>
+   <div class="ew-c">${cents.map(c=>`<button class="ew-b ${a===undefined?'':c===cx?'ok':c===a?'bad':'dim'}" ${a!==undefined?'disabled':''} onclick="ewAns(${c})"><b>${c}e</b><small>${(c-1)*100}–${(c-1)*100+99}</small></button>`).join('')}</div>
+   ${a!==undefined?`<div class="card fb ${a===cx?'good':Math.abs(a-cx)===1?'':'bad'}"><b>${a===cx?'Precies goed! +10':Math.abs(a-cx)===1?'Net ernaast. +5':'Helaas.'}</b> <i>${x.t}</i>, ${x.a}, ${x.y}. Dat is de ${cx}e eeuw: <b>${ewPeriod(x.yr)}</b>.</div>
+   ${nextBar(EW.i<EW.items.length-1?'Volgende werk →':'Bekijk je score →','ewNext()',a===cx)}`:''}</div>`); }
+function ewSkip(){ if(!EW||EW.ans[EW.i]!==undefined) return; const used=new Set(EW.items.map(x=>x.img)); const alt=ewPool().filter(x=>!used.has(x.img)).sort(()=>Math.random()-.5)[0]; if(!alt) return; EW.items[EW.i]=alt; ewView(); }
+function ewAns(c){ if(!EW||EW.ans[EW.i]!==undefined) return; const x=EW.items[EW.i], cx=Math.floor(x.yr/100)+1; EW.ans[EW.i]=c; const p=c===cx?10:Math.abs(c-cx)===1?5:0; EW.pts+=p; if(p===10){ try{ sfx('correct'); }catch(e){} xpAdd(3); } ewView();
+  setTimeout(()=>{ const f=document.querySelector('.ew .fb'); if(f) f.scrollIntoView({behavior:'smooth',block:'center'}); },60); }
+function ewNext(){ if(EW.i<EW.items.length-1){ EW.i++; ewView(); scrollTo(0,0); } else ewEnd(); }
+function ewEnd(){ const pts=EW.pts, max=EW.items.length*10, best=Math.max(st.ewBest||0,pts), rec=pts>(st.ewBest||0); st.ewBest=best; st.ewPlays=(st.ewPlays||0)+1; save(); EW=null; st.view='ewres';
+  $(`<div class="dq rv"><div class="top"><button class="btn small" onclick="hub()">‹ Terug</button></div><div class="center" style="margin:14px 0">
+   <div class="eyebrow">Raad de eeuw</div><h2 class="serif" style="margin:6px 0">${pts} van ${max} punten</h2><p class="muted">${rec?'Nieuw record!':'Je record: '+best+' punten.'} ${pts>=80?'Jij plaatst schilderijen als een kenner.':pts>=50?'Goed bezig: je stijlgevoel groeit.':'Tip: Deel 4 · Stijl en tijd leert je de kenmerken van elke periode.'}</p></div>
+   <button class="btn primary big" onclick="ewStart()">Nog een keer</button><button class="btn" style="margin-top:8px;width:100%" onclick="hub()">Terug naar vandaag</button></div>`); }
+function ewCard(){ return `<button class="rv-card ew-card" onclick="ewStart()"><span class="rv-ic">⏳</span><span class="rv-tx"><b>Raad de eeuw</b><small>${st.ewBest?'Record: '+st.ewBest+' van 100':'Plaats 10 schilderijen in hun tijd'}</small></span></button>`; }
+
 function hub(){ st.view='start'; pathMode=null; save(); if(NOTI){ if(!NOTI.flushed) notiFlush(); NOTI.until=0; } setTimeout(notiLater,1400);
   const h=new Date().getHours(), gr=h<12?'Goedemorgen':h<18?'Goedemiddag':'Goedenavond';
   const N=nextStep(), I=xpInfo(), alive=st.dqLast===dqDay()||st.dqLast===dqPrevDay(dqDay()), streak=alive?(st.dqStreak||0):0;
@@ -6533,7 +6560,7 @@ function hub(){ st.view='start'; pathMode=null; save(); if(NOTI){ if(!NOTI.flush
       <div class="hk-plaque"><b>${N.t}${m?', les '+m[1]:''}</b>${m&&/ · /.test(N.s)?`<small>${sub}</small>`:(!m?`<small>${N.s}</small>`:'')}</div>
       <button class="hk-cta" onclick="${N.fn}">${cta}</button>`; })()}
     <h2 class="hx-h hk-h">Vandaag</h2>
-    ${rvCard()}
+    ${rvCard()}${ewCard()}
     <div class="hk-tiles">
       <button class="hk-tile ${dqd?'done':''}" onclick="dqStart()"><span class="hk-gilt sm"><span class="hk-mat"><img src="${P('q1')}" alt=""></span></span><b>Dagquiz</b><small>${dqd?`${st.dq[dqDay()].score}/5 goed`:'5 vragen'}</small></button>
       <button class="hk-tile ${kd?'done':''}" onclick="kvdView()"><span class="hk-gilt sm"><span class="hk-mat hk-kvd"><img src="${symImg(T.im[0])}" alt=""></span></span><b>Kunstwerk</b><small>${kd?'Bekeken':'van de dag'}</small></button>
@@ -11580,6 +11607,316 @@ const N3_BADGES = [
  }
 ];
 
+const N4_ROUNDS = [
+{ title:"Deel 4 · Les 1 — Middeleeuwen en gotiek", sub:"Goud, heiligen en de eerste stap naar echte ruimte (1250–1420)",
+  q:[
+  { icon:null, name:'Een hemel van goud',
+    in:{img:'s4a2', t:'Maestà', a:'Duccio di Buoninsegna', y:'1308–1311', where:'Museo dell’Opera del Duomo, Siena', s:'Duccio Maesta'},
+    question:'Maria troont groot in het midden, omringd door rijen heiligen en engelen. Alles staat tegen een gouden achtergrond. Waarom dat goud?',
+    opts:['Goud was in Siena goedkoper dan blauwe verf','Goud staat voor de hemel: dit is geen aardse ruimte maar Gods wereld','Het goud is later door restaurateurs toegevoegd'], c:1,
+    exp:'In de middeleeuwen schilderde je geen echte kamer of landschap, maar de <b>hemel</b>. Bladgoud gaf licht in een donkere kerk en liet zien: dit is heilig. Herken je de periode: <b>gouden achtergrond</b>, platte figuren, de belangrijkste persoon het grootst.',
+    also:[{img:'s4a4', t:'Het Wilton-diptiek', a:'onbekende meester', y:'ca. 1395–1399', n:'Ook hier: goud, engelen en een hemel zonder diepte.', s:'Wilton Diptych'}]},
+  { icon:null, name:'Spitsbogen en sierlijke lijnen',
+    in:{img:'s4a3', t:'Annunciatie met twee heiligen', a:'Simone Martini', y:'1333', where:'Uffizi, Florence', s:'Simone Martini Annunciation'},
+    question:'Een engel en Maria in een lijst vol spitsbogen. De figuren zijn slank en gebogen, de lijnen sierlijk. Welke stijl is dit?',
+    opts:['Gotiek','Barok','Renaissance'], c:0,
+    exp:'De <b>gotiek</b> kwam uit de kathedraalbouw: <b>spitsbogen</b>, rijke lijsten en elegante, golvende figuren. Uit de mond van de engel komen de woorden van de groet, in reliëf in het goud gedrukt.',
+    also:[{img:'s4a2', t:'Maestà', a:'Duccio', y:'1308–1311', n:'Simone Martini was een leerling van Duccio in Siena.', s:'Duccio Maesta'}]},
+  { icon:null, name:'Het duurste blauw',
+    in:{img:'s4a4', t:'Het Wilton-diptiek', a:'onbekende meester', y:'ca. 1395–1399', where:'National Gallery, Londen', s:'Wilton Diptych'},
+    question:'Elf engelen in een stralend diepblauw omringen Maria. Wat maakte dit blauw zo bijzonder?',
+    opts:['Het werd gemaakt van indigoplanten uit Holland','Het was gemaakt van lapis lazuli uit Afghanistan, duurder dan goud','Het werd elke eeuw opnieuw overgeschilderd'], c:1,
+    exp:'<b>Ultramarijn</b> (“van over de zee”) werd gemalen uit de halfedelsteen <b>lapis lazuli</b>, die uit Afghanistan kwam. Opdrachtgevers legden in contracten vast hoeveel ervan gebruikt moest worden. Dit kleine altaarstukje was van de Engelse koning Richard II.',
+    also:[{img:'s4a3', t:'Annunciatie', a:'Simone Martini', y:'1333', n:'Ook hier: goud en ultramarijn voor Maria.', s:'Simone Martini Annunciation'}]},
+  { icon:null, name:'Een boek vol plaatjes',
+    in:{img:'ha1', t:'Getijdenboek van Catharina van Kleef', a:'Meester van Catharina van Kleef', y:'ca. 1440', where:'Morgan Library, New York', s:'Hours of Catherine of Cleves'},
+    question:'Piepkleine, kleurrijke schilderingen in een handgeschreven gebedenboek, met versierde randen. Hoe noemen we dit soort kunst?',
+    opts:['Fresco’s','Verluchte handschriften (miniaturen)','Wandtapijten'], c:1,
+    exp:'Een <b>verlucht handschrift</b> is met de hand geschreven en beschilderd, vaak op perkament. Rijke mensen bezaten een <b>getijdenboek</b> om op vaste uren te bidden. In de randen verstopten miniaturisten soms grappige details uit het dagelijks leven.',
+    also:[{img:'ha3', t:'De hooiwagen (middenpaneel)', a:'Jheronimus Bosch', y:'ca. 1510–1516', n:'Het einde van de middeleeuwen in de Nederlanden.', s:'Bosch Haywain'}]},
+  { icon:null, name:'Hoe herken je de middeleeuwen?',
+    in:{img:'s4a1', t:'De Judaskus', a:'Giotto di Bondone', y:'ca. 1305', where:'Cappella degli Scrovegni, Padua', s:'Giotto Kiss of Judas'},
+    question:'Welk kenmerk past níet bij een middeleeuws schilderij?',
+    opts:['Een gouden of effen achtergrond','De belangrijkste figuur het grootst afgebeeld','Een diep landschap met precies berekend perspectief'], c:2,
+    exp:'Een diep landschap met <b>berekend perspectief</b> komt pas in de <b>renaissance</b>, na 1420. Giotto was wel de eerste die zijn figuren echt gewicht, gevoel en een begin van ruimte gaf. Daarom noemen velen hem de vader van de westerse schilderkunst.',
+    also:[{img:'s4b3', t:'De geseling van Christus', a:'Piero della Francesca', y:'ca. 1455–1460', n:'Zo ziet berekend perspectief eruit: volgende les.', s:'Piero Flagellation'}]}
+  ],
+  big:{ img:'s4a1', t:'De Judaskus', a:'Giotto di Bondone', y:'ca. 1305', where:'Cappella degli Scrovegni, Padua', s:'Giotto Kiss of Judas Scrovegni',
+    intro:'Een fresco in een kapel in Padua. Hier begint de schilderkunst te veranderen. Tik op het schilderij om het groter te zien.',
+    details:[
+      {d:'Kijk naar de <b>lucht</b>: geen goud maar blauw.', q:'Wat betekent dat?', opts:['Giotto had geen geld voor goud','Het tafereel speelt zich af op aarde, niet in een gouden hemel','Het goud is eraf gesleten'], c:1,
+        e:'Giotto zet het verhaal op <b>aarde</b>, in de nacht. Een blauwe hemel in plaats van goud: een kleine revolutie.'},
+      {d:'In het midden kijken Judas en Christus elkaar recht in de ogen, neus aan neus.', q:'Wat wil Giotto laten voelen?', opts:['Het spanningsmoment van het verraad','Dat ze familie waren','Dat Judas spijt heeft'], c:0,
+        e:'Twee profielen, oog in oog: rust tegenover verraad. Zulke <b>emotie</b> in gezichten was in die tijd nieuw.'},
+      {d:'Judas slaat zijn gele mantel om Christus heen.', q:'Waarom geel?', opts:['Geel was in de middeleeuwen de kleur van verraad en Judas','Het was Giotto’s lievelingskleur','Geel staat voor koningen'], c:0,
+        e:'Judas draagt vaak <b>geel</b>, de kleur van bedrog en jaloezie. De mantel slokt Christus bijna op.'},
+      {d:'Links snijdt een man met een mes het oor van een dienaar af.', q:'Wie is dat?', opts:['Petrus','Johannes','Judas'], c:0,
+        e:'<b>Petrus</b> trok zijn zwaard of mes en sneed het oor van Malchus, de knecht van de hogepriester, eraf.'},
+      {d:'Boven de hoofden steken fakkels, knuppels en lansen omhoog.', q:'Wat doen die voor de compositie?', opts:['Ze vullen alleen de lege ruimte','Ze wijzen allemaal naar het midden en geven onrust en beweging','Ze stellen bomen voor'], c:1,
+        e:'De wapens leiden je oog naar het <b>midden</b> en maken de scène onrustig en dreigend. Giotto denkt al als een regisseur.'}
+    ],
+    story:'<p>De rijke Enrico Scrovegni liet rond 1305 een kapel bouwen in Padua. Giotto beschilderde de muren met het leven van Maria en Christus, als een stripverhaal in vakken.</p><p>Wat Giotto nieuw maakte: zijn figuren hebben <b>gewicht</b>, ze staan op de grond en tonen gevoel. Je ziet nog veel middeleeuws, maar de weg naar de renaissance is ingeslagen.</p>'
+  }
+},
+{ title:"Deel 4 · Les 2 — Noord en zuid", sub:"Vlaamse primitieven en de Italiaanse renaissance (1420–1520)",
+  q:[
+  { icon:null, name:'Elk haartje',
+    in:{img:'b1', t:'Het Arnolfini-portret', a:'Jan van Eyck', y:'1434', where:'National Gallery, Londen', s:'Arnolfini Portrait'},
+    question:'Elk haartje van het hondje, de glans op de kroonluchter, het licht in de spiegel. Hoe kreeg Van Eyck dat zo precies?',
+    opts:['Met een vergrootglas en waterverf','Door laagjes doorzichtige olieverf over elkaar te leggen','Door de kleuren in de natte kalk te schilderen'], c:1,
+    exp:'De <b>Vlaamse primitieven</b> perfectioneerden de <b>olieverf</b>: dunne, doorzichtige lagen die licht laten glanzen. Kenmerken: <b>ongelooflijk detail</b>, glanzende stoffen en een gewone kamer vol symbolen. “Primitief” betekent hier: de eersten.',
+    also:[{img:'k5a', t:'De kruisafneming', a:'Rogier van der Weyden', y:'ca. 1435', n:'Ook Vlaams: tranen die je kunt aanraken.', s:'Rogier van der Weyden Descent'}]},
+  { icon:null, name:'Tranen als glas',
+    in:{img:'k5a', t:'De kruisafneming', a:'Rogier van der Weyden', y:'ca. 1435', where:'Prado, Madrid', s:'Rogier van der Weyden Descent from the Cross'},
+    question:'Figuren op een smalle gouden plank, alsof het beeldhouwwerk is. Op de wangen glinsteren tranen. Waar komt deze schilder vandaan?',
+    opts:['Uit de Zuidelijke Nederlanden (Vlaanderen en Brabant)','Uit Florence','Uit Venetië'], c:0,
+    exp:'<b>Rogier van der Weyden</b> werkte in Brussel. Zijn kracht: <b>gevoel</b>. Maria valt flauw in dezelfde houding als haar zoon. Noordelijke kunst draait om detail en emotie; Italiaanse om ruimte, maat en schoonheid.',
+    also:[{img:'b1', t:'Het Arnolfini-portret', a:'Jan van Eyck', y:'1434', n:'Detail, glans en symbolen: het Vlaamse recept.', s:'Arnolfini'}]},
+  { icon:null, name:'Perspectief als wiskunde',
+    in:{img:'s4b3', t:'De geseling van Christus', a:'Piero della Francesca', y:'ca. 1455–1460', where:'Galleria Nazionale delle Marche, Urbino', s:'Piero della Francesca Flagellation'},
+    question:'Vloertegels en zuilen lopen precies naar één punt in de verte. De figuren zijn rustig en geometrisch. Welke ontdekking zie je hier?',
+    opts:['Het centraalperspectief','De camera obscura','De olieverf'], c:0,
+    exp:'In Florence bedachten <b>Brunelleschi</b> en <b>Alberti</b> rond 1420 het <b>centraalperspectief</b>: alle lijnen lopen naar één verdwijnpunt. Piero was ook wiskundige. Dit is de <b>renaissance</b>: ruimte, maat, rust en de mens centraal.',
+    also:[{img:'s4b2', t:'Madonna in het groen', a:'Rafaël', y:'ca. 1505–1506', n:'Hoge renaissance: harmonie en balans.', s:'Raphael Madonna of the Meadow'}]},
+  { icon:null, name:'De volmaakte driehoek',
+    in:{img:'s4b2', t:'Madonna in het groen', a:'Rafaël', y:'ca. 1505–1506', where:'Kunsthistorisches Museum, Wenen', s:'Raphael Madonna of the Meadow'},
+    question:'Maria, het kindje Jezus en de kleine Johannes vormen samen een vorm. Welke vorm, en waarom?',
+    opts:['Een cirkel, voor de eeuwigheid','Een piramide: stabiel, rustig en harmonieus','Een kruis, voor het lijden'], c:1,
+    exp:'De <b>piramidecompositie</b> is typisch voor de <b>hoge renaissance</b> rond 1500. Leonardo bedacht hem, Rafaël maakte hem perfect. Alles is in balans: de kleuren, de blikken, het zachte landschap.',
+    also:[{img:'q14b', t:'Maria met Kind en de heilige Anna', a:'Leonardo da Vinci', y:'ca. 1503–1519', n:'Ook een piramide, van Rafaëls voorbeeld Leonardo.', s:'Leonardo Virgin Anne'}]},
+  { icon:null, name:'De oudheid herboren',
+    in:{img:'s4b1', t:'De geboorte van Venus', a:'Sandro Botticelli', y:'ca. 1484–1486', where:'Uffizi, Florence', s:'Botticelli Birth of Venus'},
+    question:'Een naakte godin staat op een schelp. Duizend jaar lang was zo’n groot heidens naakt ondenkbaar. Wat betekent het woord “renaissance”?',
+    opts:['Nieuwe kerk','Wedergeboorte, van de klassieke oudheid','Koninklijke kunst'], c:1,
+    exp:'<b>Renaissance</b> betekent <b>wedergeboorte</b>: kunstenaars en geleerden herontdekten de Griekse en Romeinse oudheid. Goden, mythen en het naakte lichaam kwamen terug. Botticelli schilderde dit voor de kring rond de Medici in Florence.',
+    also:[{img:'mB', t:'Primavera', a:'Sandro Botticelli', y:'ca. 1480', n:'Nog een mythologische droom van Botticelli.', s:'Botticelli Primavera'}]}
+  ],
+  big:{ img:'k1a', t:'Mona Lisa', a:'Leonardo da Vinci', y:'ca. 1503–1519', where:'Louvre, Parijs', s:'Mona Lisa',
+    intro:'Het beroemdste schilderij ter wereld. Wat maakt het nu echt renaissance? Tik op het schilderij om het groter te zien.',
+    details:[
+      {d:'Kijk naar de mondhoeken en ogen: geen harde lijnen, alles vervloeit in zachte schaduw.', q:'Hoe heet die techniek?', opts:['Sfumato','Fresco','Pointillisme'], c:0,
+        e:'<b>Sfumato</b> (“als rook”): zachte overgangen zonder lijnen. Daardoor lijkt haar glimlach te veranderen als je kijkt.'},
+      {d:'Het landschap achter haar wordt naar achteren steeds blauwer en vager.', q:'Waarom?', opts:['Leonardo had geen tijd meer','Luchtperspectief: in de verte lijkt alles blauwer en waziger','Het is nacht in de verte'], c:1,
+        e:'<b>Luchtperspectief</b>: Leonardo had gezien dat bergen in de verte blauw en vaag worden. Zo maakte hij diepte zonder lijnen.'},
+      {d:'Haar lichaam en armen vormen samen een stabiele vorm, met het hoofd als top.', q:'Welke vorm?', opts:['Een piramide','Een cirkel','Een ster'], c:0,
+        e:'De <b>piramide</b> weer: rust en evenwicht, het handelsmerk van de hoge renaissance.'},
+      {d:'Ze zit iets gedraaid, met het lichaam schuin en het gezicht naar ons toe.', q:'Wat was daaraan nieuw?', opts:['Niets, zo deed iedereen het','Eerdere portretten waren vaak strak in profiel; dit voelt levendig','Ze kijkt weg van de kijker'], c:1,
+        e:'Veel vroege Italiaanse portretten waren <b>profielen</b>. Leonardo’s draai naar de kijker werd het voorbeeld voor eeuwen portretkunst.'},
+      {d:'Er zijn geen sieraden, geen symbolen, geen kamer. Alleen een vrouw en een landschap.', q:'Wat zegt dat over de renaissance?', opts:['De mens zelf staat centraal','Leonardo was vergeten wat hij moest toevoegen','Rijkdom was verboden'], c:0,
+        e:'Het gaat om de <b>mens</b>: haar blik, haar gedachten. Dat heet <b>humanisme</b>, het hart van de renaissance.'}
+    ],
+    story:'<p>De Mona Lisa is vermoedelijk <b>Lisa Gherardini</b>, vrouw van de Florentijnse koopman Francesco del Giocondo. Leonardo leverde het portret nooit af: hij nam het mee naar Frankrijk en werkte er tot zijn dood aan.</p><p>Beroemd werd het pas echt in 1911, toen het uit het Louvre werd gestolen. Twee jaar later dook het op in Florence.</p>'
+  }
+},
+{ title:"Deel 4 · Les 3 — Maniërisme en barok", sub:"Gedraaide lijven, drama en licht (1520–1700)",
+  q:[
+  { icon:null, name:'Een te lange hals',
+    in:{img:'s4c2', t:'Madonna met de lange hals', a:'Parmigianino', y:'1534–1540', where:'Uffizi, Florence', s:'Parmigianino Madonna with the Long Neck'},
+    question:'Maria heeft een onwaarschijnlijk lange hals, het kind is veel te groot, rechts staat een zuil zonder gebouw. Expres of mislukt?',
+    opts:['Mislukt: de schilder kon geen verhoudingen tekenen','Expres: dit is maniërisme, sierlijkheid boven natuur','Het schilderij is later uitgerekt'], c:1,
+    exp:'Na de perfecte harmonie van Rafaël wilden jonge schilders iets anders: <b>maniërisme</b>. Uitgerekte figuren, vreemde houdingen, felle kleuren en raadselachtige ruimtes. Het gaat om <b>verfijning</b> en verrassing, niet om de werkelijkheid.',
+    also:[{img:'s4c1', t:'De kruisafneming', a:'Pontormo', y:'1525–1528', n:'Felle kleuren en zwevende figuren zonder grond.', s:'Pontormo Deposition'}]},
+  { icon:null, name:'Zwevend in roze en blauw',
+    in:{img:'s4c1', t:'De kruisafneming', a:'Pontormo', y:'1525–1528', where:'Santa Felicita, Florence', s:'Pontormo Deposition Santa Felicita'},
+    question:'Figuren in snoepkleuren lijken te zweven. Er is geen kruis, geen landschap, geen grond. Wat is typisch maniëristisch?',
+    opts:['De heldere, onwerkelijke kleuren en de verwarrende ruimte','Het diepe perspectief','Het sterke licht uit één hoek'], c:0,
+    exp:'Bij <b>Pontormo</b> is de ruimte onduidelijk en de kleuren zijn onnatuurlijk licht. De figuren kijken angstig en verloren. Het maniërisme is onrustig, net als de tijd zelf: Rome werd in 1527 geplunderd.',
+    also:[{img:'s4c2', t:'Madonna met de lange hals', a:'Parmigianino', y:'1534–1540', n:'Hetzelfde spel met verhoudingen.', s:'Parmigianino'}]},
+  { icon:null, name:'Een lichtstraal in de kroeg',
+    in:{img:'s4c3', t:'De roeping van Mattheüs', a:'Caravaggio', y:'1599–1600', where:'San Luigi dei Francesi, Rome', s:'Caravaggio Calling of Saint Matthew'},
+    question:'Een donkere ruimte, één scherpe lichtbundel, gewone mensen in gewone kleren. Welke stijl begint hier?',
+    opts:['De barok','De gotiek','Het impressionisme'], c:0,
+    exp:'<b>Caravaggio</b> zette de <b>barok</b> in gang: hevige contrasten tussen licht en donker (<b>clair-obscur</b>), dramatische momenten en echte mensen als model. Barok wil je raken en overtuigen: het is kunst als theater.',
+    also:[{img:'gB', t:'De Nachtwacht', a:'Rembrandt', y:'1642', n:'Barok in Holland: licht, beweging, drama.', s:'Rembrandt Night Watch'}]},
+  { icon:null, name:'Barok in Amsterdam',
+    in:{img:'gB', t:'De Nachtwacht', a:'Rembrandt', y:'1642', where:'Rijksmuseum, Amsterdam', s:'Rembrandt Night Watch'},
+    question:'Schutters komen in beweging, een trom roffelt, een meisje in goud licht op. Wat maakt dit barok, en geen renaissance?',
+    opts:['De rust, de balans en de piramidevorm','De beweging, het theatrale licht en het moment van actie','De gouden achtergrond'], c:1,
+    exp:'Renaissance is <b>rust en balans</b>; barok is <b>beweging en drama</b>. Rembrandt schildert geen stilstaand groepsportret, maar het moment dat de compagnie vertrekt. Licht en donker regisseren je blik.',
+    also:[{img:'jl2', t:'Simson en Delila', a:'Peter Paul Rubens', y:'ca. 1609–1610', n:'Vlaamse barok: vlees, rood en spanning.', s:'Rubens Samson Delilah'}]},
+  { icon:null, name:'Hoe herken je barok?',
+    in:{img:'jl2', t:'Simson en Delila', a:'Peter Paul Rubens', y:'ca. 1609–1610', where:'National Gallery, Londen', s:'Rubens Samson and Delilah'},
+    question:'Welke combinatie hoort bij de barok?',
+    opts:['Goud, plat, heilig en stil','Beweging, schuine lijnen, sterk licht en emotie','Stippen, licht en buitenlucht'], c:1,
+    exp:'Barok herken je aan <b>diagonalen</b>, <b>beweging</b>, <b>sterk licht en donker</b>, rijke kleuren en heftige gevoelens. Goud en plat is middeleeuws; stippen en buitenlucht komen pas in de 19e eeuw.',
+    also:[{img:'s4c3', t:'De roeping van Mattheüs', a:'Caravaggio', y:'1599–1600', n:'Het licht van Caravaggio werd overal nagevolgd.', s:'Caravaggio'}]}
+  ],
+  big:{ img:'s4c5', t:'De extase van de heilige Teresa', a:'Gian Lorenzo Bernini', y:'1647–1652', where:'Santa Maria della Vittoria, Rome', s:'Bernini Ecstasy of Saint Teresa',
+    intro:'Barok is meer dan schilderkunst. Bernini maakte van een kapel een theater. Tik op de foto om hem groter te zien.',
+    details:[
+      {d:'Een non zweeft achterover op een wolk, met gesloten ogen en open mond. Een glimlachende engel richt een gouden pijl op haar.', q:'Wie is zij?', opts:['De Spaanse mystica Teresa van Ávila','Maria Magdalena','De godin Psyche'], c:0,
+        e:'<b>Teresa van Ávila</b> beschreef hoe een engel haar hart met een gouden pijl doorboorde: pijn en goddelijke liefde tegelijk.'},
+      {d:'Achter de figuren vallen <b>gouden stralen</b> naar beneden, beschenen door een verborgen raam erboven.', q:'Wat doet Bernini hier?', opts:['Hij gebruikt echt daglicht als onderdeel van het kunstwerk','Het goud is alleen versiering','Het raam was er per ongeluk'], c:0,
+        e:'Een <b>verborgen raam</b> laat echt licht op de stralen vallen. Architectuur, beeldhouwkunst en licht worden één: typisch barok.'},
+      {d:'Het marmer lijkt zacht: de wolk, de stof van het kleed, de huid.', q:'Wat is het effect?', opts:['Het lijkt van klei','Steen wordt vlees en stof: je vergeet dat het marmer is','Het ziet er onaf uit'], c:1,
+        e:'Bernini liet <b>marmer</b> buigen en golven. De gedrapeerde stof drukt de beroering uit die Teresa voelt.'},
+      {d:'Aan de zijwanden zitten in loges leden van de familie Cornaro, die naar het tafereel kijken.', q:'Waar doet dat aan denken?', opts:['Aan een rechtszaal','Aan een theater, met toeschouwers in loges','Aan een klaslokaal'], c:1,
+        e:'De opdrachtgevers kijken mee als in een <b>theater</b>. De kerkganger wordt zelf ook toeschouwer van het wonder.'},
+      {d:'Dit beeld werd gemaakt kort na de Reformatie, voor een katholieke kerk.', q:'Wat wilde de kerk met zulke kunst?', opts:['Gelovigen raken en overtuigen met emotie en pracht','Het geloof zo sober mogelijk tonen','Alleen rijke mensen plezieren'], c:0,
+        e:'De katholieke <b>Contrareformatie</b> wilde gelovigen terugwinnen met kunst die het <b>hart</b> raakt. De barok was daar het perfecte middel voor.'}
+    ],
+    story:'<p>Bernini was de grote regisseur van barok Rome: beeldhouwer, architect en zelfs theatermaker. Voor de kapel van kardinaal Federico Cornaro combineerde hij gekleurd marmer, verguld brons, licht en beelden tot één <b>totaalkunstwerk</b>.</p><p>Vergelijk het met de rust van Rafaël: dezelfde kerk, een eeuw later, een heel andere taal.</p>'
+  }
+},
+{ title:"Deel 4 · Les 4 — Rococo en classicisme", sub:"Schommels en pastel, daarna strenge helden (1700–1820)",
+  q:[
+  { icon:null, name:'Een feest in het park',
+    in:{img:'s4d2', t:'Inscheping naar Cythera', a:'Antoine Watteau', y:'1717', where:'Louvre, Parijs', s:'Watteau Pilgrimage to Cythera'},
+    question:'Elegante paartjes in zijde wandelen door een dromerig park naar een boot. Cupido’s fladderen erboven. Hoe heet dit soort schilderij?',
+    opts:['Een fête galante: een galant feest','Een historiestuk','Een vanitas'], c:0,
+    exp:'Watteau bedacht de <b>fête galante</b>: liefdesfeestjes in een droomlandschap. Cythera is het eiland van Venus. Dit is het begin van de <b>rococo</b>: licht, zacht, verliefd en speels, na de zware barok van Lodewijk XIV.',
+    also:[{img:'s4d1', t:'De schommel', a:'Jean-Honoré Fragonard', y:'1767', n:'Rococo op zijn speelst.', s:'Fragonard The Swing'}]},
+  { icon:null, name:'Een schoen vliegt weg',
+    in:{img:'s4d1', t:'De schommel', a:'Jean-Honoré Fragonard', y:'1767', where:'Wallace Collection, Londen', s:'Fragonard The Swing'},
+    question:'Een jonge vrouw in roze zijde schommelt, haar schoentje vliegt weg, een jongeman kijkt vanuit de struiken onder haar rokken. Welke stijl?',
+    opts:['Classicisme','Rococo','Realisme'], c:1,
+    exp:'De <b>rococo</b>: pastelkleuren, krullen, frivole liefde en een knipoog. Het schoentje dat wegvliegt, staat voor verloren onschuld. Het beeldje van Cupido links houdt zijn vinger voor zijn mond: sst.',
+    also:[{img:'y3', t:'Diana na het bad', a:'François Boucher', y:'1742', n:'Boucher: de favoriete schilder van madame de Pompadour.', s:'Boucher Diana'}]},
+  { icon:null, name:'Een eed voor het vaderland',
+    in:{img:'s4d3', t:'De eed der Horatii', a:'Jacques-Louis David', y:'1784', where:'Louvre, Parijs', s:'David Oath of the Horatii'},
+    question:'Drie broers steken hun armen uit naar zwaarden die hun vader omhoog houdt. Strakke lijnen, Romeinse bogen, harde kleuren. Welke stijl is dit?',
+    opts:['Rococo','Neoclassicisme','Barok'], c:1,
+    exp:'Het <b>neoclassicisme</b> was een reactie op de frivole rococo. Voorbeeld: de oudheid, maar dan <b>streng</b>: deugd, plicht en offer voor het vaderland. Kenmerken: heldere lijnen, kale ruimte, horizontale rust. Een paar jaar later brak de Franse Revolutie uit.',
+    also:[{img:'s4d4', t:'De dood van Marat', a:'Jacques-Louis David', y:'1793', n:'David werd de schilder van de Revolutie.', s:'David Death of Marat'}]},
+  { icon:null, name:'Een te lange rug',
+    in:{img:'s4d5', t:'La Grande Odalisque', a:'Jean-Auguste-Dominique Ingres', y:'1814', where:'Louvre, Parijs', s:'Ingres Grande Odalisque'},
+    question:'Een liggende vrouw met een gladde huid kijkt over haar schouder. Critici zeiden: haar rug heeft drie wervels te veel. Wat wilde Ingres?',
+    opts:['Een perfecte, sierlijke lijn, belangrijker dan anatomie','Hij maakte een rekenfout','Hij schilderde een echte vrouw na'], c:0,
+    exp:'Ingres was een leerling van David en een meester van de <b>lijn</b>. Hij rekte de rug uit voor een elegante curve, zoals Parmigianino ooit deed. Het onderwerp, een haremvrouw, laat de belangstelling voor het “exotische” oosten zien.',
+    also:[{img:'s4c2', t:'Madonna met de lange hals', a:'Parmigianino', y:'1534–1540', n:'Driehonderd jaar eerder: dezelfde truc.', s:'Parmigianino'}]},
+  { icon:null, name:'Pastel of marmer?',
+    in:{img:'y3', t:'Diana na het bad', a:'François Boucher', y:'1742', where:'Louvre, Parijs', s:'Boucher Diana After Her Bath'},
+    question:'Hoe zie je het verschil tussen rococo en neoclassicisme?',
+    opts:['Rococo: zacht, pastel, speels en verliefd. Neoclassicisme: strak, ernstig, heldhaftig','Rococo is altijd Nederlands, neoclassicisme altijd Italiaans','Er is geen verschil'], c:0,
+    exp:'<b>Rococo</b> = roze, krullen, liefde en plezier (Watteau, Boucher, Fragonard). <b>Neoclassicisme</b> = marmerwit, rechte lijnen, plicht en deugd (David, Ingres). Allebei kijken ze naar de oudheid, maar met een totaal ander gevoel.',
+    also:[{img:'s4d3', t:'De eed der Horatii', a:'David', y:'1784', n:'Het tegendeel van Boucher.', s:'David Horatii'}]}
+  ],
+  big:{ img:'s4d4', t:'De dood van Marat', a:'Jacques-Louis David', y:'1793', where:'Koninklijke Musea voor Schone Kunsten, Brussel', s:'David Death of Marat',
+    intro:'Een moord tijdens de Franse Revolutie, geschilderd als een heiligenbeeld. Tik op het schilderij om het groter te zien.',
+    details:[
+      {d:'Een man ligt dood in een bad, zijn arm hangt slap naar beneden, een pen nog in zijn hand.', q:'Aan welk beroemd beeld doet die hangende arm denken?', opts:['Aan Christus bij de kruisafneming of de piëta','Aan een Romeinse keizer','Aan de Mona Lisa'], c:0,
+        e:'De hangende arm komt van de <b>kruisafneming</b> en de <b>piëta</b>. David maakt van Marat een <b>martelaar</b> van de Revolutie.'},
+      {d:'Jean-Paul Marat was een radicale journalist. Hij werkte in zijn bad vanwege een huidziekte.', q:'Wie heeft hem vermoord?', opts:['Charlotte Corday, een tegenstander van de radicalen','Koning Lodewijk XVI','Napoleon'], c:0,
+        e:'<b>Charlotte Corday</b> kreeg toegang met een brief en stak hem neer. Je ziet haar briefje nog in zijn hand.'},
+      {d:'De bovenste helft van het schilderij is bijna helemaal leeg en donker.', q:'Wat doet die leegte?', opts:['Ze geeft stilte en ernst, alsof je in een graf kijkt','David was niet klaar','Er hing vroeger een tekst'], c:0,
+        e:'De lege ruimte geeft <b>stilte</b>. Strak, eenvoudig, ernstig: het neoclassicisme op zijn sterkst.'},
+      {d:'Op het houten kistje staat: <i>À Marat, David</i>.', q:'Waarom zette David er zijn naam zo groot bij?', opts:['Als opdracht aan een gestorven vriend en politiek bondgenoot','Omdat hij het wilde verkopen','Uit gewoonte'], c:0,
+        e:'David was een <b>vriend en politiek bondgenoot</b> van Marat. Het kistje werkt als grafsteen. Dit is propaganda en rouw tegelijk.'},
+      {d:'Er is geen rococo-roze te bekennen: alleen groen, bruin, wit en een beetje rood.', q:'Waarom deze sobere kleuren?', opts:['Sober paste bij de deugd van de Republiek','Verf was te duur door de oorlog','David was kleurenblind'], c:0,
+        e:'Soberheid stond voor <b>deugd</b> en eerlijkheid, tegenover de luxe van het oude koningshof. Stijl is hier politiek.'}
+    ],
+    story:'<p>David schilderde dit binnen een paar maanden na de moord in 1793. Het hing in de Nationale Conventie in Parijs, het parlement van de Revolutie. Na de val van de radicalen werd het weggehaald.</p><p>Het laat zien hoe een stijl een boodschap kan dragen: het <b>neoclassicisme</b> sprak de taal van de oude Romeinse Republiek, en de Franse revolutionairen zagen zichzelf als hun opvolgers.</p>'
+  }
+},
+{ title:"Deel 4 · Les 5 — Romantiek en realisme", sub:"Gevoel tegenover werkelijkheid (1800–1870)",
+  q:[
+  { icon:null, name:'Boven de mist',
+    in:{img:'s4e1', t:'De wandelaar boven de nevelzee', a:'Caspar David Friedrich', y:'ca. 1818', where:'Hamburger Kunsthalle, Hamburg', s:'Friedrich Wanderer above the Sea of Fog'},
+    question:'Een man staat met zijn rug naar ons op een rots en kijkt uit over een zee van mist. Welke stijl?',
+    opts:['Romantiek','Neoclassicisme','Impressionisme'], c:0,
+    exp:'De <b>romantiek</b> draait om <b>gevoel</b>: de overweldigende natuur, eenzaamheid, verlangen en het onbekende. De figuur op de rug heet een <b>Rückenfigur</b>: je kijkt met hem mee en voelt wat hij voelt.',
+    also:[{img:'l4c', t:'Een storm (Schipbreuk)', a:'William Turner', y:'ca. 1823', n:'Engelse romantiek: de woeste kracht van de zee.', s:'Turner storm'}]},
+  { icon:null, name:'Een vlot vol wanhoop',
+    in:{img:'s4e3', t:'Het vlot van de Medusa', a:'Théodore Géricault', y:'1818–1819', where:'Louvre, Parijs', s:'Gericault Raft of the Medusa'},
+    question:'Uitgeputte en dode mannen op een vlot. Bovenaan zwaait iemand met een doek naar een piepklein schip aan de horizon. Waar gaat dit over?',
+    opts:['Een mythe uit Ovidius','Een echte scheepsramp uit 1816, die een schandaal werd','Een Bijbels verhaal over Noach'], c:1,
+    exp:'Het Franse schip de <b>Medusa</b> liep in 1816 vast. Op een vlot overleefden slechts vijftien van de ongeveer 150 opvarenden. Géricault maakte van <b>actueel nieuws</b> een gigantisch doek: romantisch in drama en gevoel, en een aanklacht tegen de regering.',
+    also:[{img:'s4e2', t:'De Vrijheid leidt het volk', a:'Eugène Delacroix', y:'1830', n:'Ook romantisch: actualiteit als heldenverhaal.', s:'Delacroix Liberty'}]},
+  { icon:null, name:'Op de rug gebogen',
+    in:{img:'s4e4', t:'De arenleesters', a:'Jean-François Millet', y:'1857', where:'Musée d’Orsay, Parijs', s:'Millet The Gleaners'},
+    question:'Drie arme vrouwen rapen de laatste aren op een geoogst veld. Geen held, geen god, geen drama. Welke stijl?',
+    opts:['Realisme','Rococo','Gotiek'], c:0,
+    exp:'Het <b>realisme</b> toonde de wereld zoals hij is: <b>gewone werkende mensen</b>, groot en waardig geschilderd. Dat was schokkend: zulke formaten waren bedoeld voor helden en heiligen. Sommige critici vonden het zelfs gevaarlijk en opruiend.',
+    also:[{img:'s4e5', t:'Een begrafenis in Ornans', a:'Gustave Courbet', y:'1849–1850', n:'Courbet, de leider van het realisme.', s:'Courbet Burial at Ornans'}]},
+  { icon:null, name:'Een begrafenis op ware grootte',
+    in:{img:'s4e5', t:'Een begrafenis in Ornans', a:'Gustave Courbet', y:'1849–1850', where:'Musée d’Orsay, Parijs', s:'Courbet A Burial at Ornans'},
+    question:'Ruim zes meter breed, en daarop een gewone dorpsbegrafenis met boeren, een pastoor en een hond. Waarom vond Parijs dit schandalig?',
+    opts:['Het was te klein','Zo’n enorm formaat was voor historiestukken; Courbet gaf het aan gewone dorpelingen','Er stonden te veel kleuren op'], c:1,
+    exp:'Courbet zei: “Ik kan geen engel schilderen, want ik heb er nog nooit een gezien.” Hij gaf gewone mensen het formaat van <b>historiestukken</b>. Dat was een aanval op de <b>rangorde van de genres</b>, waarin historie bovenaan stond.',
+    also:[{img:'s4e4', t:'De arenleesters', a:'Millet', y:'1857', n:'Waardigheid voor de armen.', s:'Millet Gleaners'}]},
+  { icon:null, name:'Hart of oog?',
+    in:{img:'l4c', t:'Een storm (Schipbreuk)', a:'William Turner', y:'ca. 1823', where:'British Museum, Londen', s:'Turner storm'},
+    question:'Wat is het verschil tussen romantiek en realisme?',
+    opts:['Romantiek draait om gevoel en verbeelding, realisme om de werkelijkheid zoals hij is','Romantiek gaat over liefde, realisme over oorlog','Ze zijn hetzelfde'], c:0,
+    exp:'<b>Romantiek</b>: storm, mist, verlangen, heldendom, emotie (Friedrich, Turner, Delacroix). <b>Realisme</b>: het gewone leven, eerlijk en zonder opsmuk (Courbet, Millet). Onze <b>Haagse School</b> zat er een beetje tussenin.',
+    also:[{img:'hf3', t:'Alleen op de wereld', a:'Jozef Israëls', y:'1878', n:'Haagse School: realisme met veel gevoel.', s:'Israels Alone in the World'}]}
+  ],
+  big:{ img:'s4e2', t:'De Vrijheid leidt het volk', a:'Eugène Delacroix', y:'1830', where:'Louvre, Parijs', s:'Delacroix Liberty Leading the People',
+    intro:'Een revolutie in Parijs, geschilderd als een heldendicht. Tik op het schilderij om het groter te zien.',
+    details:[
+      {d:'In het midden stapt een vrouw met ontblote borst over een barricade, met een vlag en een geweer.', q:'Wie is zij?', opts:['Een echte vrouw uit Parijs','Een personificatie: de Vrijheid, in de gedaante van Marianne','Jeanne d’Arc'], c:1,
+        e:'Ze is de <b>Vrijheid</b>, een allegorische figuur: half godin, half volksvrouw. Ze werd het symbool van Frankrijk, <b>Marianne</b>.'},
+      {d:'Ze draagt een rode muts.', q:'Wat betekent die muts?', opts:['Een Frygische muts: het teken van vrijheid sinds de oudheid','Een koksmuts','Een slaapmuts van de nacht ervoor'], c:0,
+        e:'De <b>Frygische muts</b> stond in Rome al voor vrijgelaten slaven. In de Franse Revolutie werd het het teken van de vrijheid.'},
+      {d:'Links staat een man met een hoge hoed en een geweer, naast hem een arbeider met een sabel.', q:'Wat laat Delacroix zien?', opts:['Dat alle klassen samen vechten: burgers en arbeiders','Dat alleen rijken vochten','Dat het een kostuumfeest was'], c:0,
+        e:'Burger, arbeider en straatjongen: de revolutie van <b>juli 1830</b> was van het hele volk. Zo wilde Delacroix het tonen.'},
+      {d:'Rechts zwaait een jongen met twee pistolen.', q:'Aan welk beroemd romanpersonage deed hij later denken?', opts:['Gavroche uit Les Misérables','Oliver Twist','Pinokkio'], c:0,
+        e:'Victor Hugo liet zich voor zijn straatjongen <b>Gavroche</b> mogelijk door deze jongen inspireren.'},
+      {d:'Het schilderij is vol beweging, rook, schuine lijnen en felle kleuren.', q:'Wat maakt het romantisch, en niet neoclassicistisch?', opts:['De emotie, de beweging en de kleur','De strakke lijnen en de rust','De gouden achtergrond'], c:0,
+        e:'Delacroix was de tegenpool van Ingres: <b>kleur en emotie</b> tegenover lijn en orde. Dat is het verschil tussen romantiek en neoclassicisme.'}
+    ],
+    story:'<p>In juli 1830 werd in drie dagen koning Karel X verdreven. Delacroix vocht zelf niet mee, maar schreef aan zijn broer dat hij dan in elk geval voor zijn land zou schilderen.</p><p>De Franse staat kocht het werk, maar hing het al snel weg: te opruiend. Nu is het een van de bekendste beelden van vrijheid ter wereld.</p>'
+  }
+},
+{ title:"Deel 4 · Les 6 — Impressionisme en de moderne kunst", sub:"Licht, stippen, vlakken en het einde van het venster (1870–1945)",
+  q:[
+  { icon:null, name:'Een indruk',
+    in:{img:'s4f1', t:'Impressie, opkomende zon', a:'Claude Monet', y:'1872', where:'Musée Marmottan Monet, Parijs', s:'Monet Impression Sunrise'},
+    question:'Losse streken, een oranje zon in de mist boven een haven. Een criticus spotte met de titel. Welke stijl kreeg zo zijn naam?',
+    opts:['Het expressionisme','Het impressionisme','Het kubisme'], c:1,
+    exp:'De titel <b>Impressie</b> (indruk) werd door een criticus spottend gebruikt voor de hele groep. Impressionisten schilderden <b>buiten</b>, snel, het licht van het moment, met losse zichtbare streken. Verf in tubes maakte dat mogelijk.',
+    also:[{img:'s4f2', t:'Bal in de Moulin de la Galette', a:'Pierre-Auguste Renoir', y:'1876', n:'Zonlicht door de bladeren op een zondagmiddag.', s:'Renoir Moulin de la Galette'}]},
+  { icon:null, name:'Achter de schermen',
+    in:{img:'s4f3', t:'De balletles', a:'Edgar Degas', y:'1871–1874', where:'Musée d’Orsay, Parijs', s:'Degas The Ballet Class'},
+    question:'Ballerina’s rekken zich uit en wachten, een oude leraar leunt op een stok. Een meisje krabt op haar rug. Wat vond Degas interessant?',
+    opts:['Het perfecte optreden op het podium','Het echte, onbewaakte moment, alsof je stiekem kijkt','De kostuums voor een modeblad'], c:1,
+    exp:'Degas schilderde het <b>moderne leven</b> van het moment: repetities, wachten, moeheid. De compositie lijkt toevallig afgesneden, zoals een foto. De <b>fotografie</b> veranderde hoe schilders keken.',
+    also:[{img:'s4f2', t:'Bal in de Moulin de la Galette', a:'Renoir', y:'1876', n:'Ook een moment uit het Parijse leven.', s:'Renoir'}]},
+  { icon:null, name:'Puntje voor puntje',
+    in:{img:'s4f5', t:'Een zondagmiddag op het eiland La Grande Jatte', a:'Georges Seurat', y:'1884–1886', where:'Art Institute of Chicago', s:'Seurat Sunday on La Grande Jatte'},
+    question:'Van dichtbij zie je duizenden kleine kleurstipjes. Van ver vloeien ze samen. Hoe heet deze techniek?',
+    opts:['Sfumato','Pointillisme','Clair-obscur'], c:1,
+    exp:'Seurat las wetenschappelijke boeken over kleur en zette zuivere kleuren in <b>stipjes</b> naast elkaar: <b>pointillisme</b>. Je oog mengt ze zelf. Hij werkte er twee jaar aan. Dit is <b>post-impressionisme</b>: voortbouwen op het impressionisme, maar met een plan.',
+    also:[{img:'hg1', t:'Zonnebloemen', a:'Vincent van Gogh', y:'1888', n:'Van Gogh probeerde in Parijs ook de stipjes uit.', s:'Van Gogh Sunflowers'}]},
+  { icon:null, name:'De berg in blokjes',
+    in:{img:'s4f4', t:'De Mont Sainte-Victoire', a:'Paul Cézanne', y:'ca. 1902–1906', where:'Philadelphia Museum of Art', s:'Cezanne Mont Sainte-Victoire'},
+    question:'Een berg en een landschap opgebouwd uit vlakken en blokjes kleur. Picasso noemde de schilder “de vader van ons allemaal”. Waarom?',
+    opts:['Omdat hij de natuur opbouwde uit vormen en vlakken, de weg naar het kubisme','Omdat hij de eerste fotograaf was','Omdat hij de olieverf uitvond'], c:0,
+    exp:'<b>Cézanne</b> wilde de natuur behandelen via de cilinder, de bol en de kegel. Hij bouwde zijn schilderijen op uit <b>vlakken kleur</b>. Daarmee opende hij de deur naar het <b>kubisme</b> en de abstracte kunst.',
+    also:[{img:'hh1', t:'De grijze boom', a:'Piet Mondriaan', y:'1911', n:'Mondriaan zocht dezelfde weg: van boom naar lijn.', s:'Mondriaan Grijze boom'}]},
+  { icon:null, name:'Muziek in kleur',
+    in:{img:'s4f6', t:'Compositie VII', a:'Wassily Kandinsky', y:'1913', where:'Tretjakovgalerij, Moskou', s:'Kandinsky Composition VII'},
+    question:'Geen herkenbaar onderwerp meer: alleen kleuren, lijnen en vormen die door elkaar wervelen. Wat is dit?',
+    opts:['Abstracte kunst','Een mislukte schets','Een landkaart'], c:0,
+    exp:'<b>Kandinsky</b> was een van de eersten die volledig <b>abstract</b> schilderde. Hij vergeleek kleuren met muziek: geel klinkt als een trompet, blauw als een orgel. Het schilderij is geen venster meer op de wereld, maar een eigen wereld.',
+    also:[{img:'hh2', t:'Compositie met rood, geel en blauw', a:'Piet Mondriaan', y:'1930', n:'De Nederlandse weg naar abstractie: De Stijl.', s:'Mondriaan'}]}
+  ],
+  big:{ img:'s4f2', t:'Bal in de Moulin de la Galette', a:'Pierre-Auguste Renoir', y:'1876', where:'Musée d’Orsay, Parijs', s:'Renoir Dance at Le Moulin de la Galette',
+    intro:'Een zondagmiddag in Montmartre. Het impressionisme op zijn vrolijkst. Tik op het schilderij om het groter te zien.',
+    details:[
+      {d:'Op de kleren, de gezichten en de grond liggen <b>vlekjes zonlicht</b> die door de bladeren vallen.', q:'Wat wilde Renoir vangen?', opts:['Het vluchtige licht van het moment','De precieze vorm van elk blad','Een nachtelijk feest'], c:0,
+        e:'Het <b>licht</b> is het eigenlijke onderwerp. Die dansende vlekjes zijn er over een minuut alweer anders.'},
+      {d:'De figuren aan de randen zijn schetsmatig, de schaduwen zijn niet zwart maar <b>blauw en paars</b>.', q:'Waarom gekleurde schaduwen?', opts:['Buiten zie je in schaduw echt kleur, door het blauw van de lucht','Renoir had geen zwarte verf','Om het droeviger te maken'], c:0,
+        e:'Impressionisten keken goed: schaduwen in de buitenlucht zijn <b>gekleurd</b>. Zwart verdween bijna van hun palet.'},
+      {d:'Het is een gewone openluchtdansgelegenheid voor arbeiders en kunstenaars.', q:'Wat is het onderwerp?', opts:['Het moderne stadsleven en vrije tijd','Een koninklijk bal','Een Bijbels feest'], c:0,
+        e:'Het <b>moderne leven</b>: Parijzenaars op hun vrije zondag. Geen helden, geen goden, gewoon plezier.'},
+      {d:'Renoir sleepte het grote doek elke dag naar de tuin om ter plekke te schilderen.', q:'Hoe noemen we buiten schilderen?', opts:['En plein air','Fresco','A secco'], c:0,
+        e:'<b>En plein air</b>: in de open lucht. Tubetjes verf en draagbare ezels maakten het mogelijk.'},
+      {d:'Vergelijk het met De Nachtwacht of De dood van Marat.', q:'Wat is het grootste verschil?', opts:['Geen verhaal of boodschap, maar een gevoel van het moment','Het is veel ouder','Het is in zwart-wit'], c:0,
+        e:'Het impressionisme vertelt geen verhaal en leert geen les. Het geeft een <b>indruk</b>. Daarmee eindigt een traditie van eeuwen, en begint de moderne kunst.'}
+    ],
+    story:'<p>De Moulin de la Galette was een oude molen op Montmartre waar op zondag werd gedanst. Renoir vroeg vrienden en buurtgenoten om te poseren.</p><p>Van de goud-heilige Maestà van Duccio tot dit zonnige feest: in zes lessen heb je zeven eeuwen stijl doorlopen. Probeer nu het spel <b>Raad de eeuw</b> en test of je elk schilderij kunt plaatsen.</p>'
+  }
+}
+];
+const N4_BADGES = [
+  {name:'Goudkijker', icon:'dove', txt:'Goud, spitsbogen en de eerste ruimte van Giotto: je herkent de middeleeuwen.'},
+  {name:'Perspectiefmeester', icon:'loupe', txt:'Van Eyck en Rafaël, noord en zuid: je kent de renaissance.'},
+  {name:'Barokregisseur', icon:'moon', txt:'Licht, drama en beweging: de barok herken je meteen.'},
+  {name:'Salonganger', icon:'tulip', txt:'Rococo-roze of neoclassiek marmer: jij ziet het verschil.'},
+  {name:'Stormkijker', icon:'bubbles', txt:'Gevoel of werkelijkheid: romantiek en realisme liggen je.'},
+  {name:'Stijlkenner', icon:'painting', txt:'Van Duccio tot Kandinsky: je plaatst elk schilderij in zijn tijd.'}];
+
 const TRACKS = {
   basis:{id:'basis', name:'Basis', eyebrow:'Deel 1 · De basis', title:'Symboliek in de Kunst', rank:'Beginner', grand:'Iconoloog', icon:'skull',
     desc:'Van middeleeuwen tot 1900. Per les vijf symbolen: kies A, B of C, lees wat het betekent en ontdek waar het nog meer voorkomt. Na de vijf vragen volgt de <b>eindtoets</b>: samen ontleden we een groot meesterwerk.',
@@ -11590,6 +11927,9 @@ const TRACKS = {
   n3:{id:'n3', name:'Deel 3 — Meesterlijk kijken', eyebrow:'Deel 3 · Verdieping', title:'Deel 3: Meesterlijk kijken', rank:'Kenner', grand:'Beeldkenner', icon:'mirror', bundle:'n3',
     desc:'Een tandje moeilijker: spiegels en blikken, licht in het donker, liefde en verlangen, en macht in beeld. Met Las Meninas, De tuin der lusten en Napoleon op de Alpen.',
     rounds:N3_ROUNDS, badges:N3_BADGES},
+  n4:{id:'n4', name:'Deel 4 — Stijl en tijd', eyebrow:'Deel 4 · Stijl en tijd', title:'Deel 4: Stijl en tijd', rank:'Stijlkenner', grand:'Stijlkenner', icon:'painting',
+    desc:'Van goud naar abstract: herken middeleeuwen, renaissance, barok, rococo, romantiek en impressionisme. Na deze zes lessen plaats je elk schilderij in zijn tijd. Met het spel Raad de eeuw.',
+    rounds:N4_ROUNDS, badges:N4_BADGES},
   deugden:{id:'deugden', ribbon:'Specialist', name:'Specialisatie: Deugden & ondeugden', eyebrow:'Specialisatie', title:'Deugden & ondeugden', rank:'Specialist Deugden & Ondeugden', grand:'Iconoloog', icon:'scales',
     desc:'Personificaties, Ripa’s Iconologia, emblemen en de grote morele allegorieën.',
     rounds:DEUGD_ROUNDS, badges:DEUGD_BADGES},
@@ -11635,7 +11975,7 @@ const kennerStarted = () => (typeof KENNER_ROUNDS!=='undefined')&&KENNER_ROUNDS.
 const isOpen = t => t==='basis'||(t==='kenner'&&(kennerStarted()||(st.mile&&st.mile['kenner|unl'])))||t==='hg'||(TRACKS[t]&&TRACKS[t].museum)||basisDone()||st.beta||!!(st.unl&&st.unl[t]);
 function chooseTrack(t){ if(!isOpen(t)) return; setTrack(t); home(); }
 const ROUTE_GROUPS = [
-  {id:'symb', ic:'🎨', t:'Symboliek in de kunst', s:'Leer symbolen lezen: eerst de basis, daarna verdiepen of specialiseren.', tr:['basis','mix','n3','deugden','bijbel','myth','ge','kenner']},
+  {id:'symb', ic:'🎨', t:'Symboliek in de kunst', s:'Leer symbolen lezen: eerst de basis, daarna verdiepen of specialiseren.', tr:['basis','mix','n3','n4','deugden','bijbel','myth','ge','kenner']},
   {id:'hg', ic:'🦁', t:'Hollandse glorie', s:'Kunst- en vaderlandse geschiedenis in acht lessen, van de middeleeuwen tot nu. Rembrandt is je gids.', tr:['hg']},
   {id:'mus', ic:'🏛️', t:'Musea', s:'Bereid je museumbezoek voor: de topstukken en hun symboliek. Musea door het hele land.', tr:['rijks','maur',...EXTRA_MUSEUMS.map(m=>m.id)]}];
 function trackBar(t){ const R=TRACKS[t].rounds, n=R.length, d=trackProgress(t), started=R.some((_,r)=>roundDone(r,t)>0); return {n,d,started,pct:Math.round(d/n*100)}; }
@@ -12021,7 +12361,7 @@ function nav(d){ const s=steps(st.r); let p=pos()+d;
   if(p<0){ if(st.r>0){ const ps=steps(st.r-1); return go(st.r-1, ps[ps.length-1]); } return; }
   if(p>=s.length) return goNext();
   go(st.r, s[p]); }
-function render(){ const v=st.view; if((v==='q'||v==='big')&&!diffOf()) return diffView(); (v==='q'||v==='kq')?question():v==='big'?big():v==='match'?matchView():v==='who'?whoView():v==='tl'?timeline(st.tlMode):v==='final'?finalView():v==='gloss'?glossary():v==='paths'?paths():v==='onb'?onbView():v==='intro'?introView():v==='introDone'?introDone():v==='introAsk'?introAsk():v==='fav'?favView():v==='sym'?(symOpen()?symRefresh():freePlay()):v==='start'?hub():v==='credits'?creditsView():v==='me'?meView():v==='rv'?(RV?rvView():hub()):v==='rvres'?hub():v==='meter'?meterView():v==='keep'?keepView():v==='oracle'?oracleView():v==='askl'?askLaura():v==='album'?albumView():v==='board'?boardView():v==='ask'?hub():v==='kvd'?kvdView():v==='dqres'?(st.dq&&st.dq[dqDay()]?dqResult(st.dq[dqDay()]):hub()):v==='daily'?hub():v==='stories'?storiesView():v==='storyc'?storyOpen(st.storyId||'cara'):v==='story'?storiesView():v==='free'?freePlay():home(); }
+function render(){ const v=st.view; if((v==='q'||v==='big')&&!diffOf()) return diffView(); (v==='q'||v==='kq')?question():v==='big'?big():v==='match'?matchView():v==='who'?whoView():v==='tl'?timeline(st.tlMode):v==='final'?finalView():v==='gloss'?glossary():v==='paths'?paths():v==='onb'?onbView():v==='intro'?introView():v==='introDone'?introDone():v==='introAsk'?introAsk():v==='fav'?favView():v==='sym'?(symOpen()?symRefresh():freePlay()):v==='start'?hub():v==='credits'?creditsView():v==='me'?meView():v==='rv'?(RV?rvView():hub()):v==='eeuw'?(EW?ewView():hub()):v==='ewres'?hub():v==='rvres'?hub():v==='meter'?meterView():v==='keep'?keepView():v==='oracle'?oracleView():v==='askl'?askLaura():v==='album'?albumView():v==='board'?boardView():v==='ask'?hub():v==='kvd'?kvdView():v==='dqres'?(st.dq&&st.dq[dqDay()]?dqResult(st.dq[dqDay()]):hub()):v==='daily'?hub():v==='stories'?storiesView():v==='storyc'?storyOpen(st.storyId||'cara'):v==='story'?storiesView():v==='free'?freePlay():home(); }
 function label(x){ const R=TRACKS[x.t||'basis'].rounds[x.r]; if(!R) return ''; if(x.view==='final') return 'eindtoets'; if(x.view==='match') return 'koppelspel'; if(x.view==='kq') return 'kunstkennersles'; if(x.view==='who') return 'Wie ben ik?'; if(x.view==='tl') return 'tijdlijn'; return x.view==='q' ? `vraag ${x.i+1}: ${R.q[x.i].name.toLowerCase()}` : `meesterwerk: ${R.big.t}`; }
 
 function ctaBtn(){ const rf=resumeFrom&&Number.isInteger(resumeFrom.r)&&(resumeFrom.t||'basis')===st.t&&!roundComplete(resumeFrom.r,st.t)?resumeFrom:null; const W=st.t==='hg'?'niveau':'les';
