@@ -3853,6 +3853,8 @@ const GHELLO = {
   durer: nm=>`Grüß Gott${nm}! Ik ben <b>Albrecht Dürer</b> uit Neurenberg. Ik tekende en graveerde alles wat ik zag, van een haas tot Adam en Eva, en ik verstopte er graag symbolen in. Zullen we samen dieper graven?`
 };
 const GROUND = {
+  'basis|4': nm=>`Nu je de eerste symbolen kent${nm}, wil je vast weten waar schilders ze vandaan haalden. In deze les laat ik je hun vijf bronnen zien: <b>de Bijbel, Ovidius, de Gulden Legende, Ripa en de embleemboeken</b>. Dan weet je straks bij elk schilderij waar je moet zoeken.`,
+  'basis|5': nm=>`Dit is een van mijn lievelingslessen${nm}: hier leer je kijken zoals een echte iconoloog. Drie stappen: eerst <b>beschrijven</b> wat je ziet, dan <b>herkennen</b> wat het voorstelt, en pas dan <b>begrijpen</b> wat het betekent. Met die drie stappen kun je elk schilderij aan.`,
   'hg|2': nm=>`Voordat we aan deze module beginnen, wil ik je extra warm welkom heten${nm}: we zijn namelijk aangekomen in <b>de tijd waarin ik leefde</b>! Ik werd in 1606 in Leiden geboren. Ik kan niet wachten om hier met je doorheen te gaan.`,
   'hg|3': nm=>`Dit zijn mijn latere jaren${nm}. Ik stierf in 1669, een paar jaar vóór het Rampjaar. Kom, dan laat ik je zien wat er na mij gebeurde.`,
   'mix|1': nm=>`Dit is een van mijn lievelingsrondes${nm}! Dieren en planten hebben in de kunst bijna altijd een betekenis, en hier kom je ook de <b>Adam en Eva van Albrecht Dürer</b> tegen. Let op elk diertje: niets staat er zomaar.`,
@@ -4606,6 +4608,11 @@ const TIPS={
  free:['Oefenen','Hier oefen je zonder vaste volgorde: kies een onderwerp en raad de symbolen. Ideaal voor tussendoor, of om een les nog eens op te frissen.'],
  musea:['Musea','Ga je binnenkort naar een museum? Speel dan eerst de drie lessen van dat museum. Dan herken je de topstukken meteen als je ervoor staat.'],
  course:['Cursussen','Hier kies je wat je wilt leren. Begin met De basis: daarna gaan de verdieping en de specialisaties open. Je voortgang blijft altijd bewaard.'],
+ route:['Jouw route','Dit is je persoonlijke leerroute: zes fasen, van je eerste symbool tot het diploma Iconoloog. Je ziet altijd wat je volgende stap is. Na elke fase krijg je een museumopdracht, en kun je je vrienden uitdagen.'],
+ rv:['De herhaalronde','Wat je leert, wil je niet meer vergeten. Daarom komen oude vragen hier terug, precies op het moment dat je ze bijna kwijt bent. Een paar minuten per dag is genoeg.'],
+ eeuw:['Raad de eeuw','Je krijgt tien schilderijen te zien. Raad uit welke eeuw ze komen. De goede eeuw is tien punten, één eeuw ernaast nog vijf. Zo train je je oog voor stijl en tijd.'],
+ mm:['Museummodus','Sta je in een museum? Open dan deze modus en zoek het werk waar je voor staat. Ik vertel je wat je ziet en waar je op moet letten. Tik op Ik sta ervoor, dan verdien je extra punten.'],
+ dx:['Het eindexamen','Dit is het moment waar je naartoe hebt gewerkt: tien vragen uit alle cursussen. Heb je er acht goed, dan ben je officieel Iconoloog, met je eigen diploma om te delen.'],
  oracle:['Vraag het Laura','Vergeten waar een symbool voor stond? Typ het hier, bijvoorbeeld ‘handschoenen’ of ‘wat betekent een schedel’. Ik zoek het voor je op, met een schilderij erbij.']
 };
 function lauraTip(k){ st.tips=st.tips||{}; if(st.tips[k]||!TIPS[k]) return; st.tips[k]=1; save(); const [t,x]=TIPS[k];
@@ -6499,7 +6506,7 @@ function rvDone(){ return st.rvDay===rvNow(); }
 function rvCard(){ const n=rvReady(), done=rvDone(), M=rvMeter();
   const sub=done?`Klaar voor vandaag · ${M.mast} van ${M.seen} beheerst`:n?`${n} kaarten klaar · 3 minuten`:'Speel een les, dan komen de vragen hier terug';
   return `<button class="rv-card ${done?'done':''}" onclick="${n||done?'rvStart()':'meterView()'}"><span class="rv-ic">${done?'✓':'↻'}</span><span class="rv-tx"><b>Herhaalronde</b><small>${sub}</small></span><span class="rv-bar"><i style="width:${M.seen?Math.round(M.mast/M.seen*100):0}%"></i></span></button>`; }
-function rvStart(){ const items=rvPick(); if(!items.length){ return meterView(); } RV={items,i:0,ans:[]}; st.view='rv'; save(); rvView(); scrollTo(0,0); }
+function rvStart(){ try{ setTimeout(()=>lauraTip('rv'),300); }catch(e){} const items=rvPick(); if(!items.length){ return meterView(); } RV={items,i:0,ans:[]}; st.view='rv'; save(); rvView(); scrollTo(0,0); }
 function rvView(){ if(!RV) return hub(); st.view='rv'; const x=RV.items[RV.i], q=x.q, a=RV.ans[RV.i], box=(rvS()[x.k]||{}).box||0;
   $(`<div class="dq rv"><div class="top"><button class="btn small" onclick="rvQuit()">✕ Stoppen</button><span class="dq-clock">${RV.i+1}/${RV.items.length}</span></div>
    <div class="eyebrow">Herhaalronde · ${rvCat(x.t)}${box?` · niveau ${box}`:' · nieuw'}</div>
@@ -6548,7 +6555,7 @@ function ewPool(){ const out=[], seen=new Set(); const add=(o)=>{ if(!o||!o.img|
   for(const t of Object.keys(TRACKS)){ (TRACKS[t].rounds||[]).forEach(R=>{ if(!R||R.soon) return; (R.q||[]).forEach(q=>{ add(q.in); (q.also||[]).forEach(add); }); if(R.big) add(R.big); }); } return out; }
 const EW_PER=[[1250,1420,'middeleeuwen en gotiek'],[1420,1520,'renaissance'],[1520,1600,'maniërisme'],[1600,1720,'barok en Gouden Eeuw'],[1720,1790,'rococo'],[1790,1830,'neoclassicisme en romantiek'],[1830,1870,'romantiek en realisme'],[1870,1905,'impressionisme'],[1905,1961,'moderne kunst']];
 function ewPeriod(yr){ const p=EW_PER.find(p=>yr>=p[0]&&yr<p[1]); return p?p[2]:''; }
-function ewStart(){ const pool=ewPool().sort(()=>Math.random()-.5); const pick=[]; const cs={}; for(const x of pool){ const c=Math.floor(x.yr/100); if((cs[c]||0)>=3) continue; cs[c]=(cs[c]||0)+1; pick.push(x); if(pick.length>=EW_N) break; }
+function ewStart(){ try{ setTimeout(()=>lauraTip('eeuw'),300); }catch(e){} const pool=ewPool().sort(()=>Math.random()-.5); const pick=[]; const cs={}; for(const x of pool){ const c=Math.floor(x.yr/100); if((cs[c]||0)>=3) continue; cs[c]=(cs[c]||0)+1; pick.push(x); if(pick.length>=EW_N) break; }
   EW={items:pick,i:0,ans:[],pts:0}; st.view='eeuw'; ewView(); scrollTo(0,0); }
 function ewView(){ if(!EW) return hub(); st.view='eeuw'; const x=EW.items[EW.i], a=EW.ans[EW.i], cents=[13,14,15,16,17,18,19,20], cx=Math.floor(x.yr/100)+1;
   $(`<div class="dq rv ew"><div class="top"><button class="btn small" onclick="EW=null;hub()">✕ Stoppen</button><span class="dq-clock">${EW.i+1}/${EW.items.length} · ${EW.pts} pt</span></div>
@@ -6574,7 +6581,7 @@ function mmAll(){ const out=[], seen=new Set();
   const add=(o,extra)=>{ if(!o||!o.img||!o.where) return; const m=mmMuseum(o.where); if(!m||/eeuw|prent|gravure|Italië|Hollandse|Vlaamse|embleembundel/i.test(m)) return; const it={img:o.img,t:o.t,a:o.a,y:o.y,where:o.where,mus:m,...extra}; if(seen.has(o.img)){ if(extra.big){ const k=out.findIndex(x=>x.img===o.img); if(k>=0&&!out[k].big) out[k]=it; } return; } seen.add(o.img); out.push(it); };
   for(const t of Object.keys(TRACKS)){ (TRACKS[t].rounds||[]).forEach((R,r)=>{ if(!R||R.soon) return; (R.q||[]).forEach((q,i)=>add(q.in,{q:q.question,exp:q.exp,t0:t,r,i,also:q.also})); if(R.big) add(R.big,{big:1,intro:R.big.intro,story:R.big.story,details:R.big.details,t0:t,r}); }); } return out; }
 const MM_NL=/Rijksmuseum|Mauritshuis|Van Gogh Museum|Kröller|Frans Hals|Boijmans|Lakenhal|Dordrechts|Centraal Museum|Bonnefanten|Twenthe|Het Loo|Fries Museum|Groninger|Drents|Zeeuws|Krona|Stedelijk|Teylers|Singer|Amsterdam Museum|Rijksmuseum Twenthe/i;
-function mmView(){ st.view='mm'; save(); const all=mmAll(), by={}; all.forEach(x=>{ (by[x.mus]=by[x.mus]||[]).push(x); });
+function mmView(){ try{ setTimeout(()=>lauraTip('mm'),300); }catch(e){} st.view='mm'; save(); const all=mmAll(), by={}; all.forEach(x=>{ (by[x.mus]=by[x.mus]||[]).push(x); });
   const list=Object.entries(by).filter(([m,a])=>a.length>=3).sort((a,b)=>(MM_NL.test(b[0])-MM_NL.test(a[0]))||b[1].length-a[1].length);
   const q=MMQ.toLowerCase(), hits=q.length>=2?all.filter(x=>(x.t+' '+x.a+' '+x.mus).toLowerCase().includes(q)).slice(0,30):[];
   $(`<div class="dq mm"><div class="top"><button class="btn small" onclick="hub()">‹ Terug</button></div>
@@ -6604,7 +6611,7 @@ function mmCard(){ const n=Object.keys(st.mmSeen||{}).length; return `<button cl
 /* ---------- Eindexamen en diploma Iconoloog ---------- */
 let DX=null; const DX_N=10, DX_PASS=8;
 function dxOpen(){ return st.beta||!!st.diploma||(TRACKS.n5&&trackDone('n5')); }
-function dxStart(){ const all=rvAll().filter(c=>!TRACKS[c.t].museum); const pick=all.sort(()=>Math.random()-.5).slice(0,DX_N); DX={items:pick,i:0,ans:[]}; st.view='dx'; dxView(); scrollTo(0,0); }
+function dxStart(){ try{ setTimeout(()=>lauraTip('dx'),300); }catch(e){} const all=rvAll().filter(c=>!TRACKS[c.t].museum); const pick=all.sort(()=>Math.random()-.5).slice(0,DX_N); DX={items:pick,i:0,ans:[]}; st.view='dx'; dxView(); scrollTo(0,0); }
 function dxView(){ if(!DX) return hub(); st.view='dx'; const x=DX.items[DX.i], q=x.q, a=DX.ans[DX.i];
   $(`<div class="dq rv"><div class="top"><button class="btn small" onclick="DX=null;hub()">✕ Stoppen</button><span class="dq-clock">${DX.i+1}/${DX_N}</span></div>
    <div class="eyebrow">Eindexamen · diploma Iconoloog</div>
@@ -6654,7 +6661,7 @@ function rtShare(n){ const P=ROUTE[n]; const url='https://kunstmetlaura.nl/#vq='
   try{ if(navigator.share){ navigator.share({title:'Kunst met Laura',text,url}); } else { navigator.clipboard.writeText(text+' '+url); toast('Link gekopieerd: plak hem in een berichtje'); } }catch(e){ try{ navigator.clipboard.writeText(text+' '+url); toast('Link gekopieerd'); }catch(_){} } }
 function routeCard2(){ const P=rtCurrent(), N=rtNextStep(); const tot=ROUTE.filter(p=>rtPhase(p).done).length;
   return `<button class="rv-card rt-card" onclick="routeView()"><span class="rv-ic">🧭</span><span class="rv-tx"><b>Jouw route</b><small>${P?`Fase ${P.n} van 5 · ${P.t} · ${rtPhase(P).pct}%`:'Alle fasen voltooid'}</small></span><span class="rv-bar"><i style="width:${Math.round(tot/ROUTE.length*100)}%"></i></span></button>`; }
-function routeView(){ st.view='route'; save(); const cur=rtCurrent(), N=rtNextStep();
+function routeView(){ try{ setTimeout(()=>lauraTip('route'),300); }catch(e){} st.view='route'; save(); const cur=rtCurrent(), N=rtNextStep();
   const row=P=>{ const ph=rtPhase(P), isCur=cur&&cur.n===P.n, lock=cur&&P.n>cur.n, M=rtMission(P);
     const trs=P.tr.map(t=>{ const L=rtLessons(t); return `<button class="rt-tr ${L.d>=L.n&&L.n?'done':''}" ${lock?'disabled':''} onclick="chooseTrack('${t}')"><span>${SHORT[t]||TRACKS[t].title}</span><small>${L.d}/${L.n}</small></button>`; }).join('');
     return `<div class="rt-ph ${ph.done?'done':''} ${isCur?'cur':''} ${lock?'lock':''}"><div class="rt-dot">${ph.done?'✓':P.n}</div><div class="rt-body">
@@ -13428,6 +13435,9 @@ try{ if(!st.onb) onbVoxLoad(); }catch(e){}
 try{ new MutationObserver(ms=>ms.forEach(m=>m.addedNodes.forEach(n=>{ if(!n.dataset||!n.dataset.vox) return; const [sid,key]=n.dataset.vox.split('|'); voxLoad(sid); let k=0; const go=()=>{ if(!n.isConnected) return; if(window.VOX&&VOX[sid]&&VOX[sid][key]){ try{ auResume(); }catch(e){} speak(sid,key,true); } else if(k++<30) setTimeout(go,150); }; setTimeout(go,600); }))).observe(document.body,{childList:true}); }catch(e){}
 /* Laura blijft je gids in Deel 2 en 3: eenmalig welkom */
 const LWELKOM={mix:'Welkom bij Deel 2! Ik blijf gewoon je gids. In de basis leerde je de bekendste symbolen. Nu gaan we verder: nieuwe symbolen, moeilijkere puzzels en schilderijen waarin meer verstopt zit dan je denkt.',
+  n4:'Welkom bij Deel 4: stijl en tijd! Je weet nu wat er op een schilderij staat. Nu leer je zien wanneer het gemaakt is, van gouden middeleeuwse panelen tot de eerste moderne kunst. Na deze zes lessen plaats je elk schilderij op een halve eeuw nauwkeurig.',
+  n5:'Welkom bij Deel 5: het meesterschap! Hier komt alles samen. Je leert elk onbekend werk ontleden met vijf vragen. En aan het eind wacht het eindexamen: haal je dat, dan krijg je het diploma Iconoloog.',
+  tech:'Welkom bij Technieken! Naast elk schilderij hangt een bordje met woorden als olieverf op paneel of tempera. Na deze vier korte lessen begrijp je elk woord op dat bordje, en zie je hoe een kunstwerk gemaakt is.',
   n3:'Welkom bij Deel 3: meesterlijk kijken! Je kent nu heel wat symbolen. Nu leer je kijken zoals een echte kenner: naar de context, de details en de dubbele bodems. Ik ga gewoon met je mee.'};
 { const o=window.home; if(typeof o==='function') window.home=function(...a){ const r=o.apply(this,a); try{ const t=st.t; st.gseen=st.gseen||{}; if(LWELKOM[t]&&!st.gseen['w:'+t]){ st.gseen['w:'+t]=1; save(); const m=document.createElement('div'); m.className='lb gl-modal'; m.dataset.vox='guides|welkom_'+t; m.onclick=()=>m.remove();
   m.innerHTML=`<div class="gl-box guide-box" onclick="event.stopPropagation()"><div class="gb-fig">${lauraSVG(0)}</div><div class="ob-bubble">${LWELKOM[t].replace(/^(Welkom bij [^!]*!)/,'<b>$1</b>')}</div><button class="btn primary big" onclick="this.closest('.lb').remove()">Laten we beginnen</button></div>`; setTimeout(()=>qModal(m),500); } }catch(e){} return r; }; }
