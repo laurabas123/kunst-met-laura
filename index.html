@@ -3471,7 +3471,8 @@ function guideCheer(r){ const g=guideOf(), G=GUIDES[g], arr=GCHEER[g], nm=st.nam
 function preStart(t){ const S=PRE_OF(t); if(!S) return; setTrack(t); storyEnsure(); document.querySelectorAll('.lb').forEach(x=>x.remove()); storyPlay(S.id,0); }
 function preSkip(t){ st.pre=st.pre||{}; st.pre[t]='skip'; save(); document.querySelectorAll('.lb').forEach(x=>x.remove()); openRound(0); }
 function preOffer(){ const t=st.t, S=PRE_OF(t), g=guideOf(t), G=GUIDES[g], nm=st.name?`, ${st.name}`:''; st.gseen=st.gseen||{}; const hello=!st.gseen['g:'+g]?GHELLO[g](nm)+'<br><br>':''; if(hello) setTimeout(()=>helloSay(g),200); if(g==='zeus') preSayZeus(!!hello); st.gseen['g:'+g]=1; save(); storyEnsure();
-  const what=t==='myth'?'Ik neem je eerst mee in wat mythologie eigenlijk is, en we lopen samen langs mijn stamboom. Wie is familie van wie?':'Eerst stel ik je voor aan Cesare Ripa. Zijn boek <i>Iconologia</i> is het spiekboek achter bijna alle deugden en ondeugden die je gaat zien.';
+  const WHAT={bijbel:'Ik laat je eerst zien hoe je een Bijbels schilderij leest: aan welk moment, welke voorwerpen en welke kleuren herken je het verhaal?', ge:'Rembrandt vertelt je eerst waarom Hollandse schilders huiskamers, stillevens en landschappen schilderden, en wat de dubbele bodem is.', kenner:'Leonardo da Vinci neemt je eerst mee in zijn werkplaats: wie schilderde wat, en wat betekenen woorden als toegeschreven aan, werkplaats van en naar?', hg:'Ik neem je eerst in vogelvlucht mee door zeven eeuwen Nederland, van de middeleeuwen tot Mondriaan.'};
+  const what=WHAT[t]?WHAT[t]:t==='myth'?'Ik neem je eerst mee in wat mythologie eigenlijk is, en we lopen samen langs mijn stamboom. Wie is familie van wie?':'Eerst stel ik je voor aan Cesare Ripa. Zijn boek <i>Iconologia</i> is het spiekboek achter bijna alle deugden en ondeugden die je gaat zien.';
   const d=document.createElement('div'); d.className='lb gl-modal';
   d.innerHTML=`<div class="gl-box guide-box" onclick="event.stopPropagation()"><div class="gb-fig">${G.svg()}</div><div class="eyebrow center">${G.name} · ${G.role}</div>
     <div class="ob-bubble">${hello}<b>Voor je begint:</b> er is een korte voorkenniscursus van 3 minuten. ${what} Ik raad hem je ten zeerste aan: dan begrijp je de lessen veel beter.</div>
@@ -4984,7 +4985,99 @@ const PRE_LIST = [
     {art:'st_p4', t:'Jupiter en Thetis', a:'Jean-Auguste-Dominique Ingres', yr:'1811', x:'Daar zit hij: Jupiter op zijn troon boven de wolken, met scepter en adelaar. De zeenimf Thetis klampt zich smekend aan hem vast. Ze vraagt hem haar zoon Achilles te helpen in de Trojaanse Oorlog. Zo zag een schilder de oppergod: onverstoorbaar, machtig, en een tikje ijdel.'},
     {s:'zeus', x:'Een tikje ijdel? Ik? Genoeg gepraat. Op naar de eerste les: de Olympische goden!'}
   ]}
+]},
+{ id:'pre_bijbel', pre:'bijbel', t:'Voorkennis Bijbelse verhalen', sub:'Hoe lees je een Bijbels schilderij?', yrs:'1400–1700', who:'catharina', col:'#5a3a1e',
+  intro:'', outro:'Nu weet je waar je op moet letten: het moment, de attributen en de kleuren. Zie je een mes en een ram, of een blauwe mantel? Dan weet je welk verhaal je voor je hebt.',
+  chapters:[
+  { t:'Een boek vol beelden', y:'Europa, 1400–1700', end:'', beats:[
+    {bg:'church', in:'catharina', at:'c', s:'catharina', x:'Welkom in de kerk. Kijk om je heen: overal schilderijen, beelden en glas-in-lood. Weet jij waarom er vroeger zóveel Bijbelse kunst werd gemaakt?', yn:['Ja, ik denk het wel','Nee, vertel!'], ya:'Mooi, dan kijken we of je gelijk had.', na:'Dan vertel ik het je. Het is eenvoudiger dan je denkt.'},
+    {n:'Eeuwenlang was de <b>kerk</b> de grootste opdrachtgever van kunstenaars. En de meeste mensen konden niet lezen. De verhalen kenden ze van de preek, en van de beelden in de kerk.'},
+    {s:'catharina', x:'Een schilderij was dus een preek zonder woorden. Je moest in één oogopslag zien welk verhaal het was.'},
+    {q:'Hoe deed een schilder dat, zonder tekst erbij?', o:['Hij schreef de titel altijd groot onderaan het doek','Hij koos één herkenbaar moment en gaf de figuren vaste voorwerpen mee','Hij schilderde alle scènes van het verhaal naast elkaar'], c:1,
+      e:'Schilders kozen het <b>spannendste moment</b> en gaven de figuren <b>attributen</b>: voorwerpen waaraan je ze herkent. Wie die tekens kent, leest het verhaal zonder één woord.', img:false},
+    {art:'P:j1', t:'Het offer van Isaak', a:'Caravaggio', yr:'ca. 1603', x:'Een oude man met een mes, een jongen die schreeuwt, een engel die ingrijpt en een ram rechts. Dat is <b>Abraham</b>, die zijn zoon Isaak moet offeren. Op het laatste moment houdt de engel hem tegen.'},
+    {s:'catharina', x:'De Bijbel bestaat uit twee delen. Het <b>Oude Testament</b>: Adam en Eva, Abraham, Mozes, David. En het <b>Nieuwe Testament</b>: het leven van Jezus, Maria en de apostelen.'},
+    {art:'P:j4', t:'De profeet Jona', a:'Michelangelo', yr:'1511', x:'Schilders koppelden die twee delen graag aan elkaar. Jona zat drie dagen in de buik van een grote vis en kwam er levend uit. Zo werd hij een voorbode van Jezus, die na drie dagen opstond uit het graf.'},
+    {q:'Waarom zette Michelangelo Jona juist boven het altaar van de Sixtijnse Kapel?', o:['Omdat Jona de beschermheilige van Rome was','Omdat zijn drie dagen in de vis wijzen naar de opstanding van Jezus','Omdat de paus graag vis at op vrijdag'], c:1,
+      e:'Een verhaal uit het Oude Testament dat vooruitwijst naar het Nieuwe heet een <b>typologie</b>. Jona in de vis staat voor Jezus in het graf.', img:false},
+    {s:'catharina', x:'Let ook op de kleuren. Maria draagt bijna altijd een <b>blauwe mantel</b> over een rode jurk. Blauw was de duurste verf, gemaakt van lapis lazuli. Alleen het beste was goed genoeg voor haar.'},
+    {art:'P:u1', t:'De aanbidding der koningen', a:'Francisco de Zurbarán', yr:'1638–1639', x:'Herken je haar? Maria met het kind, en drie wijzen uit het oosten met kostbare geschenken: goud, wierook en mirre. Eén koning is vaak jong, één van middelbare leeftijd en één oud.'},
+    {s:'catharina', x:'Nog één ding: de <b>stralenkrans</b>. Een gouden cirkel of een lichtje boven het hoofd betekent: dit is een heilige.'},
+    {q:'Je ziet een man met een stralenkrans die water over het hoofd van een ander giet, in een rivier. Wat zie je?', o:['De doop van Jezus door Johannes','De bruiloft te Kana','Mozes die water uit de rots slaat'], c:0, img:'P:u3',
+      e:'Een rivier, water over het hoofd en vaak een duif erboven: dat is de <b>doop van Jezus</b> in de Jordaan, door Johannes de Doper. De duif is de Heilige Geest.'},
+    {art:'P:w1', t:'Het Laatste Avondmaal', a:'Leonardo da Vinci', yr:'1495–1498', x:'Het beroemdste Bijbelse schilderij ter wereld. Jezus zegt net: “Een van jullie zal mij verraden.” Kijk hoe de apostelen schrikken. Judas schuift naar achteren, met het buideltje geld in zijn hand.'},
+    {s:'catharina', x:'Moment, attributen, kleuren en stralenkrans. Met die vier sleutels open je bijna elk Bijbels schilderij. We beginnen bij de helden en heldinnen van het Oude Testament.'}
+  ]}
+]},
+{ id:'pre_ge', pre:'ge', t:'Voorkennis Gouden Eeuw', sub:'Kunst voor de huiskamer, met een dubbele bodem', yrs:'1600–1800', who:'rembrandt', col:'#3a4a2a',
+  intro:'', outro:'Nu weet je waarom Hollandse schilderijen zo gewoon lijken, en waarom ze dat bijna nooit zijn. Kijk in de lessen goed naar de details: daar zit de boodschap.',
+  chapters:[
+  { t:'Kunst voor thuis', y:'De Republiek, 1600–1700', end:'', beats:[
+    {bg:'amsterdam', in:'catharina', at:'l', s:'catharina', x:'In Italië en Frankrijk betaalden pausen en koningen de kunst. Maar in de Republiek ging het heel anders. Ik laat het iemand uitleggen die er middenin stond.'},
+    {in:'rembrandt', at:'r', s:'rembrandt', x:'Rembrandt van Rijn, aangenaam. Na de Opstand en de Reformatie hingen er in onze kerken geen schilderijen meer. De grote opdrachtgever was weg. Wij moesten dus iets anders verzinnen.'},
+    {n:'Hollandse schilders gingen schilderen voor de <b>markt</b>: voor kooplieden, bakkers en ambachtslieden. Op hun hoogtepunt maakten ze samen <b>miljoenen</b> schilderijen.'},
+    {s:'rembrandt', x:'En wat wil een koopman boven zijn schouw? Geen martelaar of heilige. Hij wil zijn eigen wereld zien: zijn stad, zijn landschap, zijn tafel, zijn huiskamer.'},
+    {q:'Wat werd er daardoor vooral geschilderd?', o:['Grote altaarstukken voor de kerken','Interieurs, stillevens, landschappen en zeegezichten','Portretten van koningen en keizers'], c:1,
+      e:'Zo ontstonden de <b>genres</b> waar de Gouden Eeuw beroemd om is: het <b>genrestuk</b> (dagelijks leven), het <b>stilleven</b>, het <b>landschap</b> en het <b>zeestuk</b>. Veel schilders specialiseerden zich in één genre.', img:false},
+    {art:'P:g3', t:'Het minnekozie (Het doktersbezoek)', a:'Jan Steen', yr:'ca. 1660', x:'Gewoon een zieke jonge vrouw met een dokter? Kijk nog eens. Haar ziekte is geen griep. Het is <b>liefdesverdriet</b>, of ze is zwanger. Jan Steen knipoogt naar de kijker.'},
+    {s:'catharina', x:'Dat is het geheim van deze cursus: de <b>dubbele bodem</b>. Het lijkt een gewone huiskamer, maar de voorwerpen vertellen een les.'},
+    {s:'rembrandt', x:'Wij haalden die betekenissen uit <b>embleemboeken</b>, zoals die van Jacob Cats. Een plaatje met een spreuk en een gedicht. Iedereen had ze thuis liggen.'},
+    {q:'Een schilder zet een omgevallen glas, een uitgedoofde pijp en verwelkte bloemen op tafel. Wat zegt hij daarmee?', o:['Dat de eigenaar slordig is en een dienstmeid nodig heeft','Dat het leven kort is en genot snel voorbijgaat','Dat er net een feest is geweest bij de buren'], c:1,
+      e:'Dat is de taal van de <b>vanitas</b>: alles wat mooi en lekker is, gaat voorbij. Zelfs in een vrolijk stilleven fluistert de schilder: denk aan wat echt belangrijk is.', img:false},
+    {art:'P:g5', t:'Stilleven met nautilusbeker', a:'Willem Kalf', yr:'1662', x:'Een dure schelp in goud gevat, een Chinese kom, een half geschilde citroen. Prachtig én een waarschuwing: rijkdom is mooi, maar vergankelijk. Zie je hoe de citroenschil naar beneden krult?'},
+    {art:'P:l3', t:'Gezicht op Haarlem met bleekvelden', a:'Jacob van Ruisdael', yr:'ca. 1670', x:'Ook landschappen vertellen iets. Een enorme lucht, een stad in de verte, linnen dat ligt te bleken in de zon. Trots op het eigen land, dat de Hollanders zelf op het water hadden veroverd.'},
+    {s:'catharina', x:'Na 1700 komt de <b>Verlichting</b>. Mensen gaan geloven in de rede, in wetenschap en in onderwijs. Ook dat zie je terug in de kunst: lessen in fatsoen, experimenten en onderzoek.'},
+    {q:'Wat is de beste vraag die je jezelf stelt bij een Hollands interieur?', o:['Hoeveel heeft dit schilderij destijds gekost?','Waarom staat dít voorwerp hier, en wat zou het kunnen betekenen?','In welke stad woonde deze familie precies?'], c:1,
+      e:'Niets staat er zomaar. Een <b>citroen</b>, een <b>weegschaal</b>, een <b>vogelkooi</b> of een <b>luit</b>: elk voorwerp kan een betekenis hebben. Dat ga je in de lessen leren lezen.', img:false},
+    {s:'rembrandt', x:'Kom, we gaan naar binnen. Eerste les: het Hollandse interieur. Kijk goed wat de mensen in hun handen hebben.'}
+  ]}
+]},
+{ id:'pre_kenner', pre:'kenner', t:'Voorkennis Kunstkenner', sub:'Meester, werkplaats, kopie of vervalsing?', yrs:'1400–1900', who:'leo', col:'#4a3a5a',
+  intro:'', outro:'Nu weet je dat achter veel “meesterwerken” een hele werkplaats zat. In de lessen leer je zelf het verschil zien: kijk naar handen, stof, licht en compositie.',
+  chapters:[
+  { t:'Wie schilderde dit?', y:'Florence, ca. 1500', end:'', beats:[
+    {bg:'workshop', in:'catharina', at:'l', s:'catharina', x:'Je denkt misschien: een schilderij van Leonardo, dat heeft Leonardo geschilderd. Klaar. Maar zo simpel is het zelden. Ik stel je voor aan de meester zelf.'},
+    {in:'leo', at:'r', s:'leo', x:'Leonardo da Vinci. Welkom in mijn werkplaats. Kijk maar rond: leerlingen die verf malen, assistenten die achtergronden schilderen. Alleen was ik nooit.'},
+    {n:'Vroeger werkte bijna elke grote schilder met een <b>werkplaats</b>. Leerlingen begonnen soms al op hun twaalfde. Ze maalden pigment, bereidden panelen voor en schilderden mee aan de opdrachten.'},
+    {q:'Was het bedrog als een leerling een deel van een schilderij van de meester maakte?', o:['Ja, daar konden schilders voor worden gestraft','Nee, dat was gewoon zo; de meester deed de belangrijkste delen','Alleen als de klant er achteraf achter kwam'], c:1,
+      e:'Het was heel <b>normaal</b>. In contracten stond soms precies welke delen de meester zelf moest schilderen: meestal de gezichten en de handen. De rest mocht de werkplaats doen.', img:false},
+    {s:'leo', x:'En als een klant iets mooi vond, wilde zijn buurman er ook een. Dan maakte de werkplaats een kopie. Soms onder mijn toezicht, soms jaren later door een navolger.'},
+    {art:'P:k1b', t:'Mona Lisa (kopie)', a:'werkplaats van Leonardo', yr:'ca. 1503–1519', x:'Deze <b>Mona Lisa</b> hangt in het Prado in Madrid. Ze werd naast het origineel geschilderd, waarschijnlijk door een leerling. Hetzelfde gezicht, maar zie je hoe vlak en hard ze is vergeleken met de echte?'},
+    {s:'catharina', x:'Daarom lees je in musea van die rare woorden op het bordje. Ze vertellen hoe zeker men is over de maker.'},
+    {n:'<b>Leonardo da Vinci</b>: hij heeft het zelf geschilderd. <b>Toegeschreven aan</b>: waarschijnlijk hij, maar niet zeker. <b>Werkplaats van</b>: gemaakt in zijn atelier. <b>Naar</b>: een kopie van zijn werk, door een ander.'},
+    {q:'Op een bordje staat: “naar Hans Holbein”. Wat betekent dat?', o:['Holbein heeft het zelf geschilderd, op latere leeftijd','Het is een kopie van een werk van Holbein, door iemand anders','Holbein heeft het naar het museum gebracht'], c:1,
+      e:'<b>Naar</b> betekent: een kopie of navolging van een werk van die meester. Vaak goed gemaakt, maar niet door de meester zelf.', img:false},
+    {s:'leo', x:'Hoe zie je het verschil? Kijk naar de handen. Een hand is het moeilijkste wat er is. Een meester laat je de botten en de huid voelen. Een navolger maakt er worstjes van.'},
+    {art:'P:k3', t:'Studie van biddende handen', a:'Albrecht Dürer', yr:'1508', x:'Zo ziet meesterschap eruit: elke rimpel, elke ader, het licht op de knokkels. Dürer tekende dit als studie voor een altaarstuk.'},
+    {art:'P:k14b', t:'De Emmaüsgangers', a:'Han van Meegeren', yr:'1937', x:'En dan de vervalsers. Deze “Vermeer” werd in 1937 verkocht aan Museum Boijmans voor een fortuin. Hij was gemaakt door de Nederlander <b>Han van Meegeren</b>. Pas in 1945 kwam het uit.'},
+    {q:'Wat verraadde Van Meegeren uiteindelijk?', o:['Hij bekende het zelf, om niet als verrader te worden veroordeeld','Een museumbewaker zag dat de verf nog nat was','Vermeer had zijn handtekening altijd achterop gezet'], c:0,
+      e:'Na de oorlog werd Van Meegeren opgepakt omdat hij een “Vermeer” aan nazi-kopstuk Göring had verkocht. Daar stond zware straf op. Om te bewijzen dat het nep was, schilderde hij <b>onder toezicht een nieuwe “Vermeer”</b>.', img:false},
+    {s:'catharina', x:'Echt, werkplaats, kopie of vervalsing? Na deze cursus kijk je als een kenner. We beginnen bij het moeilijkste: handen en gezichten.'}
+  ]}
+]},
+{ id:'pre_hg', pre:'hg', t:'Voorkennis Hollandse glorie', sub:'Zeven eeuwen Nederland in vijf minuten', yrs:'1400–nu', who:'rembrandt', col:'#2a4a6a',
+  intro:'', outro:'Nu heb je de tijdlijn in je hoofd. In elke les zoomen we in op één periode. Let steeds op wat er in het land gebeurde: dat zie je terug op het doek.',
+  chapters:[
+  { t:'Water en verf', y:'1400 tot nu', end:'', beats:[
+    {bg:'amsterdam', in:'rembrandt', at:'c', s:'rembrandt', x:'Welkom! In deze cursus loop je met mij door zeven eeuwen Nederlandse kunst. Weet je wat er bijzonder is aan kunst uit dit kleine landje?', yn:['Ik heb wel een idee','Nee, vertel!'], ya:'Dan gaan we kijken of je gelijk had.', na:'Dan neem ik je mee. Het begint met water.'},
+    {n:'Nederland ligt grotendeels onder de zeespiegel. Eeuwenlang vochten de mensen tegen het water, met dijken, molens en sluizen. Dat zie je in de kunst terug: luchten, rivieren, schepen en stormen.'},
+    {art:'P:ha4', t:'De Sint-Elisabethsvloed', a:'Meester van de Sint-Elisabethpanelen', yr:'ca. 1490–1495', x:'We beginnen in de <b>middeleeuwen</b>. In 1421 overstroomde een groot deel van Holland en Zeeland. Kijk naar de dorpen die in het water verdwijnen. Kunst ging toen vooral over geloof, en over angst.'},
+    {s:'rembrandt', x:'Dan komt de <b>Opstand</b>. Vanaf 1568 vechten de Nederlanden tachtig jaar lang tegen de Spaanse koning. Onze leider: Willem van Oranje.'},
+    {art:'P:hb5', t:'Portret van Willem I, prins van Oranje', a:'Adriaen Thomasz Key', yr:'ca. 1579', x:'Willem van Oranje, de “Vader des Vaderlands”. In 1584 werd hij in Delft vermoord. Ons volkslied, het Wilhelmus, gaat over hem.'},
+    {q:'Wat veranderde er voor schilders toen de Republiek protestants werd?', o:['Ze mochten alleen nog Bijbelse verhalen schilderen','De kerken werden wit, en schilders gingen werken voor burgers thuis','De schilderkunst werd helemaal verboden'], c:1,
+      e:'Na de <b>Beeldenstorm</b> en de Reformatie verdwenen de schilderijen uit de kerken. Schilders gingen werken voor de <b>markt</b>: kooplieden en burgers die hun eigen wereld aan de muur wilden.', img:false},
+    {art:'P:gB', t:'De Nachtwacht', a:'Rembrandt', yr:'1642', x:'En dan de <b>Gouden Eeuw</b>. De VOC maakt Amsterdam schatrijk. Schutters laten zich vereeuwigen. Deze ken je wel: mijn bekendste werk. Eigenlijk speelt het overdag, maar het vernis werd zo donker dat men er een nacht in zag.'},
+    {s:'rembrandt', x:'Maar na 1672, het <b>Rampjaar</b>, gaat het minder goed. In de 18e eeuw, de <b>pruikentijd</b>, is de Republiek niet meer de rijkste van de wereld. De kunst wordt kleiner, eleganter en Franser.'},
+    {art:'P:hf1', t:'Portret van koning Willem I', a:'Joseph Paelinck', yr:'1819', x:'Na de Franse tijd wordt Nederland in <b>1815</b> een koninkrijk. Willem I is onze eerste koning. Schilders gaan terugkijken naar de glorie van de Gouden Eeuw.'},
+    {q:'Welke volgorde klopt?', o:['Gouden Eeuw, Opstand, koninkrijk, middeleeuwen','Middeleeuwen, Opstand, Gouden Eeuw, koninkrijk','Opstand, middeleeuwen, koninkrijk, Gouden Eeuw'], c:1,
+      e:'<b>Middeleeuwen</b> (tot ca. 1500), <b>Opstand</b> (vanaf 1568), <b>Gouden Eeuw</b> (de 17e eeuw), pruikentijd (18e eeuw) en het <b>koninkrijk</b> (vanaf 1815).', img:false},
+    {s:'rembrandt', x:'Rond 1880 schildert de <b>Haagse School</b> grijze luchten en vissers in Scheveningen. En dan komt er een jongen uit Brabant die alles op zijn kop zet.'},
+    {art:'P:hg1', t:'Zonnebloemen', a:'Vincent van Gogh', yr:'1888', x:'<b>Vincent van Gogh</b>. Begonnen met donkere boeren, geëindigd met zonnebloemen vol licht. Bij zijn leven verkocht hij bijna niets. Nu kent de hele wereld hem.'},
+    {art:'P:hh2', t:'Compositie met rood, geel en blauw', a:'Piet Mondriaan', yr:'1930', x:'En in de 20e eeuw <b>Piet Mondriaan</b>: alleen nog rechte lijnen en drie kleuren. Hij begon met molens en bomen, en eindigde hier. In de lessen zie je hoe dat ging.'},
+    {s:'rembrandt', x:'Water, geloof, handel en licht. Dat is de rode draad. We beginnen in de middeleeuwen, bij een getijdenboek vol krakelingen.'}
+  ]}
 ]}
+
 ];
 
 const storyById = id => STORIES.find(s=>s.id===id)||PRE_LIST.find(s=>s.id===id);
