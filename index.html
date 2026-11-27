@@ -3227,7 +3227,7 @@ function toggleKenner(){ st.kenner=!st.kenner; render(); }
 const kennerToggle = () => `<label class="ktoggle"><input type="checkbox" ${st.kenner?'checked':''} onchange="toggleKenner()"><span class="kt-sw"></span><span><b>🎓 Ook goede kunst leren herkennen</b><br><span class="muted" style="font-size:.82rem">Dan krijg je in elke basisronde, vóór het meesterwerk, de kunstkennersles van dezelfde les. Telt ook mee voor de losse module.</span></span></label>`;
 
 /* ================= KUNST MET LAURA: avatar, welkom, thema-badges ================= */
-const LAURA = {hair:'#5e3a22', hairHi:'#9a6a3e', hairDk:'#40261a', skin:'#efc6a3', skinSh:'#d9a684', dress:'#a3222d', dressSh:'#5c0f18', gold:'#d7b46a', lace:'#efe4cf', glasses:'#3e63b0', lips:'#c0645a'};
+const LAURA = {hair:'#5e3a22', hairHi:'#9a6a3e', hairDk:'#40261a', skin:'#efc6a3', skinSh:'#d9a684', dress:'#1f3a78', dressSh:'#152a59', gold:'#d7b46a', lace:'#efe4cf', glasses:'#3e63b0', lips:'#c0645a'};
 function lauraSVG(size,head,clap,gala){ const C=gala?LAURA_GALA:LAURA;
   const curls=(x,y,n,dir)=>Array.from({length:n},(_,k)=>`<path d="M${x+dir*(k%2?4:-2)} ${y+k*18} q${dir*14} 8 ${dir*2} 18" stroke="${C.hairHi}" stroke-width="2.2" fill="none" stroke-linecap="round" opacity=".75"/>`).join('');
   return `<svg class="${head?'lhead':'laura'}" viewBox="${head?'72 34 96 96':'0 0 240 360'}" ${size?`style="width:${size}px"`:''} xmlns="http://www.w3.org/2000/svg" aria-label="Laura">
@@ -3309,7 +3309,7 @@ ${gala?`<g><path d="M98 58 L104 46 L112 54 L120 40 L128 54 L136 46 L142 58 Q120 
 
 
 /* ---------- Gidsen per route ---------- */
-const LAURA_GALA = {...LAURA, dress:'#1f3a78', dressSh:'#152a59', gold:'#e3c77e', lace:'#f6eedc'};
+const LAURA_GALA = {...LAURA, dress:'#7a1f3d', dressSh:'#4f1226', gold:'#e3c77e', lace:'#f6eedc'};
 /* attributen van Zeus: bliksemschicht in de hand, adelaar aan zijn voeten */
 const ZEUS_BOLT=`<g class="zbolt"><path d="M92 196 L74 236 L86 236 L70 282 L102 228 L89 228 L101 196Z" fill="#f2c84a" stroke="#a87a1e" stroke-width="2" stroke-linejoin="round"/><path d="M92 196 L74 236 L86 236 L70 282" stroke="#fff6c8" stroke-width="1.4" fill="none" opacity=".8"/></g><circle cx="80" cy="258" r="8" fill="#efc6a3"/>`;
 const ZEUS_EAGLE=`<g class="zeagle"><path d="M170 312 C160 296 162 280 176 278 C174 292 180 304 188 312Z" fill="#4a2f17"/><path d="M206 312 C216 296 214 280 200 278 C202 292 196 304 188 312Z" fill="#4a2f17"/><ellipse cx="188" cy="318" rx="13" ry="20" fill="#5e3c1e"/><path d="M178 330 l-4 10 M184 334 l-1 8 M192 334 l1 8 M198 330 l4 10" stroke="#e0a526" stroke-width="2.6" stroke-linecap="round"/><path d="M182 336 h12 l-2 6 h-8z" fill="#3a2410"/><circle cx="188" cy="296" r="9" fill="#f4efe4"/><path d="M195 294 l8 3 l-7 4z" fill="#e0a526"/><circle cx="191" cy="294" r="1.6" fill="#1b1714"/></g>`;
@@ -5989,6 +5989,7 @@ function wowReveal(){ const k=document.getElementById('wowsk'); if(!k||k.classLi
 function wowAns(b,c){ let gone=false; const go=()=>{ if(gone||WOW.step!==3) return; gone=true; WOW.step=4; wowView(); setTimeout(()=>wowSay('w7'),400); }; document.querySelectorAll('.wow-opts .btn').forEach(x=>x.disabled=true); b.classList.add(c?'ok':'bad');
   if(!c){ const g=[...document.querySelectorAll('.wow-opts .btn')].find(x=>x.textContent==='Dat zijn tijd kostbaar is'); g&&g.classList.add('ok'); }
   try{ if(c) sfx('correct'); }catch(_){} const t0=Date.now(); wowSay(c?'w6':'w6b',ok=>setTimeout(go,ok?700:Math.max(0,2600-(Date.now()-t0)))); if(c) document.querySelector('.wow').insertAdjacentHTML('beforeend',confHTML(24));
+  setTimeout(()=>{ if(gone||WOW.step!==3) return; const o=document.querySelector('.wow-opts'); if(o&&!document.querySelector('.wow-skip')){ o.insertAdjacentHTML('afterend','<p class="center wow-skip" style="margin-top:14px"><button class="btn primary" id="wowNext">Verder ›</button></p>'); document.getElementById('wowNext').onclick=()=>{ try{wowStop();}catch(_){} go(); }; } },900);
   setTimeout(go,12000); }
 function wowEnd(yes){ wowStop(); st.wowDone=1; if(yes){ st.wowGo=1; }
   const n=document.getElementById('nav'); if(n) n.style.display=''; save(); if(!st.onb) startOnb(); else hub(); }
