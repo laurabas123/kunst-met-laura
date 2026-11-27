@@ -5508,54 +5508,75 @@ const STORIES=[
   intro:'Hij verkocht bijna niets en werd pas na zijn dood wereldberoemd. Zijn broer Theo steunde hem zijn hele leven. Volg Vincent van Brabant naar Parijs en het felle licht van Zuid-Frankrijk, aan de hand van hun brieven.',
   outro:'Mooi gedaan! Je kent nu het verhaal van Vincent en Theo. Ze schreven elkaar honderden brieven; daardoor weten we zo veel over hoe Vincent dacht en werkte. Hij was maar tien jaar kunstenaar, en maakte in die tijd zo’n 860 schilderijen.',
   chapters:[
-  { t:'Zoeken naar een richting', y:'1853–1885', end:'De Aardappeleters zijn af. Nu wil Vincent kleur.', beats:[
-    {bg:'field', in:'vincent', at:'c', n:'30 maart 1853. In Zundert, Brabant, wordt Vincent van Gogh geboren, zoon van een dominee. Vier jaar later komt zijn broertje <b>Theo</b>.', y:'1853'},
+  { t:'Twee broers', y:'1853–1885', end:'De Aardappeleters zijn af. Nu wil Vincent kleur.', beats:[
+    {bg:'field', in:'vincent', at:'c', n:'30 maart 1853. In Zundert, Brabant, wordt Vincent van Gogh geboren, zoon van een dominee. Vier jaar later komt zijn broertje <b>Theo</b>.', y:'1853', weather:'birds', e:'happy'},
+    {n:'Vincent is een felle, ernstige jongen. Hij leest veel, zwerft urenlang door de natuur en maakt moeilijk vrienden. Theo is rustiger, vriendelijker en makkelijk in de omgang. Toch worden ze onafscheidelijk.'},
     {q:'Wat was Vincents eerste baan?', o:['Schilder van uithangborden','Verkoper bij een kunsthandel in Den Haag, Londen en Parijs','Onderwijzer'], c:1,
       e:'Hij werkte vanaf zijn zestiende bij kunsthandel <b>Goupil & Cie</b>. Hij zag daar dagelijks kunst. Theo ging later ook in de kunsthandel werken, en bleef dat zijn hele leven doen.'},
-    {s:'vincent', x:'Daarna probeerde ik van alles: onderwijzer in Engeland, predikant tussen de mijnwerkers in de Borinage in België… Pas op mijn 27e besloot ik: ik word kunstenaar.'},
-    {in:'theo', at:'r', s:'theo', x:'Ik stuur je elke maand geld, Vincent. Maak jij nu maar kunst.'},
-    {bg:'studio', n:'In Nuenen, waar zijn ouders wonen, schildert Vincent boeren en wevers, in donkere aardetinten.', y:'1883–1885'},
+    {in:'theo', at:'r', s:'theo', x:'In 1872 maakten Vincent en ik een wandeling langs een molen bij Rijswijk. We beloofden elkaar altijd te blijven schrijven. Dat hebben we gedaan: achttien jaar lang.', y:'1872', emo:{vincent:'happy'}},
+    {s:'vincent', x:'Daarna probeerde ik van alles: onderwijzer in Engeland, predikant tussen de mijnwerkers in de Borinage in België… Pas op mijn 27e besloot ik: ik word kunstenaar.', e:'sad', weather:''},
+    {n:'Maar Vincent verkoopt niets en verdient geen cent. Theo heeft wél een vaste baan bij de kunsthandel, en wordt later chef van een winkel in Parijs. Hij gelooft heilig in het talent van zijn broer.', y:'1880'},
+    {s:'theo', x:'Ik stuur je elke maand geld, Vincent. Maak jij nu maar kunst.', e:'happy', emo:{vincent:'happy'}, prop:{letter:'c'}},
+    {s:'vincent', x:'In ruil stuur ik Theo al mijn schilderijen. Eigenlijk maken we ze samen: hij met zijn geld, ik met mijn handen.'},
+    {q:'Hoeveel geld stuurde Theo ongeveer?', o:['Een paar gulden per jaar','Ongeveer wat een arbeider in een maand verdiende','Een fortuin, want hij was steenrijk'], c:1,
+      e:'Meestal zo’n <b>150 francs per maand</b>, later meer: ongeveer het loon van een arbeider. Theo was geen rijke man. Hij deelde een flink deel van zijn eigen salaris. Daarvan betaalde Vincent huur, eten, verf en doeken, en verf was duur. Tien jaar lang hield Theo dit vol.'},
+    {bg:'studio', n:'In Nuenen, waar zijn ouders wonen, schildert Vincent boeren en wevers, in donkere aardetinten.', y:'1883–1885', crowd:{k:'peasants',n:5}, weather:'dusk candles', mood:'sad', prop:{easel:'r'}, out:'theo'},
     {art:'vin1', t:'De Aardappeleters', a:'Vincent van Gogh', yr:'1885', x:'Een boerengezin eet bij lamplicht de aardappelen die ze zelf hebben gerooid. Vincent wilde laten zien dat ze “eerlijk hun eten verdiend” hadden. Hij was er trots op; zijn vrienden vonden het lelijk.'}
   ]},
   { t:'Kleur in Parijs', y:'1886–1888', end:'Vincent stapt op de trein naar het zuiden.', beats:[
-    {bg:'romeday', in:'vincent', at:'l', n:'In 1886 trekt Vincent bij Theo in, in Parijs. Daar ziet hij voor het eerst de impressionisten: licht, lichte kleuren, losse toetsen.', y:'1886'},
-    {in:'theo', at:'r', s:'theo', x:'Het is niet makkelijk om met mijn broer in één appartement te wonen. Maar zijn werk wordt elke maand beter.'},
+    {bg:'romeday', in:'vincent', at:'l', n:'In 1886 trekt Vincent bij Theo in, in Parijs. Daar ziet hij voor het eerst de impressionisten: licht, lichte kleuren, losse toetsen.', y:'1886', crowd:'street', mood:'provence', prop:null, weather:''},
+    {in:'theo', at:'r', s:'theo', x:'Het is niet makkelijk om met mijn broer in één appartement te wonen. Maar zijn werk wordt elke maand beter.', e:'happy'},
+    {n:'Japan was een paar tientallen jaren eerder opengegaan voor handel met het Westen. Nu was heel Parijs in de ban van Japanse kunst. In winkels lagen stapels kleurige houtsneden, voor een paar centen per stuk.'},
     {q:'Vincent verzamelde in Parijs honderden goedkope prenten. Uit welk land?', o:['Japan','China','Italië'], c:0,
       e:'Hij was dol op <b>Japanse houtsneden</b>: vlakke, felle kleuren, sterke contouren, gewone mensen en natuur. Hij kopieerde er zelfs een paar in olieverf.'},
     {art:'vin2', t:'Portret van Père Tanguy', a:'Vincent van Gogh', yr:'1887', x:'De verfhandelaar Julien Tanguy, die arme schilders soms verf gaf in ruil voor een schilderij. Achter hem hangt een muur vol Japanse prenten, met de berg Fuji en geisha’s.'},
+    {s:'vincent', x:'Ik stel me voor dat kunstenaars in Japan eenvoudig leven, dicht bij de natuur, en elkaar helpen. Zo wil ik ook werken.'},
     {art:'vin3', t:'Zelfportret met grijze vilthoed', a:'Vincent van Gogh', yr:'1887', x:'In Parijs schilderde hij zichzelf vaak: modellen waren te duur. Hier zie je de nieuwe stijl: korte streepjes pure kleur, die in je oog mengen.'},
-    {s:'vincent', x:'Ik verlang naar het zuiden. Naar zon, naar een licht zoals in Japan.'}
+    {s:'vincent', x:'Ik verlang naar het zuiden. Naar zon, naar een licht zoals in Japan.', e:'happy', weather:'sparkle', act:{vincent:'jump'}},
+    {n:'Naar Japan zelf gaat Vincent nooit: veel te ver en te duur. Bovendien is hij uitgeput van de drukke stad, van het drinken en het roken. Hij zoekt een plek dichterbij, met net zo’n helder licht. Hij kiest de Provence, in Zuid-Frankrijk.'}
   ]},
   { t:'Het Gele Huis', y:'1888', end:'Vincent ligt in het ziekenhuis. Gauguin is vertrokken.', beats:[
-    {bg:'yellowhouse', in:'vincent', at:'l', n:'Februari 1888: Vincent komt aan in <b>Arles</b>, in de Provence. Hij huurt vier kamers in een geel huis aan een plein.', y:'1888'},
-    {s:'vincent', x:'Ik droom van een atelier van het zuiden. Een huis waar kunstenaars samen werken. Theo, kan Gauguin komen?'},
-    {art:'vin4', t:'Zonnebloemen', a:'Vincent van Gogh', yr:'1888', x:'Hij schilderde zonnebloemen om de kamer van zijn gast te versieren. Geel op geel: voor Vincent de kleur van licht, warmte en vriendschap.'},
-    {in:'gauguin', at:'r', n:'In oktober komt de schilder <b>Paul Gauguin</b>. Negen weken werken ze samen. Maar ze denken heel verschillend over kunst.', y:'oktober 1888'},
-    {s:'gauguin', x:'Je moet uit je verbeelding schilderen, Vincent, niet altijd naar de natuur!'},
-    {s:'vincent', x:'Maar de natuur ís mijn leermeester!'},
-    {fx:'shake', n:'Op 23 december 1888 loopt een ruzie uit de hand. Gauguin vertrekt. Die nacht snijdt Vincent, in grote verwarring, een deel van zijn eigen oor af.', y:'23 december 1888', out:'gauguin'},
+    {bg:'yellowhouse', in:'vincent', at:'l', n:'Februari 1888: Vincent komt aan in <b>Arles</b>, in de Provence. Hij huurt vier kamers in een geel huis aan een plein.', y:'1888', weather:'birds', mood:'provence', e:'happy', act:{vincent:'jump'}, crowd:null},
+    {s:'vincent', x:'Ik droom van een atelier van het zuiden. Een huis waar kunstenaars samen werken. Theo, kan Gauguin komen?', e:'happy'},
+    {art:'vin4', t:'Zonnebloemen', a:'Vincent van Gogh', yr:'1888', x:'Hij schilderde zonnebloemen om de kamer van zijn gast te versieren. Geel op geel: voor Vincent de kleur van licht, warmte en vriendschap.', prop:{sunflowers:'c'}},
+    {in:'gauguin', at:'r', n:'In oktober komt de schilder <b>Paul Gauguin</b>. Negen weken werken ze samen. Maar ze denken heel verschillend over kunst.', y:'oktober 1888', prop:null, emo:{vincent:'happy',gauguin:'proud'}},
+    {s:'gauguin', x:'Je moet uit je verbeelding schilderen, Vincent, niet altijd naar de natuur!', e:'angry', bg:'cafe', weather:'stars', mood:'tension', crowd:{k:'tavern',n:5}},
+    {s:'vincent', x:'Maar de natuur ís mijn leermeester!', e:'angry', act:{vincent:'jump'}, sfx:'glass'},
+    {fx:'shake', n:'Op 23 december 1888 loopt een ruzie uit de hand. Gauguin vertrekt. Die nacht snijdt Vincent, in grote verwarring, een deel van zijn eigen oor af.', y:'23 december 1888', out:'gauguin', emo:{vincent:'sad'}, weather:'night', crowd:null, mood:'sad', sfx:'door', bg:'yellowhouse'},
+    {bg:'yellowhouse', weather:'', crowd:null, emo:{vincent:'sad'}, mood:'sad', n:'De volgende ochtend is het Gele Huis leeg en stil. Gauguin is met de eerste trein vertrokken.'},
+    {in:'theo', at:'r', s:'theo', x:'Ik nam meteen de nachttrein naar Arles. Mijn broer lag in het ziekenhuis. Ik was net verloofd met Jo, en nu dit. Gelukkig zorgden de dokter en zijn vriend, de postbode Roulin, daarna goed voor hem.'},
+    {n:'Vincent heeft een ziekte die toen niemand begreep. Hij krijgt aanvallen waarin hij in de war raakt en dingen ziet en hoort die er niet zijn. Tussen de aanvallen door is hij helder en schildert hij als nooit tevoren. Te veel absint, slecht eten en uitputting maken het erger.'},
     {q:'Wat gebeurde er met de vriendschap tussen Vincent en Gauguin?', o:['Ze zagen elkaar nooit meer, maar bleven elkaar wel brieven schrijven','Ze werden vijanden en spraken nooit meer met elkaar','Gauguin kwam een week later terug'], c:0,
       e:'Gauguin vertrok meteen naar Parijs. Ze ontmoetten elkaar nooit meer, maar ze bleven corresponderen. Gauguin sprak later met bewondering over Vincent.'},
     {art:'vin5', t:'Zelfportret met verbonden oor', a:'Vincent van Gogh', yr:'1889', x:'Kort na zijn ziekenhuisopname schilderde hij zichzelf, met verband en een bontmuts. Achter hem een Japanse prent: zijn droom van het zuiden is er nog.'}
   ]},
   { t:'De sterrennacht', y:'1889–1890', end:'Vincent verhuist naar het noorden, dichter bij Theo.', beats:[
-    {bg:'starry', in:'vincent', at:'c', n:'In mei 1889 laat Vincent zich vrijwillig opnemen in een inrichting in <b>Saint-Rémy</b>. Hij krijgt twee kamers: één om te slapen en één om te schilderen.', y:'1889'},
-    {s:'vincent', x:'Vanuit mijn raam zie ik de velden, de cipressen en ’s nachts de sterren. Als ik me goed voel, werk ik als een razende.'},
+    {bg:'starry', in:'vincent', at:'c', n:'In mei 1889 laat Vincent zich vrijwillig opnemen in een inrichting in <b>Saint-Rémy</b>. Hij krijgt twee kamers: één om te slapen en één om te schilderen.', y:'1889', weather:'stars swirl', mood:'night', e:'sad'},
+    {s:'vincent', x:'Vanuit mijn raam zie ik de velden, de cipressen en ’s nachts de sterren. Als ik me goed voel, werk ik als een razende.', e:'happy'},
     {art:'vin6', t:'De sterrennacht', a:'Vincent van Gogh', yr:'1889', x:'Wervelende sterren, een maansikkel, een dorpje en een donkere cipres die als een vlam omhoog schiet. De cipres is van oudsher een boom van de dood en het eeuwige leven.'},
     {q:'Wat vond Vincent zelf van De sterrennacht?', o:['Zijn beste werk ooit','Hij was er niet erg tevreden over; hij vond het te ver van de werkelijkheid','Hij heeft er nooit iets over geschreven'], c:1,
       e:'In een brief aan zijn schildersvriend Émile Bernard rekent hij het tot zijn mislukkingen. Het schilderij dat nu bijna iedereen kent, vond hij zelf maar niks. Het hangt nu in het MoMA in New York.'},
     {art:'vin7', t:'Irissen', a:'Vincent van Gogh', yr:'1889', x:'Een van zijn eerste werken in Saint-Rémy, geschilderd in de tuin van de inrichting. Eén witte iris tussen al het blauw.'},
-    {in:'theo', at:'r', s:'theo', x:'Vincent, goed nieuws! Op een tentoonstelling in Brussel is een schilderij van je verkocht. En er is een lovend artikel over je verschenen.'}
+    {n:'Ondertussen trouwt Theo met <b>Johanna Bonger</b>, Jo. In januari 1890 krijgen ze een zoontje. Ze noemen hem Vincent, naar zijn oom.', y:'januari 1890'},
+    {s:'vincent', x:'Voor mijn neefje schilderde ik bloeiende amandeltakken tegen een blauwe lucht. Om boven zijn wiegje te hangen.', e:'happy'},
+    {in:'theo', at:'r', s:'theo', x:'Vincent, goed nieuws! Op een tentoonstelling in Brussel is een schilderij van je verkocht. En er is een lovend artikel over je verschenen.', emo:{vincent:'happy'}, act:{vincent:'jump'}, sfx:'cheer', e:'happy', prop:{letter:'c'}},
+    {q:'Hoeveel schilderijen verkocht Vincent tijdens zijn leven, voor zover we weten?', o:['Eén','Ongeveer honderd','Geen enkele'], c:0,
+      e:'Voor zover bekend maar <b>één</b>: <i>De rode wijngaard</i>, in 1890 gekocht door de Belgische schilderes Anna Boch, voor 400 francs. Daarnaast verkocht hij een paar tekeningen. Nu zijn zijn schilderijen tientallen miljoenen waard.'}
   ]},
   { t:'Auvers en Jo', y:'1890–1914', end:'', beats:[
-    {bg:'field', in:'vincent', at:'l', n:'Mei 1890: Vincent verhuist naar <b>Auvers-sur-Oise</b>, bij Parijs. Daar woont dokter Gachet, een kunstliefhebber, die op hem let. In zeventig dagen maakt hij zo’n zeventig schilderijen.', y:'1890'},
+    {bg:'field', in:'vincent', at:'l', n:'Mei 1890: Vincent verhuist naar <b>Auvers-sur-Oise</b>, bij Parijs. Daar woont dokter Gachet, een kunstliefhebber, die op hem let. In zeventig dagen maakt hij zo’n zeventig schilderijen.', y:'1890', weather:'crows', mood:'provence', prop:null, e:'happy', sfx:'crows'},
     {art:'vin8', t:'Korenveld met kraaien', a:'Vincent van Gogh', yr:'1890', x:'Een dreigende lucht boven een golvend korenveld, zwarte vogels, paden die nergens heen lijken te gaan. Vincent schreef dat hij “verdriet en extreme eenzaamheid” wilde uitdrukken, maar ook hoe gezond en versterkend het platteland is.'},
-    {n:'Eind juli 1890 overlijdt Vincent, 37 jaar oud, aan een schotwond. Theo is bij hem. Een half jaar later sterft ook Theo.', y:'juli 1890', out:'vincent'},
-    {bg:'amsterdam', in:'jo', at:'c', s:'jo', x:'Ik ben Jo van Gogh-Bonger, de vrouw van Theo. Hij liet me honderden schilderijen van Vincent na… en al zijn brieven.'},
+    {n:'In de zomer van 1890 maakt Vincent zich grote zorgen. Theo heeft geldzorgen, zijn baby is ziek en hij twijfelt of hij zijn baan moet opzeggen. Vincent is bang dat hij zijn broer tot last is.', mood:'sad', emo:{vincent:'sad'}},
+    {n:'Op 27 juli 1890 loopt Vincent de velden in en schiet zichzelf in de borst. Gewond strompelt hij terug naar zijn herberg. Theo komt meteen. Twee dagen later sterft Vincent, 37 jaar oud, met zijn broer naast zich.', y:'juli 1890', in:'theo', at:'r', weather:'dusk', sfx:'bell', out:'vincent', emo:{theo:'sad'}},
+    {n:'Bijna alle onderzoekers gaan ervan uit dat het zelfmoord was. Vincent zei zelf dat hij het had gedaan. Een paar schrijvers denken aan een ongeluk met jongens uit het dorp, maar daar is weinig bewijs voor.'},
+    {emo:{theo:'sad'}, s:'theo', x:'Vincent zei tegen mij: “De droefheid zal altijd blijven.” Ik kan niet beschrijven hoeveel ik van hem hield.'},
+    {n:'Theo stort na Vincents dood helemaal in. Hij wordt ernstig ziek en sterft een half jaar later, 33 jaar oud, in Utrecht.', y:'januari 1891', out:'theo'},
+    {bg:'amsterdam', in:'jo', at:'c', s:'jo', x:'Ik ben Jo van Gogh-Bonger, de vrouw van Theo. Hij liet me honderden schilderijen van Vincent na… en al zijn brieven.', crowd:{k:'admire',n:8}, weather:'', mood:'night'},
     {q:'Wat denk je dat Jo deed?', o:['Ze verkocht alles snel om rond te komen','Ze zette zich decennialang in om Vincents werk bekend te maken, en publiceerde de brieven','Ze schonk alles aan een museum in Parijs'], c:1,
       e:'Jo organiseerde tentoonstellingen, verkocht werk zorgvuldig aan musea en verzamelaars, en publiceerde in 1914 de brieven. Zonder haar was Vincent misschien vergeten. Haar zoon richtte later de stichting op achter het <b>Van Gogh Museum</b>.'},
-    {s:'jo', x:'In 1914 liet ik Theo herbegraven naast Vincent, in Auvers. Zo liggen de broers weer bij elkaar.'},
-    {out:'jo', in:'laura', at:'c', s:'laura', x:'Als je de zonnebloemen nu bekijkt, weet je wie ze schilderde, voor wie ze bedoeld waren, en wie ervoor zorgde dat jij ze kunt zien.'}
+    {crowd:{k:'admire',n:9}, weather:'sparkle', mood:'triumph', sfx:'murmur', emo:{jo:'proud'}, n:'Tentoonstelling na tentoonstelling. Langzaam gaat de wereld zien wat Vincent zag.'},
+    {s:'jo', x:'In 1914 liet ik Theo herbegraven naast Vincent, in Auvers. Zo liggen de broers weer bij elkaar.', e:'sad'},
+    {out:'jo', in:'laura', at:'c', s:'laura', x:'Als je de zonnebloemen nu bekijkt, weet je wie ze schilderde, voor wie ze bedoeld waren, en wie ervoor zorgde dat jij ze kunt zien.', crowd:'admire', prop:{sunflowers:'r'}, mood:'provence'}
   ]}
 ]}
 ,
@@ -5817,36 +5838,7 @@ rubens:{ mood:'court',
  ins:{
   '1.3':[{bg:'workshop',weather:'',prop:{easel:'c'},emo:{rubens:'proud'},act:{rubens:'jump'},sfx:'whoosh',mood:'court',n:'Rubens rolt zijn mouwen op, herstelt wat kan en schildert er in een paar weken een gloednieuw doek bij.'}]
  }},
-vincent:{ mood:'provence',
- set:{
-  '0.0':{weather:'birds',e:'happy'},
-  '0.2':{e:'sad',weather:''},
-  '0.3':{e:'happy',emo:{vincent:'happy'},prop:{letter:'c'}},
-  '0.4':{crowd:{k:'peasants',n:5},weather:'dusk candles',mood:'sad',prop:{easel:'r'},out:'theo'},
-  '1.0':{bg:'romeday',crowd:'street',mood:'provence',prop:null,weather:''},
-  '1.1':{e:'happy'},
-  '1.5':{e:'happy',weather:'sparkle',act:{vincent:'jump'}},
-  '2.0':{weather:'birds',mood:'provence',e:'happy',act:{vincent:'jump'},crowd:null},
-  '2.1':{e:'happy'},
-  '2.2':{prop:{sunflowers:'c'}},
-  '2.3':{prop:null,emo:{vincent:'happy',gauguin:'proud'}},
-  '2.4':{e:'angry',bg:'cafe',weather:'stars',mood:'tension',crowd:{k:'tavern',n:5}},
-  '2.5':{e:'angry',act:{vincent:'jump'},sfx:'glass'},
-  '2.6':{emo:{vincent:'sad'},weather:'night',crowd:null,mood:'sad',sfx:'door',bg:'yellowhouse'},
-  '3.0':{weather:'stars swirl',mood:'night',e:'sad'},
-  '3.1':{e:'happy'},
-  '3.5':{emo:{vincent:'happy'},act:{vincent:'jump'},sfx:'cheer',e:'happy',prop:{letter:'c'}},
-  '4.0':{weather:'crows',mood:'provence',prop:null,e:'happy',sfx:'crows'},
-  '4.2':{mood:'sad',weather:'dusk',sfx:'bell'},
-  '4.3':{bg:'gallery',crowd:{k:'admire',n:8},weather:'',mood:'night'},
-  '4.5':{e:'sad'},
-  '4.6':{crowd:'admire',prop:{sunflowers:'r'},mood:'provence'}
- },
- ins:{
-  '2.6':[{bg:'yellowhouse',weather:'',crowd:null,emo:{vincent:'sad'},mood:'sad',n:'De volgende ochtend is het Gele Huis leeg en stil. Gauguin is met de eerste trein vertrokken.'}],
-  '4.4':[{crowd:{k:'admire',n:9},weather:'sparkle',mood:'triumph',sfx:'murmur',emo:{jo:'proud'},n:'Tentoonstelling na tentoonstelling. Langzaam gaat de wereld zien wat Vincent zag.'}]
- }}
-};
+vincent:{ mood:'provence', set:{}, ins:{} }};
 
 applyStaging();
 
