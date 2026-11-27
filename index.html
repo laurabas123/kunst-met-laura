@@ -409,6 +409,7 @@ b,strong{font-weight:800}
 .mm-mus{display:grid;grid-template-columns:1fr;gap:8px}.mm-m{display:flex;align-items:center;gap:12px;text-align:left;padding:8px;border-radius:12px;border:1px solid rgba(215,180,106,.25);background:rgba(255,255,255,.03);color:inherit;font:inherit;cursor:pointer}.mm-m.nl{border-color:rgba(215,180,106,.55)}.mm-m img{width:52px;height:52px;object-fit:cover;border-radius:6px;flex:0 0 auto}.mm-m span{display:flex;flex-direction:column}.mm-m small{color:var(--muted);font-size:.78rem}
 .mm-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}@media(min-width:700px){.mm-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.mm-mus{grid-template-columns:1fr 1fr}}.mm-w{position:relative;display:flex;flex-direction:column;text-align:left;padding:0;border-radius:10px;overflow:hidden;border:1px solid rgba(215,180,106,.3);background:rgba(255,255,255,.03);color:inherit;font:inherit;cursor:pointer}.mm-w img{width:100%;aspect-ratio:1/1;object-fit:cover}.mm-w span{padding:6px 8px;display:flex;flex-direction:column;gap:2px}.mm-w b{font-size:.82rem;line-height:1.25}.mm-w small{font-size:.72rem;color:var(--muted)}.mm-w i{position:absolute;top:6px;right:6px;background:var(--gold2,#d7b46a);color:#1a1408;border-radius:50%;width:22px;height:22px;display:grid;place-items:center;font-style:normal;font-weight:700}.mm-w.seen{border-color:var(--gold2,#d7b46a)}
 .mm-laura{display:flex;gap:10px;align-items:flex-start}.mm-fig{flex:0 0 54px;width:54px;height:54px;border-radius:50%;overflow:hidden;border:1.5px solid #d9b56a;background:#1e2c4c}.mm-laura .ob-bubble{flex:1;margin:0}.mm-look{margin:0;padding-left:18px;line-height:1.5}.mm-look li{margin:4px 0}
+.dip{margin:8px 0;padding:10px;background:linear-gradient(135deg,#a97f36,#f0d28c 28%,#9c6f2a 55%,#e8c677 78%,#a37a33);border-radius:4px}.dip-in{background:#f6efe2;color:#1d1a16;padding:22px 18px;text-align:center;border:1px solid #c9a24e}.dip-in .eyebrow{color:#8a6a2a}.dip-t{font-family:'Corm',serif;font-size:2.4rem;line-height:1;margin:6px 0 0}.dip-s{font-family:'Corm',serif;font-style:italic;font-size:1.6rem;color:#8a6a2a;margin-bottom:12px}.dip-n{font-family:'Corm',serif;font-size:1.9rem;margin:4px 0 8px;border-bottom:1px solid #c9a24e;display:inline-block;padding:0 12px}.dip-in p{font-size:.88rem;line-height:1.5;margin:6px 0}.dip-f{display:flex;justify-content:space-between;align-items:flex-end;margin-top:16px;font-size:.8rem}.dip-sig{font-family:'Corm',serif;font-style:italic;font-size:1.3rem;border-top:1px solid #1d1a16;padding-top:2px}
 .hk-h{text-align:center}.hk-tiles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:6px}
 .hk-tile{display:flex;flex-direction:column;align-items:center;gap:6px;border:0;background:none;color:var(--ink);font:inherit;cursor:pointer;text-align:center;padding:0}.hk-tile .hk-gilt{width:100%;box-sizing:border-box}.hk-tile img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover}
 .hk-tile b{font-size:.92rem;margin-top:4px}.hk-tile small{font-size:.76rem;color:var(--muted);margin-top:-4px}.hk-tile.done img{filter:grayscale(.5) brightness(.75)}
@@ -1223,7 +1224,7 @@ async function initCloud(){
       const merge2=(A,B)=>{ const o={...(A||{})}; for(const k in (B||{})){ o[k] = (o[k]&&typeof o[k]==='object'&&!Array.isArray(o[k])&&typeof B[k]==='object') ? {...o[k],...B[k]} : B[k]; } return o; };
       const newer = rUpd>=lUpd ? remote : st, older = rUpd>=lUpd ? st : remote;
       for(const key of ['results','bigRes','match','who','tl','final']) st[key]=merge2(older[key],newer[key]);
-      st.beta = DEV && !!(newer.beta ?? older.beta); st.onb = !!(newer.onb || older.onb); st.name = newer.name || older.name || ''; if(/kunst met laura/i.test(st.name)) st.name=''; st.unl = {...(older.unl||{}),...(newer.unl||{})}; st.diff = {...(older.diff||{}),...(newer.diff||{})}; st.fav = newer.fav || older.fav || {}; st.gseen={...(older.gseen||{}),...(newer.gseen||{})}; st.symBest=Math.max(newer.symBest||0,older.symBest||0); st.story=Object.assign({},older.story||{},newer.story||{}); for(const k in (older.story||{})) st.story[k]=Math.max(st.story[k]||0,older.story[k]); st.introDone=!!(newer.introDone||older.introDone); st.introSkip=!!(newer.introSkip||older.introSkip); st.introQuitAsked=!!(newer.introQuitAsked||older.introQuitAsked); st.kCel={...(older.kCel||{}),...(newer.kCel||{})}; st.cards={...(older.cards||{}),...(newer.cards||{})}; st.mile={...(older.mile||{}),...(newer.mile||{})}; st.bondR={...(older.bondR||{}),...(newer.bondR||{})}; st.bond={...(older.bond||{})}; for(const k in (newer.bond||{})) st.bond[k]=Math.max(st.bond[k]||0,newer.bond[k]); st.quiet=!!newer.quiet; st.xp=Math.max(newer.xp||0,older.xp||0); st.storyUnl={...(older.storyUnl||{}),...(newer.storyUnl||{})}; st.kcards={...(older.kcards||{}),...(newer.kcards||{})}; st.setDone={...(older.setDone||{}),...(newer.setDone||{})}; st.weak={...(older.weak||{}),...(newer.weak||{})}; st.first={...(newer.first||{}),...(older.first||{})}; st.kvd2={...(older.kvd2||{}),...(newer.kvd2||{})}; st.kvdWon={...(older.kvdWon||{}),...(newer.kvdWon||{})}; st.askSeen={...(older.askSeen||{}),...(newer.askSeen||{})}; st.askUnl={...(older.askUnl||{}),...(newer.askUnl||{})}; if(newer.waTap||older.waTap) st.waTap=Math.max(newer.waTap||0,older.waTap||0); for(const k of ['chests','pity','goldBoost','wk','goal','comp','uid','utok','xpDay','chOpened','funSeen','nearT']) if(newer[k]!==undefined) st[k]=newer[k]; else if(older[k]!==undefined) st[k]=older[k]; st.dq={...(older.dq||{}),...(newer.dq||{})}; st.rv={...(older.rv||{}),...(newer.rv||{})}; st.rvDay=Math.max(newer.rvDay||0,older.rvDay||0); st.rvCount=Math.max(newer.rvCount||0,older.rvCount||0); st.ewBest=Math.max(newer.ewBest||0,older.ewBest||0); st.ewPlays=Math.max(newer.ewPlays||0,older.ewPlays||0); st.mmSeen={...(older.mmSeen||{}),...(newer.mmSeen||{})}; st.dqBadges={...(older.dqBadges||{}),...(newer.dqBadges||{})}; for(const k of ['dqStreak','dqLast','dqBest','dqCount','dqPerfect','dqFreeze']) st[k]=(newer.dqLast||'')>=(older.dqLast||'')?newer[k]:older[k]; st.lastVisit=Math.max(newer.lastVisit||0,older.lastVisit||0); st.opens=Math.max(newer.opens||0,older.opens||0);
+      st.beta = DEV && !!(newer.beta ?? older.beta); st.onb = !!(newer.onb || older.onb); st.name = newer.name || older.name || ''; if(/kunst met laura/i.test(st.name)) st.name=''; st.unl = {...(older.unl||{}),...(newer.unl||{})}; st.diff = {...(older.diff||{}),...(newer.diff||{})}; st.fav = newer.fav || older.fav || {}; st.gseen={...(older.gseen||{}),...(newer.gseen||{})}; st.symBest=Math.max(newer.symBest||0,older.symBest||0); st.story=Object.assign({},older.story||{},newer.story||{}); for(const k in (older.story||{})) st.story[k]=Math.max(st.story[k]||0,older.story[k]); st.introDone=!!(newer.introDone||older.introDone); st.introSkip=!!(newer.introSkip||older.introSkip); st.introQuitAsked=!!(newer.introQuitAsked||older.introQuitAsked); st.kCel={...(older.kCel||{}),...(newer.kCel||{})}; st.cards={...(older.cards||{}),...(newer.cards||{})}; st.mile={...(older.mile||{}),...(newer.mile||{})}; st.bondR={...(older.bondR||{}),...(newer.bondR||{})}; st.bond={...(older.bond||{})}; for(const k in (newer.bond||{})) st.bond[k]=Math.max(st.bond[k]||0,newer.bond[k]); st.quiet=!!newer.quiet; st.xp=Math.max(newer.xp||0,older.xp||0); st.storyUnl={...(older.storyUnl||{}),...(newer.storyUnl||{})}; st.kcards={...(older.kcards||{}),...(newer.kcards||{})}; st.setDone={...(older.setDone||{}),...(newer.setDone||{})}; st.weak={...(older.weak||{}),...(newer.weak||{})}; st.first={...(newer.first||{}),...(older.first||{})}; st.kvd2={...(older.kvd2||{}),...(newer.kvd2||{})}; st.kvdWon={...(older.kvdWon||{}),...(newer.kvdWon||{})}; st.askSeen={...(older.askSeen||{}),...(newer.askSeen||{})}; st.askUnl={...(older.askUnl||{}),...(newer.askUnl||{})}; if(newer.waTap||older.waTap) st.waTap=Math.max(newer.waTap||0,older.waTap||0); for(const k of ['chests','pity','goldBoost','wk','goal','comp','uid','utok','xpDay','chOpened','funSeen','nearT']) if(newer[k]!==undefined) st[k]=newer[k]; else if(older[k]!==undefined) st[k]=older[k]; st.dq={...(older.dq||{}),...(newer.dq||{})}; st.rv={...(older.rv||{}),...(newer.rv||{})}; st.rvDay=Math.max(newer.rvDay||0,older.rvDay||0); st.rvCount=Math.max(newer.rvCount||0,older.rvCount||0); st.ewBest=Math.max(newer.ewBest||0,older.ewBest||0); st.ewPlays=Math.max(newer.ewPlays||0,older.ewPlays||0); st.mmSeen={...(older.mmSeen||{}),...(newer.mmSeen||{})}; st.diploma=newer.diploma||older.diploma; st.dqBadges={...(older.dqBadges||{}),...(newer.dqBadges||{})}; for(const k of ['dqStreak','dqLast','dqBest','dqCount','dqPerfect','dqFreeze']) st[k]=(newer.dqLast||'')>=(older.dqLast||'')?newer[k]:older[k]; st.lastVisit=Math.max(newer.lastVisit||0,older.lastVisit||0); st.opens=Math.max(newer.opens||0,older.opens||0);
       if(newer===remote && st.view!=='onb'){ const {view,r,i,bigStep,t,tlMode}=remote; Object.assign(st,{r,i,bigStep,tlMode}); setTrack(t||'basis');
         if(view && !['home','gloss','paths','intro','introDone','introAsk','onb'].includes(view)){ resumeFrom={t:t||'basis',view,r,i,bigStep}; st.view='home'; go(r,{view,i,bigStep},t||'basis'); } else render(); }
       else render();
@@ -3828,7 +3829,7 @@ const GUIDES = {
   durer:{name:'Albrecht Dürer', role:'schilder en graveur, 1471–1528', svg:(s,h,c)=>charSVG(CHARS.durer,s,h,c)},
   zeus:{name:'Zeus', role:'oppergod van de Olympus', svg:(s,h,c)=>charSVG(CHARS.zeus,s,h,c)}
 };
-function guideOf(t=st.t){ if(t==='basis') return 'laura'; if(t==='hg') return 'rembrandt'; if(t==='mix'||t==='n3'||t==='n4'||t==='tech') return 'laura';
+function guideOf(t=st.t){ if(t==='basis') return 'laura'; if(t==='hg') return 'rembrandt'; if(t==='mix'||t==='n3'||t==='n4'||t==='n5'||t==='tech') return 'laura';
   if(t==='myth') return 'zeus'; if(['deugden','bijbel','heilig','ge','kenner'].includes(t)) return 'catharina'; return 'gala'; }
 const GHELLO = {
   laura: nm=>`Hoi${nm}! Ik ben <b>Laura</b> en ik neem je mee door de basis van de symboliek. Na deze cursus kijk je nooit meer hetzelfde naar een schedel, een lelie of een hondje.`,
@@ -6584,6 +6585,31 @@ function mmWork(img){ const x=mmAll().find(o=>o.img===img); if(!x) return mmView
 function mmSeen(img){ st.mmSeen=st.mmSeen||{}; if(!st.mmSeen[img]){ st.mmSeen[img]=Date.now(); xpAdd(15); try{ sfx('correct'); }catch(e){} toast('✓ In het echt gezien: +15 XP'); } save(); mmWork(img); }
 function mmCard(){ const n=Object.keys(st.mmSeen||{}).length; return `<button class="rv-card ew-card" onclick="mmView()"><span class="rv-ic">🏛</span><span class="rv-tx"><b>Museummodus</b><small>${n?n+' werken in het echt gezien':'Sta je in een museum? Laura vertelt bij elk werk'}</small></span></button>`; }
 
+/* ---------- Eindexamen en diploma Iconoloog ---------- */
+let DX=null; const DX_N=10, DX_PASS=8;
+function dxOpen(){ return st.beta||!!st.diploma||(TRACKS.n5&&trackDone('n5')); }
+function dxStart(){ const all=rvAll().filter(c=>!TRACKS[c.t].museum); const pick=all.sort(()=>Math.random()-.5).slice(0,DX_N); DX={items:pick,i:0,ans:[]}; st.view='dx'; dxView(); scrollTo(0,0); }
+function dxView(){ if(!DX) return hub(); st.view='dx'; const x=DX.items[DX.i], q=x.q, a=DX.ans[DX.i];
+  $(`<div class="dq rv"><div class="top"><button class="btn small" onclick="DX=null;hub()">✕ Stoppen</button><span class="dq-clock">${DX.i+1}/${DX_N}</span></div>
+   <div class="eyebrow">Eindexamen · diploma Iconoloog</div>
+   <div class="dq-dots">${DX.items.map((it,k)=>`<i class="${k<DX.i||(k===DX.i&&a!==undefined)?(DX.ans[k]===it.q.c?'ok':'bad'):k===DX.i?'cur':''}"></i>`).join('')}</div>
+   <div class="frame dq-img"><img src="${P(q.in.img)}" alt=""></div><p class="qtext">${q.question}</p>
+   <div class="opts">${q.opts.map((o,k)=>`<button class="opt ${a===undefined?'':k===q.c?'ok':k===a?'bad':'dim'}" ${a!==undefined?'disabled':''} onclick="dxAns(${k})"><span class="l">${'ABCD'[k]}</span><span>${o}</span></button>`).join('')}</div>
+   ${a!==undefined?nextBar(DX.i<DX_N-1?'Volgende vraag →':'Bekijk je uitslag →','dxNext()',a===q.c):''}</div>`); }
+function dxAns(k){ if(!DX||DX.ans[DX.i]!==undefined) return; DX.ans[DX.i]=k; try{ if(k===DX.items[DX.i].q.c) sfx('correct'); }catch(e){} dxView(); }
+function dxNext(){ if(DX.i<DX_N-1){ DX.i++; dxView(); scrollTo(0,0); } else dxEnd(); }
+function dxEnd(){ const ok=DX.items.reduce((s,x,k)=>s+(DX.ans[k]===x.q.c?1:0),0); DX=null; if(ok>=DX_PASS&&!st.diploma){ st.diploma={d:Date.now(),score:ok}; xpAdd(200); } save();
+  if(ok>=DX_PASS) return icoDiploma(ok);
+  st.view='dxres'; $(`<div class="dq rv"><div class="top"><button class="btn small" onclick="hub()">‹ Terug</button></div><div class="center" style="margin:16px 0"><div class="gb-fig" style="width:110px;margin:0 auto">${lauraSVG(0,false)}</div><h2 class="serif">${ok} van ${DX_N} goed</h2><p class="muted">Je hebt er ${DX_PASS} nodig voor het diploma. Doe een paar herhaalrondes en probeer het opnieuw: elke keer krijg je andere vragen.</p></div><button class="btn primary big" onclick="dxStart()">Opnieuw proberen</button></div>`); }
+function icoDiploma(ok){ st.view='diploma'; const D=st.diploma||{d:Date.now(),score:ok||DX_PASS}; const dt=new Date(D.d).toLocaleDateString('nl-NL',{day:'numeric',month:'long',year:'numeric'});
+  $(`<div class="dq rv"><div class="top"><button class="btn small" onclick="hub()">‹ Terug</button></div>
+   ${confHTML?confHTML(30):''}<div class="dip"><div class="dip-in"><div class="eyebrow center">Kunst met Laura</div><div class="dip-t">Diploma</div><div class="dip-s">Iconoloog</div>
+   <p>Hierbij verklaren wij dat</p><div class="dip-n">${esc(st.name||'deze kunstkenner')}</div>
+   <p>de opleiding Kunst met Laura heeft voltooid en de eindtoets heeft behaald met ${D.score} van ${DX_N} punten.<br>Zij of hij kan een schilderij beschrijven, herkennen, dateren, in zijn tijd plaatsen en op echtheid beoordelen.</p>
+   <div class="dip-f"><span>${dt}</span><span class="dip-sig">Laura Bas</span></div></div></div>
+   <button class="btn primary big" style="margin-top:14px" onclick="try{navigator.share({title:'Diploma Iconoloog',text:'Ik heb het diploma Iconoloog gehaald bij Kunst met Laura! Zie wat anderen missen.',url:'https://kunstmetlaura.nl'})}catch(e){}">Deel je diploma</button></div>`); }
+function dxCard(){ if(!dxOpen()) return ''; return `<button class="rv-card" onclick="${st.diploma?'icoDiploma()':'dxStart()'}"><span class="rv-ic">🎓</span><span class="rv-tx"><b>${st.diploma?'Diploma Iconoloog':'Eindexamen'}</b><small>${st.diploma?'Behaald! Bekijk en deel je diploma':'10 vragen uit alles wat je leerde · 8 goed = diploma'}</small></span></button>`; }
+
 function hub(){ st.view='start'; pathMode=null; save(); if(NOTI){ if(!NOTI.flushed) notiFlush(); NOTI.until=0; } setTimeout(notiLater,1400);
   const h=new Date().getHours(), gr=h<12?'Goedemorgen':h<18?'Goedemiddag':'Goedenavond';
   const N=nextStep(), I=xpInfo(), alive=st.dqLast===dqDay()||st.dqLast===dqPrevDay(dqDay()), streak=alive?(st.dqStreak||0):0;
@@ -6598,7 +6624,7 @@ function hub(){ st.view='start'; pathMode=null; save(); if(NOTI){ if(!NOTI.flush
       <div class="hk-plaque"><b>${N.t}${m?', les '+m[1]:''}</b>${m&&/ · /.test(N.s)?`<small>${sub}</small>`:(!m?`<small>${N.s}</small>`:'')}</div>
       <button class="hk-cta" onclick="${N.fn}">${cta}</button>`; })()}
     <h2 class="hx-h hk-h">Vandaag</h2>
-    ${rvCard()}${ewCard()}${mmCard()}
+    ${dxCard()}${rvCard()}${ewCard()}${mmCard()}
     <div class="hk-tiles">
       <button class="hk-tile ${dqd?'done':''}" onclick="dqStart()"><span class="hk-gilt sm"><span class="hk-mat"><img src="${P('q1')}" alt=""></span></span><b>Dagquiz</b><small>${dqd?`${st.dq[dqDay()].score}/5 goed`:'5 vragen'}</small></button>
       <button class="hk-tile ${kd?'done':''}" onclick="kvdView()"><span class="hk-gilt sm"><span class="hk-mat hk-kvd"><img src="${symImg(T.im[0])}" alt=""></span></span><b>Kunstwerk</b><small>${kd?'Bekeken':'van de dag'}</small></button>
@@ -12423,6 +12449,190 @@ const TECH_BADGES = [
   {name:'Prentkenner', icon:'letter', txt:'Gravure, ets of houtsnede: je ziet het verschil.'},
   {name:'Bordjeslezer', icon:'loupe', txt:'Marmer, brons, hout en elk zaalbordje lees je in één oogopslag.'}];
 
+const N5_ROUNDS = [
+{ title:"Deel 5 · Les 1 — De vijf vragen", sub:"Wat zie je, wat betekent het, wanneer, waarom en is het echt?",
+  q:[
+  { icon:null, name:'Vijf vragen', in:{img:'k13', t:'De man met de gouden helm', a:'kring van Rembrandt', y:'ca. 1650', where:'Gemäldegalerie, Berlijn', s:'Man with the Golden Helmet'},
+    question:'In Deel 5 stel je bij elk onbekend werk vijf vragen. Welke volgorde werkt het best?',
+    opts:['Beschrijven, herkennen, dateren, context, echtheid','Echtheid, prijs, maker, titel, jaar','Titel lezen en doorlopen'], c:0,
+    exp:'De vijf vragen van de kenner: <b>wat zie ik</b> (beschrijven), <b>wat betekent het</b> (iconografie), <b>wanneer en waar</b> (stijl), <b>waarom en voor wie</b> (context) en <b>is het echt</b> (kennersblik). Elk deel van deze app leerde je er één.',
+    also:[{img:'g1', t:'Vrouw met een weegschaal', a:'Vermeer', y:'ca. 1662–1663', n:'Hier oefende je de eerste drie al.', s:'Vermeer'}]},
+  { icon:null, name:'Rembrandt of niet?', in:{img:'k13', t:'De man met de gouden helm', a:'kring van Rembrandt', y:'ca. 1650', where:'Gemäldegalerie, Berlijn', s:'Man with the Golden Helmet'},
+    question:'Dit beroemde schilderij gold eeuwenlang als Rembrandt. In 1985 concludeerden onderzoekers iets anders. Wat?',
+    opts:['Het is waarschijnlijk door iemand uit zijn kring of werkplaats geschilderd','Het is een moderne vervalsing','Het is van Vermeer'], c:0,
+    exp:'Het <b>Rembrandt Research Project</b> en het museum concludeerden dat het waarschijnlijk niet van Rembrandt zelf is, maar uit zijn <b>kring</b>. Het schilderij is niet minder mooi geworden, maar wel minder waard. Vraag vijf, echtheid, kan alles veranderen.',
+    also:[{img:'k11b', t:'De Nachtwacht (kleine kopie)', a:'Gerrit Lundens', y:'na 1642', n:'Een kopie, maar wel nuttig: zo weten we hoe De Nachtwacht eruitzag.', s:'Lundens Night Watch copy'}]},
+  { icon:null, name:'Context verandert alles', in:{img:'h4c', t:'De Ambassadeurs', a:'Hans Holbein de Jonge', y:'1533', where:'National Gallery, Londen', s:'Holbein The Ambassadors'},
+    question:'Vraag vier is: waarom en voor wie? Waarom is het jaar 1533 belangrijk bij dit schilderij?',
+    opts:['Toen brak koning Hendrik VIII met de paus in Rome: Europa was verdeeld','Toen werd Holbein geboren','Toen werd de olieverf uitgevonden'], c:0,
+    exp:'In <b>1533</b> trouwde Hendrik VIII met Anna Boleyn en brak met de paus. De twee Franse gezanten zaten midden in die crisis. Een luit met een gebroken snaar en een half verborgen kruisbeeld krijgen dan een betekenis: <b>onenigheid</b> in de kerk.',
+    also:[{img:'q1a', t:'De Ambassadeurs (detail)', a:'Holbein', y:'1533', n:'De vervormde schedel op de vloer.', s:'Holbein skull'}]}
+  ],
+  big:{ img:'l2a', t:'Jagers in de sneeuw', a:'Pieter Bruegel de Oude', y:'1565', where:'Kunsthistorisches Museum, Wenen', s:'Bruegel Hunters in the Snow',
+    intro:'Je eerste volledige analyse in vijf stappen. Tik op het schilderij om het groter te zien.',
+    details:[
+      {d:'<b>1. Beschrijven.</b> Drie jagers met honden lopen terug een heuvel af. Beneden ligt een dorp met bevroren vijvers vol schaatsers.', q:'Welke beschrijving is zuiver?', opts:['Jagers keren terug in een winterlandschap; beneden schaatsen mensen','Een arm dorp lijdt honger door de oorlog','Bruegel was somber'], c:0,
+        e:'Alleen wat je ziet. Let op: de jagers dragen weinig buit, één vos. Dat merk je pas als je goed kijkt.'},
+      {d:'<b>2. Herkennen.</b> Het werk hoort bij een reeks van zes schilderijen over de seizoenen van het jaar.', q:'Welke traditie zit hierachter?', opts:['De maandenreeksen uit middeleeuwse getijdenboeken','De Metamorfosen van Ovidius','De Gulden Legende'], c:0,
+        e:'In <b>getijdenboeken</b> had elke maand een plaatje met het werk van dat seizoen. Bruegel maakte er grote schilderijen van.'},
+      {d:'<b>3. Dateren.</b> Het werk is gesigneerd en gedateerd.', q:'Bij welke periode en stijl hoort het?', opts:['Vlaamse renaissance, 16e eeuw','Franse rococo','Impressionisme'], c:0,
+        e:'<b>1565</b>, Antwerpen: de <b>Vlaamse renaissance</b>. Bruegel combineert Italiaanse ruimte met Vlaamse aandacht voor het gewone leven.'},
+      {d:'<b>4. Context.</b> De reeks hing in het huis van de rijke Antwerpse koopman Nicolaes Jongelinck.', q:'Waarom wilde een koopman zoiets?', opts:['Het ritme van het jaar en het land, als trotse verzameling thuis','Als altaarstuk voor de kerk','Als reclame voor zijn winkel'], c:0,
+        e:'Rijke burgers verzamelden kunst voor hun <b>huis</b>. Een hele jaarcyclus aan de muur toonde smaak, rijkdom en wereldbeeld.'},
+      {d:'<b>5. Echtheid.</b> Bruegels zoon Pieter Brueghel de Jonge maakte veel kopieën van zijn vaders werken.', q:'Hoe weet je dat dit het origineel is?', opts:['Door onderzoek naar herkomst, ondertekening en schildertechniek','Omdat het het grootst is','Omdat het in Wenen hangt'], c:0,
+        e:'<b>Herkomst</b> (via de keizerlijke verzameling), <b>technisch onderzoek</b> en <b>kwaliteit</b> samen bepalen de toeschrijving. Dit is het origineel.'}
+    ],
+    story:'<p>Van de zes seizoensschilderijen zijn er vijf bewaard: drie in Wenen, één in Praag en één in New York. Wat je net deed is een complete analyse: <b>beschrijven, herkennen, dateren, context en echtheid</b>. Dat is precies wat een conservator doet.</p>'
+  }
+},
+{ title:"Deel 5 · Les 2 — Het meisje en de parel", sub:"Een volledige analyse van een wereldberoemd raadsel",
+  q:[
+  { icon:null, name:'Portret of niet?', in:{img:'ma1', t:'Meisje met de parel', a:'Johannes Vermeer', y:'ca. 1665', where:'Mauritshuis, Den Haag', s:'Girl with a Pearl Earring'},
+    question:'Dit is geen portret van een bestaand meisje dat iets bestelde. Wat is het dan?',
+    opts:['Een tronie: een studie van een gezicht, type of uitdrukking','Een heiligenbeeld','Een zelfportret'], c:0,
+    exp:'Een <b>tronie</b> is een Hollands genre: een kop met een bijzondere uitdrukking of een exotisch kostuum, gemaakt voor de vrije markt. Wie het meisje was, weten we niet.',
+    also:[{img:'hc4', t:'Meisje in het blauw', a:'Verspronck', y:'1641', n:'Wel een portret: een bestaand meisje uit Haarlem.', s:'Verspronck Girl in Blue'}]},
+  { icon:null, name:'Twee streken licht', in:{img:'ma1', t:'Meisje met de parel', a:'Johannes Vermeer', y:'ca. 1665', where:'Mauritshuis, Den Haag', s:'Girl with a Pearl Earring'},
+    question:'Kijk naar de parel. Hoe schilderde Vermeer die?',
+    opts:['Met een paar losse toetsen wit en een weerkaatsing: geen omtrek, geen haakje','Met echt parelmoer in de verf','Met heel veel kleine lijntjes'], c:0,
+    exp:'De parel bestaat uit een paar <b>lichttoetsen</b>: een glimlicht bovenaan en een weerkaatsing van de witte kraag. Je hersenen maken er een parel van. Onderzoekers zagen zelfs dat er geen ophanghaakje is geschilderd.',
+    also:[{img:'g1', t:'Vrouw met een weegschaal', a:'Vermeer', y:'ca. 1662–1663', n:'Ook daar parels op tafel.', s:'Vermeer'}]},
+  { icon:null, name:'Het blauw', in:{img:'ma1', t:'Meisje met de parel', a:'Johannes Vermeer', y:'ca. 1665', where:'Mauritshuis, Den Haag', s:'Girl with a Pearl Earring'},
+    question:'De tulband is diepblauw. Welk pigment gebruikte Vermeer daarvoor?',
+    opts:['Ultramarijn uit lapis lazuli','Goedkoop indigo','Blauwe inkt'], c:0,
+    exp:'Vermeer gebruikte royaal <b>ultramarijn</b>, dezelfde dure steen als in middeleeuws goud-en-blauw. Je leerde het in de techniekmodule.',
+    also:[{img:'s4a4', t:'Het Wilton-diptiek', a:'onbekende meester', y:'ca. 1395–1399', n:'Hetzelfde blauw, 270 jaar eerder.', s:'Wilton'}]}
+  ],
+  big:{ img:'ma1', t:'Meisje met de parel', a:'Johannes Vermeer', y:'ca. 1665', where:'Mauritshuis, Den Haag', s:'Girl with a Pearl Earring',
+    intro:'Nu de volledige analyse in vijf stappen. Tik op het schilderij om het groter te zien.',
+    details:[
+      {d:'<b>1. Beschrijven.</b> Een meisje draait haar hoofd over haar schouder naar ons toe, met open mond, een blauw-gele tulband en een grote parel.', q:'Wat valt het meest op aan de compositie?', opts:['Een donkere, lege achtergrond; alle aandacht op gezicht en blik','Een drukke kamer vol voorwerpen','Een landschap'], c:0,
+        e:'De <b>donkere achtergrond</b> laat het gezicht oplichten. Het moment voelt vluchtig, alsof ze net omkijkt.'},
+      {d:'<b>2. Herkennen.</b> Ze draagt geen Hollandse kleding maar een exotische tulband.', q:'Wat zegt dat?', opts:['Een tronie met een fantasiekostuum, geen echt portret','Ze kwam uit Turkije','Het was carnaval'], c:0,
+        e:'Een <b>fantasiekostuum</b> hoort bij de tronie. Schilders hielden van exotische stoffen en tulbanden.'},
+      {d:'<b>3. Dateren.</b> Het is niet gedateerd, maar de stijl past bij Vermeers rijpe jaren.', q:'In welke periode plaats je het?', opts:['Hollandse Gouden Eeuw, ca. 1665','Middeleeuwen','Romantiek'], c:0,
+        e:'Rond <b>1665</b>, Delft. Zacht licht, koele kleuren en een vluchtig moment: typisch Vermeer in de <b>Gouden Eeuw</b>.'},
+      {d:'<b>4. Context.</b> Vermeer maakte maar zo’n 35 schilderijen die we kennen. Hij werkte langzaam en had een groot gezin.', q:'Voor wie was een tronie meestal bedoeld?', opts:['Voor verzamelaars op de vrije markt','Voor een kerk','Voor het stadhuis'], c:0,
+        e:'Tronies werden verkocht aan <b>liefhebbers</b>. Vermeer had in Delft een paar trouwe kopers.'},
+      {d:'<b>5. Echtheid.</b> In 2018 onderzocht een team het schilderij met scans, zonder het aan te raken.', q:'Wat vonden ze onder meer?', opts:['Sporen van wimpers en een groen gordijn op de achtergrond dat verdwenen is','Dat het een kopie is','Een handtekening van Rembrandt'], c:0,
+        e:'Bij het project <b>Girl in the Spotlight</b> vonden onderzoekers piepkleine <b>wimpers</b> en sporen van een <b>groen gordijn</b> dat in de loop der eeuwen is weggevaagd. Het is zonder twijfel een echte Vermeer.'}
+    ],
+    story:'<p>Het schilderij werd in 1881 op een veiling in Den Haag voor een paar gulden gekocht door Arnoldus des Tombe en na zijn dood aan het Mauritshuis geschonken. Nu is het een van de bekendste gezichten ter wereld.</p>'
+  }
+},
+{ title:"Deel 5 · Les 3 — Een groepsportret ontleed", sub:"De Staalmeesters van Rembrandt",
+  q:[
+  { icon:null, name:'Wie zijn ze?', in:{img:'ra3', t:'De Staalmeesters', a:'Rembrandt', y:'1662', where:'Rijksmuseum, Amsterdam', s:'Rembrandt Syndics'},
+    question:'Vijf mannen in het zwart achter een tafel, een zesde zonder hoed achter hen. Wie waren de staalmeesters?',
+    opts:['Controleurs die de kwaliteit van geverfd laken keurden','Wapensmeden','Burgemeesters van Amsterdam'], c:0,
+    exp:'De <b>staalmeesters</b> keurden laken aan de hand van stalen (proefstukjes). De man zonder hoed is hun knecht. Zo’n <b>groepsportret</b> hing in hun vergaderzaal.',
+    also:[{img:'wa2', t:'Regenten van het Sint-Elisabethsgasthuis', a:'Frans Hals', y:'1641', n:'Nog een regentenstuk: Haarlemse bestuurders.', s:'Hals Regents'}]},
+  { icon:null, name:'Waarom kijken ze op?', in:{img:'ra3', t:'De Staalmeesters', a:'Rembrandt', y:'1662', where:'Rijksmuseum, Amsterdam', s:'Rembrandt Syndics'},
+    question:'De mannen kijken allemaal naar ons, één komt overeind. Wat suggereert Rembrandt?',
+    opts:['Alsof wij net binnenkomen en hun vergadering onderbreken','Dat ze voor een fotograaf poseren','Dat ze slapen'], c:0,
+    exp:'Rembrandt maakt de kijker deel van de scène: <b>wij</b> komen binnen. Daardoor is het geen saaie rij hoofden maar een levendig moment.',
+    also:[{img:'gB', t:'De Nachtwacht', a:'Rembrandt', y:'1642', n:'Ook geen stilstaand groepsportret, maar een moment.', s:'Night Watch'}]},
+  { icon:null, name:'Wat zat eronder?', in:{img:'ra3', t:'De Staalmeesters', a:'Rembrandt', y:'1662', where:'Rijksmuseum, Amsterdam', s:'Rembrandt Syndics'},
+    question:'Met röntgenfoto’s zagen onderzoekers dat Rembrandt de figuren meerdere keren verplaatste. Wat leer je daarvan?',
+    opts:['Hij zocht tijdens het schilderen naar de beste compositie','Hij kon niet tekenen','Een andere schilder heeft het afgemaakt'], c:0,
+    exp:'Zulke wijzigingen heten <b>pentimenti</b> (spijtjes). Ze laten zien dat de meester zelf aan het zoeken was. Een kopiist neemt alleen het eindresultaat over: een belangrijk argument voor echtheid.',
+    also:[{img:'k11b', t:'De Nachtwacht (kleine kopie)', a:'Gerrit Lundens', y:'na 1642', n:'Een kopie heeft zelden pentimenti.', s:'Lundens copy'}]}
+  ],
+  big:{ img:'ra3', t:'De Staalmeesters', a:'Rembrandt', y:'1662', where:'Rijksmuseum, Amsterdam', s:'Rembrandt The Syndics',
+    intro:'Een volledige analyse in vijf stappen. Tik op het schilderij om het groter te zien.',
+    details:[
+      {d:'<b>1. Beschrijven.</b> Zes mannen in zwarte kleding met witte kragen rond een tafel met een rood Perzisch kleed.', q:'Waar valt het licht?', opts:['Op de gezichten, kragen en het rode kleed','Op de muur erachter','Nergens, het is helemaal donker'], c:0,
+        e:'Het licht richt je blik op de <b>gezichten</b> en het <b>rode kleed</b>: de enige kleur in een zee van zwart.'},
+      {d:'<b>2. Herkennen.</b> Op de muur hangt een geschilderd paneel met een lichtbaken.', q:'Wat was dit voor genre?', opts:['Een regentenstuk: groepsportret van bestuurders','Een historiestuk','Een vanitas'], c:0,
+        e:'Een <b>regentenstuk</b>: een typisch Hollands genre waarin bestuurders zich lieten vereeuwigen.'},
+      {d:'<b>3. Dateren.</b> Het werk is gesigneerd en gedateerd 1662.', q:'Welke fase van Rembrandts leven?', opts:['Zijn late periode, na zijn faillissement','Zijn jeugd in Leiden','Na zijn dood afgemaakt'], c:0,
+        e:'Rembrandt was in 1656 failliet gegaan. Toch kreeg hij deze belangrijke opdracht. De losse, brede toets past bij zijn <b>late stijl</b>.'},
+      {d:'<b>4. Context.</b> Het hing in de Staalhof, het gebouw van het lakengilde.', q:'Wat wilden de mannen uitstralen?', opts:['Eerlijkheid en betrouwbaarheid in hun keurwerk','Rijkdom en luxe','Militaire macht'], c:0,
+        e:'Sobere kleding, een open blik: ze wilden <b>betrouwbaar</b> overkomen. Hun hele taak draaide om eerlijke kwaliteit.'},
+      {d:'<b>5. Echtheid.</b> De signatuur staat op het tafelkleed, maar ook het werkproces is zichtbaar.', q:'Welk bewijs weegt het zwaarst?', opts:['Herkomst, pentimenti en schildertechniek samen','Alleen de handtekening','Het formaat'], c:0,
+        e:'Een signatuur kan worden vervalst. <b>Herkomst</b>, <b>pentimenti</b> en de <b>techniek</b> samen maken het onomstreden: dit is Rembrandt.'}
+    ],
+    story:'<p>Dit is een van Rembrandts laatste grote opdrachten. Het werk hing tot 1771 in de Staalhof en kwam daarna in het bezit van de stad Amsterdam. Nu hangt het in de Eregalerij van het Rijksmuseum.</p>'
+  }
+},
+{ title:"Deel 5 · Les 4 — Een raadsel uit Florence", sub:"De Primavera van Botticelli",
+  q:[
+  { icon:null, name:'Wie staat in het midden?', in:{img:'mB', t:'Primavera', a:'Sandro Botticelli', y:'ca. 1480', where:'Uffizi, Florence', s:'Botticelli Primavera'},
+    question:'In het midden staat een vrouw in een rode mantel, met een kleine Cupido boven haar. Wie is zij?',
+    opts:['Venus, de godin van de liefde','Maria','Flora'], c:0,
+    exp:'De vrouw in het midden is <b>Venus</b>, met boven haar haar zoon <b>Cupido</b>, die een pijl afschiet. Het kan lijken op een Maria, maar de context, een sinaasappelboomgaard vol goden, zegt: Venus.',
+    also:[{img:'s4b1', t:'De geboorte van Venus', a:'Botticelli', y:'ca. 1484–1486', n:'Botticelli’s andere Venus.', s:'Botticelli Venus'}]},
+  { icon:null, name:'Rechts in het bos', in:{img:'mB', t:'Primavera', a:'Sandro Botticelli', y:'ca. 1480', where:'Uffizi, Florence', s:'Botticelli Primavera'},
+    question:'Rechts grijpt een blauwe windgod een nimf. Uit haar mond komen bloemen; naast haar loopt een vrouw in een bloemenjurk. Wat gebeurt er?',
+    opts:['Zephyrus grijpt Chloris, die verandert in Flora, de lente','De drie Gratiën dansen','Apollo achtervolgt Daphne'], c:0,
+    exp:'Volgens Ovidius’ <i>Fasti</i> greep de westenwind <b>Zephyrus</b> de nimf <b>Chloris</b>, die daarna <b>Flora</b> werd: de godin van de bloemen en de lente.',
+    also:[{img:'zB', t:'Apollo en Daphne', a:'Bernini', y:'1622–1625', n:'Ook een metamorfose: nimf wordt boom.', s:'Bernini'}]},
+  { icon:null, name:'Links met de staf', in:{img:'mB', t:'Primavera', a:'Sandro Botticelli', y:'ca. 1480', where:'Uffizi, Florence', s:'Botticelli Primavera'},
+    question:'Links staat een jongeman met een gevleugelde helm en vleugeltjes aan zijn voeten. Hij duwt met een staf de wolken weg. Wie is hij?',
+    opts:['Mercurius','Mars','Perseus'], c:0,
+    exp:'De <b>gevleugelde helm</b>, sandalen met vleugeltjes en de staf (<b>caduceus</b>): <b>Mercurius</b>. Hij houdt de wolken weg zodat de lente eeuwig blijft.',
+    also:[{img:'y2', t:'Mercurius en Argus', a:'Velázquez', y:'ca. 1659', n:'Mercurius in een heel ander verhaal.', s:'Velazquez Mercury'}]}
+  ],
+  big:{ img:'mB', t:'Primavera', a:'Sandro Botticelli', y:'ca. 1480', where:'Uffizi, Florence', s:'Botticelli Primavera',
+    intro:'Een volledige analyse in vijf stappen. Tik op het schilderij om het groter te zien.',
+    details:[
+      {d:'<b>1. Beschrijven.</b> Negen figuren staan in een donker bos van sinaasappelbomen, op een weide vol bloemen.', q:'Wat valt op aan de ruimte?', opts:['De figuren staan als op een toneel, bijna plat voor een donker decor','Er is een diep landschap met berekend perspectief','Ze staan in een kerk'], c:0,
+        e:'De figuren staan als een <b>fries</b> voor een donkere achtergrond. Geen diepe ruimte: het gaat om lijnen en ritme.'},
+      {d:'<b>2. Herkennen.</b> Drie vrouwen in doorschijnende jurken dansen hand in hand.', q:'Wie zijn ze?', opts:['De drie Gratiën','De drie Furiën','De drie Maria’s'], c:0,
+        e:'De <b>drie Gratiën</b>: schoonheid, vreugde en bloei. Cupido richt zijn pijl op een van hen.'},
+      {d:'<b>3. Dateren.</b> Het is geschilderd in tempera op paneel, in Florence.', q:'Welke stijl en periode?', opts:['Vroege Italiaanse renaissance, ca. 1480','Barok, 17e eeuw','Rococo, 18e eeuw'], c:0,
+        e:'<b>Florence rond 1480</b>: vroege renaissance. Sierlijke lijnen, heldere tempera en het terugkeren van antieke goden.'},
+      {d:'<b>4. Context.</b> Het werk hing in een villa of stadspaleis van de familie Medici.', q:'Waarom zo’n heidens onderwerp?', opts:['De humanisten rond de Medici zochten in antieke mythen ideeën over liefde en schoonheid','De kerk had het besteld','Het was verboden en daarom spannend'], c:0,
+        e:'De <b>Medici</b> en hun geleerde vrienden lazen Plato en Ovidius. Voor hen waren de goden dragers van ideeën: liefde, schoonheid, de lente als hernieuwing.'},
+      {d:'<b>5. Kennersblik.</b> Onderzoekers telden honderden planten, zo precies geschilderd dat botanici ze kunnen benoemen.', q:'Wat zegt dat over Botticelli?', opts:['Dat hij met de nauwkeurigheid van een wetenschapper werkte, ook in een droomwereld','Dat hij tuinman was','Dat iemand anders de bloemen schilderde'], c:0,
+        e:'Botanici herkenden honderden planten en zo’n <b>190 soorten bloemen</b>. Droom en precisie gaan samen: het handschrift van de meester.'}
+    ],
+    story:'<p>Wat de Primavera precies betekent, weet niemand zeker. Dat is ook een les: soms blijft een schilderij een <b>raadsel</b>. Een goede kijker weet welke antwoorden zeker zijn, en welke vragen open blijven.</p>'
+  }
+},
+{ title:"Deel 5 · Les 5 — De generale repetitie", sub:"Drie onbekende werken, daarna de grote eindtoets",
+  q:[
+  { icon:null, name:'Onbekend werk 1', in:{img:'ma3', t:'De stier', a:'Paulus Potter', y:'1647', where:'Mauritshuis, Den Haag', s:'Paulus Potter The Bull'},
+    question:'Een enorme stier op ware grootte, met koeien, een schaap en een boer in een vlak Hollands landschap. In welk genre en welke periode plaats je dit?',
+    opts:['Hollandse Gouden Eeuw, dierstuk in een landschap','Italiaanse renaissance, mythologie','Romantiek, historiestuk'], c:0,
+    exp:'Een <b>dierstuk</b> uit de <b>Gouden Eeuw</b>. Een stier op het formaat van een historiestuk: trots op het Hollandse vee en land. Paulus Potter was pas 22.',
+    also:[{img:'l3', t:'Gezicht op Haarlem', a:'Ruisdael', y:'ca. 1670', n:'Ook Hollandse trots op het land.', s:'Ruisdael'}]},
+  { icon:null, name:'Onbekend werk 2', in:{img:'rB', t:'Allegorie op het geloof', a:'Johannes Vermeer', y:'ca. 1670–1672', where:'Metropolitan Museum, New York', s:'Vermeer Allegory of Faith'},
+    question:'Een vrouw in wit en blauw zet haar voet op een wereldbol. Op de grond ligt een verpletterde slang. Welke bron gebruikte de schilder?',
+    opts:['Ripa’s Iconologia','De Gulden Legende','Ovidius'], c:0,
+    exp:'Vermeer volgde <b>Ripa</b> letterlijk: het Geloof heeft de wereld onder haar voet, de slang van de zonde is verpletterd. Vraag twee, de bron, geeft de sleutel.',
+    also:[{img:'r3', t:'Personificatie van de Roem', a:'Strozzi', y:'ca. 1635–1636', n:'Ook naar Ripa.', s:'Strozzi Fame'}]},
+  { icon:null, name:'Onbekend werk 3', in:{img:'ma4', t:'Gezicht op Delft', a:'Johannes Vermeer', y:'ca. 1660–1661', where:'Mauritshuis, Den Haag', s:'Vermeer View of Delft'},
+    question:'Een stad aan het water onder een enorme wolkenlucht, zonlicht op een kerktoren. Wat is de beste eerste vraag?',
+    opts:['Wat zie ik precies, en waar valt het licht?','Hoeveel is het waard?','Wie is de eigenaar?'], c:0,
+    exp:'Altijd eerst <b>kijken</b>: water, poorten, schepen, wolken, en het licht op de nieuwe kerk. Daarna volgen herkennen, dateren, context en echtheid. Je bent klaar voor de eindtoets.',
+    also:[{img:'ra5', t:'Het straatje', a:'Vermeer', y:'ca. 1658', n:'Vermeers andere Delftse stadsgezicht.', s:'Vermeer Little Street'}]}
+  ],
+  big:{ img:'h4c', t:'De Ambassadeurs', a:'Hans Holbein de Jonge', y:'1533', where:'National Gallery, Londen', s:'Holbein The Ambassadors',
+    intro:'De laatste volledige analyse. Daarna wacht de eindtoets voor je diploma. Tik op het schilderij om het groter te zien.',
+    details:[
+      {d:'<b>1. Beschrijven.</b> Twee mannen staan naast een plank met instrumenten, boeken en een luit. Op de vloer ligt een vreemde, schuine vorm.', q:'Wat is die vorm, van opzij bekeken?', opts:['Een vervormde schedel','Een vis','Een vlek'], c:0,
+        e:'Van rechts opzij gezien wordt het een <b>schedel</b>: een anamorfose.'},
+      {d:'<b>2. Herkennen.</b> Linksboven, half achter het gordijn, hangt een klein kruisbeeld.', q:'Wat zegt de combinatie schedel en kruis?', opts:['Memento mori, met hoop op verlossing','Dat het een kerk is','Dat ze priesters zijn'], c:0,
+        e:'De <b>schedel</b> zegt: je zult sterven. Het <b>kruis</b> zegt: er is verlossing. Dat is iconografie.'},
+      {d:'<b>3. Dateren.</b> Gesigneerd en gedateerd 1533, olieverf op eikenhout.', q:'Welke periode?', opts:['Noordelijke renaissance','Barok','Gotiek'], c:0,
+        e:'<b>Noordelijke renaissance</b>: Holbein combineert Vlaams detail met Italiaanse ruimte.'},
+      {d:'<b>4. Context.</b> Op de luit is een snaar gebroken; naast een luthers gezangboek ligt een rekenboek.', q:'Waar wijst dat op?', opts:['Op de verdeeldheid in kerk en politiek in 1533','Op slechte muzikanten','Op een verloren weddenschap'], c:0,
+        e:'De <b>gebroken snaar</b> staat voor disharmonie: de Reformatie en de breuk tussen Engeland en Rome.'},
+      {d:'<b>5. Kennersblik.</b> De schedel is alleen te lezen vanaf een bepaalde plek.', q:'Wat zegt dat over Holbein?', opts:['Hij beheerste perspectief en optica tot in de puntjes','Hij maakte een fout','Iemand anders schilderde de schedel'], c:0,
+        e:'Een <b>anamorfose</b> vraagt wiskunde en meesterschap. Gefeliciteerd: je hebt Deel 5 af. Tijd voor de eindtoets.'}
+    ],
+    story:'<p>Je kunt nu elk werk benaderen met de vijf vragen van de kenner. Op naar de <b>eindtoets</b>: tien vragen uit alles wat je leerde. Haal je er acht goed, dan krijg je het <b>diploma Iconoloog</b>.</p>'
+  }
+}
+];
+const N5_BADGES = [
+  {name:'Vijf vragen', icon:'loupe', txt:'Je kent de vijf vragen van de kenner.'},
+  {name:'Parelkenner', icon:'bubbles', txt:'Je ontleedde het Meisje met de parel tot in de wimpers.'},
+  {name:'Regentenkenner', icon:'letter', txt:'Een groepsportret lees je van kraag tot pentiment.'},
+  {name:'Raadseloplosser', icon:'rose', txt:'De Primavera heeft weinig geheimen meer voor je.'},
+  {name:'Klaar voor het examen', icon:'owl', txt:'Je bent klaar voor het diploma Iconoloog.'}];
+
 const TRACKS = {
   basis:{id:'basis', name:'Basis', eyebrow:'Deel 1 · De basis', title:'Symboliek in de Kunst', rank:'Beginner', grand:'Iconoloog', icon:'skull',
     desc:'Van middeleeuwen tot 1900. Per les vijf symbolen: kies A, B of C, lees wat het betekent en ontdek waar het nog meer voorkomt. Na de vijf vragen volgt de <b>eindtoets</b>: samen ontleden we een groot meesterwerk.',
@@ -12436,6 +12646,9 @@ const TRACKS = {
   n4:{id:'n4', name:'Deel 4 — Stijl en tijd', eyebrow:'Deel 4 · Stijl en tijd', title:'Deel 4: Stijl en tijd', rank:'Stijlkenner', grand:'Stijlkenner', icon:'painting',
     desc:'Van goud naar abstract: herken middeleeuwen, renaissance, barok, rococo, romantiek en impressionisme. Na deze zes lessen plaats je elk schilderij in zijn tijd. Met het spel Raad de eeuw.',
     rounds:N4_ROUNDS, badges:N4_BADGES},
+  n5:{id:'n5', name:'Deel 5 — De kennersblik', eyebrow:'Deel 5 · De kennersblik', title:'Deel 5: De kennersblik', rank:'Kenner', grand:'Iconoloog', icon:'loupe',
+    desc:'De meesterproef van de opleiding: je ontleedt beroemde werken volledig in vijf stappen. Daarna volgt de eindtoets voor het diploma Iconoloog.',
+    rounds:N5_ROUNDS, badges:N5_BADGES},
   deugden:{id:'deugden', ribbon:'Specialist', name:'Specialisatie: Deugden & ondeugden', eyebrow:'Specialisatie', title:'Deugden & ondeugden', rank:'Specialist Deugden & Ondeugden', grand:'Iconoloog', icon:'scales',
     desc:'Personificaties, Ripa’s Iconologia, emblemen en de grote morele allegorieën.',
     rounds:DEUGD_ROUNDS, badges:DEUGD_BADGES},
@@ -12487,7 +12700,7 @@ const kennerStarted = () => (typeof KENNER_ROUNDS!=='undefined')&&KENNER_ROUNDS.
 const isOpen = t => t==='basis'||t==='tech'||(t==='kenner'&&(kennerStarted()||(st.mile&&st.mile['kenner|unl'])))||t==='hg'||(TRACKS[t]&&TRACKS[t].museum)||basisDone()||st.beta||!!(st.unl&&st.unl[t]);
 function chooseTrack(t){ if(!isOpen(t)) return; setTrack(t); home(); }
 const ROUTE_GROUPS = [
-  {id:'symb', ic:'🎨', t:'Symboliek in de kunst', s:'Leer symbolen lezen: eerst de basis, daarna verdiepen of specialiseren.', tr:['basis','mix','n3','n4','deugden','bijbel','heilig','myth','ge','kenner','tech']},
+  {id:'symb', ic:'🎨', t:'Symboliek in de kunst', s:'Leer symbolen lezen: eerst de basis, daarna verdiepen of specialiseren.', tr:['basis','mix','n3','n4','n5','deugden','bijbel','heilig','myth','ge','kenner','tech']},
   {id:'hg', ic:'🦁', t:'Hollandse glorie', s:'Kunst- en vaderlandse geschiedenis in acht lessen, van de middeleeuwen tot nu. Rembrandt is je gids.', tr:['hg']},
   {id:'mus', ic:'🏛️', t:'Musea', s:'Bereid je museumbezoek voor: de topstukken en hun symboliek. Musea door het hele land.', tr:['rijks','maur',...EXTRA_MUSEUMS.map(m=>m.id)]}];
 function trackBar(t){ const R=TRACKS[t].rounds, n=R.length, d=trackProgress(t), started=R.some((_,r)=>roundDone(r,t)>0); return {n,d,started,pct:Math.round(d/n*100)}; }
@@ -12873,7 +13086,7 @@ function nav(d){ const s=steps(st.r); let p=pos()+d;
   if(p<0){ if(st.r>0){ const ps=steps(st.r-1); return go(st.r-1, ps[ps.length-1]); } return; }
   if(p>=s.length) return goNext();
   go(st.r, s[p]); }
-function render(){ const v=st.view; if((v==='q'||v==='big')&&!diffOf()) return diffView(); (v==='q'||v==='kq')?question():v==='big'?big():v==='match'?matchView():v==='who'?whoView():v==='tl'?timeline(st.tlMode):v==='final'?finalView():v==='gloss'?glossary():v==='paths'?paths():v==='onb'?onbView():v==='intro'?introView():v==='introDone'?introDone():v==='introAsk'?introAsk():v==='fav'?favView():v==='sym'?(symOpen()?symRefresh():freePlay()):v==='start'?hub():v==='credits'?creditsView():v==='me'?meView():v==='rv'?(RV?rvView():hub()):v==='eeuw'?(EW?ewView():hub()):v==='mm'?mmView():v==='mmm'?mmMus(st.mmMus):v==='mmw'?mmWork(st.mmImg):v==='ewres'?hub():v==='rvres'?hub():v==='meter'?meterView():v==='keep'?keepView():v==='oracle'?oracleView():v==='askl'?askLaura():v==='album'?albumView():v==='board'?boardView():v==='ask'?hub():v==='kvd'?kvdView():v==='dqres'?(st.dq&&st.dq[dqDay()]?dqResult(st.dq[dqDay()]):hub()):v==='daily'?hub():v==='stories'?storiesView():v==='storyc'?storyOpen(st.storyId||'cara'):v==='story'?storiesView():v==='free'?freePlay():home(); }
+function render(){ const v=st.view; if((v==='q'||v==='big')&&!diffOf()) return diffView(); (v==='q'||v==='kq')?question():v==='big'?big():v==='match'?matchView():v==='who'?whoView():v==='tl'?timeline(st.tlMode):v==='final'?finalView():v==='gloss'?glossary():v==='paths'?paths():v==='onb'?onbView():v==='intro'?introView():v==='introDone'?introDone():v==='introAsk'?introAsk():v==='fav'?favView():v==='sym'?(symOpen()?symRefresh():freePlay()):v==='start'?hub():v==='credits'?creditsView():v==='me'?meView():v==='rv'?(RV?rvView():hub()):v==='eeuw'?(EW?ewView():hub()):v==='dx'?(DX?dxView():hub()):v==='diploma'?icoDiploma():v==='mm'?mmView():v==='mmm'?mmMus(st.mmMus):v==='mmw'?mmWork(st.mmImg):v==='ewres'?hub():v==='rvres'?hub():v==='meter'?meterView():v==='keep'?keepView():v==='oracle'?oracleView():v==='askl'?askLaura():v==='album'?albumView():v==='board'?boardView():v==='ask'?hub():v==='kvd'?kvdView():v==='dqres'?(st.dq&&st.dq[dqDay()]?dqResult(st.dq[dqDay()]):hub()):v==='daily'?hub():v==='stories'?storiesView():v==='storyc'?storyOpen(st.storyId||'cara'):v==='story'?storiesView():v==='free'?freePlay():home(); }
 function label(x){ const R=TRACKS[x.t||'basis'].rounds[x.r]; if(!R) return ''; if(x.view==='final') return 'eindtoets'; if(x.view==='match') return 'koppelspel'; if(x.view==='kq') return 'kunstkennersles'; if(x.view==='who') return 'Wie ben ik?'; if(x.view==='tl') return 'tijdlijn'; return x.view==='q' ? `vraag ${x.i+1}: ${R.q[x.i].name.toLowerCase()}` : `meesterwerk: ${R.big.t}`; }
 
 function ctaBtn(){ const rf=resumeFrom&&Number.isInteger(resumeFrom.r)&&(resumeFrom.t||'basis')===st.t&&!roundComplete(resumeFrom.r,st.t)?resumeFrom:null; const W=st.t==='hg'?'niveau':'les';
