@@ -4675,13 +4675,13 @@ function roundMilestones(r){ const t=st.t, k=t+'|'+r; st.bondR=st.bondR||{}; st.
   if(!st.bondR[k]){ st.bondR[k]=1; bondAdd(guideOf(t),3); xpAdd(50,'les voltooid'); try{ questEv('round'); }catch(e){} if(!(st.comp&&st.comp.asked)) notiAdd({pri:2,show:()=>setTimeout(()=>{ try{ napoleonScene(); }catch(e){} },600)}); }
   const R=TRACKS[t].rounds.filter(x=>!x.soon), n=R.length, done=TRACKS[t].rounds.filter((x,i)=>!x.soon&&roundComplete(i,t)).length, g=guideOf(t), nm=st.name?`, ${st.name}`:'';
   if(trackDone(t) && !finPending(t) && !st.mile[t+'|d']){ st.mile[t+'|d']=1; st.mile[t+'|h']=1; save(); const B=freshArt([t]); if(t==='basis') setTimeout(()=>{ try{ storyChoiceModal(); }catch(e){} },1500);
-    return setTimeout(()=>rewardModal(g,'Cursus voltooid!',`Wat een prestatie${nm}! Je hebt <b>${TRACKS[t].title}</b> helemaal afgerond. Dit verdient een plek aan de muur.${t==='basis'?'<br><br>Maak nu de <b>eindtoets</b>: daarna wacht er nog een speciale beloning op je.':''}`,B),1200); }
+    return setTimeout(()=>rewardModal(g,'Cursus voltooid!',`Wat een prestatie${nm}! Je hebt <b>${TRACKS[t].title}</b> helemaal afgerond. Dit verdient een plek aan de muur.${t==='basis'?'<br><br>Maak nu de <b>eindtoets</b>: daarna wacht er nog een speciale beloning op je.':''}`,B,'guides|done_'+(t==='basis'?'basis':g)),1200); }
   if(n>=4 && done>=Math.ceil(n/2) && !st.mile[t+'|h']){ st.mile[t+'|h']=1; save(); const B=freshArt([t]);
-    setTimeout(()=>rewardModal(g,'Halverwege!',`Je bent al halverwege <b>${TRACKS[t].title}</b>${nm}! Als beloning krijg je een meesterwerk voor je eigen museum.`,B),1200); } }
+    setTimeout(()=>rewardModal(g,'Halverwege!',`Je bent al halverwege <b>${TRACKS[t].title}</b>${nm}! Als beloning krijg je een meesterwerk voor je eigen museum.`,B,'guides|half_'+g),1200); } }
 
 /* lange strike bij symbolen raden */
 function strikeReward(n){ if(![20,50,100].includes(n)) return; st.mile=st.mile||{}; if(st.mile['sym|'+n]) return; st.mile['sym|'+n]=1; save();
-  rewardModal('laura',`Strike van ${n}!`,`${n} symbolen op een rij${st.name?', '+st.name:''}! Daar hoort een echte prijs bij.`,freshArt(['basis','hg','mix','deugden','bijbel','myth'])); }
+  rewardModal('laura',`Strike van ${n}!`,`${n} symbolen op een rij${st.name?', '+st.name:''}! Daar hoort een echte prijs bij.`,freshArt(['basis','hg','mix','deugden','bijbel','myth']),'guides|strike_laura'); }
 
 /* welkom terug na een paar dagen weg */
 function welcomeBack(){ const now=Date.now(), last=st.lastVisit||0, today=new Date().toDateString(); st.lastVisit=now;
@@ -5519,14 +5519,14 @@ const storyIsOpen = id => !!(STORY_OPEN.includes(id) || (st.storyUnl&&st.storyUn
 const storyCredits = () => (basisDone()?1:0) - Object.keys(st.storyUnl||{}).filter(k=>!STORY_EARN[k]&&!STORY_OPEN.includes(k)).length;
 function storyEarnCheck(){ st.storyEarned=st.storyEarned||{}; Object.entries(STORY_EARN).forEach(([id,E])=>{ if(st.storyEarned[id]||!E.ok()) return; st.storyEarned[id]=Date.now(); save(); const S=storyById(id); if(!S) return;
   const g=id==='medici'?'catharina':id==='rem'?'rembrandt':'zeus';
-  rewardModal(g,'Nieuw verhaal ontgrendeld!',id==='zeus'?'Donder en bliksem, wat een prestatie! Als beloning staat <b>mijn levensverhaal</b> nu voor je klaar bij Verhalen.':`${id==='rem'?'Wat heb jij goed gekeken!':'Brava!'} Als beloning staat het levensverhaal van <b>${S.t}</b> nu voor je klaar bij Verhalen.`,null,id==='zeus'?'guides|unlock_zeus':null); }); }
+  rewardModal(g,'Nieuw verhaal ontgrendeld!',id==='zeus'?'Donder en bliksem, wat een prestatie! Als beloning staat <b>mijn levensverhaal</b> nu voor je klaar bij Verhalen.':`${id==='rem'?'Wat heb jij goed gekeken!':'Brava!'} Als beloning staat het levensverhaal van <b>${S.t}</b> nu voor je klaar bij Verhalen.`,null,id==='zeus'?'guides|unlock_zeus':'guides|unlock_story_'+g); }); }
 function storyLocked(id){ const S=storyById(id); if(STORY_EARN[id]){ const E=STORY_EARN[id]; const m=document.createElement('div'); m.className='lb gl-modal'; m.onclick=()=>m.remove();
   m.innerHTML=`<div class="gl-box guide-box" onclick="event.stopPropagation()"><div class="gb-fig">${scSVG(S.who,0,false)}</div><div class="ob-bubble"><b>${S.t}</b> moet je verdienen.<br><br>${E.how}</div><button class="btn primary big" onclick="this.closest('.lb').remove();${E.go}">Breng me erheen →</button><button class="btn" style="margin-top:8px" onclick="this.closest('.lb').remove()">Sluiten</button></div>`; document.body.appendChild(m); return; }
   const m=document.createElement('div'); m.className='lb gl-modal'; m.onclick=()=>m.remove(); const cr=storyCredits();
   m.innerHTML=`<div class="gl-box guide-box" onclick="event.stopPropagation()"><div class="gb-fig">${scSVG(S.who,0,false)}</div><div class="ob-bubble"><b>${S.t}</b> is nog op slot.<br><br>${cr>0?'Je hebt een verhaal verdiend! Wil je dit verhaal vrijspelen?':!basisDone()?'Rond <b>Symboliek in de Kunst, deel 1 (De basis)</b> af. Dan mag je zelf kiezen welk nieuw levensverhaal je vrijspeelt.':'De volgende verhalen kun je binnenkort op een andere manier verdienen. Hou de app in de gaten!'}</div>
    ${cr>0?`<button class="btn primary big" onclick="this.closest('.lb').remove();storyUnlock('${id}')">Ja, speel ${S.t} vrij</button>`:basisDone()?'':`<button class="btn primary big" onclick="this.closest('.lb').remove();setTrack('basis');home()">Naar De basis →</button>`}<button class="btn" style="margin-top:8px" onclick="this.closest('.lb').remove()">Sluiten</button></div>`; document.body.appendChild(m); }
 function storyUnlock(id){ if(storyCredits()<=0) return; st.storyUnl=st.storyUnl||{}; st.storyUnl[id]=Date.now(); save(); const S=storyById(id);
-  rewardModal(S.who in GUIDES?S.who:'laura','Nieuw verhaal vrijgespeeld!',`Het levensverhaal van <b>${S.t}</b> staat nu voor je klaar. Veel plezier!`,null); if(st.view==='stories') storiesView(); }
+  rewardModal(S.who in GUIDES?S.who:'laura','Nieuw verhaal vrijgespeeld!',`Het levensverhaal van <b>${S.t}</b> staat nu voor je klaar. Veel plezier!`,null,'guides|unlock_story2_'+(S.who in GUIDES?S.who:'laura')); if(st.view==='stories') storiesView(); }
 function storyChoiceModal(){ if(storyCredits()<=0) return; const L=STORIES.filter(S=>!storyIsOpen(S.id)&&!STORY_EARN[S.id]); if(!L.length) return; const nm=st.name?`, ${st.name}`:'';
   const m=document.createElement('div'); m.className='lb gl-modal kcel'; m.dataset.vox='guides|story_choice';
   m.innerHTML=`${confHTML(30)}<div class="gl-box guide-box in-done" onclick="event.stopPropagation()"><div class="eyebrow center">Beloning: een nieuw levensverhaal</div><div class="ob-bubble">Gefeliciteerd${nm}! Je hebt <b>De basis</b> helemaal afgerond. Kies zelf welk verhaal je vrijspeelt:</div>

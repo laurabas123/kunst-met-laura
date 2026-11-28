@@ -1,0 +1,80 @@
+INSPREEKSCRIPT – BELONINGSMOMENTEN
+Deze zinnen hoor je in de pop-ups met een beloning: halverwege een cursus, cursus voltooid, een reeks goede antwoorden, een nieuw verhaal.
+Spreek ze in zonder naam en zonder cursustitel. Die staan alleen in beeld.
+De regel over het schilderij ("De Nachtwacht hangt nu in jouw museum") wordt niet uitgesproken, want die verschilt elke keer.
+Bestandsnaam staat boven elke zin.
+
+
+=== LAURA ===
+
+half_laura.mp3   (halverwege een cursus)
+Je bent al halverwege deze cursus! Als beloning krijg je een meesterwerk voor je eigen museum.
+
+done_laura.mp3   (cursus voltooid)
+Wat een prestatie! Je hebt deze cursus helemaal afgerond. Dit verdient een plek aan de muur.
+
+done_basis.mp3   (De basis voltooid)
+Wat een prestatie! Je hebt de basis helemaal afgerond. Dit verdient een plek aan de muur. Maak nu de eindtoets: daarna wacht er nog een speciale beloning op je.
+
+strike_laura.mp3   (een lange reeks goede antwoorden)
+Zoveel symbolen op een rij! Daar hoort een echte prijs bij.
+
+unlock_story2_laura.mp3   (nieuw verhaal vrijgespeeld)
+Er staat een nieuw levensverhaal voor je klaar. Veel plezier!
+
+
+=== CATHARINA DE’ MEDICI ===   (Deugden, Bijbel, Gouden Eeuw, Kunstkenner, Heiligen)
+
+half_catharina.mp3
+Je bent al halverwege deze cursus! Als beloning krijg je een meesterwerk voor je eigen museum.
+
+done_catharina.mp3
+Wat een prestatie! Je hebt deze cursus helemaal afgerond. Dit verdient een plek aan de muur.
+
+unlock_story_catharina.mp3
+Brava! Als beloning staat er een nieuw levensverhaal voor je klaar bij Verhalen.
+
+unlock_story2_catharina.mp3
+Er staat een nieuw levensverhaal voor je klaar. Veel plezier!
+
+
+=== REMBRANDT ===   (Hollandse glorie)
+
+half_rembrandt.mp3
+Je bent al halverwege deze cursus! Als beloning krijg je een meesterwerk voor je eigen museum.
+
+done_rembrandt.mp3
+Wat een prestatie! Je hebt deze cursus helemaal afgerond. Dit verdient een plek aan de muur.
+
+unlock_story_rembrandt.mp3
+Wat heb jij goed gekeken! Als beloning staat er een nieuw levensverhaal voor je klaar bij Verhalen.
+
+unlock_story2_rembrandt.mp3
+Er staat een nieuw levensverhaal voor je klaar. Veel plezier!
+
+
+=== ZEUS ===   (Mythologie)
+
+half_zeus.mp3
+Je bent al halverwege deze cursus, sterveling! Als beloning krijg je een meesterwerk voor je eigen museum.
+
+done_zeus.mp3
+Wat een prestatie! Je hebt deze cursus helemaal afgerond. Dit verdient een plek aan de muur.
+
+unlock_story2_zeus.mp3
+Er staat een nieuw levensverhaal voor je klaar. Veel plezier!
+
+
+=== GALA ===   (de museummodules)
+
+half_gala.mp3
+Je bent al halverwege deze cursus! Als beloning krijg je een meesterwerk voor je eigen museum.
+
+done_gala.mp3
+Wat een prestatie! Je hebt deze cursus helemaal afgerond. Dit verdient een plek aan de muur.
+
+
+=== ALBRECHT DÜRER ===
+
+unlock_story2_durer.mp3
+Er staat een nieuw levensverhaal voor je klaar. Veel plezier!
