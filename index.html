@@ -4297,7 +4297,7 @@ let NAPSRC=null;
 function napSpeak(k){ try{ if(NAPSRC){ NAPSRC.onended=null; NAPSRC.stop(); } }catch(e){} NAPSRC=null; if(!vxOn()||!auInit()||!window.NAPVOX||!NAPVOX[k]) return;
   const bin=atob(NAPVOX[k]), arr=new Uint8Array(bin.length); for(let i=0;i<bin.length;i++) arr[i]=bin.charCodeAt(i);
   AU.ctx.decodeAudioData(arr.buffer,buf=>{ const s=AU.ctx.createBufferSource(); s.buffer=buf; s.connect(AU.ctx.destination); musDuck(true); s.onended=()=>{ if(NAPSRC===s){ NAPSRC=null; musDuck(false); } }; NAPSRC=s; s.start(); },()=>{}); }
-var VOXV='20261127i';
+var VOXV='20261128a';
 function napLoad(){ if(window.NAPVOX||window._napL) return; window._napL=1; const s=document.createElement('script'); s.src='vox/napoleon.js?v='+VOXV; s.async=true; s.onerror=()=>{window._napL=0;}; document.head.appendChild(s); }
 const NAPL={
  n1:'<b>Bonjour, lieve testers!</b> Ik ben Napoleon Bonaparte. Laura heeft mij gevraagd of ik leuk nieuws met jullie wilde delen.',
@@ -5397,32 +5397,32 @@ const PRE_LIST = [
   ]}
 ]},
 { id:'pre_bijbel', mood:'church', pre:'bijbel', t:'Voorkennis Bijbelse verhalen', sub:'Wat bijna niemand weet over Bijbelse kunst', yrs:'1400–1700', who:'catharina', col:'#5a3a1e',
-  intro:'', outro:'Nu ken je de sleutels die de meeste museumbezoekers missen: wat er níet in de Bijbel staat, hoe het Oude Testament vooruitwijst, hoe je een altaarstuk leest, wie je aan de kleding herkent en wie er stiekem bij staat.',
+  intro:'', outro:'Nu ken je de vijf sleutels: verborgen Bijbelverhalen, typologie, de leesrichting, herkenbare personen en schenkers. Voortaan kijk je met andere ogen naar een schilderij.',
   chapters:[
   { t:'Wat niet in de Bijbel staat', y:'Europa, 1400–1700', end:'', beats:[
-    {bg:'church', in:'catharina', at:'c', s:'catharina', x:'Welkom in de kerk. Het verschil tussen het Oude en het Nieuwe Testament ken je al. Vandaag laat ik je dingen zien die zelfs veel museumbezoekers niet weten. Zullen we?', yn:['Ja, laat maar zien','Ik ben benieuwd!'], ya:'Mooi. Dan beginnen we met een verrassing.', na:'Goed zo. Dan beginnen we met een verrassing.'},
+    {bg:'church', in:'catharina', at:'c', s:'catharina', x:'Welkom in de kerk. Het verschil tussen het Oude en het Nieuwe Testament ken je al. Vandaag geef ik je vijf sleutels waarmee je verborgen verhalen in schilderijen ontdekt. Zullen we?', yn:['Ja, laat maar zien','Ik ben benieuwd!'], ya:'Mooi! Dan beginnen we met een verrassing.', na:'Mooi! Dan beginnen we met een verrassing.'},
     {art:'P:u1c', t:'De aanbidding der koningen', a:'Andrea Mantegna', yr:'ca. 1462', x:'Drie koningen bij het kind: iedereen kent dit beeld. Maar kijk goed: zijn het wel koningen, en waren het er wel drie?'},
     {q:'Wat staat er in de Bijbel over de koningen?', o:['Er staan drie koningen in, met hun namen: Caspar, Melchior en Balthasar','Er staan “wijzen uit het oosten”, zonder aantal en zonder namen','Er staat dat het er twaalf waren, één voor elke stam van Israël'], c:1,
       e:'Mattheüs spreekt alleen van <b>wijzen uit het oosten</b>. Dat het er drie waren, komt door de <b>drie geschenken</b>: goud, wierook en mirre. Hun namen en kronen werden pas eeuwen later bedacht.', img:false},
-    {s:'catharina', x:'Veel van wat je ziet, komt uit verhalen rond de Bijbel. De os en de ezel bij de kribbe, de ouders van Maria, Anna en Joachim: ze staan niet in de evangeliën, maar in oude <b>apocriefe</b> boeken en in de Gulden Legende.'},
+    {s:'catharina', x:'Veel van wat je ziet, komt uit verhalen rond de Bijbel. De os en de ezel bij de kribbe, de ouders van Maria, Anna en Joachim: ze staan niet in de evangeliën, maar in oude <b>apocriefe</b> boeken en in de Gulden Legende. Dat is je eerste sleutel.'},
     {n:'Een schilder volgde dus niet alleen de Bijbel, maar ook wat de kerk er eeuwenlang over vertelde. Mis je iets in de Bijbeltekst, dan zoek je in die verhalen.'},
-    {s:'catharina', x:'Tweede sleutel: het Oude en het Nieuwe Testament werden aan elkaar gekoppeld. Een verhaal van vroeger wees vooruit naar Jezus. Dat heet een <b>typologie</b>.'},
+    {s:'catharina', x:'De tweede sleutel: het Oude en het Nieuwe Testament werden aan elkaar gekoppeld. Een verhaal van vroeger wees vooruit naar Jezus. Dat heet een <b>typologie</b>.'},
     {art:'P:j1b', t:'Het offer van Isaak', a:'Titiaan', yr:'ca. 1542–1544', x:'Isaak draagt het hout voor zijn eigen offer de berg op, zoals Jezus later zijn kruis draagt. Voor een kijker in 1550 was dit dus ook een verhaal over de kruisiging.'},
     {q:'Op een altaarstuk staat de kruisiging in het midden. Links zie je Isaak, rechts Jona die uit de vis komt. Waarom staan die erbij?', o:['Het zijn verhalen die vooruitwijzen naar het lijden en de opstanding','Het zijn de lievelingsverhalen van de schenker die het altaar betaalde','Het zijn heiligen van de kerk waarvoor het altaarstuk werd gemaakt'], c:0,
       e:'Isaak wijst naar het <b>offer</b> aan het kruis, Jona na drie dagen in de vis naar de <b>opstanding</b> na drie dagen. Zo lees je een heel altaarstuk als één verhaal.', img:false},
-    {s:'catharina', x:'Derde sleutel: een altaarstuk lees je als een stripverhaal. Vaak van links naar rechts, en soms staan meerdere momenten in één beeld. Dezelfde persoon kan dan twee of drie keer voorkomen.'},
+    {s:'catharina', x:'De derde sleutel: een altaarstuk lees je als een stripverhaal. Vaak van links naar rechts, en soms staan meerdere momenten in één beeld. Dezelfde persoon kan dan twee of drie keer voorkomen.'},
     {art:'P:pb1', pins:[{x:19,y:76,l:'Jezus'},{x:81.5,y:81,l:'Jezus'}], t:'Scènes uit het lijden van Christus', a:'Hans Memling', yr:'ca. 1470', x:'Kijk naar dit stadsgezicht van Memling. Linksonder zie je Jezus, en rechtsonder nóg eens Jezus, nu met een kruis. Hoe kan dat?'},
     {q:'Op het schilderij van Memling staat Jezus links, waar hij gevangen wordt, en rechts nog eens, nu met een kruis. Wat is er aan de hand?', o:['De schilder heeft zich vergist en een figuur twee keer geschilderd','Er staan twee verschillende mannen op die toevallig op elkaar lijken','Het schilderij vertelt meerdere momenten van één verhaal tegelijk'], c:2,
       e:'Dat heet <b>simultane vertelling</b>: meerdere scènes in één landschap. Memling zette er meer dan twintig momenten in, van de intocht in Jeruzalem tot na de opstanding. Volg dezelfde figuur door het beeld, dan lees je het verhaal in volgorde.', img:false},
-    {s:'catharina', x:'Vierde sleutel: de vaste looks. Maria draagt blauw over rood. Petrus heeft grijs krulhaar, een korte baard en sleutels. Johannes is jong en baardloos, vaak in rood. En Judas? Die zit vaak apart, met een geldbuidel.'},
+    {s:'catharina', x:'De vierde sleutel: herken personen aan hun uiterlijk. Maria draagt blauw over rood. Petrus heeft grijs krulhaar, een korte baard en sleutels. Johannes is jong en baardloos, vaak in rood. En Judas zit vaak apart, met een geldbuidel.'},
     {art:'P:w1', pin:{x:30.5,y:47,l:'Judas'}, t:'Het Laatste Avondmaal', a:'Leonardo da Vinci', yr:'1495–1498', x:'Jezus zegt net: “Een van jullie zal mij verraden.” Judas schrikt terug in de schaduw, met het buideltje geld in zijn hand. Naast hem zie je Petrus en de jonge Johannes.'},
-    {s:'catharina', x:'Vijfde sleutel: kijk wie er knielt aan de rand. Dat zijn vaak de <b>schenkers</b>, de mensen die het schilderij betaalden. Ze laten zich erbij schilderen, alsof ze het wonder zelf meemaken.'},
+    {s:'catharina', x:'De vijfde sleutel: kijk wie er knielt aan de rand. Dat zijn vaak de <b>schenkers</b>, de mensen die het schilderij betaalden. Ze laten zich erbij schilderen, alsof ze het wonder zelf meemaken.'},
     {art:'P:n3_20a', t:'De Madonna met kanunnik Joris van der Paele', a:'Jan van Eyck', yr:'1436', x:'Rechts knielt kanunnik Van der Paele, met zijn bril in de hand. Hij woonde in Brugge, niet in Bethlehem: hij betaalde het schilderij en wilde voor altijd dicht bij Maria zijn.'},
     {q:'Een man in rijke kleren uit 1450 knielt naast Maria. Wie is hij meestal?', o:['Een van de apostelen, in moderne kleren gestoken','De schenker die het schilderij liet maken','De schilder zelf, als handtekening in het beeld'], c:1,
       e:'Een geknielde figuur in eigentijdse kleding is bijna altijd de <b>schenker</b>. Vaak staat zijn beschermheilige achter hem, met een hand op zijn schouder.', img:false},
     {s:'catharina', x:'En dan Holland. Na de Beeldenstorm van 1566 verdwenen de beelden uit de protestantse kerken. Bijbelse kunst verhuisde naar de huiskamer: minder Maria en heiligen, meer verhalen uit het Oude Testament en gelijkenissen.'},
     {art:'P:x1b', t:'De Visitatie', a:'Rembrandt', yr:'1640', x:'Rembrandt schilderde Bijbelse verhalen voor verzamelaars, klein en huiselijk. Maria bezoekt hier haar nicht Elisabeth: geen goud, geen stralenkrans, gewoon twee vrouwen die elkaar omhelzen.'},
-    {s:'catharina', x:'Wat er niet in de Bijbel staat, typologie, de leesrichting, vaste looks en schenkers. Met die vijf sleutels zie je meer dan de meeste bezoekers. We beginnen bij de helden en heldinnen van het Oude Testament.'}
+    {s:'catharina', x:'Met deze vijf sleutels ontdek je verhalen die de meeste museumbezoekers missen. We beginnen bij de helden en heldinnen van het Oude Testament.'}
   ]}
 ]},
 { id:'pre_ge', mood:'dutch', pre:'ge', t:'Voorkennis Gouden Eeuw', sub:'Kunst voor de huiskamer, met een dubbele bodem', yrs:'1600–1800', who:'rembrandt', col:'#3a4a2a',
