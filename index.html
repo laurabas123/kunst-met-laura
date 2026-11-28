@@ -3932,7 +3932,7 @@ function xpInfo(){ const x=st.xp||0, l=xpLevel(x), lo=l?lvNeed(l):0, hi=lvNeed(l
 function xpAdd(n,why){ if(!n) return; const before=xpLevel(st.xp||0); st.xp=(st.xp||0)+n; try{ goalTrack(n); }catch(e){} save(); try{ nearCheck(); compSync(); }catch(e){} xpFloat('+'+n+' XP'+(why?' · '+why:''));
   const after=xpLevel(st.xp); if(after>before) setTimeout(()=>xpLevelUp(after),700); }
 function xpFloat(t){ const d=document.createElement('div'); d.className='xpf'; d.textContent=t; document.body.appendChild(d); setTimeout(()=>d.remove(),1500); }
-function xpLevelUp(l){ setTimeout(()=>{ try{ chestAdd(1,'nieuw level'); }catch(e){} },1200); const nm=st.name?`, ${st.name}`:''; const m=document.createElement('div'); m.className='lb gl-modal kcel';
+function xpLevelUp(l){ setTimeout(()=>{ try{ chestAdd(1,'nieuw level'); }catch(e){} },1200); const nm=st.name?`, ${st.name}`:''; const m=document.createElement('div'); m.className='lb gl-modal kcel'; m.dataset.vox='guides|'+'levelup';
   m.innerHTML=`${confHTML(34)}<div class="gl-box guide-box in-done" onclick="event.stopPropagation()"><div class="eyebrow center">Nieuw level</div>
    <div class="lv-ring"><b>${l+1}</b></div><h2 class="center" style="margin:6px 0 4px">${LEVELS[l]}</h2>
    <div class="ob-bubble">Gefeliciteerd${nm}! Door al je speurwerk ben je nu <b>${LEVELS[l]}</b>. ${l+1<LEVELS.length?`Op naar <b>${LEVELS[l+1]}</b>!`:'Hoger kan niet. Je bent een legende!'}</div>
@@ -4139,7 +4139,7 @@ function chestCard(Z){ const R=RAR.find(x=>x.id===Z.rar); let body='', img='';
    <button class="btn primary big" onclick="this.closest('.lb').remove();${(st.chests||0)>0?'chestOpen()':(st.view==='start'?'hub()':'')}">${(st.chests||0)>0?`Open het volgende kistje (${st.chests})`:'Top!'}</button><button class="btn small" style="margin-top:8px" onclick="this.closest('.lb').remove();chestOddsView()">Bekijk alle kansen</button></div>`; }
 function chestSetCheck(P){ if(!P.mw) return; const S=SETS.find(s=>s.k.includes(P.mw)); st.setDone=st.setDone||{}; if(st.setDone[S.id]) return; if(!S.k.every(k=>st.kcards['mw:'+k])) return;
   st.setDone[S.id]=Date.now(); st.dqBadges=st.dqBadges||{}; st.dqBadges['set_'+S.id]=dqDay(); save();
-  setTimeout(()=>{ const m=document.createElement('div'); m.className='lb gl-modal kcel';
+  setTimeout(()=>{ const m=document.createElement('div'); m.className='lb gl-modal kcel'; m.dataset.vox='guides|'+'chestset';
     m.innerHTML=`${confHTML(50)}<div class="gl-box guide-box in-done" onclick="event.stopPropagation()"><div class="eyebrow center">Set compleet!</div><div class="lv-ring"><b>◆</b></div><h2 class="center" style="margin:8px 0 4px">${S.n}</h2><div class="ob-bubble">Je hebt alle vier de geheimen van <b>${S.n}</b> verzameld! Als beloning: <b>200 XP</b>, een setbadge en een <b>gegarandeerd episch kistje</b>.</div><button class="btn primary big" onclick="this.closest('.lb').remove();chestOpen('e')">Open je epische kistje</button></div>`;
     qModal(m); xpAdd(200,'set compleet'); try{ sfx(['fanfare','firework']); }catch(e){} },900); }
 function chestOddsView(){ const m=document.createElement('div'); m.className='lb gl-modal'; m.onclick=()=>m.remove();
@@ -4169,7 +4169,7 @@ function weekState(){ const wk=weekKey(); if(!st.wk||st.wk.id!==wk){ const R=rng
 function questEv(ev,n=1){ const W=weekState(); if(!W.q.includes(ev)) return; W.c[ev]=(W.c[ev]||0)+n; const [nm,tg]=QPOOL[ev];
   if(!W.done[ev] && W.c[ev]>=tg){ W.done[ev]=1; save(); setTimeout(()=>{ toast('✅ Weekopdracht gehaald: '+nm); chestAdd(1,'weekopdracht'); xpAdd(30,'weekopdracht');
       if(W.q.every(q=>W.done[q]) && !W.all){ W.all=true; st.dqBadges=st.dqBadges||{}; const first=!st.dqBadges.week; st.dqBadges.week=st.dqBadges.week||dqDay(); save();
-        const m=document.createElement('div'); m.className='lb gl-modal kcel'; m.innerHTML=`${confHTML(40)}<div class="gl-box guide-box in-done" onclick="event.stopPropagation()"><div class="eyebrow center">Weekheld!</div><div class="lv-ring"><b>3/3</b></div><div class="ob-bubble">Alle drie de weekopdrachten gehaald! Je krijgt de <b>weekkist</b>: gegarandeerd minstens <b>Zeldzaam</b>.${first?'<br>🌟 Nieuwe badge: <b>Weekheld</b>':''}</div><button class="btn primary big" onclick="this.closest('.lb').remove();chestOpen('z')">Open de weekkist</button></div>`; qModal(m); } },600); }
+        const m=document.createElement('div'); m.className='lb gl-modal kcel'; m.dataset.vox='guides|'+'weekchest'; m.innerHTML=`${confHTML(40)}<div class="gl-box guide-box in-done" onclick="event.stopPropagation()"><div class="eyebrow center">Weekheld!</div><div class="lv-ring"><b>3/3</b></div><div class="ob-bubble">Alle drie de weekopdrachten gehaald! Je krijgt de <b>weekkist</b>: gegarandeerd minstens <b>Zeldzaam</b>.${first?'<br>🌟 Nieuwe badge: <b>Weekheld</b>':''}</div><button class="btn primary big" onclick="this.closest('.lb').remove();chestOpen('z')">Open de weekkist</button></div>`; qModal(m); } },600); }
   else if(!W.done[ev] && tg-W.c[ev]===1 && tg>1){ save(); setTimeout(()=>toast(`Nog 1 te gaan: ${nm.toLowerCase()}`),400); } else save(); }
 function questCard(){ const W=weekState(); const d=W.q.filter(q=>W.done[q]).length;
   return `<div class="qcard"><div class="qc-h"><b>Weekopdrachten</b><span>${d}/3 · ${W.all?'weekkist geopend ✓':'alle 3 = weekkist'}</span></div>${W.q.map(q=>{ const [nm,tg]=QPOOL[q], c=Math.min(tg,W.c[q]||0); return `<div class="qc-r ${W.done[q]?'ok':''}"><span>${W.done[q]?'✅':'▫️'} ${nm}</span><small>${c}/${tg}</small><i style="width:${c/tg*100}%"></i></div>`; }).join('')}</div>`; }
@@ -4179,7 +4179,7 @@ const GOALS={licht:['Licht','Alleen de dagquiz, zo’n 5 minuten',50],normaal:['
 const MOMS={ochtend:'’s ochtends',middag:'’s middags',avond:'’s avonds'};
 function xpToday(){ const d=dqDay(); return st.xpDay&&st.xpDay.d===d?st.xpDay.n:0; }
 function goalTrack(n){ if(!GOAL_ON) return; const d=dqDay(); if(!st.xpDay||st.xpDay.d!==d) st.xpDay={d,n:0,hit:false}; st.xpDay.n+=n; const G=st.goal&&GOALS[st.goal.g]; if(G&&!st.xpDay.hit&&st.xpDay.n>=G[2]){ st.xpDay.hit=true; save(); setTimeout(()=>{ toast('🎯 Dagdoel gehaald!'); chestAdd(1,'dagdoel'); },800); } }
-function goalModal(){ if(st.goal||document.querySelector('.lb')) return; const m=document.createElement('div'); m.className='lb gl-modal';
+function goalModal(){ if(st.goal||document.querySelector('.lb')) return; const m=document.createElement('div'); m.className='lb gl-modal'; m.dataset.vox='guides|'+'goal';
   m.innerHTML=`<div class="gl-box guide-box" onclick="event.stopPropagation()"><div class="gb-fig">${lauraSVG(0,false)}</div><div class="ob-bubble"><b>Maak een afspraak met jezelf${st.name?', '+esc(st.name):''}!</b><br>Wie een vast moment kiest, houdt het veel makkelijker vol.</div>
    <div class="al-sub">Mijn dagdoel</div><div class="g-opts">${Object.entries(GOALS).map(([k,G])=>`<button class="g-opt ${k==='normaal'?'on':''}" data-g="${k}" onclick="this.parentNode.querySelectorAll('.g-opt').forEach(b=>b.classList.remove('on'));this.classList.add('on')"><b>${G[0]}</b><small>${G[1]} · ${G[2]} XP</small></button>`).join('')}</div>
    <div class="al-sub">Mijn moment</div><div class="g-opts row">${Object.entries(MOMS).map(([k,v])=>`<button class="g-opt ${k==='ochtend'?'on':''}" data-m="${k}" onclick="this.parentNode.querySelectorAll('.g-opt').forEach(b=>b.classList.remove('on'));this.classList.add('on')"><b>${v}</b></button>`).join('')}</div>
@@ -4389,7 +4389,7 @@ function askRender(id,qi){ const A=ASK[id], S=storyById(id); st.askSeen=st.askSe
    <div class="ask-stage"><div class="ask-fig">${scSVG(A.who,0,false,qi!=null)}</div><div class="ob-bubble ask-b">${qi==null?`Je hebt mijn hele verhaal gevolgd${st.name?', '+esc(st.name):''}! Vraag me maar wat je wilt weten.`:A.qa[qi][1]}</div></div>
    <div class="ask-list">${A.qa.map(([q],i)=>`<button class="ask-q ${i===qi?'on':''} ${seen[i]?'seen':''}" onclick="askRender('${id}',${i});askSpeak('${id}',${i})">${seen[i]?'✓ ':'💬 '}${q}</button>`).join('')}</div></div>`);
   if(qi!=null) setTimeout(()=>{ const b=document.querySelector('.ask-b'); if(b) b.scrollIntoView({behavior:'smooth',block:'center'}); },60); }
-function askUnlockModal(id){ const A=ASK[id]; if(!A) return; const S=storyById(id); const m=document.createElement('div'); m.className='lb gl-modal kcel';
+function askUnlockModal(id){ const A=ASK[id]; if(!A) return; const S=storyById(id); const m=document.createElement('div'); m.className='lb gl-modal kcel'; m.dataset.vox='guides|'+'askunlock';
   m.innerHTML=`${confHTML(36)}<div class="gl-box guide-box in-done" onclick="event.stopPropagation()"><div class="eyebrow center">Beloning vrijgespeeld!</div><div class="gb-fig kc-fig">${scSVG(A.who,0,false,true)}</div>
    <div class="ob-bubble">Gefeliciteerd${st.name?', '+esc(st.name):''}! Je hebt het hele verhaal uitgespeeld. Als beloning mag je <b>${A.name}</b> nu al je vragen stellen: over het eten, de kunst, de roddels en meer.</div>
    <button class="btn primary big" onclick="this.closest('.lb').remove();askOpen('${id}')">Stel ${A.name} een vraag →</button><button class="btn" style="margin-top:8px" onclick="this.closest('.lb').remove()">Later</button></div>`; qModal(m); try{ sfx(['fanfare']); }catch(e){} }
@@ -4755,7 +4755,7 @@ function symNext(){ st.symDeck=(st.symDeck||[]).filter(i=>i<SYMB.length); if(!st
   const opts=[{t:S.m,ok:1},...picks.map(o=>({t:o.x.m,ok:0}))].sort(()=>Math.random()-.5);
   SYMQ={i,opts,a:null,rep}; save(); }
 const symOpen=()=>basisDone()||st.beta||!!st.symUnl;
-function symLockedModal(){ const R=TRACKS.basis.rounds, d=R.filter((_,i)=>roundComplete(i,'basis')).length; const m=document.createElement('div'); m.className='lb gl-modal'; m.onclick=()=>m.remove();
+function symLockedModal(){ const R=TRACKS.basis.rounds, d=R.filter((_,i)=>roundComplete(i,'basis')).length; const m=document.createElement('div'); m.className='lb gl-modal'; m.dataset.vox='guides|'+'symlocked'; m.onclick=()=>m.remove();
   m.innerHTML=`<div class="gl-box guide-box" onclick="event.stopPropagation()"><div class="gb-fig">${lauraSVG(0,false)}</div><div class="ob-bubble">Symbolen raden kan zodra je <b>Deel 1 · De basis</b> hebt afgerond. Dan ken je genoeg symbolen om het zelf te proberen!<br><br>Je hebt nu <b>${d} van ${R.length}</b> lessen af.</div><button class="btn primary big" onclick="this.closest('.lb').remove();pathMode='course';routeTab='symb';chooseTrack('basis')">Naar De basis →</button><button class="btn" style="margin-top:8px" onclick="this.closest('.lb').remove()">Sluiten</button></div>`; document.body.appendChild(m); }
 function symUnlockedModal(){ const m=document.createElement('div'); m.className='lb gl-modal'; m.dataset.vox='guides|unlock_sym'; m.onclick=()=>m.remove(); m.innerHTML=`<div class="gl-box guide-box in-done" onclick="event.stopPropagation()"><div class="gb-fig">${lauraSVG(0,false,true)}</div><div class="ob-bubble"><b>Nieuw level ontgrendeld!</b> Je hebt De basis afgerond, dus nu kun je symbolen zelf raden. Hoe lang wordt jouw reeks?</div><button class="btn primary big" onclick="this.closest('.lb').remove();startSym()">Probeer het →</button></div>`; document.body.appendChild(m); }
 /* VRIJ OEFENEN IN LEVELS
@@ -4773,9 +4773,9 @@ const symLockLeft=()=>st.beta?0:Math.max(0,(st.symLockUntil||0)-Date.now());
 const symTime=ms=>{ const d=new Date(Date.now()+ms); return d.toLocaleTimeString('nl-NL',{hour:'2-digit',minute:'2-digit'}); };
 const lvCur=()=>Math.min(st.symLv||0,lvCount()-1);
 const jokersLeft=()=>Math.max(0,LV_CHAIN-(st.symChain||0));
-function symLockModal(){ const m=document.createElement('div'); m.className='lb gl-modal'; m.onclick=()=>m.remove();
+function symLockModal(){ const m=document.createElement('div'); m.className='lb gl-modal'; m.dataset.vox='guides|'+'sympause'; m.onclick=()=>m.remove();
   m.innerHTML=`<div class="gl-box guide-box" onclick="event.stopPropagation()"><div class="gb-fig">${lauraSVG(0)}</div><div class="ob-bubble">Even pauze! Je hersenen onthouden het beter als je het laat bezinken. Om <b>${symTime(symLockLeft())}</b> kun je <b>level ${lvCur()+1}</b> spelen.</div><button class="btn primary big" onclick="this.closest('.lb').remove();symLevelsView()">Bekijk de levels</button><button class="btn" style="margin-top:8px" onclick="this.closest('.lb').remove()">Oké</button></div>`; document.body.appendChild(m); }
-function symIntroModal(){ const m=document.createElement('div'); m.className='lb gl-modal'; st.symIntro=1; save();
+function symIntroModal(){ const m=document.createElement('div'); m.className='lb gl-modal'; m.dataset.vox='guides|'+'symintro'; st.symIntro=1; save();
   m.innerHTML=`<div class="gl-box guide-box" onclick="event.stopPropagation()"><div class="gb-fig">${lauraSVG(0,false,true)}</div><div class="ob-bubble"><b>Zo werkt vrij oefenen</b><br><br>Je oefent in <b>levels van ${LV_SIZE} symbolen</b>. Level 1 heeft de symbolen die je het vaakst in schilderijen tegenkomt, zoals de schedel, de lelie en de duif. Hoe hoger het level, hoe zeldzamer de symbolen.<br><br>Heb je er een fout, dan komt dat symbool later in het level terug, tot je ze allemaal goed hebt. Bij meer dan ${LV_BAD} fouten is het 4 uur pauze.<br><br>Je speelt maximaal <b>${LV_CHAIN} levels achter elkaar</b>. Daarna is het 4 uur pauze, zodat je hersenen het kunnen laten bezinken.</div><button class="btn primary big" onclick="this.closest('.lb').remove();symLevelsView()">Naar de levels →</button></div>`; document.body.appendChild(m); }
 function startSym(){ if(!symOpen()) return symLockedModal(); symLoad(); if(!st.symIntro) return symIntroModal();
   const r=st.symRun; if(r&&r.end){ st.view='sym'; return symEndView(); } if(r&&r.q&&r.q.length){ if(!SYMQ||SYMQ.a!==null||SYMQ.i!==r.q[0]) symNext(); st.view='sym'; return symView(); }
@@ -13117,7 +13117,7 @@ function finBadgeModal(t){ const last=TRACKS[t].rounds.length-1, B=TRACKS[t].bad
     <button class="btn primary big" onclick="this.closest('.lb').remove();try{roundMilestones(${last});}catch(e){}">Ophalen</button></div>`;
   qModal(m); try{ sfx(['bell','magic']); }catch(e){} }
 function finGateModal(t){ if(document.querySelector('.fin-gate')) return; const nm=st.name?`, ${st.name}`:''; const last=TRACKS[t].rounds.length-1, B=TRACKS[t].badges[last];
-  const m=document.createElement('div'); m.className='lb gl-modal kcel fin-gate';
+  const m=document.createElement('div'); m.className='lb gl-modal kcel fin-gate'; m.dataset.vox='guides|'+'fingate';
   m.innerHTML=`${confHTML(30)}<div class="gl-box guide-box" onclick="event.stopPropagation()"><div class="gb-fig kc-fig">${lauraSVG(0,false,true)}</div>
     <h3 class="center" style="margin:6px 0 4px">Gefeliciteerd${nm}!</h3>
     <div class="ob-bubble">Je hebt alle lessen van <b>${TRACKS[t].title}</b> afgerond. Nu volgt het laatste stuk: de <b>eindtoets</b>. Daarna ontvang je je badge <b>${B.name}</b>.</div>
@@ -13254,12 +13254,12 @@ function kennerCelebrate(r){ if(st.t!=='basis'||st.view!=='big') return; st.kCel
   if(Object.keys(res(r,'kenner')).length>=K.q.length) { st.kCel[r]=true; save(); return; }
   st.kCel[r]=true; save(); const nm=st.name?`, ${st.name}`:'';
   const conf=Array.from({length:30},(_,k)=>`<i style="left:${(k*37)%100}%;animation-delay:${(k%7)*.18}s;background:${['#d7b46a','#c0645a','#3e63b0','#7fae7a','#efe4cf'][k%5]}"></i>`).join('');
-  const m=document.createElement('div'); m.className='lb gl-modal kcel';
+  const m=document.createElement('div'); m.className='lb gl-modal kcel'; m.dataset.vox='guides|'+'kennercel';
   m.innerHTML=`<div class="confetti">${conf}</div><div class="gl-box guide-box in-done" onclick="event.stopPropagation()"><div class="eyebrow center">Kunst met Laura</div><div class="gb-fig kc-fig">${lauraSVG(0,false,true)}</div><div class="ob-bubble"><b>Gefeliciteerd${nm}!</b> Je hebt les ${r+1} van <b>Symboliek: de basis</b> afgerond. Om dit te vieren heb je een les <b>Echte kunst kennen</b> vrijgespeeld! 🎓<br><br><span class="muted" style="font-size:.9rem">Je leert er hoe je een echt meesterwerk herkent. Wil je die les nu spelen?</span></div>
     <button class="btn primary big" onclick="this.closest('.lb').remove();go(${r},{view:'kq',i:0})">Ja, speel de les →</button><button class="btn" style="margin-top:8px" onclick="this.closest('.lb').remove()">Nu niet</button><p class="muted center" style="font-size:.78rem;margin:8px 0 0">De les blijft bewaard: je vindt hem bij het 🎓-icoontje bovenin de les.</p></div>`;
   qModal(m); try{ sfx&&sfx('fanfare'); }catch(e){} }
 function kennerUnlockModal(){ st.mile=st.mile||{}; if(st.mile['kenner|unl']) return; st.mile['kenner|unl']=Date.now(); save(); const nm=st.name?`, ${st.name}`:'';
-  const m=document.createElement('div'); m.className='lb gl-modal kcel';
+  const m=document.createElement('div'); m.className='lb gl-modal kcel'; m.dataset.vox='guides|'+'kennerunlock';
   m.innerHTML=`${confHTML(34)}<div class="gl-box guide-box in-done" onclick="event.stopPropagation()"><div class="eyebrow center">Kunst met Laura</div><div class="gb-fig kc-fig">${lauraSVG(0,false,true)}</div><div class="ob-bubble"><b>Wat ben ik trots op je${nm}!</b> Je hebt de basis én de eindtoets afgerond. Daarom krijg je van mij een cadeau: de hele module <b>Goede kunst herkennen</b> is vrijgespeeld. 🎓<br><br>In vier lessen leer je wat een meesterwerk een meesterwerk maakt, en hoe je een echte Rembrandt onderscheidt van een kopie.</div>
     <button class="btn primary big" onclick="this.closest('.lb').remove();chooseTrack('kenner')">Bekijk de module →</button><button class="btn" style="margin-top:8px" onclick="this.closest('.lb').remove()">Later</button></div>`;
   qModal(m); try{ sfx(['fanfare','firework']); }catch(e){} }
@@ -13511,7 +13511,7 @@ function diplomaModal(t,l){ st.diplomas=st.diplomas||{}; const k=t+l; if(!st.dip
   qModal(m); try{ sfx(['fanfare','clap']); }catch(e){} }
 function diplomaView(k){ const d=(st.diplomas||{})[k]; if(!d) return; const m=document.createElement('div'); m.className='lb gl-modal dip-modal'; m.onclick=()=>m.remove();
   m.innerHTML=`<div class="gl-box guide-box" onclick="event.stopPropagation()">${diplomaCard(d.t,d.l,d)}${shareBtn('diploma',`🏛️ Ik ben officieel ${dipTitle(d.t,d.l)} in Kunst met Laura! Wie durft de uitdaging aan?`,null,'Deel via WhatsApp','small')}<button class="btn" style="margin-top:8px" onclick="this.closest('.lb').remove()">Sluiten</button></div>`; document.body.appendChild(m); }
-function partLockModal(t){ const h=(st.half||{})[t], G=GUIDES[guideOf(t)], m=document.createElement('div'); m.className='lb gl-modal'; m.onclick=()=>m.remove();
+function partLockModal(t){ const h=(st.half||{})[t], G=GUIDES[guideOf(t)], m=document.createElement('div'); m.className='lb gl-modal'; m.dataset.vox='guides|'+(h?'partlock_tomorrow':'partlock_first'); m.onclick=()=>m.remove();
   m.innerHTML=`<div class="gl-box guide-box" onclick="event.stopPropagation()"><div class="gb-fig">${G.svg(0,false)}</div><div class="ob-bubble">${h?`<b>Deel 2 gaat morgen om 8:00 open.</b><br>Een nachtje slapen helpt je hersenen om alles van deel 1 vast te houden. Tot morgen!`:`<b>Eerst deel 1.</b><br>Rond les 1 tot en met 4 af. Dan verdien je je oorkonde, en gaat deel 2 de volgende ochtend open.`}</div>
    <button class="btn primary big" onclick="this.closest('.lb').remove()">${h?'Tot morgen!':'Oké'}</button></div>`; document.body.appendChild(m); }
 { const W=(n,f)=>{ const o=window[n]; if(typeof o!=='function') return; window[n]=f(o); };

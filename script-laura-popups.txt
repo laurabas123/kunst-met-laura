@@ -1,0 +1,44 @@
+INSPREEKSCRIPT – LAURA – POP-UPS
+Deze pop-ups had nog geen stem. De app speelt ze af zodra de opname er is.
+Spreek ze in zonder naam, cursustitel of getallen die wisselen. Die staan alleen in beeld.
+Bestandsnaam staat boven elke zin.
+
+
+fingate.mp3   (alle lessen af, voor de eindtoets)
+Gefeliciteerd! Je hebt alle lessen van deze cursus afgerond. Nu volgt het laatste stuk: de eindtoets. Daarna ontvang je je badge.
+
+levelup.mp3   (een niveau hoger)
+Gefeliciteerd! Door al je speurwerk ben je een niveau hoger. Op naar het volgende!
+
+chestset.mp3   (een set van vier geheimen compleet)
+Je hebt alle vier de geheimen van deze set verzameld! Als beloning krijg je tweehonderd XP, een setbadge en een gegarandeerd episch kistje.
+
+weekchest.mp3   (alle weekopdrachten gehaald)
+Alle drie de weekopdrachten gehaald! Je krijgt de weekkist, met gegarandeerd minstens iets zeldzaams erin.
+
+askunlock.mp3   (verhaal helemaal uitgespeeld)
+Gefeliciteerd! Je hebt het hele verhaal uitgespeeld. Als beloning mag je nu al je vragen stellen: over het eten, de kunst, de roddels en meer.
+
+kennercel.mp3   (les van de basis af, extra les vrijgespeeld)
+Gefeliciteerd! Je hebt weer een les van de basis afgerond. Om dit te vieren heb je een les Echte kunst kennen vrijgespeeld. Je leert er hoe je een echt meesterwerk herkent. Wil je die les nu spelen?
+
+kennerunlock.mp3   (basis en eindtoets af)
+Wat ben ik trots op je! Je hebt de basis én de eindtoets afgerond. Daarom krijg je van mij een cadeau: de hele module Goede kunst herkennen is vrijgespeeld. In vier lessen leer je wat een meesterwerk een meesterwerk maakt, en hoe je een echte Rembrandt onderscheidt van een kopie.
+
+symlocked.mp3   (symbolen oefenen nog op slot)
+Symbolen raden kan zodra je Deel 1, de basis, hebt afgerond. Dan ken je genoeg symbolen om het zelf te proberen!
+
+symintro.mp3   (eerste keer vrij oefenen)
+Zo werkt vrij oefenen. Je oefent in levels van tien symbolen. Level 1 heeft de symbolen die je het vaakst in schilderijen tegenkomt, zoals de schedel, de lelie en de duif. Hoe hoger het level, hoe zeldzamer de symbolen. Heb je er een fout, dan komt dat symbool later in het level terug, tot je ze allemaal goed hebt. Je speelt maximaal drie levels achter elkaar. Daarna is het vier uur pauze, zodat je hersenen het kunnen laten bezinken.
+
+sympause.mp3   (pauze bij vrij oefenen)
+Even pauze! Je hersenen onthouden het beter als je het laat bezinken. Straks kun je het volgende level spelen.
+
+partlock_first.mp3   (Deel 2 nog op slot)
+Eerst deel 1. Rond les 1 tot en met 4 af. Dan verdien je je oorkonde, en gaat deel 2 de volgende ochtend open.
+
+partlock_tomorrow.mp3   (Deel 2 gaat morgen open)
+Deel 2 gaat morgen om acht uur open. Een nachtje slapen helpt je hersenen om alles van deel 1 vast te houden. Tot morgen!
+
+goal.mp3   (afspraak met jezelf – staat nu nog uit)
+Maak een afspraak met jezelf! Wie een vast moment kiest, houdt het veel makkelijker vol.
