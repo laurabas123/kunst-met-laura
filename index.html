@@ -3864,7 +3864,7 @@ const GCHEER = {
   catharina:['Bravissima! Aan het hof van Florence was je welkom geweest.','Applaus! Kennis is macht, en jij hebt er weer wat bij.','Magnifico! Mijn overgrootvader Lorenzo il Magnifico zou trots zijn.'],
   durer:['Wunderbar! Je kijkt net zo nauwkeurig als ik.','Applaus! Geen detail ontsnapt nog aan jouw blik.','Sehr gut! Daar maak ik meteen een gravure van.']
 };
-function guideCheer(r){ const g=guideOf(), G=GUIDES[g], arr=GCHEER[g], nm=st.name?`, ${st.name}`:'';
+function guideCheer(r){ const g=guideOf(), G=GUIDES[g], arr=GCHEER[g], nm=st.name?`, ${st.name}`:''; try{ const ck='cheer_'+g+'_'+(r%arr.length), tag=st.t+'|'+r; if(window._cheerTag!==tag){ window._cheerTag=tag; voxLoad('guides'); setTimeout(()=>{ if(window.VOX&&VOX.guides&&VOX.guides[ck]){ try{ auResume(); }catch(e){} speak('guides',ck,true); } },700); } }catch(e){}
   const conf=Array.from({length:22},(_,k)=>`<i style="left:${(k*41)%100}%;animation-delay:${(k%6)*.2}s;background:${['#d7b46a','#c0645a','#3e63b0','#7fae7a','#efe4cf'][k%5]}"></i>`).join('');
   return `<div class="guide-cheer"><div class="confetti">${conf}</div><div class="gc-fig">${G.svg(0,false,true)}</div>
     <div class="ob-bubble gc-b"><b>${G.name}:</b> ${arr[r%arr.length].replace('!',nm+'!')}</div></div>`; }
@@ -7012,7 +7012,7 @@ function badgeSVG(r,locked){ const t=st.t, T=TH(t);
     <path d="M62 150l-18 56 26-12 14 22 18-58zM138 150l18 56-26-12-14 22-18-58z" fill="${locked?'#3a3631':`url(#rb${uid})`}" stroke="${d}" stroke-width="2"/>
     ${themeBody(t,100,92,76,`url(#g${uid})`,d,uid)}
     <g transform="translate(64 ${T.shape==='arch'?46:50}) scale(.36)">${ic}</g>
-    <text x="100" y="${T.shape==='pediment'||T.shape==='facade'?150:142}" text-anchor="middle" font-family="Corm,Georgia,serif" font-weight="700" font-size="22" fill="${marble?'#3d3a35':d}">${['I','II','III','IV','V'][r]}</text>
+    <text x="100" y="${T.shape==='pediment'||T.shape==='facade'?150:142}" text-anchor="middle" font-family="Corm,Georgia,serif" font-weight="700" font-size="22" fill="${marble?'#3d3a35':d}">${['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII'][r]}</text>
     ${locked?`<text x="100" y="100" text-anchor="middle" font-size="34" fill="#6b645b">🔒</text>`:''}
   </svg>`; }
 function grandSVG(t,locked,mini){ const T=TH(t);

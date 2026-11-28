@@ -1,0 +1,60 @@
+INSPREEKSCRIPT – FELICITATIES NA EEN LES
+Deze zinnen hoor je bij 'Badge verdiend!' na het afronden van een les. Welke zin komt, wisselt per les.
+Spreek ze in zonder naam: de naam van de speler staat alleen in beeld.
+Bestandsnaam = cheer_<gids>_<nummer>.mp3
+
+=== LAURA ===
+cheer_laura_0.mp3
+Applaus! Wat goed van je. Op naar de volgende les!
+
+cheer_laura_1.mp3
+Klap klap klap! Je begint echt als een kenner te kijken.
+
+cheer_laura_2.mp3
+Bravo! Weer een stap dichter bij de grote badge.
+
+cheer_laura_3.mp3
+Geweldig! Deze symbolen ontgaan je nooit meer.
+
+=== GALA ===
+cheer_gala_0.mp3
+Applaus! Deze zalen ken je nu als je broekzak.
+
+cheer_gala_1.mp3
+Bravo! Je bent klaar voor een echt museumbezoek.
+
+cheer_gala_2.mp3
+Prachtig gedaan! Neem deze kennis mee naar het museum.
+
+=== REMBRANDT ===
+cheer_rembrandt_0.mp3
+Bravo! Daar zou ik zo een portret van schilderen.
+
+cheer_rembrandt_1.mp3
+Applaus! Je hebt het oog van een echte meester.
+
+cheer_rembrandt_2.mp3
+Prachtig! In mijn atelier had je zó leerling mogen worden.
+
+cheer_rembrandt_3.mp3
+Uitstekend! Zelfs mijn Nachtwacht-schutters zouden voor je juichen.
+
+=== CATHARINA DE’ MEDICI ===
+cheer_catharina_0.mp3
+Bravissima! Aan het hof van Florence was je welkom geweest.
+
+cheer_catharina_1.mp3
+Applaus! Kennis is macht, en jij hebt er weer wat bij.
+
+cheer_catharina_2.mp3
+Magnifico! Mijn overgrootvader Lorenzo il Magnifico zou trots zijn.
+
+=== ALBRECHT DÜRER ===
+cheer_durer_0.mp3
+Wunderbar! Je kijkt net zo nauwkeurig als ik.
+
+cheer_durer_1.mp3
+Applaus! Geen detail ontsnapt nog aan jouw blik.
+
+cheer_durer_2.mp3
+Sehr gut! Daar maak ik meteen een gravure van.
